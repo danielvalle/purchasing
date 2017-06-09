@@ -1,0 +1,5 @@
+#page-wrapper { margin: 0px; }
+
+.glyphicon { font-size: 20px }
+
+button#btn-del-supplier {  outline: none; background-color: transparent; background-repeat: no-repeat; border: none; cursor: pointer; overflow: hidden; }
