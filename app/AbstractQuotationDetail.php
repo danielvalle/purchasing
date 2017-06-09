@@ -15,15 +15,10 @@ class AbstractQuotationDetail extends Model
 								'unit_fk',
 								'item_fk',
 								'supplier1_amount',
-								'supplier1_total',
 								'supplier2_amount',
-								'supplier2_total',
 								'supplier3_amount',
-								'supplier3_total',
 								'supplier4_amount',
-								'supplier4_total',
 								'supplier5_amount',
-								'supplier5_total',
 								'quantity',
 								'is_active'
 								//
