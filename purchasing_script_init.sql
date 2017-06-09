@@ -1,10 +1,14 @@
+CREATE DATABASE dbpurchasing;
+
+USE dbpurchasing;
+
 CREATE TABLE agency
   (
       `id` int, 
       `agency_name` varchar(50),
       `is_active` bit,
       `created_at` date,
-      `updated_at` date
+      `updated_at` date,
       PRIMARY KEY (id)
     );
     
@@ -14,7 +18,7 @@ CREATE TABLE department
       `department_name` varchar(50),
       `is_active` bit,
       `created_at` date,
-      `updated_at` date
+      `updated_at` date,
       PRIMARY KEY (id)
     );
     
@@ -24,7 +28,7 @@ CREATE TABLE designation
       `designation_name` varchar(50),
       `is_active` bit,
       `created_at` date,
-      `updated_at` date
+      `updated_at` date,
       PRIMARY KEY (id)
     );
 
@@ -34,7 +38,7 @@ CREATE TABLE unit
       `unit_name` varchar(50),
       `is_active` bit,
       `created_at` date,
-      `updated_at` date
+      `updated_at` date,
       PRIMARY KEY (id)
     );
     
@@ -45,7 +49,7 @@ CREATE TABLE section
       `department_fk` int,
       `is_active` bit,
       `created_at` date,
-      `updated_at` date
+      `updated_at` date,
       PRIMARY KEY (id)
     );
     
@@ -55,7 +59,7 @@ CREATE TABLE category
       `category_name` varchar(50),
       `is_active` bit,
       `created_at` date,
-      `updated_at` date
+      `updated_at` date,
       PRIMARY KEY (id)
     );
     
@@ -66,9 +70,8 @@ CREATE TABLE item
       `unit_cost` float,
       `is_active` bit,
       `created_at` date,
-      `updated_at` date
-      PRIMARY KEY (id),
-      FOREIGN KEY (unit_fk) REFERENCES unit(id) 
+      `updated_at` date,
+      PRIMARY KEY (id)
     );
     
 CREATE TABLE user
@@ -87,7 +90,7 @@ CREATE TABLE user
       `designation_fk` int,
       `is_active` bit,
       `created_at` date,
-      `updated_at` date
+      `updated_at` date,
        PRIMARY KEY (id), 
        FOREIGN KEY (agency_fk) REFERENCES agency(id),
        FOREIGN KEY (designation_fk) REFERENCES designation(id)
@@ -99,7 +102,7 @@ CREATE TABLE supplier
       `supplier_name` varchar(50),
       `is_active` bit,
       `created_at` date,
-      `updated_at` date
+      `updated_at` date,
       PRIMARY KEY (id)
     );
     
@@ -118,7 +121,7 @@ CREATE TABLE purchase_request
       `approved_by_fk` int,
       `is_active` bit,
       `created_at` date,
-      `updated_at` date
+      `updated_at` date,
       PRIMARY KEY (id),
       FOREIGN KEY (agency_fk) REFERENCES agency(id),
       FOREIGN KEY (department_fk) REFERENCES department(id),
@@ -131,19 +134,20 @@ CREATE TABLE purchase_request_detail
     (
       `id` int,
       `purchase_request_fk` int,
-      `quantity` int,
+      `quantity` float,
       `unit_of_issue_fk` int,
-      `item_fk` float,
-      `category_fk` varchar(50),
-      `stock_no` float,
+      `item_fk` int,
+      `category_fk`int,
+      `stock_no` varchar(50),
       `total_cost` float, 
       `is_active` bit,
       `created_at` date,
-      `updated_at` date
+      `updated_at` date,
       PRIMARY KEY (id),
-      FOREIGN KEY (pr_fk) REFERENCES purchase_request(id),
+      FOREIGN KEY (purchase_request_fk) REFERENCES purchase_request(id),
       FOREIGN KEY (item_fk) REFERENCES item(id),
-      FOREIGN KEY (category_fk) REFERENCES category(id)
+      FOREIGN KEY (category_fk) REFERENCES category(id),
+      FOREIGN KEY (unit_of_issue_fk) REFERENCES unit(id)
     );
     
 CREATE TABLE request_for_quote
@@ -163,7 +167,7 @@ CREATE TABLE request_for_quote
       `pr_fk` int,
       `is_active` bit,
       `created_at` date,
-      `updated_at` date
+      `updated_at` date,
       PRIMARY KEY(id),
       FOREIGN KEY(supplier1_fk) REFERENCES supplier(id),
       FOREIGN KEY(supplier2_fk) REFERENCES supplier(id),
@@ -185,9 +189,9 @@ CREATE TABLE request_for_quote_detail
       `total` float,
       `is_active` bit,
       `created_at` date,
-      `updated_at` date
+      `updated_at` date,
       PRIMARY KEY(id),
-      FOREIGN KEY(pr_fk) REFERENCES request_for_quote(id),
+      FOREIGN KEY(request_for_quote_fk) REFERENCES request_for_quote(id),
       FOREIGN KEY(unit_fk) REFERENCES unit(id),
       FOREIGN KEY(item_fk) REFERENCES item(id)
     );
