@@ -196,8 +196,103 @@ CREATE TABLE request_for_quote_detail
       FOREIGN KEY(item_fk) REFERENCES item(id)
     );
 
+CREATE TABLE abstract_quotation
+    (
+      `id` int,
+      `date` date,
+      `supervising_admin_fk` int,
+      `admin_officer_fk` int,
+      `admin_officer_2_fk` int,
+      `board_secretary_fk` int,
+      `vpak_fk` int,
+      `approve_fk` int,
+      `pr_fk` int,
+      `is_active` bit,
+      `created_at` date,
+      `updated_at` date,
+      PRIMARY KEY(id),
+      FOREIGN KEY(supervising_admin_fk) REFERENCES user(id),
+      FOREIGN KEY(admin_officer_fk) REFERENCES user(id),
+      FOREIGN KEY(admin_officer_2_fk) REFERENCES user(id),
+      FOREIGN KEY(board_secretary_fk) REFERENCES user(id),
+      FOREIGN KEY(vpak_fk) REFERENCES user(id),
+      FOREIGN KEY(approve_fk) REFERENCES user(id),
+      FOREIGN KEY(pr_fk) REFERENCES purchase_request(id)
+    );
 
+CREATE TABLE abstract_quotation_detail
+    (
+      `id` int,
+      `abstract_quotation_fk` int,
+      `item_no` varchar(50),
+      `unit_fk` int,
+      `item_fk` int,
+      `supplier1_amount` float,
+      `supplier2_amount` float,
+      `supplier3_amount` float,
+      `supplier4_amount` float,
+      `supplier5_amount` float,
+      `quantity` float,
+      `is_active` bit,
+      `created_at` date,
+      `updated_at` date,
+      PRIMARY KEY(id),
+      FOREIGN KEY(abstract_quotation_fk) REFERENCES abstract_quotation(id),
+      FOREIGN KEY(unit_fk) REFERENCES unit(id),
+      FOREIGN KEY(item_fk) REFERENCES item(id)
+    );
+
+
+CREATE TABLE purchase_order
+    (
+      `id` int,
+      `agency_fk` int,
+      `po_no` varchar(50),
+      `supplier_fk` int,
+      `address` varchar(255),
+      `tin` varchar(50),
+      `date` date,
+      `mode_of_procurement` varchar(50),
+      `place_of_delivery` varchar(255),
+      `date_of_delivery` date,
+      `delivery_term` varchar(50),
+      `payment_term` varchar(50),
+      `total_amount` float,
+      `authorized_official_fk` int,
+      `alobs_bub_no` varchar(50),
+      `amount` float,
+      `pr_no_fk` int,
+      `abstract_quotation_fk` int,
+      `is_active` bit,
+      `created_at` date,
+      `updated_at` date,
+      PRIMARY KEY(id),
+      FOREIGN KEY(agency_fk) REFERENCES agency(id),
+      FOREIGN KEY(supplier_fk) REFERENCES supplier(id),
+      FOREIGN KEY(authorized_official_fk) REFERENCES user(id),
+      FOREIGN KEY(pr_no_fk) REFERENCES purchase_request(id),
+      FOREIGN KEY(abstract_quotation_fk) REFERENCES abstract_quotation(id)
+    );
+
+CREATE TABLE purchase_order_detail
+    (
+      `id` int,
+      `po_id_fk` int,
+      `stock_no` varchar(50),
+      `unit_fk` int,
+      `item_fk` int,
+      `category_fk` int,
+      `quantity` float,
+      `unit_cost` float,
+      `amount` float,
+      `is_active` bit,
+      `created_at` date,
+      `updated_at` date,
+      PRIMARY KEY(id),
+      FOREIGN KEY(po_id_fk) REFERENCES purchase_order(id),
+      FOREIGN KEY(unit_fk) REFERENCES unit(id),
+      FOREIGN KEY(item_fk) REFERENCES item(id),
+      FOREIGN KEY(category_fk) REFERENCES category(id)
+    );
 
     
-
- 
