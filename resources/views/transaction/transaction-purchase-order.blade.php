@@ -22,34 +22,36 @@
 
                         <div class="panel-body">
                             {!! Form::open(['class' => 'form-inline', 'method' => 'post', 'url' => 'transaction/abstract-quotation-search']) !!}
-                        <div class="form-group">   
-                            <div class="form-group">
-                                <div class="form-group" style="margin-right: 50px;">
-                                    <label for="">Purchase Order Number:</label>
-                                    <select class="selectpicker" name="select-rfq-no" id="select-rfq-no">
-                                    </select>       
-                                    
-                                    <button class="form-control btn btn-success">Select</button>                             
+                        <div class="form-group" style="width: 100%">   
+                            <div class="form-group" style="width: 50%; float: left">
+                                <div class="form-group" style="width: 100%">
+                                    <label for="" style="width: 30%">Purchase Order Number:</label>
+                                    <input class="form-control" type="text" readonly>                               
                                 </div>
+                                
+                                <div style="margin: 10px 0"></div>
 
-                                <div class="form-group" style="margin-right: 50px;">
-                                    <label for="">Agency:</label>
+                                <div class="form-group" style="width: 100%">
+                                    <label for="" style="width: 30%">Purchase Request Number:</label>
+                                    <select class="selectpicker" name="select-rfq-no" id="select-rfq-no">
+                                    </select>     
+
+                                    <button class="form-control btn btn-success">Select</button> 
+                                </div>
+                            </div>
+
+                            <div class="form-group" style="width: 50%; float: left">
+                                
+                                <div class="form-group" style="width: 100%">
+                                    <label for="" style="width: 10%">Agency:</label>
                                     <select class="selectpicker" name="select-rfq-no" id="select-rfq-no">
                                     </select>                              
                                 </div>
 
-                            </div>
-                            <div style="margin: 10px 0"></div>
-                            <div class="form-group">
-                                <div class="form-group" style="margin-right: 50px;">
-                                    <label for="">Purchase Request Number:</label>
-                                    <select class="selectpicker" name="select-rfq-no" id="select-rfq-no">
-                                    </select>     
-                         
-                                </div>
+                                <div style="margin: 10px 0"></div>
 
-                                <div class="form-group" style="margin-right: 50px;">
-                                    <label for="">Supplier:</label>
+                                <div class="form-group" style="width: 100%">
+                                    <label for="" style="width: 10%">Supplier:</label>
                                     <select class="selectpicker" name="select-rfq-no" id="select-rfq-no">
                                     </select>                              
                                 </div>

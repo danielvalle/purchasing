@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Session;
 
+use App\Agency;
 use App\PurchaseRequest;
 use App\PurchaseRequestDetail;
 use App\RequestForQuote;
@@ -21,6 +22,9 @@ class PurchaseOrderController extends Controller
     
     public function index()
     {
+    	$agencies = Agency::all();
+
+
         return view("transaction.transaction-purchase-order");
     }
 
