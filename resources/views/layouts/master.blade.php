@@ -78,6 +78,15 @@
                         <li class="divider"></li>
 
                         <li><a href="{{URL::to('transaction/purchase-order')}}"><strong>Purchase Order</strong></a></li>
+                        <li class="divider"></li>
+
+                        <li><a href="{{URL::to('transaction/acceptance')}}"><strong>Acceptance</strong></a></li>
+                        <li class="divider"></li>
+
+                        <li><a href="{{URL::to('transaction/issuance')}}"><strong>Issuance</strong></a></li>
+                        <li class="divider"></li>
+
+                        <li><a href="{{URL::to('transaction/acceptance')}}"><strong>Disbursement Voucher</strong></a></li>
                     </ul>
                 </li>
                 <!-- /.dropdown -->

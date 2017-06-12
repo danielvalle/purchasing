@@ -145,4 +145,16 @@ Route::group(['prefix' => 'transaction'], function(){
 
 	/* end of Purchase Order */
 
+	/* Acceptance */
+
+		Route::resource('acceptance', 'AcceptanceController');
+
+	/* end of Acceptance*/
+
+	/* Issuance */
+
+		Route::resource('issuance', 'IssuanceController');
+
+	/* end of Issuance*/
+
 });

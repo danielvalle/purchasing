@@ -1,4 +1,4 @@
-CREATE DATABASE dbpurchasing;
+  CREATE DATABASE dbpurchasing;
 
 USE dbpurchasing;
 
@@ -307,4 +307,4 @@ CREATE TABLE purchase_order_detail
       FOREIGN KEY(category_fk) REFERENCES category(id)
     );
 
-    
+CREATE TABLE acceptance

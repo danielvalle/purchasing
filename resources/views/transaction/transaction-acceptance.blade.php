@@ -15,7 +15,7 @@
                 <div class="col-lg-12">
                     <div class="panel panel-default">
                         <div class="panel-heading">
-                            <span style="font-size: 20px;">Purchase Order</span> 
+                            <span style="font-size: 20px;">Acceptance</span> 
                         </div>
                         <!-- /.panel-heading -->
                         <div class="panel-body">
@@ -25,14 +25,22 @@
                         <div class="form-group" style="width: 100%">   
                             <div class="form-group" style="width: 50%; float: left">
                                 <div class="form-group" style="width: 100%">
-                                    <label for="" style="width: 35%">Purchase Order Number:</label>
+                                    <label for="" style="width: 30%">Acceptance Number:</label>
                                     <input class="form-control" type="text" readonly>                               
                                 </div>
                                 
                                 <div style="margin: 10px 0"></div>
 
                                 <div class="form-group" style="width: 100%">
-                                    <label for="" style="width: 35%">Purchase Request Number:</label>
+                                    <label for="" style="width: 30%">Purchase Order Number:</label>
+                                    <select class="selectpicker" name="select-rfq-no" id="select-rfq-no">
+                                    </select>     
+                                </div>
+
+                                <div style="margin: 10px 0"></div>
+
+                                <div class="form-group" style="width: 100%">
+                                    <label for="" style="width: 30%">Purchase Order Date:</label>
                                     <select class="selectpicker" name="select-rfq-no" id="select-rfq-no">
                                     </select>     
 
@@ -56,14 +64,18 @@
                                     </select>                              
                                 </div>
 
+                                <div style="margin: 10px 0"></div>
+
+                                <div class="form-group" style="width: 100%">
+                                    <label for="" style="width: 10%">IAR:</label>
+                                    <select class="selectpicker" name="select-rfq-no" id="select-rfq-no">
+                                    </select>                              
+                                </div>
+
                             </div>
                         </div>
                             {!! Form::close() !!}
-                        </div>        
-
-                               
-                        </div>  
-       
+                        </div>             
 
                          <div class="panel-body">
                             <div class="panel panel-default">
@@ -73,26 +85,14 @@
                                         <table class="table table-bordered">
                                             <thead>
                                                 <tr>
-                                                    <th>Item No.</th>
                                                     <th style="width: 20%;">Item</th>
+                                                    <th>Quantity</th>
                                                     <th>Unit</th>
-                                                    <th>Supplier 1 Amount</th>
-                                                    <th>Supplier 2 Amount</th>
-                                                    <th>Supplier 3 Amount</th>
-                                                    <th>Supplier 4 Amount</th>
-                                                    <th>Supplier 5 Amount</th>
+                                                    <th>Item Description</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
                                                 <tr>
-                                                    <td></td>
-                                                    <td></td>
-                                                    <td></td>
-                                                    <td><input class="form-control" type="number"></td>
-                                                    <td><input class="form-control" type="number"></td>
-                                                    <td><input class="form-control" type="number"></td>
-                                                    <td><input class="form-control" type="number"></td>
-                                                    <td><input class="form-control" type="number"></td>
                                                 </tr>
                                             </tbody>
                                         </table>
@@ -101,7 +101,6 @@
                                 </div>             
                             </div>
                         </div>
-
                     </div>
                     <!-- /.panel -->
                 </div>
