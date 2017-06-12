@@ -4,7 +4,7 @@ USE dbpurchasing;
 
 CREATE TABLE agency
   (
-      `id` int, 
+      `id` int NOT NULL AUTO_INCREMENT, 
       `agency_name` varchar(50),
       `is_active` bit,
       `created_at` date,
@@ -14,7 +14,7 @@ CREATE TABLE agency
     
 CREATE TABLE department
   (
-      `id` int, 
+      `id` int NOT NULL AUTO_INCREMENT, 
       `department_name` varchar(50),
       `is_active` bit,
       `created_at` date,
@@ -24,7 +24,7 @@ CREATE TABLE department
     
 CREATE TABLE designation
   (
-      `id` int, 
+      `id` int NOT NULL AUTO_INCREMENT, 
       `designation_name` varchar(50),
       `is_active` bit,
       `created_at` date,
@@ -34,7 +34,7 @@ CREATE TABLE designation
 
 CREATE TABLE unit
   (
-      `id` int, 
+      `id` int NOT NULL AUTO_INCREMENT, 
       `unit_name` varchar(50),
       `is_active` bit,
       `created_at` date,
@@ -44,9 +44,20 @@ CREATE TABLE unit
     
 CREATE TABLE section
     (
-      `id` int,
+      `id` int NOT NULL AUTO_INCREMENT,
       `section_name` varchar(50),
       `department_fk` int,
+      `is_active` bit,
+      `created_at` date,
+      `updated_at` date,
+      PRIMARY KEY (id),
+      FOREIGN KEY (department_fk) REFERENCES department(id)
+    );
+
+CREATE TABLE office
+    (
+      `id` int NOT NULL AUTO_INCREMENT,
+      `office_name` varchar(50),
       `is_active` bit,
       `created_at` date,
       `updated_at` date,
@@ -55,7 +66,7 @@ CREATE TABLE section
     
 CREATE TABLE category
     (
-      `id` int,
+      `id` int NOT NULL AUTO_INCREMENT,
       `category_name` varchar(50),
       `is_active` bit,
       `created_at` date,
@@ -65,8 +76,9 @@ CREATE TABLE category
     
 CREATE TABLE item
   (
-      `id` int, 
+      `id` int NOT NULL AUTO_INCREMENT, 
       `item_name` varchar(50),
+      `item_description` varchar(255),
       `unit_cost` float,
       `is_active` bit,
       `created_at` date,
@@ -76,7 +88,7 @@ CREATE TABLE item
     
 CREATE TABLE user
   (
-      `id` int, 
+      `id` int NOT NULL AUTO_INCREMENT, 
       `first_name` varchar(50), 
       `last_name` varchar(50),
       `middle_name` varchar(50),
@@ -98,7 +110,7 @@ CREATE TABLE user
     
 CREATE TABLE supplier
   (
-      `id` int, 
+      `id` int NOT NULL AUTO_INCREMENT, 
       `supplier_name` varchar(50),
       `is_active` bit,
       `created_at` date,
@@ -108,7 +120,7 @@ CREATE TABLE supplier
     
 CREATE TABLE purchase_request
     (
-      `id` int,
+      `id` int NOT NULL AUTO_INCREMENT,
       `agency_fk` int,
       `department_fk` int,
       `section_fk` int,
@@ -132,7 +144,7 @@ CREATE TABLE purchase_request
 
 CREATE TABLE purchase_request_detail
     (
-      `id` int,
+      `id` int NOT NULL AUTO_INCREMENT,
       `purchase_request_fk` int,
       `quantity` float,
       `unit_of_issue_fk` int,
@@ -152,7 +164,7 @@ CREATE TABLE purchase_request_detail
     
 CREATE TABLE request_for_quote
     (
-      `id` int,
+      `id` int NOT NULL AUTO_INCREMENT,
       `date` date,
       `supplier1_fk` int,
       `supplier2_fk` int,
@@ -181,7 +193,7 @@ CREATE TABLE request_for_quote
 
 CREATE TABLE request_for_quote_detail
     (
-      `id` int,
+      `id` int NOT NULL AUTO_INCREMENT,
       `request_for_quote_fk` int,
       `quantity` float,
       `unit_fk` int,
@@ -198,7 +210,7 @@ CREATE TABLE request_for_quote_detail
 
 CREATE TABLE abstract_quotation
     (
-      `id` int,
+      `id` int NOT NULL AUTO_INCREMENT,
       `date` date,
       `supervising_admin_fk` int,
       `admin_officer_fk` int,
@@ -222,7 +234,7 @@ CREATE TABLE abstract_quotation
 
 CREATE TABLE abstract_quotation_detail
     (
-      `id` int,
+      `id` int NOT NULL AUTO_INCREMENT,
       `abstract_quotation_fk` int,
       `item_no` varchar(50),
       `unit_fk` int,
@@ -245,7 +257,7 @@ CREATE TABLE abstract_quotation_detail
 
 CREATE TABLE purchase_order
     (
-      `id` int,
+      `id` int NOT NULL AUTO_INCREMENT,
       `agency_fk` int,
       `po_no` varchar(50),
       `supplier_fk` int,
@@ -276,7 +288,7 @@ CREATE TABLE purchase_order
 
 CREATE TABLE purchase_order_detail
     (
-      `id` int,
+      `id` int NOT NULL AUTO_INCREMENT,
       `po_id_fk` int,
       `stock_no` varchar(50),
       `unit_fk` int,
