@@ -24,24 +24,21 @@
                             <table width="100%" class="table" id="dt-item">
                                 <thead>
                                     <tr>
-                                        <th style="width:10%;">ID</th>
                                         <th>Item Name</th>
                                         <th style="width:60%">Item Description</th>
-                                        <th>Unit Cost</th>
-                                        <th style="width:10%;">Actions</th>
+                                        <th style="width:20%;">Actions</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     @foreach($items as $item)
                                         @if($item->is_active == 1)
                                         <tr>
-                                            <td>{{ $item->id }}</td>
                                             <td>{{ $item->item_name }}</td>
                                             <td>{{ $item->item_description }}</td>
-                                            <td>{{ number_format($item->unit_cost, 2) }} PHP</td>
                                             <td>
-                                                <a style="color:green" data-toggle="modal" href="#{{ $item->id }}edit-item"><span class="glyphicon glyphicon-edit"></span></a>
-                                                <a style="color:red" data-toggle="modal" href="#{{ $item->id }}del-item"><span class="glyphicon glyphicon-trash"></span></a>
+                                                <a data-toggle="modal" href="#{{ $item->id }}edit-item">Edit</a> |
+                                                <a data-toggle="modal" href="#{{ $item->id }}del-item">Delete</a> |
+                                                <a data-toggle="modal" href="#{{ $item->id }}view-stock-card">View Stock Card</a> 
                                             </td>
                                         </tr>
                                         @endif
@@ -90,7 +87,7 @@
             {!! Form::close() !!}
             </div>
             <!-- /Add New Item -->
-            
+
             @foreach($items as $item)
             <!-- Edit New Item -->
             <div id="{{ $item->id }}edit-item" class="modal fade" role="dialog">
@@ -155,9 +152,85 @@
             </div>
             <!-- /Delete New Item -->
 
+            <!-- View Stock Card -->
+            <div id="view-stock-card" class="modal fade" role="dialog">
+            {!! Form::open(['url' => 'maintenance/item', 'method' => 'post']) !!} 
+                <div class="modal-dialog  modal-lg">
+            
+                    <!-- Modal content-->
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h4 class="modal-title">View Stock Card</h4>
+                        </div>
+                        <div class="modal-body">
+                        <div class="row">   
+                            <div class="col-lg-12">
+                        
+
+                                <div class="panel-body">
+                                    {!! Form::open(['class' => 'form-inline', 'method' => 'post', 'url' => 'transaction/abstract-quotation-search']) !!}
+                                <div class="form-group" style="width: 100%">   
+                                    <div class="form-group" style="width: 45%; float: left">
+                                        <div class="form-group" style="width: 100%; float: left">
+                                            <label for="" style="width: 30%; float: left">Stock Number:</label>
+                                            <input style="width: 70%; float: left" class="form-control" type="text" readonly>                               
+                                        </div>
+
+                                        <div style="margin: 10px 0; float: left"></div>
+
+                                        <div class="form-group" style="width: 100%;  float: left">
+                                            <label for="" style="width: 30%; float: left">Item Name:</label>
+                                            <input style="width: 70%; float: left" class="form-control" type="text" readonly>                               
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group" style="width: 45%; float: right">                          
+                                        <div class="form-group" style="width: 100%">
+                                            <label for="" style="width: 10%">Description:</label>
+                                            <textarea class="form-control" name="add-item-description" id="add-item-description" rows="3"></textarea>                 
+                                        </div>
+                                    </div>
+                                </div>
+                                    {!! Form::close() !!}
+                                </div>             
+                                
+                                <div class="form-group col-lg-12">
+                                    <table class="table table-bordered">
+                                        <thead>
+                                            <tr>
+                                                <th>Date</th>
+                                                <th>Reference</th>
+                                                <th>Acceptance</th>
+                                                <th>Received Qty</th>
+                                                <th>Issuance</th>
+                                                <th>Office</th>
+                                                <th>Balance Qty</th>
+                                                <th>No. Of Days To Consume</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                            </tr>
+                                           </tbody>
+                                        </table>
+                                </div>               
+                        </div>
+                        <!-- /.col-lg-12 -->
+                    </div>
+  
+                        </div>
+                        <div class="modal-footer">
+                            <button type="submit" class="btn btn-success">Add</button>
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                        </div>
+                    </div>
+
+                </div>
+            {!! Form::close() !!}
+            </div>
+            <!-- /View Stock Card -->
 
             @endforeach
-
 
         </div>
         <!-- /#page-wrapper -->
