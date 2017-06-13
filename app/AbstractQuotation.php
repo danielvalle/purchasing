@@ -15,7 +15,7 @@ class AbstractQuotation extends Model
 								'admin_officer_fk',
 								'admin_officer_2_fk',
 								'board_secretary_fk',
-								'vpak_fk',
+								'vpaf_fk',
 								'approve_fk',
 								'pr_fk',
 								'is_active'

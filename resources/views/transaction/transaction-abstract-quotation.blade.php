@@ -100,7 +100,56 @@
                                 </div>             
                             </div>
                         </div>
-
+                        <div class="panel-body">
+                            <div class="form-group col-lg-4">
+                                <label for="">Supervising Admin</label>
+                                <select class="form-control" name="add-requested-by" id="add-requested-by">
+                                    @foreach($users as $user)
+                                        <option value="{{ $user->id }}">{{ $user->first_name }} {{ $user->middle_name }} {{ $user->last_name }}</option>
+                                    @endforeach
+                                </select>
+                            </div> 
+                            <div class="form-group col-lg-4">
+                                <label for="">Admin Officer</label>
+                                <select class="form-control" name="add-requested-by" id="add-requested-by">
+                                    @foreach($users as $user)
+                                        <option value="{{ $user->id }}">{{ $user->first_name }} {{ $user->middle_name }} {{ $user->last_name }}</option>
+                                    @endforeach
+                                </select>
+                            </div> 
+                            <div class="form-group col-lg-4">
+                                <label for="">Admin Officer</label>
+                                <select class="form-control" name="add-requested-by" id="add-requested-by">
+                                    @foreach($users as $user)
+                                        <option value="{{ $user->id }}">{{ $user->first_name }} {{ $user->middle_name }} {{ $user->last_name }}</option>
+                                    @endforeach
+                                </select>
+                            </div> 
+                            <div class="form-group col-lg-4">
+                                <label for="">Board Secretary</label>
+                                <select class="form-control" name="add-requested-by" id="add-requested-by">
+                                    @foreach($users as $user)
+                                        <option value="{{ $user->id }}">{{ $user->first_name }} {{ $user->middle_name }} {{ $user->last_name }}</option>
+                                    @endforeach
+                                </select>
+                            </div> 
+                            <div class="form-group col-lg-4">
+                                <label for="">VPAF</label>
+                                <select class="form-control" name="add-requested-by" id="add-requested-by">
+                                    @foreach($users as $user)
+                                        <option value="{{ $user->id }}">{{ $user->first_name }} {{ $user->middle_name }} {{ $user->last_name }}</option>
+                                    @endforeach
+                                </select>
+                            </div>  
+                            <div class="form-group col-lg-4">
+                                <label for="">Approved by</label>
+                                <select class="form-control" name="add-approved-by" id="add-approved-by">
+                                    @foreach($users as $user)
+                                        <option value="{{ $user->id }}">{{ $user->first_name }} {{ $user->middle_name }} {{ $user->last_name }}</option>
+                                    @endforeach
+                                </select>   
+                            </div>                              
+                        </div>
                         <button class="btn btn-success" style="float: right; width: 20%;">Convert to PO</button> 
 
                     </div>

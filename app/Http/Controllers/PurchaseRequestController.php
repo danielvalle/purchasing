@@ -7,6 +7,9 @@ use Session;
 
 use App\PurchaseRequest;
 use App\PurchaseRequestDetail;
+use App\Agency;
+use App\Department;
+use App\Section;
 use App\User;
 use App\Item;
 use App\Category;
@@ -19,6 +22,9 @@ class PurchaseRequestController extends Controller
 	
 	public function index()
     {
+        $agencies = Agency::all();
+        $departments = Department::all();
+        $sections = Section::all();
         $users = User::all();
 
         $items = Item::all();
@@ -47,6 +53,9 @@ class PurchaseRequestController extends Controller
 		return view("transaction.transaction-purchase-request")
             ->with("users", $users)
             ->with("items", $items)
+            ->with("agencies", $agencies)
+            ->with("departments", $departments)
+            ->with("sections", $sections)
             ->with("categories", $categories)
             ->with("units", $units)
             ->with("suppliers", $suppliers)
@@ -196,11 +205,13 @@ class PurchaseRequestController extends Controller
     public function store(Request $request) 
     {
         $purchase_request = PurchaseRequest::create(array(
-                'agency_fk' => 2,
-                'department_fk' => 3,
-                'section_fk' => 1,
+                'agency_fk' => $request->input('add-agency'),
+                'department_fk' => $request->input('add-department'),
+                'section_fk' => $request->input('add-section'),
                 'pr_number' => "PR",
                 'pr_date' =>  date("Y-m-d", strtotime($request->input('transaction_date'))),
+                'sai_no' => $request->input('add-sai-no'),
+                'sai_date' =>  date("Y-m-d", strtotime($request->input('add-sai-date'))),
                 'purpose' => $request->input('add-purpose'),
                 'requested_by_fk' => $request->input('add-requested-by'),
                 'approved_by_fk' => $request->input('add-approved-by'),

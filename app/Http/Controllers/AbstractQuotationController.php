@@ -25,17 +25,20 @@ class AbstractQuotationController extends Controller
     	$rfqs = RequestForQuote::all();
         $rfq_suppliers = [0 => "", 1 => "", 2 => "", 3 => "", 4 => ""];
         $rfq_items = [];
+        $users = User::all();
 
         return view("transaction.transaction-abstract-quotation")
         	->with("rfqs", $rfqs)
             ->with("rfq_suppliers", $rfq_suppliers)
-            ->with("rfq_items", $rfq_items);
+            ->with("rfq_items", $rfq_items)
+            ->with("users", $users);
     }
 
 
     public function get_rfq(Request $request)
     {
     	$rfqs = RequestForQuote::all();
+        $users = User::all();
 
     	$rfq_items = \DB::table('request_for_quote')
     					->join('request_for_quote_detail', 'request_for_quote.id', '=', 'request_for_quote_detail.request_for_quote_fk')
@@ -88,7 +91,8 @@ class AbstractQuotationController extends Controller
     	return view("transaction.transaction-abstract-quotation")
     		->with("rfqs", $rfqs)
         	->with("rfq_suppliers", $rfq_suppliers)
-            ->with("rfq_items", $rfq_items);
+            ->with("rfq_items", $rfq_items)
+            ->with("users", $users);
     }
 
 

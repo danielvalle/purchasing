@@ -48,59 +48,88 @@
                             {!! Form::close() !!}
                         </div>
                     
-                        <div class="panel-body">
-                            <div class="panel panel-default">
-                                <div class="panel-heading"></div>
-                                <div class="panel-body">
-                                    {!! Form::open(['method' => 'post', 'url' => 'transaction/request-for-quotation']) !!}
+                            <div class="panel-body">
+                                <div class="panel panel-default">
+                                    <div class="panel-heading"></div>
+                                    <div class="panel-body">
+                                        {!! Form::open(['method' => 'post', 'url' => 'transaction/request-for-quotation']) !!}
 
-                                    <input type="hidden" id="Date" name="Date">
-                                    <input type="hidden" id="transaction_date" name="transaction_date" />
+                                        <input type="hidden" id="Date" name="Date">
+                                        <input type="hidden" id="transaction_date" name="transaction_date" />
 
-                                    <div class="form-inline col-lg-6" style="margin-bottom: 20px;">
-                                        <label for="">Supplier(s): </label>
-                                        <select class="selectpicker" multiple data-max-options="5" data-size="10" data-live-search="true" name="add-supplier[]" id="add-supplier">
-                                            @foreach($suppliers as $supplier)
-                                                <option data-tokens="{{ $supplier->supplier_name }}" value="{{ $supplier->id }}">{{ $supplier->supplier_name }}</option>   
-                                            @endforeach
-                                        </select>
+                                        <div class="form-inline col-lg-6" style="margin-bottom: 20px;">
+                                            <label for="">Supplier(s): </label>
+                                            <select class="selectpicker" multiple data-max-options="5" data-size="10" data-live-search="true" name="add-supplier[]" id="add-supplier">
+                                                @foreach($suppliers as $supplier)
+                                                    <option data-tokens="{{ $supplier->supplier_name }}" value="{{ $supplier->id }}">{{ $supplier->supplier_name }}</option>   
+                                                @endforeach
+                                            </select>
 
-                                        <input type="hidden" name="pr_id" value="{!! $pr_id !!}">
-                                        <input type="hidden" name="category_id" value="{!! $category_id !!}">
-                                    </div> 
-                                    <div class="form-group col-lg-12">
-                                        <table class="table table-bordered">
-                                            <thead>
-                                                <tr>
-                                                    <th>Stock No.</th>
-                                                    <th>Item</th>
-                                                    <th>Quantity</th>
-                                                    <th>Unit</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                            @foreach($purchase_requests as $purchase_request)                          
-                                                <tr>
-                                                    <td>{{ $purchase_request->stock_no }}</td>
-                                                    <td>{{ $purchase_request->item_name }}</td>
-                                                    <input type="hidden" name="item_id" value="{{ $purchase_request->item_id }}">
-                                                    <td>{{ $purchase_request->quantity }}</td>
-                                                    <input type="hidden" name="quantity" value="{{ $purchase_request->quantity }}">
-                                                    <td>{{ $purchase_request->unit_name }}</td>        
-                                                    <input type="hidden" name="unit_id" value="{{ $purchase_request->unit_id }}">                                    
-                                                    <input type="hidden" name="total" value="{{ $purchase_request->total_cost }}">
-                                                </tr>
-                                            @endforeach
-                                            </tbody>
-                                        </table>  
+                                            <input type="hidden" name="pr_id" value="{!! $pr_id !!}">
+                                            <input type="hidden" name="category_id" value="{!! $category_id !!}">
+                                        </div> 
+                                        <div class="form-group col-lg-12">
+                                            <table class="table table-bordered">
+                                                <thead>
+                                                    <tr>
+                                                        <th>Stock No.</th>
+                                                        <th>Item</th>
+                                                        <th>Quantity</th>
+                                                        <th>Unit</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                @foreach($purchase_requests as $purchase_request)                          
+                                                    <tr>
+                                                        <td>{{ $purchase_request->stock_no }}</td>
+                                                        <td>{{ $purchase_request->item_name }}</td>
+                                                        <input type="hidden" name="item_id" value="{{ $purchase_request->item_id }}">
+                                                        <td>{{ $purchase_request->quantity }}</td>
+                                                        <input type="hidden" name="quantity" value="{{ $purchase_request->quantity }}">
+                                                        <td>{{ $purchase_request->unit_name }}</td>        
+                                                        <input type="hidden" name="unit_id" value="{{ $purchase_request->unit_id }}">                                    
+                                                        <input type="hidden" name="total" value="{{ $purchase_request->total_cost }}">
+                                                    </tr>
+                                                @endforeach
+                                                </tbody>
+                                            </table>  
+                                        </div>  
+                                    </div>             
+                                </div>
+                            <div style="float: left; width: 100%; margin: 30px 0;">
+                                <div class="form-group col-lg-3">
+                                    <label for="">VAT/Non-VAT TIN</label>
+                                    <input type="text" class="form-control" name="add-tin" id="add-tin">
+                                </div>  
+                                <div class="form-group col-lg-7">
+                                    <label for="">Place Of Delivery</label>
+                                    <input type="text" class="form-control" name="add-place-delivery" id="add-place-delivery">
+                                </div>   
+                                <div class="form-group col-lg-2">
+                                    <label for="">Within No. Of Days</label>
+                                    <input type="number" class="form-control" name="add-days" id="add-days">
+                                </div>   
 
-                                    </div>  
-
-                                    
-                                </div>             
+                                <div class="form-group col-lg-6">
+                                    <label for="">Requestor</label>
+                                    <select class="form-control" name="add-requestor" id="add-requestor">
+                                        @foreach($users as $user)
+                                            <option value="{{ $user->id }}">{{ $user->first_name }} {{ $user->middle_name }} {{ $user->last_name }}</option>
+                                        @endforeach
+                                    </select>
+                                </div>  
+                                <div class="form-group col-lg-6">
+                                    <label for="">Canvasser</label>
+                                    <select class="form-control" name="add-canvasser" id="add-canvasser">
+                                        @foreach($users as $user)
+                                            <option value="{{ $user->id }}">{{ $user->first_name }} {{ $user->middle_name }} {{ $user->last_name }}</option>
+                                        @endforeach                                                
+                                    </select>   
+                                </div>                              
                             </div>
+
                             <button class="btn btn-success" style="float: right; width: 20%;">Convert to AQ</button> 
-                            {!! Form::close() !!} 
+                        {!! Form::close() !!} 
                         </div>
                     </div>
                     <!-- /.panel -->

@@ -19,6 +19,7 @@
                         </div>
                         <!-- /.panel-heading -->
                         <div class="panel-body">
+                        <div class="panel-body">
                             <div class="form-group col-lg-6">
                                 <label for="">Purchase Request Date:  <span id="Date"></span></label>
                                 
@@ -67,14 +68,49 @@
                             </div>
                         </div>
                         <div class="panel-body">
+                            <div class="form-group col-lg-4">
+                                <label for="">SAI Number</label>
+                                <input type="text" class="form-control" name="add-sai-no" id="add-sai-no">
+                            </div>  
+                            <div class="form-group col-lg-4" style="float: right">
+                                    <label for="add-sai-date" >SAI Date</label>         
+                                    <input type="date" class="form-control" id="add-sai-date" name="add-sai-date" value="{{ date("Y-m-d") }}" required>
+                            </div>
+                        </div>                        
+                        <div class="panel-body">
                             <div class="form-group col-lg-12">
                                 <label for="">Purpose</label>
-                                <input type="text" class="form-control" name="add-purpose" id="add-purpose">    
+                                <textarea type="text" class="form-control" name="add-purpose" id="add-purpose" rows="3"></textarea>  
                             </div>  
                         </div>
                         <div class="panel-body">
+                            <div class="form-group col-lg-4">
+                                <label for="">Agency</label>
+                                <select class="form-control" name="add-agency" id="add-agency">
+                                    @foreach($agencies as $agency)
+                                        <option value="{{ $user->id }}">{{ $agency->agency_name }}</option>
+                                    @endforeach
+                                </select>
+                            </div>  
+                            <div class="form-group col-lg-4">
+                                <label for="">Department</label>
+                                <select class="form-control" name="add-department" id="add-department">
+                                    @foreach($departments as $department)
+                                        <option value="{{ $user->id }}">{{ $department->department_name }}</option>
+                                    @endforeach
+                                </select>
+                            </div>  
+                            <div class="form-group col-lg-4">
+                                <label for="">Section</label>
+                                <select class="form-control" name="add-section" id="add-section">
+                                    @foreach($sections as $section)
+                                        <option value="{{ $user->id }}">{{ $section->section_name }}</option>
+                                    @endforeach
+                                </select>
+                            </div>   
+
                             <div class="form-group col-lg-6">
-                                <label for="">Requested by:</label>
+                                <label for="">Requested by</label>
                                 <select class="form-control" name="add-requested-by" id="add-requested-by">
                                     @foreach($users as $user)
                                         <option value="{{ $user->id }}">{{ $user->first_name }} {{ $user->middle_name }} {{ $user->last_name }}</option>
@@ -82,22 +118,17 @@
                                 </select>
                             </div>  
                             <div class="form-group col-lg-6">
-                                <label for="">Approved by:</label>
+                                <label for="">Approved by</label>
                                 <select class="form-control" name="add-approved-by" id="add-approved-by">
                                     @foreach($users as $user)
                                         <option value="{{ $user->id }}">{{ $user->first_name }} {{ $user->middle_name }} {{ $user->last_name }}</option>
                                     @endforeach
                                 </select>   
-                            </div>  
+                            </div>                              
                         </div>
-
-                        <div class="panel-body">
-                            <div class="form-group col-lg-4">  
-                            </div>  
-                            <div class="form-group col-lg-8">
-                                <button type="submit" class="btn btn-success">Submit</button>  
-                            </div>  
-                        </div>
+                          <button type="submit" style="float: right; width: 20%;"class="btn btn-success">Submit</button>  
+                    <div>
+                              
 
                         <!-- /.panel-body -->
                     </div>

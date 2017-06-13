@@ -45,6 +45,9 @@
                                 <div class="form-group" style="width: 100%">
                                     <label for="" style="width: 10%">Agency:</label>
                                     <select class="selectpicker" name="select-rfq-no" id="select-rfq-no">
+                                        @foreach($agencies as $agency)
+                                            <option value="{{ $user->id }}">{{ $agency->agency_name }}</option>
+                                        @endforeach
                                     </select>                              
                                 </div>
 
@@ -100,8 +103,62 @@
                                     </div>  
                                 </div>             
                             </div>
-                        </div>
 
+                            <div style="float: left; width: 100%; margin: 30px 0;">
+                                <div class="form-group col-lg-5">
+                                    <label for="">Address</label>
+                                    <input type="text" class="form-control" name="add-tin" id="add-tin">
+                                </div>
+                                <div class="form-group col-lg-3">
+                                    <label for="">TIN</label>
+                                    <input type="text" class="form-control" name="add-tin" id="add-tin">
+                                </div>  
+                                <div class="form-group col-lg-2">
+                                    <label for="add-birthday" >Date</label>         
+                                    <input type="date" class="form-control" id="add-birthday" name="add-birthday" value="{{ date("Y-m-d") }}" required>
+                                </div>
+                                <div class="form-group col-lg-2">
+                                    <label for="">Mode Of Procurement</label>
+                                    <input type="text" class="form-control" name="add-tin" id="add-tin">
+                                </div>
+
+                                <div class="form-group col-lg-6">
+                                    <label for="">Place Of Delivery</label>
+                                    <input type="text" class="form-control" name="add-place-delivery" id="add-place-delivery">
+                                </div>   
+                                <div class="form-group col-lg-2">
+                                    <label for="">Date Of Delivery</label>
+                                    <input type="date" class="form-control" id="add-birthday" name="add-birthday" value="{{ date("Y-m-d") }}" required>
+                                </div>   
+                                <div class="form-group col-lg-2">
+                                    <label for="">Delivery Term</label>
+                                    <input type="text" class="form-control" name="add-tin" id="add-tin">
+                                </div>
+                                <div class="form-group col-lg-2">
+                                    <label for="">Payment Term</label>
+                                    <input type="text" class="form-control" name="add-tin" id="add-tin">
+                                </div>
+
+                                <div class="form-group col-lg-4">
+                                    <label for="">Authorized Official</label>
+                                    <select class="form-control" name="add-requested-by" id="add-requested-by">
+                                        @foreach($users as $user)
+                                            <option value="{{ $user->id }}">{{ $user->first_name }} {{ $user->middle_name }} {{ $user->last_name }}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                                <div class="form-group col-lg-4">
+                                    <label for="">Total Amount</label>
+                                    <input type="number" class="form-control" name="add-tin" id="add-tin">
+                                </div>
+                                <div class="form-group col-lg-4">
+                                    <label for="">ALOBS/BUB No.</label>
+                                    <input type="text" class="form-control" name="add-tin" id="add-tin">
+                                </div>                   
+                            </div>
+
+                            <button class="btn btn-success" style="float: right; width: 20%;">Convert to PO</button> 
+                        </div>
                     </div>
                     <!-- /.panel -->
                 </div>

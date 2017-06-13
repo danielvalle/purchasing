@@ -23,9 +23,12 @@ class PurchaseOrderController extends Controller
     public function index()
     {
     	$agencies = Agency::all();
+    	$users = User::all();
 
 
-        return view("transaction.transaction-purchase-order");
+        return view("transaction.transaction-purchase-order")
+        	->with("agencies", $agencies)
+        	->with("users", $users);
     }
 
     public function store(Request $request) 
