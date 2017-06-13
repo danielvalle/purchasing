@@ -35,7 +35,10 @@
 
                             </div>
                             {!! Form::close() !!}
-                        </div>             
+                        </div>          
+                    {!! Form::open(['method' => 'post', 'url' => 'transaction/abstract-quotation']) !!}       
+                        <input type="hidden" id="Date" name="Date">
+                        <input type="hidden" id="transaction_date" name="transaction_date" />
 
                         <div class="panel-body">
                             <div class="form-inline col-lg-4    ">
@@ -81,17 +84,20 @@
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                                @foreach($rfq_items as $rfq_item)
+                                                
+                                                @foreach($rfq_items as $i => $rfq_item)
+                                                {{ $i }}
                                                 <tr>
-                                                    <td>#{{ $rfq_item->id }}</td>
+                                                    <td>#{{ $rfq_item->rfqd_id }}</td>
                                                     <td>{{ $rfq_item->item_name }}</td>
                                                     <td>{{ $rfq_item->unit_name }}</td>
-                                                    <td><input class="form-control" type="number"></td>
-                                                    <td><input class="form-control" type="number"></td>
-                                                    <td><input class="form-control" type="number"></td>
-                                                    <td><input class="form-control" type="number"></td>
-                                                    <td><input class="form-control" type="number"></td>
+                                                    <td><input name="supplier1_amount{{ $i }}" class="form-control" type="number" @if($rfq_suppliers[0] == null) readonly @else required @endif></td>
+                                                    <td><input name="supplier2_amount{{ $i }}" class="form-control" type="number" @if($rfq_suppliers[1] == null) readonly @else required @endif></td>
+                                                    <td><input name="supplier3_amount{{ $i }}" class="form-control" type="number" @if($rfq_suppliers[2] == null) readonly @else required @endif></td>
+                                                    <td><input name="supplier4_amount{{ $i }}" class="form-control" type="number" @if($rfq_suppliers[3] == null) readonly @else required @endif></td>
+                                                    <td><input name="supplier5_amount{{ $i }}" class="form-control" type="number" @if($rfq_suppliers[4] == null) readonly @else required @endif></td>
                                                 </tr>
+                                                <input type="hidden" name="add-pr-fk" value="{{ $rfq_item->pr_fk }}">
                                                 @endforeach
                                             </tbody>
                                         </table>
@@ -101,9 +107,10 @@
                             </div>
                         </div>
                         <div class="panel-body">
+                            
                             <div class="form-group col-lg-4">
                                 <label for="">Supervising Admin</label>
-                                <select class="form-control" name="add-requested-by" id="add-requested-by">
+                                <select class="form-control" name="add-supervising-admin" id="add-supervising-admin">
                                     @foreach($users as $user)
                                         <option value="{{ $user->id }}">{{ $user->first_name }} {{ $user->middle_name }} {{ $user->last_name }}</option>
                                     @endforeach
@@ -111,7 +118,7 @@
                             </div> 
                             <div class="form-group col-lg-4">
                                 <label for="">Admin Officer</label>
-                                <select class="form-control" name="add-requested-by" id="add-requested-by">
+                                <select class="form-control" name="add-admin-officer" id="add-admin-officer">
                                     @foreach($users as $user)
                                         <option value="{{ $user->id }}">{{ $user->first_name }} {{ $user->middle_name }} {{ $user->last_name }}</option>
                                     @endforeach
@@ -119,7 +126,7 @@
                             </div> 
                             <div class="form-group col-lg-4">
                                 <label for="">Admin Officer</label>
-                                <select class="form-control" name="add-requested-by" id="add-requested-by">
+                                <select class="form-control" name="add-admin-officer-2" id="add-admin-officer-2">
                                     @foreach($users as $user)
                                         <option value="{{ $user->id }}">{{ $user->first_name }} {{ $user->middle_name }} {{ $user->last_name }}</option>
                                     @endforeach
@@ -127,7 +134,7 @@
                             </div> 
                             <div class="form-group col-lg-4">
                                 <label for="">Board Secretary</label>
-                                <select class="form-control" name="add-requested-by" id="add-requested-by">
+                                <select class="form-control" name="add-board-secretary" id="add-board-secretary">
                                     @foreach($users as $user)
                                         <option value="{{ $user->id }}">{{ $user->first_name }} {{ $user->middle_name }} {{ $user->last_name }}</option>
                                     @endforeach
@@ -135,7 +142,7 @@
                             </div> 
                             <div class="form-group col-lg-4">
                                 <label for="">VPAF</label>
-                                <select class="form-control" name="add-requested-by" id="add-requested-by">
+                                <select class="form-control" name="add-vpaf" id="add-vpaf">
                                     @foreach($users as $user)
                                         <option value="{{ $user->id }}">{{ $user->first_name }} {{ $user->middle_name }} {{ $user->last_name }}</option>
                                     @endforeach
@@ -151,7 +158,7 @@
                             </div>                              
                         </div>
                         <button class="btn btn-success" style="float: right; width: 20%;">Convert to PO</button> 
-
+                    {!! Form::close() !!}
                     </div>
                     <!-- /.panel -->
                 </div>
