@@ -381,7 +381,7 @@ CREATE TABLE issuance
       PRIMARY KEY(id),
       FOREIGN KEY(agency_fk) REFERENCES agency(id),
       FOREIGN KEY(department_fk) REFERENCES department(id),
-      FOREIGN KEY(office_fk) REFERENCES o(id),
+      FOREIGN KEY(office_fk) REFERENCES office(id),
       FOREIGN KEY(requested_by_fk) REFERENCES user(id),
       FOREIGN KEY(requestor_designation_fk) REFERENCES designation(id),
       FOREIGN KEY(approver_fk) REFERENCES user(id),
@@ -389,8 +389,7 @@ CREATE TABLE issuance
       FOREIGN KEY(issued_by_fk) REFERENCES user(id),
       FOREIGN KEY(issuer_designation_fk) REFERENCES designation(id),
       FOREIGN KEY(received_by_fk) REFERENCES user(id),
-      FOREIGN KEY(recipient_designation_fk) REFERENCES designation(id),
-
+      FOREIGN KEY(recipient_designation_fk) REFERENCES designation(id)
     );
 
 CREATE TABLE issuance_detail
