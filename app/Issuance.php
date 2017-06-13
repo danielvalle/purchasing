@@ -29,8 +29,8 @@ class Issuance extends Model
 								'issued_by_fk',
 								'issuer_designation_fk',
 								'issued_date',
-								'received_by',
-								'reciepient_designation_fk',
+								'received_by_fk',
+								'recipient_designation_fk',
 								'receipt_date'
 								'is_active'
 								//
