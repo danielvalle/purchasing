@@ -2,16 +2,6 @@
 
 USE dbpurchasing;
 
-CREATE TABLE agency
-  (
-      `id` int NOT NULL AUTO_INCREMENT, 
-      `agency_name` varchar(50),
-      `is_active` bit,
-      `created_at` date,
-      `updated_at` date,
-      PRIMARY KEY (id)
-    );
-    
 CREATE TABLE department
   (
       `id` int NOT NULL AUTO_INCREMENT, 
@@ -21,6 +11,19 @@ CREATE TABLE department
       `updated_at` date,
       PRIMARY KEY (id)
     );
+  
+CREATE TABLE agency
+  (
+      `id` int NOT NULL AUTO_INCREMENT, 
+      `agency_name` varchar(50),
+      `department_fk` int,
+      `is_active` bit,
+      `created_at` date,
+      `updated_at` date,
+      PRIMARY KEY (id),
+      FOREIGN KEY (department_fk) REFERENCES department(id)
+    );
+    
     
 CREATE TABLE designation
   (

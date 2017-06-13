@@ -88,7 +88,7 @@
                                 <label for="">Agency</label>
                                 <select class="form-control" name="add-agency" id="add-agency">
                                     @foreach($agencies as $agency)
-                                        <option value="{{ $user->id }}">{{ $agency->agency_name }}</option>
+                                        <option value="{{ $agency->id }}">{{ $agency->agency_name }}</option>
                                     @endforeach
                                 </select>
                             </div>  
@@ -96,7 +96,7 @@
                                 <label for="">Department</label>
                                 <select class="form-control" name="add-department" id="add-department">
                                     @foreach($departments as $department)
-                                        <option value="{{ $user->id }}">{{ $department->department_name }}</option>
+                                        <option value="{{ $department->id }}">{{ $department->department_name }}</option>
                                     @endforeach
                                 </select>
                             </div>  
@@ -104,7 +104,7 @@
                                 <label for="">Section</label>
                                 <select class="form-control" name="add-section" id="add-section">
                                     @foreach($sections as $section)
-                                        <option value="{{ $user->id }}">{{ $section->section_name }}</option>
+                                        <option value="{{ $section->id }}">{{ $section->section_name }}</option>
                                     @endforeach
                                 </select>
                             </div>   

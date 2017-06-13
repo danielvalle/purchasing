@@ -212,9 +212,9 @@
                                 <div class="form-group col-lg-5">
                                     <label for="edit-agency" >Agency</label>         
                                     <select class="form-control" id="edit-agency" name="edit-agency">
-                                    @foreach($agencies as $agency)
-                                        <option value="{{ $agency->id }}" @if($user->agency_fk == $agency->id) selected @endif>{{ $agency->agency_name }}</option>
-                                    @endforeach
+                                        @foreach($agencies as $agency)
+                                            <option value="{{ $agency->id }}" @if($user->agency_fk == $agency->id) selected @endif>{{ $agency->agency_name }}</option>
+                                        @endforeach
                                     </select>
                                 </div>
                                 <div class="form-group col-lg-5">

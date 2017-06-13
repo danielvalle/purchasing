@@ -68,12 +68,15 @@ class PurchaseRequestController extends Controller
 
     public function show_pr()
     {
+        $agencies = Agency::all();
+        $departments = Department::all();
+        $sections = Section::all();
         $users = User::all();
 
         $items = Item::all();
+        $categories = Category::all();
         $units = Unit::all();
         $suppliers = Supplier::all();
-        $categories = Category::all();
 
         $pr_stock_nos = session()->get('pr_stock_nos');
         $pr_items = session()->get('pr_items');
@@ -135,6 +138,9 @@ class PurchaseRequestController extends Controller
         $pr_categories = $temp_categories;
 
         return view("transaction.transaction-purchase-request")
+            ->with("agencies", $agencies)
+            ->with("departments", $departments)
+            ->with("sections", $sections)
             ->with("users", $users)
             ->with("items", $items)
             ->with("categories", $categories)

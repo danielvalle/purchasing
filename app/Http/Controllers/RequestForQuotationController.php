@@ -55,15 +55,16 @@ class RequestForQuotationController extends Controller
         session(['rfq_pr_count' => count($purchase_requests)]);
 
         $pr_headers = PurchaseRequest::all();
-
         $categories = Category::all();
-
         $suppliers = Supplier::all();
+
+        $users = User::all();
 
         return view("transaction.transaction-request-for-quotation")
                 ->with('categories', $categories)
                 ->with('pr_headers', $pr_headers)
                 ->with('suppliers', $suppliers)
+                ->with('users', $users)
                 ->with('purchase_requests', $purchase_requests)
                 ->with('pr_id', session()->get('rfq_pr_no'))
                 ->with('category_id', session()->get('rfq_category'));

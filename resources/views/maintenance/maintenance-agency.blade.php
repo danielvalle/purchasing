@@ -25,6 +25,7 @@
                                     <tr>
                                         <th style="width:10%;">ID</th>
                                         <th>Agency Name</th>
+                                        <th>Department</th>
                                         <th style="width:10%;">Actions</th>
                                     </tr>
                                 </thead>
@@ -34,6 +35,7 @@
                                         <tr>
                                             <td>{{ $agency->id }}</td>
                                             <td>{{ $agency->agency_name }}</td>
+                                            <td>{{ $agency->department_name }}</td>
                                             <td>
                                                 <a style="color:green" data-toggle="modal" href="#{{ $agency->id }}edit-agency"><span class="glyphicon glyphicon-edit"></span></a>
                                                 <a style="color:red" data-toggle="modal" href="#{{ $agency->id }}del-agency"><span class="glyphicon glyphicon-trash"></span></a>
@@ -66,6 +68,14 @@
                                 <label for="agency-name">Agency Name</label>
                                 <input type="text" class="form-control" id="add-agency-name" name="add-agency-name" placeholder="Enter an agency name">
                             </div>
+                            <div class="form-group">   
+                                <label for="add-department">Department</label>         
+                                    <select class="form-control" id="add-department" name="add-department">
+                                        @foreach($departments as $department)
+                                            <option value="{{ $department->id }}">{{ $department->department_name }}</option>
+                                        @endforeach
+                                    </select>
+                            </div>
                         </div>
                         <div class="modal-footer">
                             <button type="submit" class="btn btn-success">Add</button>
@@ -94,6 +104,14 @@
                                 <label for="agency-name">Agency Name</label>
                                 <input type="hidden" value="{{ $agency->id }}" name="edit-agency-id">
                                 <input type="text" class="form-control" id="edit-agency-name" name="edit-agency-name" placeholder="Enter an agency name" value="{{ $agency->agency_name }}">
+                            </div>
+                            <div class="form-group">   
+                                <label for="edit-department">Department</label>         
+                                    <select class="form-control" id="edit-department" name="edit-department">
+                                        @foreach($departments as $department)
+                                            <option value="{{ $department->id }}" @if($agency->department_fk == $department->id) selected @endif>{{ $department->department_name }}</option>
+                                        @endforeach
+                                    </select>
                             </div>
                         </div>
                         <div class="modal-footer">
