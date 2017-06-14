@@ -30,7 +30,7 @@
                                         <label for="">Purchase Request Number:</label>
                                         <select class="selectpicker" name="select-pr-no" id="select-pr-no">
                                             @foreach($pr_nos as $pr_no)
-                                                <option value="{{ $pr_no->id }}">PR No. {{ $pr_no->id }}</option>
+                                                <option value="{{ $pr_no->id }}" @if($selected_pr_no == $pr_no->id) selected @endif>PR No. {{ $pr_no->id }}</option>
                                             @endforeach
                                         </select>     
 
@@ -42,6 +42,7 @@
                                 </div>
                                 <div style="margin: 25px 0"></div>
                             {!! Form::open(['class' => 'form-inline', 'method' => 'post', 'url' => 'transaction/purchase-order-search']) !!}
+                                <input type="hidden" id="hdn-pr-no" value="{{ $selected_pr_no }}">
                                 <div class="form-group">
                                     <div class="form-group" style="margin-right: 50px;">
                                         <label for="" >Agency:</label>
@@ -54,7 +55,7 @@
 
                                     <div class="form-group">
                                         <label for="">Supplier:</label>
-                                        <select class="selectpicker" name="select-rfq-no" id="select-rfq-no">
+                                        <select class="selectpicker" name="select-supplier" id="select-supplier">
                                             @for($i = 0; $i < count($suppliers); $i++)
                                                 <option value="{{ $suppliers[$i] }}">{{ $supplier_names[$i] }}</option>
                                             @endfor          
@@ -198,24 +199,24 @@
             location.reload(true);
         });
 
-        $('#btn-add-supplier').click(function(){
-
+        $('#select-supplier').change(function(){
+            
             $.ajaxSetup({
                 headers:
                 { 'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content') }
             });
 
             $.ajax({
-                url: 'purchase-request/add-supplier',
+                url: 'purchase-order/select-supplier',
                 type: "post",
                 data: {
-                    'id': $('#select-add-supplier').find('option:selected').val(), 
-                    'name' : $('#select-add-supplier').find('option:selected').text()
+                    'id': $('#select-supplier').find('option:selected').val(), 
+                    'pr_no' : $('#hdn-pr-no').val()
                 },
                 dataType: 'json',
                 success: function(data){
-
-                    $('#select-add-supplier option[value=' + data.id + ']').remove();
+                    alert("abc");
+                    /*$('#select-supplier option[value=' + data.id + ']').remove();
                     $('#table-suppliers tbody').append(
                         '<tr>' +
                         '<td>' + data.name + '</td>' +
@@ -226,9 +227,9 @@
                         '</tr>'
                     );
 
-                    if($('#select-add-supplier').has('option').length == 0 ) {
+                    if($('#select-supplier').has('option').length == 0 ) {
                         $('#btn-add-supplier').prop('disabled', true);
-                    }
+                    }*/
                 }
 
             });      
