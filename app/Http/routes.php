@@ -143,6 +143,8 @@ Route::group(['prefix' => 'transaction'], function(){
 
 		Route::resource('purchase-order', 'PurchaseOrderController');
 
+			Route::post('purchase-order-search', 'PurchaseOrderController@get_aq');
+
 	/* end of Purchase Order */
 
 	/* Acceptance */

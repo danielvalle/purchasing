@@ -73,7 +73,6 @@
                                         <table class="table table-bordered">
                                             <thead>
                                                 <tr>
-                                                    <th>Item No.</th>
                                                     <th style="width: 20%;">Item</th>
                                                     <th>Unit</th>
                                                     <th>Supplier 1 Amount</th>
@@ -88,14 +87,13 @@
                                                 @foreach($rfq_items as $i => $rfq_item)
                                             
                                                 <tr>
-                                                    <td>#{{ $rfq_item->rfqd_id }}</td>
                                                     <td>{{ $rfq_item->item_name }}</td>
                                                     <td>{{ $rfq_item->unit_name }}</td>
-                                                    <td><input name="supplier1_amount{{ $i }}" class="form-control" type="number" @if($rfq_suppliers[0] == null) readonly @else required @endif></td>
-                                                    <td><input name="supplier2_amount{{ $i }}" class="form-control" type="number" @if($rfq_suppliers[1] == null) readonly @else required @endif></td>
-                                                    <td><input name="supplier3_amount{{ $i }}" class="form-control" type="number" @if($rfq_suppliers[2] == null) readonly @else required @endif></td>
-                                                    <td><input name="supplier4_amount{{ $i }}" class="form-control" type="number" @if($rfq_suppliers[3] == null) readonly @else required @endif></td>
-                                                    <td><input name="supplier5_amount{{ $i }}" class="form-control" type="number" @if($rfq_suppliers[4] == null) readonly @else required @endif></td>
+                                                    <td><input name="supplier1_amount{{ $i }}" class="form-control" type="number" min="1" @if($rfq_suppliers[0] == null) readonly @endif></td>
+                                                    <td><input name="supplier2_amount{{ $i }}" class="form-control" type="number" min="1" @if($rfq_suppliers[1] == null) readonly @endif></td>
+                                                    <td><input name="supplier3_amount{{ $i }}" class="form-control" type="number" min="1" @if($rfq_suppliers[2] == null) readonly @endif></td>
+                                                    <td><input name="supplier4_amount{{ $i }}" class="form-control" type="number" min="1" @if($rfq_suppliers[3] == null) readonly @endif></td>
+                                                    <td><input name="supplier5_amount{{ $i }}" class="form-control" type="number" min="1" @if($rfq_suppliers[4] == null) readonly @endif></td>
                                                 </tr>
                                                 <input type="hidden" name="add-pr-fk" value="{{ $rfq_item->pr_fk }}">
                                                 @endforeach

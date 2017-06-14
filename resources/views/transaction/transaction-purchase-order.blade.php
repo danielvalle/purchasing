@@ -21,43 +21,48 @@
                         <div class="panel-body">
 
                         <div class="panel-body">
-                            {!! Form::open(['class' => 'form-inline', 'method' => 'post', 'url' => 'transaction/abstract-quotation-search']) !!}
-                        <div class="form-group" style="width: 100%">   
-
-                            <div class="form-group" style="width: 100%">
+                            <div class="form-group" style="width: 100%">   
+                                {!! Form::open(['class' => 'form-inline', 'method' => 'post', 'url' => 'transaction/purchase-order-search']) !!}
 
                                 <div class="form-group" style="width: 100%">
-                                    <label for="">Purchase Request Number:</label>
-                                    <select class="selectpicker" name="select-rfq-no" id="select-rfq-no">
-                                        @foreach($pr_nos as $pr_no)
-                                            <option value="{{ $pr_no->id }}">PR No. {{ $pr_no->id }}</option>
-                                        @endforeach
-                                    </select>     
 
-                                    <button class="form-control btn btn-success">Select</button> 
+                                    <div class="form-group" style="width: 100%">
+                                        <label for="">Purchase Request Number:</label>
+                                        <select class="selectpicker" name="select-pr-no" id="select-pr-no">
+                                            @foreach($pr_nos as $pr_no)
+                                                <option value="{{ $pr_no->id }}">PR No. {{ $pr_no->id }}</option>
+                                            @endforeach
+                                        </select>     
+
+                                        <button class="form-control btn btn-success">Select</button> 
+                                    </div>
+
+
+                                {!! Form::close() !!}
                                 </div>
-
-                            </div>
-                            <div style="margin: 25px 0"></div>
-                            <div class="form-group">
-                                <div class="form-group" style="margin-right: 50px;">
-                                    <label for="" >Agency:</label>
-                                    <select class="selectpicker" name="select-rfq-no" id="select-rfq-no">
-                                        @foreach($agencies as $agency)
-                                            <option value="{{ $agency->id }}">{{ $agency->agency_name }}</option>
-                                        @endforeach
-                                    </select>                                      
-                                </div>
-
+                                <div style="margin: 25px 0"></div>
+                            {!! Form::open(['class' => 'form-inline', 'method' => 'post', 'url' => 'transaction/purchase-order-search']) !!}
                                 <div class="form-group">
-                                    <label for="">Supplier:</label>
-                                    <select class="selectpicker" name="select-rfq-no" id="select-rfq-no">
-                                    </select> 
-                                </div>
-                            </div>
+                                    <div class="form-group" style="margin-right: 50px;">
+                                        <label for="" >Agency:</label>
+                                        <select class="selectpicker" name="select-rfq-no" id="select-rfq-no">
+                                            @foreach($agencies as $agency)
+                                                <option value="{{ $agency->id }}">{{ $agency->agency_name }}</option>
+                                            @endforeach
+                                        </select>                                      
+                                    </div>
 
-                        </div>
-                            {!! Form::close() !!}
+                                    <div class="form-group">
+                                        <label for="">Supplier:</label>
+                                        <select class="selectpicker" name="select-rfq-no" id="select-rfq-no">
+                                            @for($i = 0; $i < count($suppliers); $i++)
+                                                <option value="{{ $suppliers[$i] }}">{{ $supplier_names[$i] }}</option>
+                                            @endfor          
+                                        </select> 
+                                    </div>
+                                </div>
+
+                            </div>
                         </div>        
 
                                
@@ -72,27 +77,25 @@
                                         <table class="table table-bordered">
                                             <thead>
                                                 <tr>
-                                                    <th>Item No.</th>
+                                                    <th>Stock No.</th>
                                                     <th style="width: 20%;">Item</th>
+                                                    <th>Quantity</th>
                                                     <th>Unit</th>
-                                                    <th>Supplier 1 Amount</th>
-                                                    <th>Supplier 2 Amount</th>
-                                                    <th>Supplier 3 Amount</th>
-                                                    <th>Supplier 4 Amount</th>
-                                                    <th>Supplier 5 Amount</th>
+                                                    <th>Unit Cost Amount</th>
+                                                    <th>Amount</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
+                                                @foreach($items as $item)
                                                 <tr>
+                                                    <td>{{ $item->stock_no}}</td>
+                                                    <td>{{ $item->item_name }}</td>
+                                                    <td>{{ $item->quantity }}</td>
+                                                    <td>{{ $item->unit_name }}</td>
                                                     <td></td>
                                                     <td></td>
-                                                    <td></td>
-                                                    <td><input class="form-control" type="number"></td>
-                                                    <td><input class="form-control" type="number"></td>
-                                                    <td><input class="form-control" type="number"></td>
-                                                    <td><input class="form-control" type="number"></td>
-                                                    <td><input class="form-control" type="number"></td>
                                                 </tr>
+                                                @endforeach
                                             </tbody>
                                         </table>
                                         
@@ -154,6 +157,7 @@
                             </div>
 
                             <button class="btn btn-success" style="float: right; width: 20%;">Convert to PO</button> 
+                            {!! Form::close() !!}
                         </div>
                     </div>
                     <!-- /.panel -->
