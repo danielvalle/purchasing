@@ -26,7 +26,7 @@
                                     <tr>
                                         <th>Item Name</th>
                                         <th style="width:60%">Item Description</th>
-                                        <th style="width:20%;">Actions</th>
+                                        <th style="width:10%;">Actions</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -36,9 +36,9 @@
                                             <td>{{ $item->item_name }}</td>
                                             <td>{{ $item->item_description }}</td>
                                             <td>
-                                                <a data-toggle="modal" href="#{{ $item->id }}edit-item">Edit</a> |
-                                                <a data-toggle="modal" href="#{{ $item->id }}del-item">Delete</a> |
-                                                <a data-toggle="modal" href="#{{ $item->id }}view-stock-card">View Stock Card</a> 
+                                                <a data-toggle="modal" href="#{{ $item->id }}edit-item"><span class="glyphicon glyphicon-edit"></span></a>
+                                                <a data-toggle="modal" href="#{{ $item->id }}del-item"><span class="glyphicon glyphicon-trash"></span></a>
+                                                <a data-toggle="modal" href="#{{ $item->id }}view-stock-card"><span class="glyphicon glyphicon-eye-open"></span></a> 
                                             </td>
                                         </tr>
                                         @endif
@@ -145,7 +145,7 @@
             <!-- /Delete New Item -->
 
             <!-- View Stock Card -->
-            <div id="view-stock-card" class="modal fade" role="dialog">
+            <div id="{{ $item->id }}view-stock-card" class="modal fade" role="dialog">
             {!! Form::open(['url' => 'maintenance/item', 'method' => 'post']) !!} 
                 <div class="modal-dialog  modal-lg">
             

@@ -160,4 +160,10 @@ Route::group(['prefix' => 'transaction'], function(){
 
 	/* end of Issuance*/
 
+	/* DisbursementVoucher */
+
+		Route::resource('disbursement-voucher', 'DisbursementVoucherController');
+
+	/* end of DisbursementVoucher*/
+
 });
