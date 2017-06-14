@@ -49,8 +49,9 @@ class AbstractQuotationController extends Controller
     					->select('request_for_quote.*', 'request_for_quote_detail.*', 'item.*', 'unit.*',
     							'request_for_quote.id AS rfq_id', 'request_for_quote_detail.id AS rfqd_id',
     							'item.id AS item_id', 'unit.id AS unit_ID')
-    					->where('request_for_quote.id', $request->input('select-rfq-no'))
+    					->where('request_for_quote_detail.request_for_quote_fk', $request->input('select-rfq-no'))
     					->get();
+
 
     	$rfq_supplier_1 = \DB::table('request_for_quote')
     					->join('request_for_quote_detail', 'request_for_quote.id', '=', 'request_for_quote_detail.request_for_quote_fk')

@@ -22,7 +22,6 @@ class ItemController extends Controller
         $item = Item::create(array(
                 'item_name' => trim($request->input('add-item-name')),
                 'item_description' => trim($request->input('add-item-description')),
-                'unit_cost' => $request->input('add-item-cost'),
                 'is_active' => 1
             ));
 
@@ -38,7 +37,6 @@ class ItemController extends Controller
 
         $item->item_name = trim($request->input('edit-item-name'));
         $item->item_description = trim($request->input('edit-item-description'));
-        $item->unit_cost = $request->input('edit-item-cost');
         $item->save();
 
         return redirect('maintenance/item');

@@ -41,7 +41,7 @@
                         <input type="hidden" id="transaction_date" name="transaction_date" />
 
                         <div class="panel-body">
-                            <div class="form-inline col-lg-4    ">
+                            <div class="form-inline col-lg-4">
                                 <label for="">Supplier 1: </label>   
                                 <input class="form-control" type="text" value="{{ $rfq_suppliers[0] }}" readonly>     
                             </div>
@@ -86,7 +86,7 @@
                                             <tbody>
                                                 
                                                 @foreach($rfq_items as $i => $rfq_item)
-                                                {{ $i }}
+                                            
                                                 <tr>
                                                     <td>#{{ $rfq_item->rfqd_id }}</td>
                                                     <td>{{ $rfq_item->item_name }}</td>

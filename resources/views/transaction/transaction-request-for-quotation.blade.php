@@ -79,16 +79,16 @@
                                                     </tr>
                                                 </thead>
                                                 <tbody>
-                                                @foreach($purchase_requests as $purchase_request)                          
+                                                @foreach($purchase_requests as $i => $purchase_request)                          
                                                     <tr>
                                                         <td>{{ $purchase_request->stock_no }}</td>
                                                         <td>{{ $purchase_request->item_name }}</td>
-                                                        <input type="hidden" name="item_id" value="{{ $purchase_request->item_id }}">
+                                                        <input type="hidden" name="item_id{{ $i }}" value="{{ $purchase_request->item_id }}">
                                                         <td>{{ $purchase_request->quantity }}</td>
-                                                        <input type="hidden" name="quantity" value="{{ $purchase_request->quantity }}">
+                                                        <input type="hidden" name="quantity{{ $i }}" value="{{ $purchase_request->quantity }}">
                                                         <td>{{ $purchase_request->unit_name }}</td>        
-                                                        <input type="hidden" name="unit_id" value="{{ $purchase_request->unit_id }}">                                    
-                                                        <input type="hidden" name="total" value="{{ $purchase_request->total_cost }}">
+                                                        <input type="hidden" name="unit_id{{ $i }}" value="{{ $purchase_request->unit_id }}">                                    
+                                                        <input type="hidden" name="total{{ $i }}" value="{{ $purchase_request->total_cost }}">
                                                     </tr>
                                                 @endforeach
                                                 </tbody>

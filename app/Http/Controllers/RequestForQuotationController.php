@@ -110,10 +110,10 @@ class RequestForQuotationController extends Controller
 
             $request_for_quotation_detail = RequestForQuoteDetail::create(array(
                     'request_for_quote_fk' => $request_for_quotation->id,
-                    'quantity' => $request->input('quantity'),
-                    'item_fk' => $request->input('item_id'),
-                    'unit_fk' => $request->input('unit_id'),
-                    'total' => $request->input('total'),
+                    'quantity' => $request->input('quantity' . $i),
+                    'item_fk' => $request->input('item_id' . $i),
+                    'unit_fk' => $request->input('unit_id' . $i),
+                    'total' => $request->input('total' . $i),
                     'is_active' => 1
             ));        
 

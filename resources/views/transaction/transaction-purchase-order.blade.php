@@ -23,43 +23,39 @@
                         <div class="panel-body">
                             {!! Form::open(['class' => 'form-inline', 'method' => 'post', 'url' => 'transaction/abstract-quotation-search']) !!}
                         <div class="form-group" style="width: 100%">   
-                            <div class="form-group" style="width: 50%; float: left">
-                                <div class="form-group" style="width: 100%">
-                                    <label for="" style="width: 35%">Purchase Order Number:</label>
-                                    <input class="form-control" type="text" readonly>                               
-                                </div>
-                                
-                                <div style="margin: 10px 0"></div>
+
+                            <div class="form-group" style="width: 100%">
 
                                 <div class="form-group" style="width: 100%">
-                                    <label for="" style="width: 35%">Purchase Request Number:</label>
+                                    <label for="">Purchase Request Number:</label>
                                     <select class="selectpicker" name="select-rfq-no" id="select-rfq-no">
+                                        @foreach($pr_nos as $pr_no)
+                                            <option value="{{ $pr_no->id }}">PR No. {{ $pr_no->id }}</option>
+                                        @endforeach
                                     </select>     
 
                                     <button class="form-control btn btn-success">Select</button> 
                                 </div>
-                            </div>
 
-                            <div class="form-group" style="width: 50%; float: left">
-                                
-                                <div class="form-group" style="width: 100%">
-                                    <label for="" style="width: 10%">Agency:</label>
+                            </div>
+                            <div style="margin: 25px 0"></div>
+                            <div class="form-group">
+                                <div class="form-group" style="margin-right: 50px;">
+                                    <label for="" >Agency:</label>
                                     <select class="selectpicker" name="select-rfq-no" id="select-rfq-no">
                                         @foreach($agencies as $agency)
-                                            <option value="{{ $user->id }}">{{ $agency->agency_name }}</option>
+                                            <option value="{{ $agency->id }}">{{ $agency->agency_name }}</option>
                                         @endforeach
-                                    </select>                              
+                                    </select>                                      
                                 </div>
 
-                                <div style="margin: 10px 0"></div>
-
-                                <div class="form-group" style="width: 100%">
-                                    <label for="" style="width: 10%">Supplier:</label>
+                                <div class="form-group">
+                                    <label for="">Supplier:</label>
                                     <select class="selectpicker" name="select-rfq-no" id="select-rfq-no">
-                                    </select>                              
+                                    </select> 
                                 </div>
-
                             </div>
+
                         </div>
                             {!! Form::close() !!}
                         </div>        

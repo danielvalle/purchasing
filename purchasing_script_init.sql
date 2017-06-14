@@ -1,4 +1,4 @@
-  CREATE DATABASE dbpurchasing;
+CREATE DATABASE dbpurchasing;
 
 USE dbpurchasing;
 
@@ -239,7 +239,7 @@ CREATE TABLE abstract_quotation
       FOREIGN KEY(admin_officer_fk) REFERENCES user(id),
       FOREIGN KEY(admin_officer_2_fk) REFERENCES user(id),
       FOREIGN KEY(board_secretary_fk) REFERENCES user(id),
-      FOREIGN KEY(vpak_fk) REFERENCES user(id),
+      FOREIGN KEY(vpaf_fk) REFERENCES user(id),
       FOREIGN KEY(approve_fk) REFERENCES user(id),
       FOREIGN KEY(pr_fk) REFERENCES purchase_request(id)
     );

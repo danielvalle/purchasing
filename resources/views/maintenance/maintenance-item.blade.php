@@ -72,10 +72,6 @@
                                 <label for="add-item-description">Item Description</label>
                                 <textarea class="form-control" name="add-item-description" id="add-item-description" rows="3"></textarea> 
                             </div>
-                            <div class="form-group">
-                                <label for="add-item-cost">Unit Cost</label>
-                                <input type="text" class="form-control" id="add-item-cost" name="add-item-cost" placeholder="50.00">
-                            </div>
                         </div>
                         <div class="modal-footer">
                             <button type="submit" class="btn btn-success">Add</button>
@@ -108,10 +104,6 @@
                             <div class="form-group">
                                 <label for="edit-item-description">Item Description</label>
                                 <textarea class="form-control" name="edit-item-description" id="edit-item-description" rows="3">{{ $item->item_description }}</textarea> 
-                            </div>
-                            <div class="form-group">
-                                <label for="edit-item-cost">Unit Cost</label>
-                                <input type="text" class="form-control" id="edit-item-cost" name="edit-item-cost" placeholder="50.00" value="{{ $item->unit_cost }}">
                             </div>
                         </div>
                         <div class="modal-footer">
