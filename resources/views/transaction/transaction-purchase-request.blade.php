@@ -73,8 +73,8 @@
                                 <input type="text" class="form-control" name="add-sai-no" id="add-sai-no">
                             </div>  
                             <div class="form-group col-lg-4" style="float: right">
-                                    <label for="add-sai-date" >SAI Date</label>         
-                                    <input type="date" class="form-control" id="add-sai-date" name="add-sai-date" value="{{ date("Y-m-d") }}" required>
+                                <label for="add-sai-date" >SAI Date</label>         
+                                <input type="date" class="form-control" id="add-sai-date" name="add-sai-date" value="{{ date("Y-m-d") }}" required>
                             </div>
                         </div>                        
                         <div class="panel-body">
@@ -126,7 +126,8 @@
                                 </select>   
                             </div>                              
                         </div>
-                          <button type="submit" style="float: right; width: 20%;"class="btn btn-success">Submit</button>  
+                          <button type="submit" style="float: right; width: 20%;"class="btn btn-success">Convert to RFQ</button>  
+                            {!! Form::close() !!}
                     <div>
                               
 
@@ -136,7 +137,6 @@
                 </div>
                 <!-- /.col-lg-12 -->
             </div>
-            {!! Form::close() !!}
 
             <div id="add-item" class="modal fade" role="dialog">
                 <div class="modal-dialog">

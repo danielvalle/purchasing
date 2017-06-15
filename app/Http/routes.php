@@ -104,6 +104,7 @@ Route::group(['prefix' => 'transaction'], function(){
 	/* Purchase Request */
 
 		Route::get('purchase-request-show', 'PurchaseRequestController@show_pr');
+		Route::get('purchase-request-pdf', array('as'=>'transaction/purchase-request-pdf', 'uses'=>'PurchaseRequestController@pr_pdf'));
 		Route::resource('purchase-request', 'PurchaseRequestController');
 		
 			Route::post('purchase-request/update', 'PurchaseRequestController@update');
@@ -167,3 +168,7 @@ Route::group(['prefix' => 'transaction'], function(){
 	/* end of DisbursementVoucher*/
 
 });
+
+
+
+

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use PDF;
 
 use App\Category;
 use App\Http\Controllers\Controller;
@@ -33,7 +34,6 @@ class CategoryController extends Controller
     {
 
     	$category = Category::find($request->input('edit-category-id'));
-
         $category->category_name = trim($request->input('edit-category-name'));
         $category->save();
 
@@ -50,6 +50,8 @@ class CategoryController extends Controller
 
         return redirect('maintenance/category');
     }
+
+
 	
 }
 

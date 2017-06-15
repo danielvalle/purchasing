@@ -28,7 +28,7 @@
                                     <label for="">Select Purchase Number: </label>
                                     <select class="selectpicker" name="select-pr-no" id="select-pr-no">
                                         @foreach($pr_headers as $pr_header)
-                                            <option value="{{ $pr_header->id }}">PR No. {{ $pr_header->id }}</option>
+                                            <option value="{{ $pr_header->id }}" @if($pr_id == $pr_header->id) selected @endif>{{ $pr_header->pr_number }}</option>
                                         @endforeach
                                     </select>                                  
                                 </div>

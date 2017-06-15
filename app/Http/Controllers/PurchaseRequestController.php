@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Session;
+use PDF;
 
 use App\PurchaseRequest;
 use App\PurchaseRequestDetail;
@@ -214,7 +215,6 @@ class PurchaseRequestController extends Controller
                 'agency_fk' => $request->input('add-agency'),
                 'department_fk' => $request->input('add-department'),
                 'section_fk' => $request->input('add-section'),
-                'pr_number' => "PR",
                 'pr_date' =>  date("Y-m-d", strtotime($request->input('transaction_date'))),
                 'sai_no' => $request->input('add-sai-no'),
                 'sai_date' =>  date("Y-m-d", strtotime($request->input('add-sai-date'))),
@@ -225,6 +225,12 @@ class PurchaseRequestController extends Controller
         ));
 
         $purchase_request->save();
+
+        $purchase_request = PurchaseRequest::find($purchase_request->id);
+
+        $purchase_request->pr_number = date("Y-m", strtotime($purchase_request->pr_date)) . "-" . sprintf("%04d", $purchase_request->id);
+        $purchase_request->save();
+        
 
         for($i = 0; $i < count(session()->get('pr_items')); $i++){
 
@@ -242,8 +248,8 @@ class PurchaseRequestController extends Controller
             $purchase_request_detail->save();
 
         }
-
-        return redirect("transaction/request-for-quotation");
+        
+        return redirect("transaction/purchase-request-pdf");
 
     }
 
@@ -313,6 +319,14 @@ class PurchaseRequestController extends Controller
                 ));
         }
 
+    }
+
+    public function pr_pdf()
+    {
+        $pdf = PDF::loadView('pdf.purchase-request-pdf');
+        return $pdf->download('pr_pdf.pdf');
+
+        return redirect("transaction/request-for-quotation");
     }
 
 }

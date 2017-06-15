@@ -20,15 +20,138 @@
                         <!-- /.panel-heading -->
                         <div class="panel-body">
                             
-                            <div class="form-group">
+                            <div class="form-group col-lg-12">
                                 <label for="">Mode Of Payment:&nbsp&nbsp&nbsp&nbsp</label>
                                 <label class="radio-inline"><input type="radio" name="optradio">MDS Check</label>
                                 <label class="radio-inline"><input type="radio" name="optradio">Commercial Check</label>
                                 <label class="radio-inline"><input type="radio" name="optradio">ADA</label>
                                 <label class="radio-inline"><input type="radio" name="optradio">Others</label>
                             </div>
-                        
+
+
+                            <div class="form-group col-lg-4">
+                                <label for="">Payee</label>
+                                <select class="form-control">
+                                </select>    
+                            </div>
+                            <div class="form-group col-lg-4">
+                                <label for="">TIN/Employee No.</label>
+                                <input type="text" class="form-control">
+                            </div>
+                            <div class="form-group col-lg-4">
+                                <label for="">OR/BUR No.</label>
+                                <input type="text" class="form-control">
+                            </div>
+
+
+                            <div class="form-group col-lg-6">
+                                <label for="">Address</label>
+                                <input type="text" class="form-control">
+                            </div>
+                            <div class="form-group col-lg-4">
+                                <label for="">Office/Unit/Projet</label>
+                                <input type="text" class="form-control">
+                            </div>
+                            <div class="form-group col-lg-2">
+                                <label for="">Code</label>
+                                <input type="text" class="form-control">
+                            </div>
+
+
+                            <div class="form-group col-lg-10">
+                                <label for="">Explanation</label>
+                                <textarea type="text" class="form-control" rows="2"></textarea>
+                            </div>
+                            <div class="form-group col-lg-2">
+                                <label for="">Amount</label>
+                                <input type="number" class="form-control">
+                            </div>
+
                         </div>
+                            
+                        <div class="panel-body">
+                        
+                            <div class="form-group col-lg-12">
+                                <label for="">Certified:&nbsp&nbsp&nbsp&nbsp</label>
+                                <label class="radio-inline"><input type="radio" name="optradio">MDS Check</label>
+                                <label class="radio-inline"><input type="radio" name="optradio">Commercial Check</label>
+                                <label class="radio-inline"><input type="radio" name="optradio">ADA</label>
+                                <label class="radio-inline"><input type="radio" name="optradio">Others</label>
+                            </div>
+                            <div class="form-group col-lg-4">
+                                <label>Certifier:</label>
+                                <select class="form-control">
+                                </select> 
+                            </div>
+                            <div class="form-group col-lg-4">
+                                <label>Date:</label>
+                                <input type="date" class="form-control" id="add-sai-date" name="add-sai-date" value="{{ date("Y-m-d") }}" required>
+                            </div>
+
+                        </div>
+
+                        <div class="panel-body">
+                        
+                            <div class="form-group col-lg-12">
+                                <label for="">Approved For Payment:</label>
+                                <textarea type="text" class="form-control" rows="2"></textarea>
+                            </div>
+                            <div class="form-group col-lg-4">
+                                <label>Approver:</label>
+                                <select class="form-control">
+                                </select> 
+                            </div>
+                            <div class="form-group col-lg-4">
+                                <label>Date:</label>
+                                <input type="date" class="form-control" id="add-sai-date" name="add-sai-date" value="{{ date("Y-m-d") }}" required>
+                            </div>
+
+                        </div>
+
+                        <div class="panel-body">
+                        
+                            <div class="form-group col-lg-4">
+                                <label for="">Check/ADA No.</label>
+                                <input type="text" class="form-control">
+                            </div>
+                            <div class="form-group col-lg-2">
+                                <label>Date:</label>
+                                <input type="date" class="form-control" id="add-sai-date" name="add-sai-date" value="{{ date("Y-m-d") }}" required>
+                            </div>
+                            <div class="form-group col-lg-4">
+                                <label for="">Bank Name</label>
+                                <input type="text" class="form-control">
+                            </div>
+                            <div class="form-group col-lg-2">
+                                <label>Date:</label>
+                                <input type="date" class="form-control" id="add-sai-date" name="add-sai-date" value="{{ date("Y-m-d") }}" required>
+                            </div>
+                            <div class="form-group col-lg-4">
+                                <label for="">Printed Name</label>
+                                <select class="form-control"></select>
+                            </div>
+                            <div class="form-group col-lg-2">
+                                <label>Date:</label>
+                                <input type="date" class="form-control" id="add-sai-date" name="add-sai-date" value="{{ date("Y-m-d") }}" required>
+                            </div>
+
+                            <div class="form-group col-lg-4">
+                                <label for="">JEV No.</label>
+                                <input type="text" class="form-control">
+                            </div>         
+                            <div class="form-group col-lg-2">
+                                <label>Date:</label>
+                                <input type="date" class="form-control" id="add-sai-date" name="add-sai-date" value="{{ date("Y-m-d") }}" required>
+                            </div>   
+
+                            <div class="form-group col-lg-12">
+                                <label for="">Official Receipt/Other Documents</label>
+                                <input type="text" class="form-control">
+                            </div>
+
+                        </div>                        
+
+
                     <!-- /.panel -->
                 </div>
                 <!-- /.col-lg-12 -->
