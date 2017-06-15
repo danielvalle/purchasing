@@ -62,8 +62,26 @@ class PurchaseOrderController extends Controller
         $suppliers[2] = $temp_suppliers->supplier3_fk;
         $suppliers[3] = $temp_suppliers->supplier4_fk;
         $suppliers[4] = $temp_suppliers->supplier5_fk;
-        
+
         $suppliers = array_values(array_filter($suppliers)); 
+
+        $temp_supplier_amounts = \DB::table("abstract_quotation AS aq")
+                            ->join("abstract_quotation_detail AS aqd", "aq.id", "=", "aqd.abstract_quotation_fk")
+                            ->select("aqd.*")
+                            ->where("aq.pr_fk", $selected_pr_no)
+                            ->get();
+
+        for($i = 0; $i < count($suppliers); $i++)
+        {
+            for($j = 0; $j < count($temp_supplier_amounts); $j++)
+            {
+                if($i == 0) $supplier_amounts[$suppliers[$i]][$j] = $temp_supplier_amounts[$j]->supplier1_amount;
+                if($i == 1) $supplier_amounts[$suppliers[$i]][$j] = $temp_supplier_amounts[$j]->supplier2_amount;
+                if($i == 2) $supplier_amounts[$suppliers[$i]][$j] = $temp_supplier_amounts[$j]->supplier3_amount;
+                if($i == 3) $supplier_amounts[$suppliers[$i]][$j] = $temp_supplier_amounts[$j]->supplier4_amount;
+                if($i == 4) $supplier_amounts[$suppliers[$i]][$j] = $temp_supplier_amounts[$j]->supplier5_amount;
+            }
+        }        
 
         $temp_supplier_names = \DB::table("supplier")
                         ->select("supplier_name")

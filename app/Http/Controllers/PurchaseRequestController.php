@@ -249,7 +249,7 @@ class PurchaseRequestController extends Controller
 
         }
         
-        return redirect("transaction/purchase-request-pdf");
+        return redirect("transaction/request-for-quotation");
 
     }
 

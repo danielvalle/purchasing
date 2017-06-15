@@ -17,7 +17,6 @@
                         <div class="panel-heading">
                             <span style="font-size: 20px;">Item</span> 
                             <button type="button" class="btn btn-success btn-sm" data-toggle="modal" data-target="#add-item">Add New</button> 
-                            <button type="button" class="btn btn-info btn-sm" data-toggle="modal" data-target="#view-stock-card">View Stock Card</button> 
                         </div>
                         <!-- /.panel-heading -->
                         <div class="panel-body">
