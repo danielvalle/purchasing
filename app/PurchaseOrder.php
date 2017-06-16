@@ -15,7 +15,7 @@ class PurchaseOrder extends Model
 								'supplier_fk',
 								'address',
 								'tin',
-								'date',
+								'invoice_date',
 								'mode_of_procurement',
 								'place_of_delivery',
 								'date_of_delivery',
@@ -24,7 +24,6 @@ class PurchaseOrder extends Model
 								'total_amount',
 								'authorized_official_fk',
 								'alobs_bub_no',
-								'amount',
 								'pr_no_fk',
 								'abstract_quotation_fk',
 								'is_active'

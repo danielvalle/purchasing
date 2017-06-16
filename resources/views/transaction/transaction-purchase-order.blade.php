@@ -41,12 +41,13 @@
                                 {!! Form::close() !!}
                                 </div>
                                 <div style="margin: 25px 0"></div>
-                            {!! Form::open(['class' => 'form-inline', 'method' => 'post', 'url' => 'transaction/purchase-order-search']) !!}
-                                <input type="hidden" id="hdn-pr-no" value="{{ $selected_pr_no }}">
+                            {!! Form::open(['class' => 'form-inline', 'method' => 'post', 'url' => 'transaction/purchase-order']) !!}
+                                <input type="hidden" name="hdn-pr-no" id="hdn-pr-no" value="{{ $selected_pr_no }}">
+                                <input type="hidden" name="hdn-aq-no" id="hdn-aq-no" value="{{ $selected_aq_no }}">
                                 <div class="form-group">
                                     <div class="form-group" style="margin-right: 50px;">
                                         <label for="" >Agency:</label>
-                                        <select class="selectpicker" name="select-rfq-no" id="select-rfq-no">
+                                        <select class="selectpicker" name="add-agency" id="add-agency">
                                             @foreach($agencies as $agency)
                                                 <option value="{{ $agency->id }}">{{ $agency->agency_name }}</option>
                                             @endforeach
@@ -55,7 +56,8 @@
 
                                     <div class="form-group">
                                         <label for="">Supplier:</label>
-                                        <select class="selectpicker" name="select-supplier" id="select-supplier">
+                                        <select class="selectpicker" name="add-supplier" id="add-supplier">
+                                                <option disabled selected>Select winning supplier</option>
                                             @for($i = 0; $i < count($suppliers); $i++)
                                                 <option value="{{ $suppliers[$i] }}">{{ $supplier_names[$i] }}</option>
                                             @endfor          
@@ -87,14 +89,15 @@
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                                @foreach($items as $item)
+                                                @foreach($items as $i => $item)
+                                                <input type="hidden" name="supplier-amount[]" id="supplier-amount{!! $i !!}">
                                                 <tr>
                                                     <td>{{ $item->stock_no}}</td>
                                                     <td>{{ $item->item_name }}</td>
                                                     <td>{{ $item->quantity }}</td>
                                                     <td>{{ $item->unit_name }}</td>
-                                                    <td></td>
-                                                    <td></td>
+                                                    <td id="amount{!! $i !!}"></td>
+                                                    <td id="total-amount{!! $i !!}"></td>
                                                 </tr>
                                                 @endforeach
                                             </tbody>
@@ -107,7 +110,7 @@
                             <div style="float: left; width: 100%; margin: 30px 0;">
                                 <div class="form-group col-lg-5">
                                     <label for="">Address</label>
-                                    <input type="text" class="form-control" name="add-tin" id="add-tin">
+                                    <input type="text" class="form-control" name="add-address" id="add-address">
                                 </div>
                                 <div class="form-group col-lg-3">
                                     <label for="">TIN</label>
@@ -115,11 +118,11 @@
                                 </div>  
                                 <div class="form-group col-lg-2">
                                     <label for="add-birthday" >Date</label>         
-                                    <input type="date" class="form-control" id="add-birthday" name="add-birthday" value="{{ date("Y-m-d") }}" required>
+                                    <input type="date" class="form-control" id="add-date" name="add-date" value="{{ date("Y-m-d") }}" required>
                                 </div>
                                 <div class="form-group col-lg-2">
                                     <label for="">Mode Of Procurement</label>
-                                    <input type="text" class="form-control" name="add-tin" id="add-tin">
+                                    <input type="text" class="form-control" name="add-mode-of-procurement" id="add-mode-of-procurement">
                                 </div>
 
                                 <div class="form-group col-lg-6">
@@ -128,36 +131,36 @@
                                 </div>   
                                 <div class="form-group col-lg-2">
                                     <label for="">Date Of Delivery</label>
-                                    <input type="date" class="form-control" id="add-birthday" name="add-birthday" value="{{ date("Y-m-d") }}" required>
+                                    <input type="date" class="form-control" id="add-date-delivery" name="add-date-delivery" value="{{ date("Y-m-d") }}" required>
                                 </div>   
                                 <div class="form-group col-lg-2">
                                     <label for="">Delivery Term</label>
-                                    <input type="text" class="form-control" name="add-tin" id="add-tin">
+                                    <input type="text" class="form-control" name="add-delivery-term" id="add-delivery-term">
                                 </div>
                                 <div class="form-group col-lg-2">
                                     <label for="">Payment Term</label>
-                                    <input type="text" class="form-control" name="add-tin" id="add-tin">
+                                    <input type="text" class="form-control" name="add-payment-term" id="add-payment-term">
                                 </div>
 
                                 <div class="form-group col-lg-4">
                                     <label for="">Authorized Official</label>
-                                    <select class="form-control" name="add-requested-by" id="add-requested-by">
+                                    <select class="form-control" name="add-authorized-official" id="add-authorized-official">
                                         @foreach($users as $user)
                                             <option value="{{ $user->id }}">{{ $user->first_name }} {{ $user->middle_name }} {{ $user->last_name }}</option>
                                         @endforeach
                                     </select>
                                 </div>
-                                <div class="form-group col-lg-4">
+                                <div class="form-group col-lg-3">
                                     <label for="">Total Amount</label>
-                                    <input type="number" class="form-control" name="add-tin" id="add-tin">
+                                    <input type="text" class="form-control" name="add-total-amount" id="add-total-amount" readonly>
                                 </div>
-                                <div class="form-group col-lg-4">
+                                <div class="form-group col-lg-5">
                                     <label for="">ALOBS/BUB No.</label>
-                                    <input type="text" class="form-control" name="add-tin" id="add-tin">
+                                    <input type="text" class="form-control" name="add-alobs-no" id="add-alobs-no">
                                 </div>                   
                             </div>
 
-                            <button class="btn btn-success" style="float: right; width: 20%;">Convert to PO</button> 
+                            <button class="btn btn-success" style="float: right; width: 20%;">Submit PO</button> 
                             {!! Form::close() !!}
                         </div>
                     </div>
@@ -199,7 +202,7 @@
             location.reload(true);
         });
 
-        $('#select-supplier').change(function(){
+        $('#add-supplier').change(function(){
             
             $.ajaxSetup({
                 headers:
@@ -210,26 +213,26 @@
                 url: 'purchase-order/select-supplier',
                 type: "post",
                 data: {
-                    'id': $('#select-supplier').find('option:selected').val(), 
+                    'id': $('#add-supplier').find('option:selected').val(), 
                     'pr_no' : $('#hdn-pr-no').val()
                 },
                 dataType: 'json',
                 success: function(data){
-                    alert("abc");
-                    /*$('#select-supplier option[value=' + data.id + ']').remove();
-                    $('#table-suppliers tbody').append(
-                        '<tr>' +
-                        '<td>' + data.name + '</td>' +
-                        '<td>' +
-                            '<input type="hidden" id="' + data.id + '" value="' + data.id + '" >' +
-                            '<button type="button" style="color:red" id="btn-del-supplier"><span class="glyphicon glyphicon-trash"></span></button>' +
-                        '</td>' +
-                        '</tr>'
-                    );
+                    var items = {!! json_encode($items) !!};
+                    var total_amount = 0;
 
-                    if($('#select-supplier').has('option').length == 0 ) {
-                        $('#btn-add-supplier').prop('disabled', true);
-                    }*/
+                    for(var i = 0; i < (data.amount).length; i++)
+                    {
+                        if(data.amount[i] == null) $("td#amount" + i).html(0);
+                        else $("td#amount" + i).html(data.amount[i]);
+
+                        $("input#supplier-amount" + i).val(data.amount[i]);
+                        $("td#total-amount" + i).html(data.amount[i] * items[i].quantity);
+                        total_amount += (data.amount[i] * items[i].quantity);
+                    }
+
+                    $("#add-total-amount").val(total_amount);
+
                 }
 
             });      
