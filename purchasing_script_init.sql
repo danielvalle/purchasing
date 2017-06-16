@@ -80,6 +80,7 @@ CREATE TABLE category
 CREATE TABLE item
   (
       `id` int NOT NULL AUTO_INCREMENT, 
+      `stock_no` varchar(50),
       `item_name` varchar(50),
       `item_description` varchar(255),
       `item_quantity` decimal,
@@ -249,7 +250,6 @@ CREATE TABLE abstract_quotation_detail
     (
       `id` int NOT NULL AUTO_INCREMENT,
       `abstract_quotation_fk` int,
-      `item_no` varchar(50),
       `unit_fk` int,
       `item_fk` int,
       `supplier1_amount` float,

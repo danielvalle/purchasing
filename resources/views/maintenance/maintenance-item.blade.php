@@ -23,6 +23,7 @@
                             <table width="100%" class="table" id="dt-item">
                                 <thead>
                                     <tr>
+                                        <th>Stock No.</th>
                                         <th>Item Name</th>
                                         <th style="width:60%">Item Description</th>
                                         <th style="width:10%;">Actions</th>
@@ -32,6 +33,7 @@
                                     @foreach($items as $item)
                                         @if($item->is_active == 1)
                                         <tr>
+                                            <td>{{ $item->stock_no }}</td>
                                             <td>{{ $item->item_name }}</td>
                                             <td>{{ $item->item_description }}</td>
                                             <td>
@@ -64,6 +66,10 @@
                         </div>
                         <div class="modal-body">
                             <div class="form-group">
+                                <label for="add-item-name">Stock No.</label>
+                                <input type="text" class="form-control" id="add-stock-no" name="add-stock-no" placeholder="Enter a stock number">
+                            </div>
+                            <div class="form-group">
                                 <label for="add-item-name">Item Name</label>
                                 <input type="text" class="form-control" id="add-item-name" name="add-item-name" placeholder="Enter an item name">
                             </div>
@@ -95,9 +101,13 @@
                             <h4 class="modal-title">Edit Item</h4>
                         </div>
                         <div class="modal-body">
+                            <input type="hidden" value="{{ $item->id }}" name="edit-item-id">
+                            <div class="form-group">
+                                <label for="item-name">Stock No.</label>
+                                <input type="text" class="form-control" id="edit-stock-no" name="edit-stock-no" placeholder="Enter a stock number" value="{{ $item->stock_no }}">
+                            </div>
                             <div class="form-group">
                                 <label for="item-name">Item Name</label>
-                                <input type="hidden" value="{{ $item->id }}" name="edit-item-id">
                                 <input type="text" class="form-control" id="edit-item-name" name="edit-item-name" placeholder="Enter an item name" value="{{ $item->item_name }}">
                             </div>
                             <div class="form-group">

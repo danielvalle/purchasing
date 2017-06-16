@@ -146,11 +146,7 @@
                             <h4 class="modal-title">Add New Item</h4>
                         </div>
                         <div class="modal-body container-fluid">
-                            <div class="col-lg-12">
-                                <div class="form-group col-lg-5">
-                                    <label for="">Stock No.</label>
-                                    <input type="text" class="form-control" name="add-stock-no" id="add-stock-no" required> 
-                                </div>     
+                            <div class="col-lg-12"> 
                                 <div class="form-group col-lg-7">
                                     <label for="">Item Category</label>
                                     <select style="float: left; width: 91%;" class="form-control category" name="add-category" id="add-category">

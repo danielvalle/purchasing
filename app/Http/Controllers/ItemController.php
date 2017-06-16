@@ -20,6 +20,7 @@ class ItemController extends Controller
     public function store(Request $request)
     {        
         $item = Item::create(array(
+                'stock_no' => trim($request->input('add-stock-no')),
                 'item_name' => trim($request->input('add-item-name')),
                 'item_description' => trim($request->input('add-item-description')),
                 'is_active' => 1
@@ -35,6 +36,7 @@ class ItemController extends Controller
 
         $item = Item::find($request->input('edit-item-id'));
 
+        $item->stock_no = trim($request->input('edit-stock-no'));
         $item->item_name = trim($request->input('edit-item-name'));
         $item->item_description = trim($request->input('edit-item-description'));
         $item->save();

@@ -11,7 +11,6 @@ class AbstractQuotationDetail extends Model
 	protected $primaryKey = 'id';
 	protected $fillable = array('id',
 								'abstract_quotation_fk',
-								'item_no',
 								'unit_fk',
 								'item_fk',
 								'supplier1_amount',

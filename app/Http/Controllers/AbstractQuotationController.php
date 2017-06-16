@@ -143,7 +143,7 @@ class AbstractQuotationController extends Controller
         $suppliers = session()->get('aq_suppliers');
         $suppliers_id = session()->get('aq_suppliers_id');
         $items = session()->get('aq_rfq_items');
-
+        dd($items);
         $abstract_quotation = AbstractQuotation::create(array(
                 'date' => date("Y-m-d", strtotime($request->input('transaction_date'))),
                 'supplier1_fk' => $suppliers_id[0],
@@ -167,9 +167,8 @@ class AbstractQuotationController extends Controller
 
             $abstract_quotation_detail = AbstractQuotationDetail::create(array(
                     'abstract_quotation_fk' => $abstract_quotation->id,
-                    'item_no' => $request->input('quantity'),
-                    'unit_fk' => $request->input('item_id'),
-                    'item_fk' => $request->input('unit_id'),
+                    'unit_fk' => $items[$i]->unit_fk,
+                    'item_fk' => $items[$i]->item_fk    ,
                     'supplier1_amount' => $request->input('supplier1_amount' . $i),
                     'supplier2_amount' => $request->input('supplier2_amount' . $i),
                     'supplier3_amount' => $request->input('supplier3_amount' . $i),
