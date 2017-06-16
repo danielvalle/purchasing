@@ -82,6 +82,7 @@ CREATE TABLE item
       `id` int NOT NULL AUTO_INCREMENT, 
       `item_name` varchar(50),
       `item_description` varchar(255),
+      `item_quantity` decimal,
       `is_active` bit,
       `created_at` date,
       `updated_at` date,

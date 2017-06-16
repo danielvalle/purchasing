@@ -12,6 +12,7 @@ class Item extends Model
 	protected $fillable = array('id',
 								'item_name',
 								'item_description',
+								'item_quantity',
 								'is_active'
 								//
 								);
