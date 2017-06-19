@@ -16,7 +16,6 @@ class PurchaseRequestDetail extends Model
 								'item_fk',
 								'category_fk',
 								'stock_no',
-								'total_cost',
 								'is_active'
 								//
 								);

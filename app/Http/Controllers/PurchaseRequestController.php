@@ -33,7 +33,6 @@ class PurchaseRequestController extends Controller
         $units = Unit::all();
         $suppliers = Supplier::all();
 
-        $pr_stock_nos = [];
         $pr_items = [];
         $pr_categories = [];
         $pr_quantities = [];
@@ -41,8 +40,8 @@ class PurchaseRequestController extends Controller
         $pr_suppliers = [];
 
         $temp_suppliers = [];
-
-        session(['pr_stock_nos' => $pr_stock_nos]);
+        $temp_pr_items = [];
+ 
         session(['pr_items' => $pr_items]);
         session(['pr_quantities' => $pr_quantities]);
         session(['pr_categories' => $pr_categories]);
@@ -50,6 +49,7 @@ class PurchaseRequestController extends Controller
         session(['pr_suppliers' => $pr_suppliers]);
 
         session(['temp_suppliers' => $temp_suppliers]);
+        session(['temp_pr_items' => $temp_pr_items]);
 
 		return view("transaction.transaction-purchase-request")
             ->with("users", $users)
@@ -60,14 +60,13 @@ class PurchaseRequestController extends Controller
             ->with("categories", $categories)
             ->with("units", $units)
             ->with("suppliers", $suppliers)
-            ->with("pr_stock_nos", $pr_stock_nos)
             ->with("pr_items", $pr_items)
             ->with("pr_categories", $pr_categories)
             ->with("pr_quantities", $pr_quantities)
             ->with("pr_units", $pr_units);
     }
 
-    public function show_pr()
+    public function show_pr(Request $request)
     {
         $agencies = Agency::all();
         $departments = Department::all();
@@ -79,8 +78,7 @@ class PurchaseRequestController extends Controller
         $units = Unit::all();
         $suppliers = Supplier::all();
 
-        $pr_stock_nos = session()->get('pr_stock_nos');
-        $pr_items = session()->get('pr_items');
+        $pr_items = session()->get('temp_pr_items');
         $pr_categories = session()->get('pr_categories');
         $pr_quantities = session()->get('pr_quantities');
         $pr_units = session()->get('pr_units');
@@ -138,6 +136,8 @@ class PurchaseRequestController extends Controller
         $pr_units = $temp_units;
         $pr_categories = $temp_categories;
 
+        session(['pr_items' => $pr_items]);
+
         return view("transaction.transaction-purchase-request")
             ->with("agencies", $agencies)
             ->with("departments", $departments)
@@ -147,7 +147,6 @@ class PurchaseRequestController extends Controller
             ->with("categories", $categories)
             ->with("units", $units)
             ->with("suppliers", $suppliers)
-            ->with("pr_stock_nos", $pr_stock_nos)
             ->with("pr_items", $pr_items)
             ->with("pr_categories", $pr_categories)
             ->with("pr_quantities", $pr_quantities)
@@ -155,10 +154,9 @@ class PurchaseRequestController extends Controller
     }
 
     public function add_item(Request $request)
-    {        
-        $request->session()->push('pr_stock_nos', $request->input('add-stock-no'));
+    {   
 
-        $request->session()->push('pr_items', $request->input('add-item'));
+        $request->session()->push('temp_pr_items', $request->input('add-item'));
 
         $request->session()->push('pr_categories', $request->input('add-category'));
 
@@ -175,20 +173,17 @@ class PurchaseRequestController extends Controller
     {
         $edit_index = ((int)$request->input('edit-item-id'));
 
-        $pr_stock_nos = session()->get('pr_stock_nos');
-        $pr_items = session()->get('pr_items');
+        $pr_items = session()->get('temp_pr_items');
         $pr_quantities = session()->get('pr_quantities');
         $pr_units = session()->get('pr_units');
         $pr_categories = session()->get('pr_categories');
  
-        $pr_stock_nos[$edit_index] = $request->input('edit-stock-no');
         $pr_items[$edit_index] = $request->input('edit-item');
         $pr_quantities[$edit_index] = $request->input('edit-quantity');
         $pr_units[$edit_index] = $request->input('edit-unit');
         $pr_categories[$edit_index] = $request->input('edit-category');
 
-        session(['pr_stock_nos' => $pr_stock_nos]);
-        session(['pr_items' => $pr_items]);
+        session(['temp_pr_items' => $pr_items]);
         session(['pr_quantities' => $pr_quantities]);
         session(['pr_categories' => $pr_categories]);
         session(['pr_units' => $pr_units]);
@@ -211,6 +206,8 @@ class PurchaseRequestController extends Controller
 
     public function store(Request $request) 
     {
+        $pr_items = session()->get('pr_items');
+
         $purchase_request = PurchaseRequest::create(array(
                 'agency_fk' => $request->input('add-agency'),
                 'department_fk' => $request->input('add-department'),
@@ -232,17 +229,15 @@ class PurchaseRequestController extends Controller
         $purchase_request->save();
         
 
-        for($i = 0; $i < count(session()->get('pr_items')); $i++){
+        for($i = 0; $i < count($pr_items); $i++){
 
             $purchase_request_detail = PurchaseRequestDetail::create(array(
                     'purchase_request_fk' => $purchase_request->id,
                     'quantity' => session()->get('pr_quantities')[$i],
                     'unit_of_issue_fk' => session()->get('pr_units')[$i],
-                    'item_fk' => session()->get('pr_items')[$i],
+                    'item_fk' => $pr_items[$i]->id,
                     'category_fk' => session()->get('pr_categories')[$i],
-                    'stock_no' => session()->get('pr_stock_nos')[$i],
-                    'total_cost' => 0
-
+                    'stock_no' => $pr_items[$i]->stock_no,
             ));
             
             $purchase_request_detail->save();
@@ -263,14 +258,10 @@ class PurchaseRequestController extends Controller
     {
         $del_index = ((int)$request->input('del-item-id'));
 
-        $pr_stock_nos = session()->get('pr_stock_nos');
         $pr_items = session()->get('pr_items');
         $pr_quantities = session()->get('pr_quantities');
         $pr_units = session()->get('pr_units');
         $pr_suppliers = session()->get('pr_suppliers');
-
-        unset($pr_stock_nos[$del_index]);
-        $pr_stock_nos = array_slice($pr_stock_nos, 0);
         
         unset($pr_items[$del_index]);
         $pr_items = array_slice($pr_items, 0);
@@ -283,9 +274,6 @@ class PurchaseRequestController extends Controller
 
         unset($pr_suppliers[$del_index]);
         $pr_suppliers = array_slice($pr_suppliers, 0);
-
-        session()->forget('pr_stock_nos');
-        session(['pr_stock_nos' => $pr_stock_nos]);
 
         session()->forget('pr_items');
         session(['pr_items' => $pr_items]);

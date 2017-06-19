@@ -49,7 +49,7 @@
                                             <tbody>
                                                 @for($i = 0; $i < count($pr_items); $i++)
                                                 <tr>
-                                                    <td>{{ $pr_stock_nos[$i] }}</td>
+                                                    <td>{{ $pr_items[$i]->stock_no }}</td>
                                                     <td>{{ $pr_categories[$i]->category_name }}</td>
                                                     <td>{{ $pr_items[$i]->item_name }}</td>
                                                     <td>{{ $pr_quantities[$i] }}</td>
@@ -220,11 +220,7 @@
                         </div>
                         <div class="modal-body container-fluid">
                             <div class="col-lg-12">
-                                <input type="hidden" name="edit-item-id" value="{{ $i }}">
-                                <div class="form-group col-lg-5">
-                                    <label for="">Stock No.</label>
-                                    <input type="text" class="form-control" name="edit-stock-no" id="edit-stock-no" value="{{ $pr_stock_nos[$i] }}" required> 
-                                </div>     
+                                <input type="hidden" name="edit-item-id" value="{{ $i }}">    
                                 <div class="form-group col-lg-7">
                                     <label for="">Item Category</label>
                                     <select style="float: left; width: 91%;" class="form-control category" name="edit-category" id="edit-category">
@@ -292,7 +288,7 @@
                             <div class="col-lg-12" >
                                 <div class="form-group">
                                     <input type="hidden" name="del-item-id" value="{{ $i }}">
-                                    Are you sure you want to remove <label for=""> {{ $pr_stock_nos[$i] }} {{ $pr_items[$i]->item_name }}</label>?
+                                    Are you sure you want to remove <label for=""> {{ $pr_items[$i]->stock_no }} {{ $pr_items[$i]->item_name }}</label>?
                                 </div>                               
                             </div>
                         
