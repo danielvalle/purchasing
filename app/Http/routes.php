@@ -153,6 +153,8 @@ Route::group(['prefix' => 'transaction'], function(){
 
 		Route::resource('acceptance', 'AcceptanceController');
 
+			Route::post('acceptance-search', 'AcceptanceController@get_po');
+
 	/* end of Acceptance*/
 
 	/* Issuance */

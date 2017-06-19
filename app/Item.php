@@ -10,6 +10,7 @@ class Item extends Model
     
 	protected $primaryKey = 'id';
 	protected $fillable = array('id',
+								'stock_no',
 								'item_name',
 								'item_description',
 								'item_quantity',

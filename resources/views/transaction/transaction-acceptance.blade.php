@@ -21,49 +21,67 @@
                         <div class="panel-body">
 
                         <div class="panel-body">
-                        {!! Form::open(['class' => 'form-inline', 'method' => 'post', 'url' => 'transaction/abstract-quotation-search']) !!}
+                        {!! Form::open(['class' => 'form-inline', 'method' => 'post', 'url' => 'transaction/acceptance-search']) !!}
                             <div class="panel-body">   
                                 <div class="form-group">
-                                    <label for="">Purchase Order Number:</label>
+                                    <label for="">Purchase Order Number</label>
                                     <select class="selectpicker" name="select-rfq-no" id="select-rfq-no">
+                                        @foreach($po_nos as $po_no)
+                                            <option value="{{ $po_no->id }}">PO No. {{ $po_no->id }}</option>
+                                        @endforeach
                                     </select>     
                                 </div>
-
-                                <div class="form-group" style="margin-right: 50px;">
+                                <div class="form-group" style="margin-right: 40px;">
                                     <button class="form-control btn btn-success">Select</button>        
                                 </div>    
 
-                                <div class="form-group">
-                                    <label for="">Purchase Order Date:</label>
-                                    <select class="selectpicker" name="select-rfq-no" id="select-rfq-no">
-                                    </select>     
+                                <div class="form-group" style="margin-right: 40px;">
+                                    <label for="">Purchase Order Date</label>
+                                    <input class="form-control" name="select-rfq-no" id="select-rfq-no" readonly>     
+                                </div>
+                            </div>
+                        {!! Form::close() !!}
+
+                        {!! Form::open(['class' => 'form-inline', 'method' => 'post', 'url' => 'transaction/acceptance']) !!}                    
+                            <div class="panel-body"> 
+
+                                <div class="form-group col-lg-4">
+                                    <label for="">IAR</label>
+                                    <input class="form-control" name="select-rfq-no" id="select-rfq-no">                                
+                                </div>
+     
+                                <div class="form-group col-lg-4">
+                                    <label for="">Agency</label>
+                                    <input class="form-control" name="select-rfq-no" id="select-rfq-no" readonly>                            
+                                </div>
+
+                                <div class="form-group col-lg-4">
+                                    <label for="">Supplier</label>
+                                    <input class="form-control" name="select-rfq-no" id="select-rfq-no" readonly>                               
                                 </div>
 
                             </div>
 
                             <div class="panel-body"> 
-                                <div class="form-group" style="margin-right: 50px;">
-                                    <label for="">Agency:</label>
-                                    <select class="selectpicker" name="select-rfq-no" id="select-rfq-no">
-                                    </select>                               
+                                <div class="form-group col-lg-4">
+                                    <label for="">Invoice No.</label>
+                                    <input class="form-control" name="select-rfq-no" id="select-rfq-no">                                
                                 </div>
 
-                                <div class="form-group" style="margin-right: 50px;">
-                                    <label for="">Supplier:</label>
-                                    <select class="selectpicker" name="select-rfq-no" id="select-rfq-no">
-                                    </select>                              
+                                <div class="form-group col-lg-3" >
+                                    <label for="">Invoice Date</label>
+                                    <input type="date" class="form-control" id="add-sai-date" name="add-sai-date" value="{{ date("Y-m-d") }}" required>                           
                                 </div>
-
-                                <div class="form-group" style="margin-right: 50px;">
-                                    <label for="">IAR:</label>
-                                    <select class="selectpicker" name="select-rfq-no" id="select-rfq-no">
-                                    </select>                              
+                                <div class="form-group col-lg-5">
+                                    <label for="">Requisitioning Office/Dept.</label>
+                                    <select class="selectpicker" name="select-rfq-no" id="select-rfq-no">   
+                                        @foreach($departments as $department)
+                                            <option value="{{ $department->id}}">{{ $department->department_name }}</option>
+                                        @endforeach  
+                                    </select>                       
                                 </div>
-
                             </div>
-                        </div>
-                            {!! Form::close() !!}
-                        </div>             
+                              
 
                          <div class="panel-body">
                             <div class="panel panel-default">
@@ -89,6 +107,67 @@
                                 </div>             
                             </div>
                         </div>
+
+                            <div class="panel-body" style="width:50%; float: left">   
+                                <div class="panel panel-default">
+                                    <div class="panel-heading">Inspection</div>
+                                    <div class="panel-body"> 
+                                        <div class="form-group col-lg-6">
+                                            <label for="">Date Inspected</label>
+                                            <input type="date" class="form-control" id="add-sai-date" name="add-sai-date" value="{{ date("Y-m-d") }}" required>                               
+                                        </div>
+
+                                        <div class="form-group col-lg-6">
+                                            <label for="">Inspector</label>
+                                            <select class="selectpicker" name="select-rfq-no" id="select-rfq-no">  
+                                                @foreach($users as $user)
+                                                    <option value="{{ $user->id }}">{{ $user->first_name }} {{ $user->last_name }}</option>
+                                                @endforeach
+                                            </select>                              
+                                        </div>
+
+                                    </div>
+                                    <div class="panel-body">
+                                        <div class="form-group col-lg-12">
+                                            <label class=""><input type="checkbox" value="">Inspected, verified and found OK at to quantity and specification</label>  
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="panel-body" style="width:50%; float: left">   
+                                <div class="panel panel-default">
+                                    <div class="panel-heading">Acceptance</div>
+                                    <div class="panel-body"> 
+                                        <div class="form-group col-lg-6">
+                                            <label for="">Date Inspected</label>
+                                            <input type="date" class="form-control" id="add-sai-date" name="add-sai-date" value="{{ date("Y-m-d") }}" required>                               
+                                        </div>
+
+                                        <div class="form-group col-lg-6">
+                                            <label for="">Property Officer</label>
+                                            <select class="selectpicker" name="select-rfq-no" id="select-rfq-no">  
+                                                @foreach($users as $user)
+                                                    <option value="{{ $user->id }}">{{ $user->first_name }} {{ $user->last_name }}</option>
+                                                @endforeach
+                                            </select>                                   
+                                        </div>
+                                    </div>
+                                    <div class="panel-body">
+                                        <div class="form-group col-lg-3">
+                                            <label class=""><input type="radio" value="" name="rdb-completeness">Complete</label>  
+                                        </div>
+                                        <div class="form-group col-lg-6">
+                                            <label class=""><input type="radio" value="" name="rdb-completeness">Partial (Pls. Specify Quantity)</label>  
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                        <button type="submit" style="float: right; width: 20%;"class="btn btn-success">Submit Acceptance Form</button>  
+                    </div>
+                    {!! Form::close() !!}
                     </div>
                     <!-- /.panel -->
                 </div>

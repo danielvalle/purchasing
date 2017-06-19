@@ -95,7 +95,7 @@ class PurchaseOrderController extends Controller
 
         }
 
-        return redirect("transaction.transaction-purchase-order");
+        return redirect("transaction/purchase-order");
     }
 
     public function get_aq(Request $request)

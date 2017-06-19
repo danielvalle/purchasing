@@ -88,7 +88,6 @@
                                                         <input type="hidden" name="quantity{{ $i }}" value="{{ $purchase_request->quantity }}">
                                                         <td>{{ $purchase_request->unit_name }}</td>        
                                                         <input type="hidden" name="unit_id{{ $i }}" value="{{ $purchase_request->unit_id }}">                                    
-                                                        <input type="hidden" name="total{{ $i }}" value="{{ $purchase_request->total_cost }}">
                                                     </tr>
                                                 @endforeach
                                                 </tbody>
