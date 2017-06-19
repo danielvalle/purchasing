@@ -25,7 +25,7 @@
                             <div class="panel-body">   
                                 <div class="form-group">
                                     <label for="">Purchase Order Number</label>
-                                    <select class="selectpicker" name="select-rfq-no" id="select-rfq-no">
+                                    <select class="selectpicker" name="select-po-no" id="select-po-no">
                                         @foreach($po_nos as $po_no)
                                             <option value="{{ $po_no->id }}">PO No. {{ $po_no->id }}</option>
                                         @endforeach
@@ -37,7 +37,7 @@
 
                                 <div class="form-group" style="margin-right: 40px;">
                                     <label for="">Purchase Order Date</label>
-                                    <input class="form-control" name="select-rfq-no" id="select-rfq-no" readonly>     
+                                    <input class="form-control" name="add-po-date" id="add-po-date" value="{{ $po_header->invoice_date }}" readonly>     
                                 </div>
                             </div>
                         {!! Form::close() !!}
@@ -47,17 +47,19 @@
 
                                 <div class="form-group col-lg-4">
                                     <label for="">IAR</label>
-                                    <input class="form-control" name="select-rfq-no" id="select-rfq-no">                                
+                                    <input class="form-control" name="add-iar" id="add-iar">                                
                                 </div>
      
                                 <div class="form-group col-lg-4">
                                     <label for="">Agency</label>
-                                    <input class="form-control" name="select-rfq-no" id="select-rfq-no" readonly>                            
+                                    <input type="hidden" name="add-agency" id="add-agency" value="{{ $po_header->agency_fk }}" >
+                                    <input class="form-control" value="{{ $po_header->agency_name }}" readonly>                            
                                 </div>
 
                                 <div class="form-group col-lg-4">
                                     <label for="">Supplier</label>
-                                    <input class="form-control" name="select-rfq-no" id="select-rfq-no" readonly>                               
+                                    <input type="hidden" name="add-supplier" id="add-supplier" value="{{ $po_header->supplier_fk }}" >
+                                    <input class="form-control" value="{{ $po_header->supplier_name }}" readonly>                             
                                 </div>
 
                             </div>
@@ -65,16 +67,16 @@
                             <div class="panel-body"> 
                                 <div class="form-group col-lg-4">
                                     <label for="">Invoice No.</label>
-                                    <input class="form-control" name="select-rfq-no" id="select-rfq-no">                                
+                                    <input class="form-control" name="add-invoice-no" id="add-invoice-no">                                
                                 </div>
 
                                 <div class="form-group col-lg-3" >
                                     <label for="">Invoice Date</label>
-                                    <input type="date" class="form-control" id="add-sai-date" name="add-sai-date" value="{{ date("Y-m-d") }}" required>                           
+                                    <input type="date" class="form-control" id="add-invoice-date" name="add-invoice-date" value="{{ date("Y-m-d") }}" required>                           
                                 </div>
                                 <div class="form-group col-lg-5">
                                     <label for="">Requisitioning Office/Dept.</label>
-                                    <select class="selectpicker" name="select-rfq-no" id="select-rfq-no">   
+                                    <select class="selectpicker" name="select-dept" id="select-dept">   
                                         @foreach($departments as $department)
                                             <option value="{{ $department->id}}">{{ $department->department_name }}</option>
                                         @endforeach  
@@ -91,6 +93,7 @@
                                         <table class="table table-bordered">
                                             <thead>
                                                 <tr>
+                                                    <th>Stock No.</th>
                                                     <th style="width: 20%;">Item</th>
                                                     <th>Quantity</th>
                                                     <th>Unit</th>
@@ -98,8 +101,18 @@
                                                 </tr>
                                             </thead>
                                             <tbody>
+                                            @foreach($po_items as $po_item)
                                                 <tr>
+                                                    <td>{!! $po_item->stock_no !!}</td>
+                                                    <td>{!! $po_item->item_name !!}</td>
+                                                    <td>{!! $po_item->quantity !!}</td>
+                                                    <td>{!! $po_item->unit_name !!}</td>
+                                                    <td>{!! $po_item->item_description !!}</td>
+                                                    <input type="hidden" name="add-item[]" value="{!! $po_item->item_fk !!}"> 
+                                                    <input type="hidden" name="add-unit[]" value="{!! $po_item->unit_fk !!}"> 
+                                                    <input type="hidden" name="add-quantity[]" value="{!! $po_item->quantity !!}"> 
                                                 </tr>
+                                            @endforeach
                                             </tbody>
                                         </table>
                                         
@@ -114,12 +127,12 @@
                                     <div class="panel-body"> 
                                         <div class="form-group col-lg-6">
                                             <label for="">Date Inspected</label>
-                                            <input type="date" class="form-control" id="add-sai-date" name="add-sai-date" value="{{ date("Y-m-d") }}" required>                               
+                                            <input type="date" class="form-control" id="add-date-inspected" name="add-date-inspected" value="{{ date("Y-m-d") }}" required>                               
                                         </div>
 
                                         <div class="form-group col-lg-6">
                                             <label for="">Inspector</label>
-                                            <select class="selectpicker" name="select-rfq-no" id="select-rfq-no">  
+                                            <select class="selectpicker" name="add-inspector" id="add-inspector">  
                                                 @foreach($users as $user)
                                                     <option value="{{ $user->id }}">{{ $user->first_name }} {{ $user->last_name }}</option>
                                                 @endforeach
@@ -141,12 +154,12 @@
                                     <div class="panel-body"> 
                                         <div class="form-group col-lg-6">
                                             <label for="">Date Inspected</label>
-                                            <input type="date" class="form-control" id="add-sai-date" name="add-sai-date" value="{{ date("Y-m-d") }}" required>                               
+                                            <input type="date" class="form-control" id="add-date-accepted" name="add-date-accepted" value="{{ date("Y-m-d") }}" required>                               
                                         </div>
 
                                         <div class="form-group col-lg-6">
                                             <label for="">Property Officer</label>
-                                            <select class="selectpicker" name="select-rfq-no" id="select-rfq-no">  
+                                            <select class="selectpicker" name="add-officer" id="add-officer">  
                                                 @foreach($users as $user)
                                                     <option value="{{ $user->id }}">{{ $user->first_name }} {{ $user->last_name }}</option>
                                                 @endforeach
