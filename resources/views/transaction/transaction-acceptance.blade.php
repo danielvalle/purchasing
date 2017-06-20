@@ -37,12 +37,14 @@
 
                                 <div class="form-group" style="margin-right: 40px;">
                                     <label for="">Purchase Order Date</label>
-                                    <input class="form-control" name="add-po-date" id="add-po-date" value="{{ $po_header->invoice_date }}" readonly>     
+                                    <input class="form-control" value="{{ $po_date }}" readonly>     
                                 </div>
                             </div>
                         {!! Form::close() !!}
 
                         {!! Form::open(['class' => 'form-inline', 'method' => 'post', 'url' => 'transaction/acceptance']) !!}                    
+                            <input type="hidden" name="add-po-date" id="add-po-date" value="{{ $po_date }}">     
+                            <input type="hidden" name="add-po-no" id="add-po-no" value="{{ $po_number }}">     
                             <div class="panel-body"> 
 
                                 <div class="form-group col-lg-4">
@@ -52,14 +54,14 @@
      
                                 <div class="form-group col-lg-4">
                                     <label for="">Agency</label>
-                                    <input type="hidden" name="add-agency" id="add-agency" value="{{ $po_header->agency_fk }}" >
-                                    <input class="form-control" value="{{ $po_header->agency_name }}" readonly>                            
+                                    <input type="hidden" name="add-agency" id="add-agency" value="{{ $po_agency_fk }}" >
+                                    <input class="form-control" value="{{ $po_agency_name }}" readonly>                            
                                 </div>
 
                                 <div class="form-group col-lg-4">
                                     <label for="">Supplier</label>
-                                    <input type="hidden" name="add-supplier" id="add-supplier" value="{{ $po_header->supplier_fk }}" >
-                                    <input class="form-control" value="{{ $po_header->supplier_name }}" readonly>                             
+                                    <input type="hidden" name="add-supplier" id="add-supplier" value="{{ $po_supplier_fk }}" >
+                                    <input class="form-control" value="{{ $po_supplier_name }}" readonly>                             
                                 </div>
 
                             </div>
@@ -142,7 +144,7 @@
                                     </div>
                                     <div class="panel-body">
                                         <div class="form-group col-lg-12">
-                                            <label class=""><input type="checkbox" value="">Inspected, verified and found OK at to quantity and specification</label>  
+                                            <label class=""><input type="checkbox" value="" name="cbx-inspected" value="1">Inspected, verified and found OK at to quantity and specification</label>  
                                         </div>
                                     </div>
                                 </div>
@@ -168,10 +170,10 @@
                                     </div>
                                     <div class="panel-body">
                                         <div class="form-group col-lg-3">
-                                            <label class=""><input type="radio" value="" name="rdb-completeness">Complete</label>  
+                                            <label class=""><input type="radio" value="" name="rdb-completeness" value="1">Complete</label>  
                                         </div>
                                         <div class="form-group col-lg-6">
-                                            <label class=""><input type="radio" value="" name="rdb-completeness">Partial (Pls. Specify Quantity)</label>  
+                                            <label class=""><input type="radio" value="" name="rdb-completeness" value="0">Partial (Pls. Specify Quantity)</label>  
                                         </div>
                                     </div>
                                 </div>
