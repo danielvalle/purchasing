@@ -351,6 +351,7 @@ CREATE TABLE acceptance
 CREATE TABLE acceptance_detail
     (
       `id` int NOT NULL AUTO_INCREMENT,
+      `acceptance_fk` int,
       `item_fk` int,
       `unit_fk` int,
       `quantity` int,
@@ -359,7 +360,8 @@ CREATE TABLE acceptance_detail
       `updated_at` date,
       PRIMARY KEY(id),
       FOREIGN KEY(item_fk) REFERENCES item(id),
-      FOREIGN KEY(unit_fk) REFERENCES unit(id)
+      FOREIGN KEY(unit_fk) REFERENCES unit(id),
+      FOREIGN KEY(acceptance_fk) REFERENCES acceptance(id)
     );
 
 CREATE TABLE issuance

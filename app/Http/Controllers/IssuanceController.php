@@ -23,6 +23,7 @@ class IssuanceController extends Controller
 	
 	public function index()
     {
+        $i = 0;
     	$agencies = Agency::all();
     	$departments = Department::all();
     	$offices = Office::all();
@@ -31,6 +32,8 @@ class IssuanceController extends Controller
 
     	$items = Item::all();
     	$units = Unit::all();
+
+        session(["item-counter" => $i]);  
 
 		return view("transaction.transaction-issuance")
 			->with("agencies", $agencies)
@@ -44,25 +47,83 @@ class IssuanceController extends Controller
 
     public function store(Request $request) 
     {
+        $item_count = session()->get("item-counter");
 
+        for($i = 0; $i < $item_count; $i++)
+        {
+            $quantities[$i] = $request->input("quantity" . $i);
+            $stock_nos[$i] = $request->input("hdn-stock-no" . $i);
+            $items[$i] = $request->input("hdn-item" . $i);
+            $units[$i] = $request->input("hdn-unit" . $i);
+            $remarks[$i] = $request->input("hdn-remarks" . $i);
+        }
+        
+        $issuance = Issuance::create(array(
+                'agency_fk' => $request->input('add-agency'),
+                'department_fk' => $request->input('add-department'),
+                'office_fk' => session()->get("add-office"),
+                'reasonability_center_code' => $request->input('add-code'),
+                'ris_no' => $request->input('add-ris-no'),
+                'ris_date' => date("Y-m-d", strtotime($request->input('add-ris-date'))),
+                'sai_no' => $request->input('add-sai-no'),
+                'sai_date' =>  date("Y-m-d", strtotime($request->input('add-sai-date'))),
+                'purpose' => $request->input('add-purpose'),
+                'requested_by_fk' => $request->input('cbx-inspected'),
+                'requestor_designation_fk' =>  $request->input('add-date-delivery'),
+                'request_date' => $request->input('add-inspector'),
+                'approver_fk' => $request->input('add-date-accepted'),
+                'approver_designation_fk' => $request->input('rdb-completeness'),
+                'approved_date' => $request->input('add-officer'),
+                'issued_by_fk' => $request->input('add-officer'),
+                'issuer_designation_fk' => $request->input('add-officer'),
+                'issued_date' => $request->input('add-officer'),
+                'received_by_fk' => $request->input('add-officer'),
+                'recipient_designation_fk' => $request->input('add-officer'),
+                'receipt_date' => $request->input('add-officer'),
+                'is_active' => 1
+            ));
+
+        $issuance->save();
+
+        for($i = 0; $i < count($item_count); $i++){
+
+            $issuance_detail = IssuanceDetail::create(array(
+                    'issuance_fk' => $issuance->id,
+                    'stock_no' => $stock_nos[$i],
+                    'item_fk' => $items[$i],
+                    'unit_fk' => $units[$i],
+                    'quantity' => $quantities[$i],
+                    'remarks' => $remarks[$i],
+                    'is_active' => 1
+            ));
+            
+            $issuance_detail->save();
+
+        }
+
+        return redirect("transaction/issuance");
     }
 
     public function add_item(Request $request)
-    {
-    	$selected_item = \DB::table('item')
-    				->select('*')
-    				->where('id', $request->input('item_id'))
+    {   
+
+    	$selected_item = \DB::table("item")
+    				->select("*")
+    				->where("id", $request->input("item_id"))
     				->first();
 
-    	$selected_unit = \DB::table('unit')
-    				->select('*')
-    				->where('id', $request->input('unit_id'))
+    	$selected_unit = \DB::table("unit")
+    				->select("*")
+    				->where("id", $request->input("unit_id"))
     				->first();
 
+        $temp_counter = (int)session()->get("item-counter");
+        $temp_counter += 1;
+        session(["item-counter" => $temp_counter]);  
 
         if($request->ajax()){
 
-            return $request->json(array(
+            return response()->json(array(
             		'stock_no' => $selected_item->stock_no,
             		'item_id' => $selected_item->id,
             		'item_name' => $selected_item->item_name,

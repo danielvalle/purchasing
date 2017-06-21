@@ -18,7 +18,6 @@ class Issuance extends Model
 								'ris_date',
 								'sai_no',
 								'sai_date',
-								'document_type',
 								'purpose',
 								'requested_by_fk',
 								'requestor_designation_fk',

@@ -21,11 +21,11 @@
                         <div class="panel-body">
 
                         <div class="panel-body">
-                            {!! Form::open(['method' => 'post', 'url' => 'transaction/abstract-quotation-search']) !!}
+                            {!! Form::open(['method' => 'post', 'url' => 'transaction/issuance']) !!}
                         <div class="panel-body">   
                             <div class="form-group col-lg-3">                          
                                     <label for="">Agency</label>
-                                    <select class="form-control" name="select-rfq-no" id="select-rfq-no">
+                                    <select class="form-control" name="add-agency" id="add-agency">
                                         @foreach($agencies as $agency)
                                             <option value="{{ $agency->id }}">{{ $agency->agency_name }}</option>
                                         @endforeach
@@ -35,7 +35,7 @@
                             <div class="form-group col-lg-3">                          
                                 
                                     <label for="">Department</label>
-                                    <select class="form-control" name="select-rfq-no" id="select-rfq-no">
+                                    <select class="form-control" name="add-department" id="add-department">
                                         @foreach($departments as $department)
                                             <option value="{{ $department->id }}">{{ $department->department_name }}</option>
                                         @endforeach
@@ -46,7 +46,7 @@
                             <div class="form-group col-lg-3">                          
                                 
                                     <label for="">Office</label>
-                                    <select class="form-control" name="select-rfq-no" id="select-rfq-no">
+                                    <select class="form-control" name="add-office" id="add-office">
                                         @foreach($offices as $office)
                                             <option value="{{ $office->id }}">{{ $office->office_name }}</option>
                                         @endforeach
@@ -57,7 +57,7 @@
                              <div class="form-group col-lg-3">                          
                                 
                                     <label for="">Reasonability Center Code</label>
-                                    <input type="text" class="form-control">                              
+                                    <input type="text" class="form-control" name="add-code" id="add-code">                              
                                 </div>
                            
                         </div>
@@ -67,28 +67,28 @@
                             <div class="form-group col-lg-3">                          
                                 <div class="form-group">
                                     <label for="">RIS No.</label>
-                                    <input type="text" class="form-control">                            
+                                    <input type="text" class="form-control" name="add-ris-no" id="add-ris-no">                            
                                 </div>
                             </div>
 
                             <div class="form-group col-lg-3">                          
                                 <div class="form-group">
                                     <label for="">RIS Date</label>
-                                    <input type="date" class="form-control">                           
+                                    <input type="date" class="form-control" name="add-ris-date" id="add-ris-date">                           
                                 </div>
                             </div>
 
                             <div class="form-group col-lg-3">                          
                                 <div class="form-group">
                                     <label for="">SAI No.</label>
-                                    <input type="text" class="form-control">                            
+                                    <input type="text" class="form-control" name="add-sai-no" id="add-sai-no">                             
                                 </div>
                             </div>
 
                              <div class="form-group col-lg-3">                          
                                 <div class="form-group">
                                     <label for="">SAI Date.</label>
-                                    <input type="date" class="form-control">                              
+                                    <input type="date" class="form-control" name="add-sai-date" id="add-sai-date">                              
                                 </div>
                             </div>
                         </div>
@@ -98,20 +98,18 @@
                                 <div class="panel-heading"><button type="button" class="btn btn-success btn-sm" data-toggle="modal" data-target="#add-item">Add New Item</button> </div>
                                 <div class="panel-body">
                                     <div class="form-group col-lg-12">
-                                        <table class="table table-bordered">
+                                        <table class="table table-bordered" id="issuance-items">
                                             <thead>
                                                 <tr>
                                                     <th>Stock No.</th>
                                                     <th style="width: 20%;">Item</th>
-                                                    <th>Quantity</th>
+                                                    <th style="width: 15%">Quantity</th>
                                                     <th>Unit</th>
                                                     <th>Item Description</th>
                                                     <th>Remarks</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                                <tr>
-                                                </tr>
                                             </tbody>
                                         </table>
                                         
@@ -120,18 +118,18 @@
                             </div>
                         </div>
 
-                            <div class="panel-body">   
+                            <div class="panel-body">
                                 <div class="form-group col-lg-12">                          
                                     <label for="">Purpose</label>
-                                    <textarea type="text"row="2" class="form-control"></textarea>                      
+                                    <textarea type="text"row="2" class="form-control" name="add-purpose" id="add-purpose"></textarea>                      
                                 </div>
                             </div>
 
                             <div class="panel-body">
-                                <div class="form-group col-lg-4 col-lg-4">                          
+                                <div class="form-group col-lg-4">                          
                                     <div class="form-group">
                                         <label for="">Requested By</label>
-                                        <select class="form-control">
+                                        <select class="form-control" name="add-requested-by" id="add-requested-by">
                                             @foreach($users as $user)
                                                 <option value="{{ $user->id }}">{{ $user->first_name }} {{ $user->last_name }}</option>
                                             @endforeach
@@ -142,7 +140,7 @@
                                 <div class="form-group col-lg-4">                          
                                     <div class="form-group">
                                         <label for="">Requestor Designation</label>
-                                        <select class="form-control">
+                                        <select class="form-control" name="add-requestor-designation" id="add-requestor-designation">
                                             @foreach($designations as $designation)
                                                 <option value="{{ $designation->id }}">{{ $designation->designation_name }}</option>
                                             @endforeach
@@ -153,38 +151,7 @@
                                  <div class="form-group col-lg-4">                          
                                     <div class="form-group">
                                         <label for="">Request Date</label>
-                                        <input type="date" class="form-control">                              
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="panel-body">
-                                <div class="form-group col-lg-4">                          
-                                    <div class="form-group">
-                                        <label for="">Requested By</label>
-                                        <select class="form-control">
-                                            @foreach($users as $user)
-                                                <option value="{{ $user->id }}">{{ $user->first_name }} {{ $user->last_name }}</option>
-                                            @endforeach
-                                        </select>                                                  
-                                    </div>
-                                </div>
-
-                                <div class="form-group col-lg-4">                          
-                                    <div class="form-group">
-                                        <label for="">Requestor Designation</label>
-                                        <select class="form-control">
-                                            @foreach($designations as $designation)
-                                                <option value="{{ $designation->id }}">{{ $designation->designation_name }}</option>
-                                            @endforeach
-                                        </select>                         
-                                    </div>
-                                </div>
-
-                                 <div class="form-group col-lg-4">                          
-                                    <div class="form-group">
-                                        <label for="">Request Date</label>
-                                        <input type="date" class="form-control">                              
+                                        <input type="date" class="form-control" name="add-request-date" id="add-request-date">                              
                                     </div>
                                 </div>
                             </div>
@@ -193,7 +160,7 @@
                                 <div class="form-group col-lg-4">                          
                                     <div class="form-group">
                                         <label for="">Approved By</label>
-                                        <select class="form-control">
+                                        <select class="form-control" name="add-approved-by" id="add-approved-by">
                                             @foreach($users as $user)
                                                 <option value="{{ $user->id }}">{{ $user->first_name }} {{ $user->last_name }}</option>
                                             @endforeach
@@ -204,7 +171,7 @@
                                 <div class="form-group col-lg-4">                          
                                     <div class="form-group">
                                         <label for="">Approver Designation</label>
-                                        <select class="form-control">
+                                        <select class="form-control" name="add-approver-designation" id="add-approver-designation">
                                             @foreach($designations as $designation)
                                                 <option value="{{ $designation->id }}">{{ $designation->designation_name }}</option>
                                             @endforeach
@@ -215,17 +182,16 @@
                                  <div class="form-group col-lg-4">                          
                                     <div class="form-group">
                                         <label for="">Approved Date</label>
-                                        <input type="date" class="form-control">                              
+                                        <input type="date" class="form-control" name="add-approved-date" id="add-approved-date">                              
                                     </div>
                                 </div>
                             </div>                        
                         
-
                             <div class="panel-body">
                                 <div class="form-group col-lg-4">                          
                                     <div class="form-group">
                                         <label for="">Issued By</label>
-                                        <select class="form-control">
+                                        <select class="form-control" name="add-issued-by" id="add-issued-by">
                                             @foreach($users as $user)
                                                 <option value="{{ $user->id }}">{{ $user->first_name }} {{ $user->last_name }}</option>
                                             @endforeach
@@ -236,7 +202,7 @@
                                 <div class="form-group col-lg-4">                          
                                     <div class="form-group">
                                         <label for="">Issuer Designation</label>
-                                        <select class="form-control">
+                                        <select class="form-control" name="add-issuer-designation" id="add-issuer-designation">
                                             @foreach($designations as $designation)
                                                 <option value="{{ $designation->id }}">{{ $designation->designation_name }}</option>
                                             @endforeach
@@ -247,11 +213,42 @@
                                  <div class="form-group col-lg-4">                          
                                     <div class="form-group">
                                         <label for="">Issued Date</label>
-                                        <input type="date" class="form-control">                              
+                                        <input type="date" class="form-control" name="add-issued-date" id="add-issued-date">                              
                                     </div>
                                 </div>
                             </div>
                        
+                            <div class="panel-body">
+                                <div class="form-group col-lg-4 col-lg-4">                          
+                                    <div class="form-group">
+                                        <label for="">Received By</label>
+                                        <select class="form-control" name="add-received-by" id="add-received-by">
+                                            @foreach($users as $user)
+                                                <option value="{{ $user->id }}">{{ $user->first_name }} {{ $user->last_name }}</option>
+                                            @endforeach
+                                        </select>                                                  
+                                    </div>
+                                </div>
+
+                                <div class="form-group col-lg-4">                          
+                                    <div class="form-group">
+                                        <label for="">Reciepient Designation</label>
+                                        <select class="form-control" name="add-reciepient-designation" id="add-reciepient-designation">
+                                            @foreach($designations as $designation)
+                                                <option value="{{ $designation->id }}">{{ $designation->designation_name }}</option>
+                                            @endforeach
+                                        </select>                         
+                                    </div>
+                                </div>
+
+                                 <div class="form-group col-lg-4">                          
+                                    <div class="form-group" name="add-receipt-date" id="add-receipt-date">
+                                        <label for="">Receipt Date</label>
+                                        <input type="date" class="form-control">                              
+                                    </div>
+                                </div>
+                            </div>
+
                             <button type="submit" style="float: right; width: 20%;"class="btn btn-success">Convert to RFQ</button>  
                         </div>             
                         {!! Form::close() !!}
@@ -273,10 +270,6 @@
                                                 </select>
                                             </div>        
                                             <div class="form-group col-lg-3">
-                                                <label for="">Quantity</label>
-                                                <input type="number" class="form-control" name="add-quantity" id="add-quantity" required>
-                                            </div>   
-                                            <div class="form-group col-lg-3">
                                                 <label for="">Unit</label>
                                                 <select class="form-control" name="add-unit" id="add-unit">
                                                     @foreach($units as $unit)
@@ -296,7 +289,7 @@
                                     </div>
                                         <div class="modal-footer">
                                             <button type="submit" class="btn btn-success" id="btn-add-item">Add</button>
-                                            <button type="button" class="btn btn-default" data-dismiss="modal" id="modal-close">Close</button>
+                                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
                                         </div>
                                 </div>
                             </div>
@@ -334,6 +327,7 @@
 
     });
 
+    var i = 0;
 
     $(document).ready(function(){
 
@@ -359,21 +353,33 @@
                 },
                 dataType: 'json',
                 success: function(data){
-                    console.log(data);
-                    /*$('#add-supplier option[value=' + data.item_id + ']').remove();
-                    $('#table-suppliers tbody').append(
+                    
+                    $("select#add-item").find('[value=' + data.item_id + ']').remove();
+
+                    $('#issuance-items tbody').append(
                         '<tr>' +
-                        '<td>' + data.name + '</td>' +
-                        '<td>' +
-                            '<input type="hidden" id="' + data.id + '" value="' + data.id + '" >' +
-                            '<button type="button" style="color:red" id="btn-del-supplier"><span class="glyphicon glyphicon-trash"></span></button>' +
-                        '</td>' +
+                        '<td>' + data.stock_no + '</td>' +
+                        '<td>' + data.item_name + '</td>' +
+                        '<td> <input type="number" class="form-control col-lg-3" name="quantity' + i + '" required></td>' +
+                        '<td>' + data.unit_name + '</td>' +
+                        '<td>' + data.item_description + '</td>' +
+                        '<td>' + data.remarks + '</td>' +
+                        '<input type="hidden" name="hdn-stock-no'  + i + '" value="' + data.stock_no + '">' +
+                        '<input type="hidden" name="hdn-item'  + i + '" value="' + data.item_id + '">' +
+                        '<input type="hidden" name="hdn-unit'  + i + '" value="' + data.unit_id + '">' +
+                        '<input type="hidden" name="hdn-remarks'  + i + '" value="' + data.remarks + '">' +
                         '</tr>'
                     );
 
-                    if($('#add-supplier').has('option').length == 0 ) {
-                        $('#btn-add-supplier').prop('disabled', true);
-                    }*/
+                    i++;
+
+                    $("#add-item").modal("hide");
+                    $("#add-remarks").val("");
+
+                    if($('select#add-item').has('option').length == 0 ) {
+                        $('#btn-add-item').prop('disabled', true);
+                
+                    }
                 }
 
             });      

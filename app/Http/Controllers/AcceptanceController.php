@@ -75,6 +75,7 @@ class AcceptanceController extends Controller
         for($i = 0; $i < count($items); $i++){
 
             $acceptance_detail = AcceptanceDetail::create(array(
+                    'acceptance_fk' => $acceptance->id,
                     'item_fk' => $items[$i]->item_fk,
                     'unit_fk' => $items[$i]->unit_fk,
                     'quantity' => $items[$i]->quantity,
