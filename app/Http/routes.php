@@ -161,6 +161,8 @@ Route::group(['prefix' => 'transaction'], function(){
 
 		Route::resource('issuance', 'IssuanceController');
 
+			Route::post('issuance/add-item', 'IssuanceController@add_item');
+
 	/* end of Issuance*/
 
 	/* DisbursementVoucher */

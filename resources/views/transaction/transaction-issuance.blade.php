@@ -21,67 +21,71 @@
                         <div class="panel-body">
 
                         <div class="panel-body">
-                            {!! Form::open(['class' => 'form-inline', 'method' => 'post', 'url' => 'transaction/abstract-quotation-search']) !!}
-                        <div class="form-group">   
-
-                            <div class="form-group" style="margin-right: 6px">                          
-                                <div class="form-group">
+                            {!! Form::open(['method' => 'post', 'url' => 'transaction/abstract-quotation-search']) !!}
+                        <div class="panel-body">   
+                            <div class="form-group col-lg-3">                          
                                     <label for="">Agency</label>
-                                    <select class="selectpicker" name="select-rfq-no" id="select-rfq-no">
-                                    </select>                              
-                                </div>
+                                    <select class="form-control" name="select-rfq-no" id="select-rfq-no">
+                                        @foreach($agencies as $agency)
+                                            <option value="{{ $agency->id }}">{{ $agency->agency_name }}</option>
+                                        @endforeach
+                                    </select>                                                            
                             </div>
 
-                            <div class="form-group" style="margin-right: 6px">                          
-                                <div class="form-group">
+                            <div class="form-group col-lg-3">                          
+                                
                                     <label for="">Department</label>
-                                    <select class="selectpicker" name="select-rfq-no" id="select-rfq-no">
+                                    <select class="form-control" name="select-rfq-no" id="select-rfq-no">
+                                        @foreach($departments as $department)
+                                            <option value="{{ $department->id }}">{{ $department->department_name }}</option>
+                                        @endforeach
                                     </select>                              
-                                </div>
+                                
                             </div>
 
-                            <div class="form-group" style="margin-right: 6px">                          
-                                <div class="form-group">
+                            <div class="form-group col-lg-3">                          
+                                
                                     <label for="">Office</label>
-                                    <select class="selectpicker" name="select-rfq-no" id="select-rfq-no">
+                                    <select class="form-control" name="select-rfq-no" id="select-rfq-no">
+                                        @foreach($offices as $office)
+                                            <option value="{{ $office->id }}">{{ $office->office_name }}</option>
+                                        @endforeach
                                     </select>                              
-                                </div>
+                               
                             </div>
 
-                             <div class="form-group">                          
-                                <div class="form-group">
-                                    <label for="">Reasonability Center</label>
+                             <div class="form-group col-lg-3">                          
+                                
+                                    <label for="">Reasonability Center Code</label>
                                     <input type="text" class="form-control">                              
                                 </div>
-                            </div>
+                           
                         </div>
 
-                        <div style="margin: 20px 0"></div>
+                        <div class="panel-body">   
 
-                        <div class="form-group">   
-
-                            <div class="form-group" style="margin-right: 50px">                          
+                            <div class="form-group col-lg-3">                          
                                 <div class="form-group">
                                     <label for="">RIS No.</label>
                                     <input type="text" class="form-control">                            
                                 </div>
                             </div>
 
-                            <div class="form-group" style="margin-right: 50px">                          
+                            <div class="form-group col-lg-3">                          
                                 <div class="form-group">
                                     <label for="">RIS Date</label>
                                     <input type="date" class="form-control">                           
                                 </div>
                             </div>
 
-                            <div class="form-group" style="margin-right: 50px">                          
+                            <div class="form-group col-lg-3">                          
                                 <div class="form-group">
                                     <label for="">SAI No.</label>
                                     <input type="text" class="form-control">                            
                                 </div>
                             </div>
 
-                             <div class="form-group">                          
+                             <div class="form-group col-lg-3">                          
                                 <div class="form-group">
                                     <label for="">SAI Date.</label>
                                     <input type="date" class="form-control">                              
@@ -116,123 +120,144 @@
                             </div>
                         </div>
 
-                        <div class="form-group" style="width: 100%">   
-
-                            <div class="form-group" style="margin-right: 50px; width: 100%">                          
-                                <div class="form-group" style="width: 100%">
+                            <div class="panel-body">   
+                                <div class="form-group col-lg-12">                          
                                     <label for="">Purpose</label>
-                                    <textarea style="width: 90%" class="form-control"></textarea>                      
+                                    <textarea type="text"row="2" class="form-control"></textarea>                      
                                 </div>
                             </div>
 
-                        </div>
+                            <div class="panel-body">
+                                <div class="form-group col-lg-4 col-lg-4">                          
+                                    <div class="form-group">
+                                        <label for="">Requested By</label>
+                                        <select class="form-control">
+                                            @foreach($users as $user)
+                                                <option value="{{ $user->id }}">{{ $user->first_name }} {{ $user->last_name }}</option>
+                                            @endforeach
+                                        </select>                                                  
+                                    </div>
+                                </div>
 
-                        <div style="margin: 20px 0"></div>
+                                <div class="form-group col-lg-4">                          
+                                    <div class="form-group">
+                                        <label for="">Requestor Designation</label>
+                                        <select class="form-control">
+                                            @foreach($designations as $designation)
+                                                <option value="{{ $designation->id }}">{{ $designation->designation_name }}</option>
+                                            @endforeach
+                                        </select>                         
+                                    </div>
+                                </div>
 
-                        <div class="form-group">
-                            <div class="form-group" style="margin-right: 50px">                          
-                                <div class="form-group">
-                                    <label for="">Requested By</label>
-                                    <select class="selectpicker"></select>                                                  
+                                 <div class="form-group col-lg-4">                          
+                                    <div class="form-group">
+                                        <label for="">Request Date</label>
+                                        <input type="date" class="form-control">                              
+                                    </div>
                                 </div>
                             </div>
 
-                            <div class="form-group" style="margin-right: 50px">                          
-                                <div class="form-group">
-                                    <label for="">Requestor Designation</label>
-                                    <select class="selectpicker"></select>                         
+                            <div class="panel-body">
+                                <div class="form-group col-lg-4">                          
+                                    <div class="form-group">
+                                        <label for="">Requested By</label>
+                                        <select class="form-control">
+                                            @foreach($users as $user)
+                                                <option value="{{ $user->id }}">{{ $user->first_name }} {{ $user->last_name }}</option>
+                                            @endforeach
+                                        </select>                                                  
+                                    </div>
+                                </div>
+
+                                <div class="form-group col-lg-4">                          
+                                    <div class="form-group">
+                                        <label for="">Requestor Designation</label>
+                                        <select class="form-control">
+                                            @foreach($designations as $designation)
+                                                <option value="{{ $designation->id }}">{{ $designation->designation_name }}</option>
+                                            @endforeach
+                                        </select>                         
+                                    </div>
+                                </div>
+
+                                 <div class="form-group col-lg-4">                          
+                                    <div class="form-group">
+                                        <label for="">Request Date</label>
+                                        <input type="date" class="form-control">                              
+                                    </div>
                                 </div>
                             </div>
 
-                             <div class="form-group">                          
-                                <div class="form-group">
-                                    <label for="">Request Date</label>
-                                    <input type="date" class="form-control">                              
+                            <div class="panel-body">
+                                <div class="form-group col-lg-4">                          
+                                    <div class="form-group">
+                                        <label for="">Approved By</label>
+                                        <select class="form-control">
+                                            @foreach($users as $user)
+                                                <option value="{{ $user->id }}">{{ $user->first_name }} {{ $user->last_name }}</option>
+                                            @endforeach
+                                        </select>                                                  
+                                    </div>
                                 </div>
-                            </div>
-                        </div>
 
-                        <div style="margin: 20px 0"></div>
-
-                        <div class="form-group">
-                            <div class="form-group" style="margin-right: 50px">                          
-                                <div class="form-group">
-                                    <label for="">Requested By</label>
-                                    <select class="selectpicker"></select>                                                  
+                                <div class="form-group col-lg-4">                          
+                                    <div class="form-group">
+                                        <label for="">Approver Designation</label>
+                                        <select class="form-control">
+                                            @foreach($designations as $designation)
+                                                <option value="{{ $designation->id }}">{{ $designation->designation_name }}</option>
+                                            @endforeach
+                                        </select>                         
+                                    </div>
                                 </div>
-                            </div>
 
-                            <div class="form-group" style="margin-right: 50px">                          
-                                <div class="form-group">
-                                    <label for="">Requestor Designation</label>
-                                    <select class="selectpicker"></select>                         
+                                 <div class="form-group col-lg-4">                          
+                                    <div class="form-group">
+                                        <label for="">Approved Date</label>
+                                        <input type="date" class="form-control">                              
+                                    </div>
                                 </div>
-                            </div>
-
-                             <div class="form-group">                          
-                                <div class="form-group">
-                                    <label for="">Request Date</label>
-                                    <input type="date" class="form-control">                              
-                                </div>
-                            </div>
-                        </div>
-
-                        <div style="margin: 20px 0"></div>
-
-                        <div class="form-group">
-                            <div class="form-group" style="margin-right: 50px">                          
-                                <div class="form-group">
-                                    <label for="">Approved By</label>
-                                    <select class="selectpicker"></select>                                                  
-                                </div>
-                            </div>
-
-                            <div class="form-group" style="margin-right: 50px">                          
-                                <div class="form-group">
-                                    <label for="">Approver Designation</label>
-                                    <select class="selectpicker"></select>                         
-                                </div>
-                            </div>
-
-                             <div class="form-group">                          
-                                <div class="form-group">
-                                    <label for="">Approved Date</label>
-                                    <input type="date" class="form-control">                              
-                                </div>
-                            </div>
-                        </div>                        
+                            </div>                        
                         
-                        <div style="margin: 20px 0"></div>
 
-                        <div class="form-group">
-                            <div class="form-group" style="margin-right: 50px">                          
-                                <div class="form-group">
-                                    <label for="">Issued By</label>
-                                    <select class="selectpicker"></select>                                                  
+                            <div class="panel-body">
+                                <div class="form-group col-lg-4">                          
+                                    <div class="form-group">
+                                        <label for="">Issued By</label>
+                                        <select class="form-control">
+                                            @foreach($users as $user)
+                                                <option value="{{ $user->id }}">{{ $user->first_name }} {{ $user->last_name }}</option>
+                                            @endforeach
+                                        </select>                                                  
+                                    </div>
+                                </div>
+
+                                <div class="form-group col-lg-4">                          
+                                    <div class="form-group">
+                                        <label for="">Issuer Designation</label>
+                                        <select class="form-control">
+                                            @foreach($designations as $designation)
+                                                <option value="{{ $designation->id }}">{{ $designation->designation_name }}</option>
+                                            @endforeach
+                                        </select>                         
+                                    </div>
+                                </div>
+
+                                 <div class="form-group col-lg-4">                          
+                                    <div class="form-group">
+                                        <label for="">Issued Date</label>
+                                        <input type="date" class="form-control">                              
+                                    </div>
                                 </div>
                             </div>
-
-                            <div class="form-group" style="margin-right: 50px">                          
-                                <div class="form-group">
-                                    <label for="">Issuer Designation</label>
-                                    <select class="selectpicker"></select>                         
-                                </div>
-                            </div>
-
-                             <div class="form-group">                          
-                                <div class="form-group">
-                                    <label for="">Issued Date</label>
-                                    <input type="date" class="form-control">                              
-                                </div>
-                            </div>
-                        </div>
-
+                       
+                            <button type="submit" style="float: right; width: 20%;"class="btn btn-success">Convert to RFQ</button>  
                         </div>             
                         {!! Form::close() !!}
 
                         <div id="add-item" class="modal fade" role="dialog">
                             <div class="modal-dialog">
-                                {!! Form::open(['url' => 'transaction/purchase-request/add-item', 'method' => 'post']) !!}
                                 <div class="modal-content">
                                     <div class="modal-header">
                                         <h4 class="modal-title">Add New Item</h4>
@@ -242,7 +267,9 @@
                                             <div class="form-group col-lg-6">
                                                 <label for="">Item:</label>
                                                 <select class="form-control" name="add-item" id="add-item">
-
+                                                    @foreach($items as $item)
+                                                        <option value="{{ $item->id }}">{{ $item->item_name }}</option>
+                                                    @endforeach
                                                 </select>
                                             </div>        
                                             <div class="form-group col-lg-3">
@@ -252,25 +279,26 @@
                                             <div class="form-group col-lg-3">
                                                 <label for="">Unit</label>
                                                 <select class="form-control" name="add-unit" id="add-unit">
-
+                                                    @foreach($units as $unit)
+                                                        <option value="{{ $unit->id }}">{{ $unit->unit_name }}</option>
+                                                    @endforeach
                                                 </select>
                                             </div>    
                                         </div>
                                         <div class="col-lg-12">
                                             <div class="form-group col-lg-12">
                                                 <label for="">Remarks:</label>
-                                                <textarea type="text" class="form-control"></textarea>
+                                                <textarea type="text" class="form-control" name="add-remarks" id="add-remarks"></textarea>
                                             </div>        
                                         </div>
 
 
                                     </div>
                                         <div class="modal-footer">
-                                            <button type="submit" class="btn btn-success">Add</button>
+                                            <button type="submit" class="btn btn-success" id="btn-add-item">Add</button>
                                             <button type="button" class="btn btn-default" data-dismiss="modal" id="modal-close">Close</button>
                                         </div>
                                 </div>
-                                {!! Form::close() !!}
                             </div>
                         </div>
 
@@ -313,7 +341,7 @@
             location.reload(true);
         });
 
-        $('#btn-add-supplier').click(function(){
+        $('#btn-add-item').click(function(){
 
             $.ajaxSetup({
                 headers:
@@ -321,16 +349,18 @@
             });
 
             $.ajax({
-                url: 'purchase-request/add-supplier',
+                url: 'issuance/add-item',
                 type: "post",
                 data: {
-                    'id': $('#select-add-supplier').find('option:selected').val(), 
-                    'name' : $('#select-add-supplier').find('option:selected').text()
+                    'item_id': $('#add-item').find('option:selected').val(), 
+                    'quantity' : $('#add-quantity').val(),
+                    'unit_id': $('#add-unit').find('option:selected').val(), 
+                    'remarks' : $('#add-remarks').val()
                 },
                 dataType: 'json',
                 success: function(data){
-
-                    $('#select-add-supplier option[value=' + data.id + ']').remove();
+                    console.log(data);
+                    /*$('#add-supplier option[value=' + data.item_id + ']').remove();
                     $('#table-suppliers tbody').append(
                         '<tr>' +
                         '<td>' + data.name + '</td>' +
@@ -341,9 +371,9 @@
                         '</tr>'
                     );
 
-                    if($('#select-add-supplier').has('option').length == 0 ) {
+                    if($('#add-supplier').has('option').length == 0 ) {
                         $('#btn-add-supplier').prop('disabled', true);
-                    }
+                    }*/
                 }
 
             });      
