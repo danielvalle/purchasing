@@ -19,52 +19,54 @@
                         </div>
                         <!-- /.panel-heading -->
                         <div class="panel-body">
-                            
+                        {!! Form::open(['method' => 'post', 'url' => 'transaction/disbursement-voucher']) !!}
                             <div class="form-group col-lg-12">
                                 <label for="">Mode Of Payment:&nbsp&nbsp&nbsp&nbsp</label>
-                                <label class="radio-inline"><input type="radio" name="optradio">MDS Check</label>
-                                <label class="radio-inline"><input type="radio" name="optradio">Commercial Check</label>
-                                <label class="radio-inline"><input type="radio" name="optradio">ADA</label>
-                                <label class="radio-inline"><input type="radio" name="optradio">Others</label>
+                                <label class="radio-inline"><input type="radio" name="add-mode-of-payment">MDS Check</label>
+                                <label class="radio-inline"><input type="radio" name="add-mode-of-payment">Commercial Check</label>
+                                <label class="radio-inline"><input type="radio" name="add-mode-of-payment">ADA</label>
+                                <label class="radio-inline"><input type="radio" name="add-mode-of-payment">Others</label>
                             </div>
 
 
                             <div class="form-group col-lg-4">
                                 <label for="">Payee</label>
-                                <select class="form-control">
+                                <select class="form-control" name="add-payee">
+                                    @foreach($users as $user)
+                                        <option value="{{ $user->id }}">{{ $user->first_name }} {{ $user->last_name }}</option>
+                                    @endforeach
                                 </select>    
                             </div>
                             <div class="form-group col-lg-4">
                                 <label for="">TIN/Employee No.</label>
-                                <input type="text" class="form-control">
+                                <input type="text" class="form-control" name="add-tin">
                             </div>
                             <div class="form-group col-lg-4">
                                 <label for="">OR/BUR No.</label>
-                                <input type="text" class="form-control">
+                                <input type="text" class="form-control" name="add-or-bur-no">
                             </div>
-
 
                             <div class="form-group col-lg-6">
                                 <label for="">Address</label>
-                                <input type="text" class="form-control">
+                                <input type="text" class="form-control" name="add-address">
                             </div>
                             <div class="form-group col-lg-4">
                                 <label for="">Office/Unit/Project</label>
-                                <input type="text" class="form-control">
+                                <input type="text" class="form-control" name="add-office">
                             </div>
                             <div class="form-group col-lg-2">
                                 <label for="">Code</label>
-                                <input type="text" class="form-control">
+                                <input type="text" class="form-control" name="add-code">
                             </div>
 
 
                             <div class="form-group col-lg-10">
                                 <label for="">Explanation</label>
-                                <textarea type="text" class="form-control" rows="2"></textarea>
+                                <textarea type="text" class="form-control" rows="2" name="add-explanation"></textarea>
                             </div>
                             <div class="form-group col-lg-2">
                                 <label for="">Amount</label>
-                                <input type="number" class="form-control">
+                                <input type="number" class="form-control" name="add-amount">
                             </div>
 
                         </div>
@@ -73,19 +75,21 @@
                         
                             <div class="form-group col-lg-12">
                                 <label for="">Certified:&nbsp&nbsp&nbsp&nbsp</label>
-                                <label class="radio-inline"><input type="radio" name="optradio">MDS Check</label>
-                                <label class="radio-inline"><input type="radio" name="optradio">Commercial Check</label>
-                                <label class="radio-inline"><input type="radio" name="optradio">ADA</label>
-                                <label class="radio-inline"><input type="radio" name="optradio">Others</label>
+                                <label class="radio-inline"><input type="radio" name="add-certified">Cash Available</label>
+                                <label class="radio-inline"><input type="radio" name="add-certified">Subject to Authority to Debit Account (when applicable)</label>
+                                <label class="radio-inline"><input type="radio" name="add-certified">Supporting documents complete</label>
                             </div>
                             <div class="form-group col-lg-4">
                                 <label>Certifier:</label>
-                                <select class="form-control">
+                                <select class="form-control" name="add-certifier">
+                                    @foreach($users as $user)
+                                        <option value="{{ $user->id }}">{{ $user->first_name }} {{ $user->last_name  }}</option>
+                                    @endforeach
                                 </select> 
                             </div>
                             <div class="form-group col-lg-4">
                                 <label>Date:</label>
-                                <input type="date" class="form-control" id="add-sai-date" name="add-sai-date" value="{{ date("Y-m-d") }}" required>
+                                <input type="date" class="form-control" name="add-certified-date" value="{{ date("Y-m-d") }}" required>
                             </div>
 
                         </div>
@@ -94,63 +98,62 @@
                         
                             <div class="form-group col-lg-12">
                                 <label for="">Approved For Payment:</label>
-                                <textarea type="text" class="form-control" rows="2"></textarea>
+                                <textarea type="text" class="form-control" rows="2" name="add-approved-for-payment"></textarea>
                             </div>
                             <div class="form-group col-lg-4">
                                 <label>Approver:</label>
-                                <select class="form-control">
+                                <select class="form-control" name="add-approver">
+                                    @foreach($users as $user)
+                                        <option value="{{ $user->id }}">{{ $user->first_name }} {{ $user->last_name  }}</option>
+                                    @endforeach
                                 </select> 
                             </div>
                             <div class="form-group col-lg-4">
                                 <label>Date:</label>
-                                <input type="date" class="form-control" id="add-sai-date" name="add-sai-date" value="{{ date("Y-m-d") }}" required>
+                                <input type="date" class="form-control" id="add-approved-date" name="add-approved-date" value="{{ date("Y-m-d") }}" required>
                             </div>
 
                         </div>
 
                         <div class="panel-body">
                         
-                            <div class="form-group col-lg-4">
+                            <div class="form-group col-lg-5">
                                 <label for="">Check/ADA No.</label>
-                                <input type="text" class="form-control">
+                                <input type="text" class="form-control" name="add-check-ada">
                             </div>
                             <div class="form-group col-lg-2">
                                 <label>Date:</label>
-                                <input type="date" class="form-control" id="add-sai-date" name="add-sai-date" value="{{ date("Y-m-d") }}" required>
+                                <input type="date" class="form-control" id="add-check-date" name="add-check-date" value="{{ date("Y-m-d") }}" required>
                             </div>
-                            <div class="form-group col-lg-4">
+                            <div class="form-group col-lg-5">
                                 <label for="">Bank Name</label>
-                                <input type="text" class="form-control">
+                                <input type="text" class="form-control" name="add-bank">
                             </div>
-                            <div class="form-group col-lg-2">
-                                <label>Date:</label>
-                                <input type="date" class="form-control" id="add-sai-date" name="add-sai-date" value="{{ date("Y-m-d") }}" required>
-                            </div>
-                            <div class="form-group col-lg-4">
+                            <div class="form-group col-lg-5">
                                 <label for="">Printed Name</label>
-                                <select class="form-control"></select>
+                                <select class="form-control" name="add-printed-name">
+                                    @foreach($users as $user)
+                                        <option value="{{ $user->id }}">{{ $user->first_name }} {{ $user->last_name  }}</option>
+                                    @endforeach
+                                </select>
                             </div>
                             <div class="form-group col-lg-2">
                                 <label>Date:</label>
-                                <input type="date" class="form-control" id="add-sai-date" name="add-sai-date" value="{{ date("Y-m-d") }}" required>
+                                <input type="date" class="form-control" id="add-printed-name-date" name="add-printed-name-date" value="{{ date("Y-m-d") }}" required>
                             </div>
 
-                            <div class="form-group col-lg-4">
+                            <div class="form-group col-lg-5">
                                 <label for="">JEV No.</label>
-                                <input type="text" class="form-control">
+                                <input type="text" class="form-control" name="add-jev-no">
                             </div>         
-                            <div class="form-group col-lg-2">
-                                <label>Date:</label>
-                                <input type="date" class="form-control" id="add-sai-date" name="add-sai-date" value="{{ date("Y-m-d") }}" required>
-                            </div>   
 
                             <div class="form-group col-lg-12">
                                 <label for="">Official Receipt/Other Documents</label>
-                                <input type="text" class="form-control">
+                                <input type="text" class="form-control" name="add-documents">
                             </div>
 
                             <button type="submit" style="float: right; width: 20%;"class="btn btn-success">Submit Disbursement Voucher</button>  
-                        
+                        {!! Form::close() !!}
                         </div>                        
 
                     <!-- /.panel -->
