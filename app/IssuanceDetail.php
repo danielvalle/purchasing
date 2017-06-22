@@ -15,6 +15,7 @@ class IssuanceDetail extends Model
 								'unit_fk',
 								'item_fk',
 								'quantity',
+								'no_of_days_consume',
 								'remarks',
 								'is_active'
 								//

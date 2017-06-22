@@ -74,7 +74,7 @@
                             <div class="form-group col-lg-3">                          
                                 <div class="form-group">
                                     <label for="">RIS Date</label>
-                                    <input type="date" class="form-control" name="add-ris-date" id="add-ris-date">                           
+                                    <input type="date" class="form-control" name="add-ris-date" id="add-ris-date" value="{{ date("Y-m-d") }}">                           
                                 </div>
                             </div>
 
@@ -88,7 +88,7 @@
                              <div class="form-group col-lg-3">                          
                                 <div class="form-group">
                                     <label for="">SAI Date.</label>
-                                    <input type="date" class="form-control" name="add-sai-date" id="add-sai-date">                              
+                                    <input type="date" class="form-control" name="add-sai-date" id="add-sai-date" value="{{ date("Y-m-d") }}">                              
                                 </div>
                             </div>
                         </div>
@@ -107,6 +107,7 @@
                                                     <th>Unit</th>
                                                     <th>Item Description</th>
                                                     <th>Remarks</th>
+                                                    <th style="width: 15%">No. of Days to Consume</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
@@ -151,7 +152,7 @@
                                  <div class="form-group col-lg-4">                          
                                     <div class="form-group">
                                         <label for="">Request Date</label>
-                                        <input type="date" class="form-control" name="add-request-date" id="add-request-date">                              
+                                        <input type="date" class="form-control" name="add-request-date" id="add-request-date" value="{{ date("Y-m-d") }}">                              
                                     </div>
                                 </div>
                             </div>
@@ -182,7 +183,7 @@
                                  <div class="form-group col-lg-4">                          
                                     <div class="form-group">
                                         <label for="">Approved Date</label>
-                                        <input type="date" class="form-control" name="add-approved-date" id="add-approved-date">                              
+                                        <input type="date" class="form-control" name="add-approved-date" id="add-approved-date" value="{{ date("Y-m-d") }}">                              
                                     </div>
                                 </div>
                             </div>                        
@@ -213,7 +214,7 @@
                                  <div class="form-group col-lg-4">                          
                                     <div class="form-group">
                                         <label for="">Issued Date</label>
-                                        <input type="date" class="form-control" name="add-issued-date" id="add-issued-date">                              
+                                        <input type="date" class="form-control" name="add-issued-date" id="add-issued-date" value="{{ date("Y-m-d") }}">                              
                                     </div>
                                 </div>
                             </div>
@@ -244,7 +245,7 @@
                                  <div class="form-group col-lg-4">                          
                                     <div class="form-group" name="add-receipt-date" id="add-receipt-date">
                                         <label for="">Receipt Date</label>
-                                        <input type="date" class="form-control">                              
+                                        <input type="date" class="form-control" value="{{ date("Y-m-d") }}">                              
                                     </div>
                                 </div>
                             </div>
@@ -368,6 +369,7 @@
                         '<input type="hidden" name="hdn-item'  + i + '" value="' + data.item_id + '">' +
                         '<input type="hidden" name="hdn-unit'  + i + '" value="' + data.unit_id + '">' +
                         '<input type="hidden" name="hdn-remarks'  + i + '" value="' + data.remarks + '">' +
+                        '<td> <input type="number" class="form-control col-lg-3" name="no-days-consume' + i + '" required></td>' +
                         '</tr>'
                     );
 

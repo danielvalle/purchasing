@@ -75,7 +75,7 @@ class PurchaseOrderController extends Controller
 
         $purchase_order = PurchaseOrder::find($purchase_order->id);
 
-        $purchase_order->po_no = date("Y-m", strtotime($purchase_order->date)) . "-" . sprintf("%04d", $purchase_order->id);
+        $purchase_order->po_no = date("Y-m", strtotime($purchase_order->invoice_date)) . "-" . sprintf("%04d", $purchase_order->id);
         $purchase_order->save();
 
         for($i = 0; $i < count($items); $i++){

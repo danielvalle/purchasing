@@ -15,6 +15,7 @@ use App\Item;
 use App\Category;
 use App\Unit;
 use App\Supplier;
+use App\StockCard;
 use App\Http\Controllers\Controller;
 
 class AcceptanceController extends Controller
@@ -83,6 +84,22 @@ class AcceptanceController extends Controller
             ));
             
             $acceptance_detail->save();
+
+            $stock_card = StockCard::create(array(
+                        'item_fk' => $items[$i]->item_fk,
+                        'date' => date("Y-m-d"),
+                        'reference' => "Acceptance",
+                        'acceptance_fk' => $acceptance->id,
+                        'reference_no' => "ACC-" . sprintf("%04d", $acceptance_detail->id),
+                        'received_quantity' => $items[$i]->quantity
+            ));
+
+            $stock_card->save();               
+
+            $item = Item::find($items[$i]->item_fk);
+
+            $item->item_quantity = ($item->item_quantity + (int)$items[$i]->quantity);
+            $item->save();
 
         }
 

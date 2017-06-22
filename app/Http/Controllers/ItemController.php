@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 
 use App\Item;
+use App\StockCard;
 use App\Http\Controllers\Controller;
 
 class ItemController extends Controller
@@ -13,8 +14,12 @@ class ItemController extends Controller
     public function index(){
 
         $items = Item::all();
+        $stock_cards = \DB::table('stock_card as a')
+                ->leftJoin("office as b", "a.office_fk", "=", "b.id")
+                ->select("a.*", "b.office_name")
+                ->get();
 
-        return view("maintenance.maintenance-item")->with('items', $items);
+        return view("maintenance.maintenance-item")->with('items', $items)->with("stock_cards", $stock_cards);
     }
 
     public function store(Request $request)

@@ -30,7 +30,7 @@ class Issuance extends Model
 								'issued_date',
 								'received_by_fk',
 								'recipient_designation_fk',
-								'receipt_date'
+								'receipt_date',
 								'is_active'
 								//
 								);

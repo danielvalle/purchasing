@@ -26,6 +26,7 @@
                                         <th>Stock No.</th>
                                         <th>Item Name</th>
                                         <th style="width:60%">Item Description</th>
+                                        <th>Item Quantity</th>
                                         <th style="width:10%;">Actions</th>
                                     </tr>
                                 </thead>
@@ -36,6 +37,7 @@
                                             <td>{{ $item->stock_no }}</td>
                                             <td>{{ $item->item_name }}</td>
                                             <td>{{ $item->item_description }}</td>
+                                            <td>{{ $item->item_quantity }}</td>
                                             <td>
                                                 <a data-toggle="modal" href="#{{ $item->id }}edit-item"><span class="glyphicon glyphicon-edit"></span></a>
                                                 <a data-toggle="modal" href="#{{ $item->id }}del-item"><span class="glyphicon glyphicon-trash"></span></a>
@@ -167,32 +169,34 @@
                         <div class="row">   
                             <div class="col-lg-12">
                         
+                              <div class="panel-body">
+                                    <div class="form-group" style="width: 100%">   
+                                        <div class="form-group" style="width: 45%; float: left">
+                                            <div class="form-group" style="width: 100%; float: left">
+                                                <label for="" style="width: 30%; float: left">Stock Number:</label>
+                                                <input style="width: 70%; float: left" class="form-control" type="text" value="{{ $item->stock_no }}" readonly>                               
+                                            </div>
 
-                                <div class="panel-body">
-                                    {!! Form::open(['class' => 'form-inline', 'method' => 'post', 'url' => 'transaction/abstract-quotation-search']) !!}
-                                <div class="form-group" style="width: 100%">   
-                                    <div class="form-group" style="width: 45%; float: left">
-                                        <div class="form-group" style="width: 100%; float: left">
-                                            <label for="" style="width: 30%; float: left">Stock Number:</label>
-                                            <input style="width: 70%; float: left" class="form-control" type="text" readonly>                               
+                                            <div style="margin: 10px 0; float: left"></div>
+
+                                            <div class="form-group" style="width: 100%;  float: left">
+                                                <label for="" style="width: 30%; float: left">Item Name:</label>
+                                                <input style="width: 70%; float: left" class="form-control" type="text" value="{{ $item->item_name }}" readonly>                               
+                                            </div>
+
+                                            <div class="form-group" style="width: 100%;  float: left">
+                                                <label for="" style="width: 30%; float: left">Quantity:</label>
+                                                <input style="width: 70%; float: left" class="form-control" type="text" value="{{ $item->item_quantity }}" readonly>                               
+                                            </div>
                                         </div>
 
-                                        <div style="margin: 10px 0; float: left"></div>
-
-                                        <div class="form-group" style="width: 100%;  float: left">
-                                            <label for="" style="width: 30%; float: left">Item Name:</label>
-                                            <input style="width: 70%; float: left" class="form-control" type="text" readonly>                               
+                                        <div class="form-group" style="width: 45%; float: right">                          
+                                            <div class="form-group" style="width: 100%">
+                                                <label for="" style="width: 10%">Description:</label>
+                                                <textarea class="form-control" name="add-item-description" id="add-item-description" rows="3" readonly>{{ $item->item_description }}</textarea>                 
+                                            </div>
                                         </div>
                                     </div>
-
-                                    <div class="form-group" style="width: 45%; float: right">                          
-                                        <div class="form-group" style="width: 100%">
-                                            <label for="" style="width: 10%">Description:</label>
-                                            <textarea class="form-control" name="add-item-description" id="add-item-description" rows="3"></textarea>                 
-                                        </div>
-                                    </div>
-                                </div>
-                                    {!! Form::close() !!}
                                 </div>             
                                 
                                 <div class="form-group col-lg-12">
@@ -205,13 +209,25 @@
                                                 <th>Received Qty</th>
                                                 <th>Issuance</th>
                                                 <th>Office</th>
-                                                <th>Balance Qty</th>
+                                                <th>Issued Qty</th>
                                                 <th>No. Of Days To Consume</th>
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            <tr>
-                                            </tr>
+                                            @foreach($stock_cards as $stock_card)
+                                                @if($stock_card->item_fk == $item->id)
+                                                <tr>    
+                                                    <td>{{ $stock_card->date }}</td>
+                                                    <td>{{ $stock_card->reference }}</td>
+                                                    <td>{{ $stock_card->reference_no }}</td>
+                                                    <td>{{ $stock_card->received_quantity }}</td>
+                                                    <td>{{ $stock_card->reference_no }}</td>
+                                                    <td>{{ $stock_card->office_name }}</td>
+                                                    <td>{{ $stock_card->issued_quantity }}</td>
+                                                    <td>{{ $stock_card->no_of_days_consume }}</td>
+                                                </tr>
+                                                @endif
+                                            @endforeach
                                            </tbody>
                                         </table>
                                 </div>               

@@ -414,6 +414,7 @@ CREATE TABLE issuance_detail
       `unit_fk` int,
       `item_fk` int,
       `quantity` float,
+      `no_of_days_consume` float,
       `remarks` varchar(255),
       `is_active` bit,
       `created_at` date,
