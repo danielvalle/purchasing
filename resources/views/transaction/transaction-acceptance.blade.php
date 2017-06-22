@@ -42,7 +42,7 @@
                             </div>
                         {!! Form::close() !!}
 
-                        {!! Form::open(['class' => 'form-inline', 'method' => 'post', 'url' => 'transaction/acceptance']) !!}                    
+                        {!! Form::open(['method' => 'post', 'url' => 'transaction/acceptance']) !!}                    
                             <input type="hidden" name="add-po-date" id="add-po-date" value="{{ $po_date }}">     
                             <input type="hidden" name="add-po-no" id="add-po-no" value="{{ $po_number }}">     
                             <div class="panel-body"> 
@@ -72,13 +72,14 @@
                                     <input class="form-control" name="add-invoice-no" id="add-invoice-no">                                
                                 </div>
 
-                                <div class="form-group col-lg-3" >
+                                <div class="form-group col-lg-4" >
                                     <label for="">Invoice Date</label>
                                     <input type="date" class="form-control" id="add-invoice-date" name="add-invoice-date" value="{{ date("Y-m-d") }}" required>                           
                                 </div>
-                                <div class="form-group col-lg-5">
+
+                                <div class="form-group col-lg-4">
                                     <label for="">Requisitioning Office/Dept.</label>
-                                    <select class="selectpicker" name="select-dept" id="select-dept">   
+                                    <select class="form-control" name="select-dept" id="select-dept">   
                                         @foreach($departments as $department)
                                             <option value="{{ $department->id}}">{{ $department->department_name }}</option>
                                         @endforeach  
@@ -144,7 +145,7 @@
                                     </div>
                                     <div class="panel-body">
                                         <div class="form-group col-lg-12">
-                                            <label class=""><input type="checkbox" value="" name="cbx-inspected" value="1">Inspected, verified and found OK at to quantity and specification</label>  
+                                            <label class=""><input type="checkbox" name="cbx-inspected" value="1">Inspected, verified and found OK at to quantity and specification</label>  
                                         </div>
                                     </div>
                                 </div>
@@ -170,10 +171,10 @@
                                     </div>
                                     <div class="panel-body">
                                         <div class="form-group col-lg-3">
-                                            <label class=""><input type="radio" value="" name="rdb-completeness" value="1">Complete</label>  
+                                            <label class=""><input type="radio" name="rdb-completeness" value="1">Complete</label>  
                                         </div>
                                         <div class="form-group col-lg-6">
-                                            <label class=""><input type="radio" value="" name="rdb-completeness" value="0">Partial (Pls. Specify Quantity)</label>  
+                                            <label class=""><input type="radio" name="rdb-completeness" value="0">Partial (Pls. Specify Quantity)</label>  
                                         </div>
                                     </div>
                                 </div>

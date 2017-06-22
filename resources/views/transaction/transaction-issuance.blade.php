@@ -220,7 +220,7 @@
                             </div>
                        
                             <div class="panel-body">
-                                <div class="form-group col-lg-4 col-lg-4">                          
+                                <div class="form-group col-lg-4">                          
                                     <div class="form-group">
                                         <label for="">Received By</label>
                                         <select class="form-control" name="add-received-by" id="add-received-by">

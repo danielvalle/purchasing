@@ -49,7 +49,7 @@
                                 <input type="text" class="form-control">
                             </div>
                             <div class="form-group col-lg-4">
-                                <label for="">Office/Unit/Projet</label>
+                                <label for="">Office/Unit/Project</label>
                                 <input type="text" class="form-control">
                             </div>
                             <div class="form-group col-lg-2">
@@ -149,8 +149,9 @@
                                 <input type="text" class="form-control">
                             </div>
 
+                            <button type="submit" style="float: right; width: 20%;"class="btn btn-success">Submit Disbursement Voucher</button>  
+                        
                         </div>                        
-
 
                     <!-- /.panel -->
                 </div>

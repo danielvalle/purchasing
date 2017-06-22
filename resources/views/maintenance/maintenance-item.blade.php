@@ -205,9 +205,7 @@
                                             <tr>
                                                 <th>Date</th>
                                                 <th>Reference</th>
-                                                <th>Acceptance</th>
                                                 <th>Received Qty</th>
-                                                <th>Issuance</th>
                                                 <th>Office</th>
                                                 <th>Issued Qty</th>
                                                 <th>No. Of Days To Consume</th>
@@ -218,10 +216,8 @@
                                                 @if($stock_card->item_fk == $item->id)
                                                 <tr>    
                                                     <td>{{ $stock_card->date }}</td>
-                                                    <td>{{ $stock_card->reference }}</td>
-                                                    <td>{{ $stock_card->reference_no }}</td>
+                                                    <td>({{ $stock_card->reference }}) {{ $stock_card->reference_no }}</td>
                                                     <td>{{ $stock_card->received_quantity }}</td>
-                                                    <td>{{ $stock_card->reference_no }}</td>
                                                     <td>{{ $stock_card->office_name }}</td>
                                                     <td>{{ $stock_card->issued_quantity }}</td>
                                                     <td>{{ $stock_card->no_of_days_consume }}</td>
