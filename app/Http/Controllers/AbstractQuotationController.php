@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Session;
+use PDF;
 
 use App\AbstractQuotation;
 use App\AbstractQuotationDetail;
@@ -184,6 +185,19 @@ class AbstractQuotationController extends Controller
 
         return redirect("transaction/abstract-quotation");
     }
+
+    public function aq_pdf()
+    {
+        $items = Item::all();
+        $user = "Daniel John Israel Sison Valle Jr.";
+
+        view()->share('items', $items);
+        view()->share('user', $user);
+
+        $pdf = PDF::loadView('pdf.abstract-quotation-pdf');
+        return $pdf->download('aq_pdf.pdf');
+    }    
+
 
 }
 

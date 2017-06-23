@@ -123,7 +123,7 @@ Route::group(['prefix' => 'transaction'], function(){
 	/* Request For Quotation */
 
 		Route::get('request-for-quotation-show', 'RequestForQuotationController@show_rfq');
-		Route::get('request-for-quotation-pdf', array('as'=>'transaction/request-for-quotation=pdf', 'uses'=>'RequestForQuotationController@rfq_pdf'));
+		Route::get('request-for-quotation-pdf', array('as'=>'transaction/request-for-quotation-pdf', 'uses'=>'RequestForQuotationController@rfq_pdf'));
 		Route::resource('request-for-quotation', 'RequestForQuotationController');
 
 			Route::post('request-for-quotation-search', 'RequestForQuotationController@get_rfq');
@@ -135,6 +135,7 @@ Route::group(['prefix' => 'transaction'], function(){
 
 	/* Abstract For Quotation */
 
+		Route::get('abstract-quotation-pdf', array('as'=>'transaction/abstract-quotation-pdf', 'uses'=>'AbstractQuotationController@aq_pdf'));
 		Route::resource('abstract-quotation', 'AbstractQuotationController');
 
 			Route::post('abstract-quotation-search', 'AbstractQuotationController@get_rfq');

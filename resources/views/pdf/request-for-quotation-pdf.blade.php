@@ -38,7 +38,7 @@
         <div>
             <center>
                 <h1>
-                    <div style="font-size:15px">PURCHASE REQUEST</div> 
+                    <div style="font-size:15px">Republic of the Philippines</div> 
                     <div style="font-size: 18px;">SOUTHERN LEYTE STATE UNIVERSITY</div>
                     <div style="font-size: 15px;">Sogod, Southern Leyte</div>
                     <div style="font-size: 15px;">Telefax No. (053) 382-2523 </div>
@@ -98,9 +98,9 @@
                     <tbody>  
                         @foreach($items as $item)
                         <tr>
-                            <th style="size:16px; text-align: left; border-right: thin solid black" >5</th>
-                            <th style="size:16px; text-align: left; border-right: thin solid black" >Piece</th>
-                            <th style="size:16px; text-align: left; border-right: thin solid black" >{{ $item->item_name }}</th>
+                            <th style="size:16px; text-align: left; font-weight: normal; border-right: thin solid black" >5</th>
+                            <th style="size:16px; text-align: left; font-weight: normal; border-right: thin solid black" >Piece</th>
+                            <th style="size:16px; text-align: left; font-weight: normal; border-right: thin solid black" >{{ $item->item_name }}</th>
                         </tr>
                         @endforeach
                     </tbody>
@@ -109,6 +109,7 @@
         <div style="min-height: 70px;">
             <div style="font-size:16px;">Place of Delivery:_____________________________ within ____ days</div> 
             <div style="font-size:16px;">_______________________________________________ from receipt of the delivery order.</div> 
+        </div>
         <div style="margin: 20px"></div>
         <div>
             <div style="font-size:16px; width: 50%">I HEREBY CERTIFY that I am in a position to furnish the above articles at the prices shown and in quantities as called for the place of itinerary.</div> 
