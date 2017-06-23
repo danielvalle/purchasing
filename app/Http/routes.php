@@ -153,6 +153,7 @@ Route::group(['prefix' => 'transaction'], function(){
 
 	/* Acceptance */
 
+		Route::get('acceptance-pdf', array('as'=>'transaction/acceptance-pdf', 'uses'=>'AcceptanceController@acceptance_pdf'));
 		Route::resource('acceptance', 'AcceptanceController');
 
 			Route::post('acceptance-search', 'AcceptanceController@get_po');

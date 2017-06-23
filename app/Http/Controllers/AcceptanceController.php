@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Session;
+use PDF;
 
 use App\PurchaseOrder;
 use App\PurchaseOrderDetail;
@@ -153,6 +154,18 @@ class AcceptanceController extends Controller
 				->with("departments", $departments)
 				->with("users", $users);
     }
+
+    public function acceptance_pdf()
+    {
+        $items = Item::all();
+        $user = "Daniel John Israel Sison Valle Jr.";
+
+        view()->share('items', $items);
+        view()->share('user', $user);
+
+        $pdf = PDF::loadView('pdf.acceptance-report-pdf');
+        return $pdf->download('acceptance_pdf.pdf');
+    }    
 
 
 
