@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Session;
+use PDF;
 
 use App\PurchaseRequest;
 use App\PurchaseRequestDetail;
@@ -124,6 +125,18 @@ class RequestForQuotationController extends Controller
         return redirect("transaction/request-for-quotation");
 
     }
+
+    public function rfq_pdf()
+    {
+        $items = Item::all();
+        $user = "Daniel John Israel Sison Valle Jr.";
+
+        view()->share('items', $items);
+        view()->share('user', $user);
+
+        $pdf = PDF::loadView('pdf.request-for-quotation-pdf');
+        return $pdf->download('rfq_pdf.pdf');
+    }    
 
 }
 

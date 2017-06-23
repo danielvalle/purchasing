@@ -311,10 +311,14 @@ class PurchaseRequestController extends Controller
 
     public function pr_pdf()
     {
+        $items = Item::all();
+        $user = "Daniel John Israel Sison Valle Jr.";
+
+        view()->share('items', $items);
+        view()->share('user', $user);
+
         $pdf = PDF::loadView('pdf.purchase-request-pdf');
         return $pdf->download('pr_pdf.pdf');
-
-        return redirect("transaction/request-for-quotation");
     }
 
 }
