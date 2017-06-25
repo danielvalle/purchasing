@@ -144,6 +144,7 @@ Route::group(['prefix' => 'transaction'], function(){
 
 	/* Purchase Order */
 
+		Route::get('purchase-order-pdf', array('as'=>'transaction/purchase-order-pdf', 'uses'=>'PurchaseOrderController@po_pdf'));
 		Route::resource('purchase-order', 'PurchaseOrderController');
 
 			Route::post('purchase-order-search', 'PurchaseOrderController@get_aq');
@@ -162,6 +163,7 @@ Route::group(['prefix' => 'transaction'], function(){
 
 	/* Issuance */
 
+		Route::get('issuance-pdf', array('as'=>'transaction/issuance-pdf', 'uses'=>'IssuanceController@issuance_pdf'));
 		Route::resource('issuance', 'IssuanceController');
 
 			Route::post('issuance/add-item', 'IssuanceController@add_item');

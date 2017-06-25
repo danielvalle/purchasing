@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Session;
+use PDF;
 
 use App\PurchaseRequest;
 use App\PurchaseRequestDetail;
@@ -159,6 +160,19 @@ class IssuanceController extends Controller
             	));
         }
     }
+
+    public function issuance_pdf()
+    {
+        $items = Item::all();
+        $user = "Daniel John Israel Sison Valle Jr.";
+
+        view()->share('items', $items);
+        view()->share('user', $user);
+
+        $pdf = PDF::loadView('pdf.issuance-report-pdf');
+        return $pdf->download('issuance_pdf.pdf');
+    }    
+
 
 
 

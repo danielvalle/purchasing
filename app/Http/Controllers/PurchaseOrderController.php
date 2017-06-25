@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Session;
+use PDF;
 
 use App\Agency;
 use App\PurchaseRequest;
@@ -181,6 +182,19 @@ class PurchaseOrderController extends Controller
         }
         
     }
+
+    public function po_pdf()
+    {
+        $items = Item::all();
+        $user = "Daniel John Israel Sison Valle Jr.";
+
+        view()->share('items', $items);
+        view()->share('user', $user);
+
+        $pdf = PDF::loadView('pdf.purchase-order-pdf');
+        return $pdf->download('po_pdf.pdf');
+    }
+
 
 }
 

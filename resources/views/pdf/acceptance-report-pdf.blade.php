@@ -1,18 +1,7 @@
-<?php
-    
-    $columns = 
-    [
-        'ITEM',
-        'FABRIC',
-        'DESCRIPTION',
-        'BASE PRICE'
-    ];
-?>
-
 <!DOCTYPE html>
 <html>
     <head>
-        <title>Purchase Request Report</title>
+        <title>Acceptance Report</title>
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
         <style type="text/css">
 
