@@ -42,21 +42,21 @@
                     <tbody>  
                         <tr>
                             <td style="font-size: 14px; text-align: left;">Supplier:</td>
-                            <td style="font-size: 14px; text-align: left; width: 50%; ">{{ $user }}</td>
+                            <td style="font-size: 14px; text-align: left; width: 50%; ">{{ $po_header->supplier_name }}</td>
                             <td style="font-size: 14px; text-align: left;">PO No.:</td>
-                            <td style="font-size: 14px; text-align: left;">12345</td>
+                            <td style="font-size: 14px; text-align: left;">{{ $po_header->po_no }}</td>
                         </tr>
                         <tr>
                             <td style="font-size: 14px; text-align: left;">Address:</td>
-                            <td style="font-size: 14px; text-align: left; width: 50%; ">2 Marinella St., Mandaluyong City</td>
+                            <td style="font-size: 14px; text-align: left; width: 50%; ">{{ $po_header->address }}</td>
                             <td style="font-size: 14px; text-align: left;">Date:</td>
-                            <td style="font-size: 14px; text-align: left;">June 25, 2017</td>
+                            <td style="font-size: 14px; text-align: left;">{{ $po_header->invoice_date }}</td>
                         </tr>
                         <tr>
                             <td style="font-size: 14px; text-align: left;">TIN:</td>
-                            <td style="font-size: 14px; text-align: left; width: 50%; ">123-123456-123</td>
+                            <td style="font-size: 14px; text-align: left; width: 50%; ">{{ $po_header->tin }}</td>
                             <td style="font-size: 14px; text-align: left;">Mode Of Procurement:</td>
-                            <td style="font-size: 14px; text-align: left;">Test Data</td>
+                            <td style="font-size: 14px; text-align: left;">{{ $po_header->mode_of_procurement }}</td>
                         </tr>
                     </tbody>
             </table>
@@ -72,15 +72,15 @@
                     <tbody>  
                         <tr>
                             <td style="font-size: 14px; text-align: left;">Place of Delivery:</td>
-                            <td style="font-size: 14px; text-align: center; width: 50%; ">{{ $user }}</td>
+                            <td style="font-size: 14px; text-align: center; width: 50%; ">{{ $po_header->place_of_delivery }}</td>
                             <td style="font-size: 14px; text-align: left;">Delivery Term:</td>
-                            <td style="font-size: 14px; text-align: left;"></td>
+                            <td style="font-size: 14px; text-align: left;">{{ $po_header->delivery_term }}</td>
                         </tr>
                         <tr>
                             <td style="font-size: 14px; text-align: left;">Date of Delivery:</td>
-                            <td style="font-size: 14px; text-align: center; width: 50%; ">2 Marinella St., Mandaluyong City</td>
+                            <td style="font-size: 14px; text-align: center; width: 50%; ">{{ $po_header->date_of_delivery }}</td>
                             <td style="font-size: 14px; text-align: left;">Payment Term:</td>
-                            <td style="font-size: 14px; text-align: left;"></td>
+                            <td style="font-size: 14px; text-align: left;">{{ $po_header->payment_term }}</td>
                         </tr>
                     </tbody>
             </table>
@@ -101,11 +101,11 @@
                         @foreach($items as $item)
                         <tr>
                             <th style="font-size: 14px; text-align: left; border-right: thin solid black" >{{ $item->stock_no }}</th>
-                            <th style="font-size: 14px; text-align: left; border-right: thin solid black" >Piece</th>
+                            <th style="font-size: 14px; text-align: left; border-right: thin solid black" >{{ $item->unit_name }}</th>
                             <th style="font-size: 14px; text-align: left; border-right: thin solid black" >{{ $item->item_name }}</th>
-                            <th style="font-size: 14px; text-align: left; border-right: thin solid black" >5</th>
-                            <th style="font-size: 14px; text-align: left; border-right: thin solid black" >50</th>
-                            <th style="font-size: 14px; text-align: left;" >250</th>
+                            <th style="font-size: 14px; text-align: left; border-right: thin solid black" >{{ $item->quantity }}</th>
+                            <th style="font-size: 14px; text-align: left; border-right: thin solid black" >{{ $item->unit_cost }}</th>
+                            <th style="font-size: 14px; text-align: left;" >{{ $item->amount }}</th>
                         </tr>
                         @endforeach
                     </tbody>
@@ -119,7 +119,7 @@
                         <tr>
                             <th style="font-size: 14px; text-align: center; width: 25%; border-right: thin solid black">Total Amount in Words:</th>
                             <th style="font-size: 14px; text-align: center; width: 60%; border-right: thin solid black"></th>
-                            <th style="font-size: 14px; text-align: center; width: 15%;">250</th>
+                            <th style="font-size: 14px; text-align: center; width: 15%;">{{ $po_header->total_amount }}</th>
                         </tr>
                     </tbody>
             </table>
@@ -148,10 +148,10 @@
                     <tbody>  
                         <tr>
                             <td style="font-size: 14px; text-align: left; width: 65%;">Funds Available:</td>
-                            <td style="font-size: 14px; text-align: left; width: 30%;">ALOBS/BUB No.:</td>
+                            <td style="font-size: 14px; text-align: left; width: 30%;">ALOBS/BUB No.: {{ $po_header->alobs_bub_no }}</td>
                         </tr>
                         <tr>
-                            <td style="font-size: 14px; text-align: center; text-transform: uppercase; text-decoration: underline;">{{ $user }}</td>
+                            <td style="font-size: 14px; text-align: center; text-transform: uppercase;">_________________________________________</td>
                             <td style="font-size: 14px; text-align: left; width: 30%; ">Amount:</td>
                         </tr>
                         <tr>

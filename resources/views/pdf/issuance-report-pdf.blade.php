@@ -49,21 +49,21 @@
                     <tbody>  
                         <tr>
                             <td style="font-size: 13px; width: 15%; text-align: left;">Division:</td>
-                            <td style="font-size: 13px; width: 20%; text-align: left; border-right: thin solid black">&nbsp;</td>
+                            <td style="font-size: 13px; width: 20%; text-align: left; border-right: thin solid black">{{ $header->department_name }}</td>
                             <td style="font-size: 13px; width: 25%; text-align: left; border-right: thin solid black">Reasonability Center Code:</td>
                             <td style="font-size: 13px; width: 10%; text-align: left;">RIS No.</td>
-                            <td style="font-size: 13px; width: 10%; text-align: left;">&nbsp;</td>
+                            <td style="font-size: 13px; width: 10%; text-align: left;">{{ $header->ris_no }}</td>
                             <td style="font-size: 13px; width: 10%; text-align: left;">Date:</td>
-                            <td style="font-size: 13px; width: 10%; text-align: left; ">&nbsp;</td>
+                            <td style="font-size: 13px; width: 10%; text-align: left; ">{{ $header->ris_date }}</td>
                         </tr>
                         <tr>
                             <td style="font-size: 13px; width: 15%; text-align: left;">Office:</td>
-                            <td style="font-size: 13px; width: 20%; text-align: left; border-right: thin solid black">&nbsp;</td>
-                            <td style="font-size: 13px; width: 25%; text-align: left; border-right: thin solid black">&nbsp;</td>
+                            <td style="font-size: 13px; width: 20%; text-align: left; border-right: thin solid black">{{ $header->office_name }}</td>
+                            <td style="font-size: 13px; width: 25%; text-align: left; border-right: thin solid black">{{ $header->reasonability_center_code }}</td>
                             <td style="font-size: 13px; width: 10%; text-align: left;">SAI No.</td>
-                            <td style="font-size: 13px; width: 10%; text-align: left;">&nbsp;</td>
+                            <td style="font-size: 13px; width: 10%; text-align: left;">{{ $header->sai_no }}</td>
                             <td style="font-size: 13px; width: 10%; text-align: left;">Date:</td>
-                            <td style="font-size: 13px; width: 10%; text-align: left; ">&nbsp;</td>
+                            <td style="font-size: 13px; width: 10%; text-align: left; ">{{ $header->sai_date }}</td>
                         </tr>
                     </tbody>
             </table> 
@@ -96,11 +96,11 @@
                         @foreach($items as $item)
                         <tr>
                             <th style="font-size:14px; text-align: left; border-right: thin solid black" >{{ $item->stock_no}}</th>
-                            <th style="font-size:14px; text-align: left; border-right: thin solid black" >Piece</th>
+                            <th style="font-size:14px; text-align: left; border-right: thin solid black" >{{ $item->unit_name }}</th>
                             <th style="font-size:14px; text-align: left; border-right: thin solid black" >{{ $item->item_name }}</th>
-                            <th style="font-size:14px; text-align: left; border-right: thin solid black" >10</th>
+                            <th style="font-size:14px; text-align: left; border-right: thin solid black" >{{ $item->quantity }}</th>
                             <th style="font-size:14px; text-align: left; border-right: thin solid black" >&nbsp;</th>
-                            <th style="font-size:14px; text-align: left; " >&nbsp;</th>
+                            <th style="font-size:14px; text-align: left;">{{ $item->remarks }}</th>
                         </tr>
                         @endforeach
                         <tr>
@@ -133,12 +133,7 @@
         <div style="min-height: 70px;">
             <div style="font-size:15px; font-weight: bold">Purpose</div> 
             <div style="padding: 2px 10px; text-align: justify">
-                <p style="font-size: 15px;">Video provides a powerful way to help you prove your point. When you click Online Video, you can paste in the embed code for the video you want to add. You can also type a keyword to search online for the video that best fits your document.
-                To make your document look professionally produced, Word provides header, footer, cover page, and text box designs that complement each other. For example, you can add a matching cover page, header, and sidebar. Click Insert and then choose the elements you want from the different galleries.
-                Themes and styles also help keep your document coordinated. When you click Design and choose a new Theme, the pictures, charts, and SmartArt graphics change to match your new theme. When you apply styles, your headings change to match the new theme.
-                Save time in Word with new buttons that show up where you need them. To change the way a picture fits in your document, click it and a button for layout options appears next to it. When you work on a table, click where you want to add a row or a column, and then click the plus sign.
-                Reading is easier, too, in the new Reading view. You can collapse parts of the document and focus on the text you want. If you need to stop reading before you reach the end, Word remembers where you left off - even on another device.
-                </p>
+                <p style="font-size: 15px;">{{ $header->purpose }}</p>
             </div>
         </div>
         <div>
@@ -162,24 +157,24 @@
                         </tr>
                         <tr>
                             <th style="font-size: 13px; text-align: left; border-right: thin solid black">Printed Name:</th>
-                            <th style="font-size: 13px; text-align: center; border-right: thin solid black; border-bottom: thin solid black !important">&nbsp;</th>
-                            <th style="font-size: 13px; text-align: center; border-right: thin solid black; border-bottom: thin solid black !important">&nbsp;</th>
-                            <th style="font-size: 13px; text-align: center; border-right: thin solid black; border-bottom: thin solid black !important">&nbsp;</th>
-                            <th style="font-size: 13px; text-align: center; border-bottom: thin solid black !important">&nbsp;</th>
+                            <th style="font-size: 13px; text-align: center; border-right: thin solid black; border-bottom: thin solid black !important">{{ $requested_by->first_name }} {{ $requested_by->middle_name }} {{ $requested_by->last_name }}</th>
+                            <th style="font-size: 13px; text-align: center; border-right: thin solid black; border-bottom: thin solid black !important">{{ $approved_by->first_name }} {{ $approved_by->middle_name }} {{ $approved_by->last_name }}</th>
+                            <th style="font-size: 13px; text-align: center; border-right: thin solid black; border-bottom: thin solid black !important">{{ $issued_by->first_name }} {{ $issued_by->middle_name }} {{ $issued_by->last_name }}</th>
+                            <th style="font-size: 13px; text-align: center; border-bottom: thin solid black !important">{{ $received_by->first_name }} {{ $received_by->middle_name }} {{ $received_by->last_name }}</th>
                         </tr>
                         <tr>
                             <th style="font-size: 13px; text-align: left; border-right: thin solid black">Designation:</th>
-                            <th style="font-size: 13px; text-align: center; border-right: thin solid black; border-bottom: thin solid black !important">&nbsp;</th>
-                            <th style="font-size: 13px; text-align: center; border-right: thin solid black; border-bottom: thin solid black !important">&nbsp;</th>
-                            <th style="font-size: 13px; text-align: center; border-right: thin solid black; border-bottom: thin solid black !important">&nbsp;</th>
-                            <th style="font-size: 13px; text-align: center; border-bottom: thin solid black !important">&nbsp;</th>
+                            <th style="font-size: 13px; text-align: center; border-right: thin solid black; border-bottom: thin solid black !important">{{ $requested_by->designation_name }}</th>
+                            <th style="font-size: 13px; text-align: center; border-right: thin solid black; border-bottom: thin solid black !important">{{ $approved_by->designation_name }}</th>
+                            <th style="font-size: 13px; text-align: center; border-right: thin solid black; border-bottom: thin solid black !important">{{ $issued_by->designation_name }}</th>
+                            <th style="font-size: 13px; text-align: center; border-bottom: thin solid black !important">{{ $received_by->designation_name }}</th>
                         </tr>
                         <tr>
                             <th style="font-size: 13px; text-align: left; border-right: thin solid black">Date:</th>
-                            <th style="font-size: 13px; text-align: center; border-right: thin solid black;">&nbsp;</th>
-                            <th style="font-size: 13px; text-align: center; border-right: thin solid black;">&nbsp;</th>
-                            <th style="font-size: 13px; text-align: center; border-right: thin solid black;">&nbsp;</th>
-                            <th style="font-size: 13px; text-align: center;">&nbsp;</th>
+                            <th style="font-size: 13px; text-align: center; border-right: thin solid black;">{{ $requested_by->request_date }}</th>
+                            <th style="font-size: 13px; text-align: center; border-right: thin solid black;">{{ $approved_by->approved_date }}</th>
+                            <th style="font-size: 13px; text-align: center; border-right: thin solid black;">{{ $issued_by->issued_date }}</th>
+                            <th style="font-size: 13px; text-align: center;">{{ $received_by->receipt_date }}</th>
                         </tr>
                     </tbody>
             </table> 

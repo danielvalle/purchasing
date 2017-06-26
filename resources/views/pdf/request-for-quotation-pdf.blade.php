@@ -1,14 +1,3 @@
-<?php
-    
-    $columns = 
-    [
-        'ITEM',
-        'FABRIC',
-        'DESCRIPTION',
-        'BASE PRICE'
-    ];
-?>
-
 <!DOCTYPE html>
 <html>
     <head>

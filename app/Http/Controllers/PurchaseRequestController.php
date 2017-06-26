@@ -51,6 +51,8 @@ class PurchaseRequestController extends Controller
         session(['temp_suppliers' => $temp_suppliers]);
         session(['temp_pr_items' => $temp_pr_items]);
 
+        session(['pdf_pr_id' => ""]);
+
 		return view("transaction.transaction-purchase-request")
             ->with("users", $users)
             ->with("items", $items)
@@ -213,7 +215,7 @@ class PurchaseRequestController extends Controller
                 'department_fk' => $request->input('add-department'),
                 'section_fk' => $request->input('add-section'),
                 'pr_date' =>  date("Y-m-d", strtotime($request->input('transaction_date'))),
-                'sai_no' => $request->input('add-sai-no'),
+                'sai_number' => $request->input('add-sai-no'),
                 'sai_date' =>  date("Y-m-d", strtotime($request->input('add-sai-date'))),
                 'purpose' => $request->input('add-purpose'),
                 'requested_by_fk' => $request->input('add-requested-by'),
@@ -228,6 +230,7 @@ class PurchaseRequestController extends Controller
         $purchase_request->pr_number = date("Y-m", strtotime($purchase_request->pr_date)) . "-" . sprintf("%04d", $purchase_request->id);
         $purchase_request->save();
         
+        session(["pdf_pr_id" => $purchase_request->id]);
 
         for($i = 0; $i < count($pr_items); $i++){
 
@@ -244,6 +247,8 @@ class PurchaseRequestController extends Controller
 
         }
         
+        \Session::flash('pr_new_check','yes');
+
         return redirect("transaction/request-for-quotation");
 
     }
@@ -312,10 +317,41 @@ class PurchaseRequestController extends Controller
     public function pr_pdf()
     {
         $items = Item::all();
-        $user = "Daniel John Israel Sison Valle Jr.";
+        $pr_header = \DB::table("purchase_request AS pr")
+                ->leftJoin("department AS dept", "pr.department_fk", "=", "dept.id")
+                ->leftJoin("section AS sect", "pr.section_fk", "=", "sect.id")
+                ->select("dept.department_name", "sect.section_name", "pr.pr_number",
+                         "pr.sai_number", "pr.pr_date", "pr.sai_date", "pr.purpose")
+                ->where("pr.id", session()->get("pdf_pr_id"))
+                ->first();
 
-        view()->share('items', $items);
-        view()->share('user', $user);
+        $pr_requested_by = \DB::table("purchase_request AS pr")
+                ->leftJoin("user", "pr.requested_by_fk", "=", "user.id")
+                ->leftJoin("designation AS des", "user.designation_fk", "=", "des.id")
+                ->select("user.first_name", "user.middle_name", "user.last_name",
+                         "des.designation_name")
+                ->where("pr.id", session()->get("pdf_pr_id"))
+                ->first();
+
+        $pr_approved_by = \DB::table("purchase_request AS pr")
+                ->leftJoin("user", "pr.approved_by_fk", "=", "user.id")
+                ->leftJoin("designation AS des", "user.designation_fk", "=", "des.id")
+                ->select("user.first_name", "user.middle_name", "user.last_name",
+                         "des.designation_name")
+                ->where("pr.id", session()->get("pdf_pr_id"))
+                ->first();
+
+        $pr_items = \DB::table("purchase_request_detail AS prd")
+                ->leftJoin("item", "prd.item_fk", "=", "item.id")
+                ->leftJoin("unit", "prd.unit_of_issue_fk", "=", "unit.id")
+                ->select("item.item_name", "unit.unit_name", "prd.stock_no", "prd.quantity")
+                ->where("prd.purchase_request_fk", session()->get("pdf_pr_id"))
+                ->get();
+
+        view()->share('pr_header', $pr_header);
+        view()->share('pr_requested_by', $pr_requested_by);
+        view()->share('pr_approved_by', $pr_approved_by);
+        view()->share('items', $pr_items);
 
         $pdf = PDF::loadView('pdf.purchase-request-pdf');
         return $pdf->download('pr_pdf.pdf');

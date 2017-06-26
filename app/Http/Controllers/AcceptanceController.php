@@ -74,6 +74,8 @@ class AcceptanceController extends Controller
 
         $acceptance->save();
 
+        session(["pdf_accept_id" => $acceptance->id]);
+
         for($i = 0; $i < count($items); $i++){
 
             $acceptance_detail = AcceptanceDetail::create(array(
@@ -103,6 +105,8 @@ class AcceptanceController extends Controller
             $item->save();
 
         }
+
+        \Session::flash('accept_new_check','yes');
 
         return redirect("transaction/acceptance");
     }
@@ -157,11 +161,38 @@ class AcceptanceController extends Controller
 
     public function acceptance_pdf()
     {
-        $items = Item::all();
-        $user = "Daniel John Israel Sison Valle Jr.";
+        $acceptance_header = \DB::table("acceptance AS a")
+                    ->leftJoin("supplier AS s", "a.supplier_fk", "=", "s.id")
+                    ->leftJoin("department AS d", "a.requisitioning_dept_fk", "=", "d.id")
+                    ->select("s.supplier_name", "d.department_name", "a.iar", "a.po_no", "a.po_date",
+                             "a.invoice_no", "a.invoice_date", "a.date_inspected", "a.date_accepted",
+                             "a.verification", "a.completeness")
+                    ->where("a.id", session()->get("pdf_accept_id"))
+                    ->first();
 
+        $items = \DB::table("acceptance_detail as ad")
+                    ->leftJoin("item as i", "ad.item_fk", "=", "i.id")
+                    ->leftJoin("unit as u", "ad.unit_fk", "=", "u.id")
+                    ->select("i.stock_no", "i.item_name", "u.unit_name", "ad.quantity")
+                    ->where("ad.acceptance_fk", session()->get("pdf_accept_id"))
+                    ->get();
+        
+        $accept_inspector = \DB::table("acceptance AS a")
+                ->leftJoin("user", "a.inspector_fk", "=", "user.id")
+                ->select("user.first_name", "user.middle_name", "user.last_name")
+                ->where("a.id", session()->get("pdf_accept_id"))
+                ->first();
+
+        $accept_property_officer = \DB::table("acceptance AS a")
+                ->leftJoin("user", "a.property_officer_fk", "=", "user.id")
+                ->select("user.first_name", "user.middle_name", "user.last_name")
+                ->where("a.id", session()->get("pdf_accept_id"))
+                ->first();
+
+        view()->share('acceptance_header', $acceptance_header);
         view()->share('items', $items);
-        view()->share('user', $user);
+        view()->share('inspector', $accept_inspector);
+        view()->share('property_officer', $accept_property_officer);
 
         $pdf = PDF::loadView('pdf.acceptance-report-pdf');
         return $pdf->download('acceptance_pdf.pdf');

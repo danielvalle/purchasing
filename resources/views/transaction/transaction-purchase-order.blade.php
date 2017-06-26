@@ -1,7 +1,11 @@
 @extends('layouts.master')
 
 @section('content')
-
+        <head>
+            @if(Session::has('po_new_check'))
+                <meta http-equiv="refresh" content="0; url=/purchasing/public/transaction/purchase-order-pdf">
+            @endif
+        </head>
 
         <div id="page-wrapper">
             <div class="row">
@@ -220,14 +224,19 @@
                 success: function(data){
                     var items = {!! json_encode($items) !!};
                     var total_amount = 0;
+                    var len = (data.amount).length;
 
-                    for(var i = 0; i < (data.amount).length; i++)
+                    console.log(data.amount);
+
+                    for(var i = 0; i < items.length; i++)
                     {
                         if(data.amount[i] == null) $("td#amount" + i).html(0);
                         else $("td#amount" + i).html(data.amount[i]);
-
+                    
                         $("input#supplier-amount" + i).val(data.amount[i]);
-                        $("td#total-amount" + i).html(data.amount[i] * items[i].quantity);
+                        $("td#total-amount" + i).html((data.amount[i] * items[i].quantity));
+
+                        
                         total_amount += (data.amount[i] * items[i].quantity);
                     }
 

@@ -79,6 +79,9 @@ class PurchaseOrderController extends Controller
         $purchase_order->po_no = date("Y-m", strtotime($purchase_order->invoice_date)) . "-" . sprintf("%04d", $purchase_order->id);
         $purchase_order->save();
 
+
+        session(["pdf_po_id" => $purchase_order->id]);
+
         for($i = 0; $i < count($items); $i++){
 
             $purchase_order_detail = PurchaseOrderDetail::create(array(
@@ -95,6 +98,8 @@ class PurchaseOrderController extends Controller
             $purchase_order_detail->save();
 
         }
+
+        \Session::flash('po_new_check','yes');
 
         return redirect("transaction/purchase-order");
     }
@@ -185,11 +190,25 @@ class PurchaseOrderController extends Controller
 
     public function po_pdf()
     {
-        $items = Item::all();
-        $user = "Daniel John Israel Sison Valle Jr.";
+        $po_header = \DB::table('purchase_order AS po')
+                ->leftJoin("supplier AS s", "po.supplier_fk", "=", "s.id")
+                ->select("s.supplier_name", "po.address", "po.tin", "po.po_no",
+                         "po.invoice_date", "po.mode_of_procurement", "po.place_of_delivery",
+                         "po.delivery_term", "po.date_of_delivery", "po.payment_term", "po.alobs_bub_no",
+                         "po.total_amount")
+                ->where("po.id", session()->get('pdf_po_id'))
+                ->first();
 
+        $items = \DB::table('purchase_order_detail AS pod')
+                ->leftJoin("item AS i", "pod.item_fk", "=", "i.id")
+                ->leftJoin("unit AS u", "pod.unit_fk", "=", "u.id")
+                ->select("pod.stock_no", "u.unit_name", "i.item_name", "pod.quantity",
+                         "pod.unit_cost", "pod.amount")
+                ->where("pod.po_id_fk", session()->get('pdf_po_id'))
+                ->get();
+
+        view()->share('po_header', $po_header);
         view()->share('items', $items);
-        view()->share('user', $user);
 
         $pdf = PDF::loadView('pdf.purchase-order-pdf');
         return $pdf->download('po_pdf.pdf');

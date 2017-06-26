@@ -1,7 +1,11 @@
 @extends('layouts.master')
 
 @section('content')
-
+        <head>
+            @if(Session::has('issue_new_check'))
+                <meta http-equiv="refresh" content="0; url=/purchasing/public/transaction/issuance-pdf">
+            @endif
+        </head>
 
         <div id="page-wrapper">
             <div class="row">
@@ -243,9 +247,9 @@
                                 </div>
 
                                  <div class="form-group col-lg-4">                          
-                                    <div class="form-group" name="add-receipt-date" id="add-receipt-date">
+                                    <div class="form-group">
                                         <label for="">Receipt Date</label>
-                                        <input type="date" class="form-control" value="{{ date("Y-m-d") }}">                              
+                                        <input type="date" class="form-control" name="add-receipt-date" id="add-receipt-date" value="{{ date("Y-m-d") }}">                              
                                     </div>
                                 </div>
                             </div>

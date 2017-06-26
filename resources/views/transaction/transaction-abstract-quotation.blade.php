@@ -1,7 +1,11 @@
 @extends('layouts.master')
 
 @section('content')
-
+        <head>
+            @if(Session::has('aq_new_check'))
+                <meta http-equiv="refresh" content="0; url=/purchasing/public/transaction/abstract-quotation-pdf">
+            @endif
+        </head>
 
         <div id="page-wrapper">
             <div class="row">

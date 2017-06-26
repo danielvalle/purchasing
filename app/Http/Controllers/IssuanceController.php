@@ -51,6 +51,7 @@ class IssuanceController extends Controller
 
     public function store(Request $request) 
     {
+        dd($request->input('add-receipt-date'));
         $item_count = session()->get("item-counter");
         
         for($i = 0; $i < $item_count; $i++)
@@ -90,6 +91,8 @@ class IssuanceController extends Controller
 
         $issuance->save();
 
+        session(["pdf_issue_id" => $issuance->id]);
+
         for($i = 0; $i < count($item_count); $i++){
 
             $issuance_detail = IssuanceDetail::create(array(
@@ -125,6 +128,8 @@ class IssuanceController extends Controller
             $item->save();
 
         }
+
+        \Session::flash('issue_new_check','yes');
 
         return redirect("transaction/issuance");
     }
@@ -163,11 +168,60 @@ class IssuanceController extends Controller
 
     public function issuance_pdf()
     {
-        $items = Item::all();
-        $user = "Daniel John Israel Sison Valle Jr.";
+        $issuance_header = \DB::table("issuance as i")
+                    ->leftJoin("department as d", "i.department_fk", "=", "d.id")
+                    ->leftJoin("office as o", "i.office_fk", "=", "o.id")
+                    ->select("d.department_name", "o.office_name", "i.reasonability_center_code",
+                             "i.ris_no", "i.ris_date", "i.sai_no", "i.sai_date", "i.purpose")
+                    ->where("i.id", session()->get("pdf_issue_id"))
+                    ->first();
 
+        $items = \DB::table("issuance_detail as id")
+                    ->leftJoin("item as i", "id.item_fk", "=", "i.id")
+                    ->leftJoin("unit as u", "id.unit_fk", "=", "u.id")
+                    ->select("i.item_name", "u.unit_name", "id.stock_no",
+                             "id.quantity", "id.no_of_days_consume", "id.remarks")
+                    ->where("id.issuance_fk", session()->get("pdf_issue_id"))
+                    ->get();
+
+        $requested_by = \DB::table("issuance AS i")
+                ->leftJoin("user", "i.requested_by_fk", "=", "user.id")
+                ->leftJoin("designation as d", "i.requestor_designation_fk", "=", "d.id")
+                ->select("user.first_name", "user.middle_name", "user.last_name", 
+                         "d.designation_name", "i.request_date")
+                ->where("i.id", session()->get("pdf_accept_id"))
+                ->first();
+
+        $approved_by = \DB::table("issuance AS i")
+                ->leftJoin("user", "i.approver_fk", "=", "user.id")
+                ->leftJoin("designation as d", "i.approver_designation_fk", "=", "d.id")
+                ->select("user.first_name", "user.middle_name", "user.last_name", 
+                         "d.designation_name", "i.approved_date")
+                ->where("i.id", session()->get("pdf_accept_id"))
+                ->first();
+
+        $issued_by = \DB::table("issuance AS i")
+                ->leftJoin("user", "i.issued_by_fk", "=", "user.id")
+                ->leftJoin("designation as d", "i.issuer_designation_fk", "=", "d.id")
+                ->select("user.first_name", "user.middle_name", "user.last_name", 
+                         "d.designation_name", "i.issued_date")
+                ->where("i.id", session()->get("pdf_accept_id"))
+                ->first();
+
+        $received_by = \DB::table("issuance AS i")
+                ->leftJoin("user", "i.received_by_fk", "=", "user.id")
+                ->leftJoin("designation as d", "i.recipient_designation_fk", "=", "d.id")
+                ->select("user.first_name", "user.middle_name", "user.last_name", 
+                         "d.designation_name", "i.receipt_date")
+                ->where("i.id", session()->get("pdf_accept_id"))
+                ->first();
+
+        view()->share('header', $issuance_header);
         view()->share('items', $items);
-        view()->share('user', $user);
+        view()->share('requested_by', $requested_by);
+        view()->share('approved_by', $approved_by);
+        view()->share('issued_by', $issued_by);
+        view()->share('received_by', $received_by);
 
         $pdf = PDF::loadView('pdf.issuance-report-pdf');
         return $pdf->download('issuance_pdf.pdf');

@@ -1,14 +1,3 @@
-<?php
-    
-    $columns = 
-    [
-        'ITEM',
-        'FABRIC',
-        'DESCRIPTION',
-        'BASE PRICE'
-    ];
-?>
-
 <!DOCTYPE html>
 <html>
     <head>
@@ -57,53 +46,55 @@
                     </thead>
                     <tbody>  
                         <tr>
-                            <th style="size:13px; width: 5%; font-weight: normal; text-align: left; border-right: thin solid black">1</th>
-                            <th style="size:13px; font-weight: normal; text-align: left;">Dunkin Donut</th>
+                            <th style="width: 5%; font-weight: normal; text-align: left; border-right: thin solid black">1</th>
+                            <th style="font-weight: normal; text-align: left;">{{ $supplier1->supplier_name }}</th>
                         </tr>
                         <tr>
-                            <th style="size:13px; width: 5%; font-weight: normal; text-align: left; border-right: thin solid black" >2</th>
-                            <th style="size:13px; font-weight: normal; text-align: left;" >J. Co</th>
+                            <th style="width: 5%; font-weight: normal; text-align: left; border-right: thin solid black" >2</th>
+                            <th style="font-weight: normal; text-align: left;" >{{ $supplier2->supplier_name }}</th>
                         </tr>
                         <tr>
-                            <th style="size:13px; width: 5%; font-weight: normal; text-align: left; border-right: thin solid black" >3</th>
-                            <th style="size:13px; font-weight: normal; text-align: left;" >Krispy Kreme</th>
+                            <th style="width: 5%; font-weight: normal; text-align: left; border-right: thin solid black" >3</th>
+                            <th style="font-weight: normal; text-align: left;" >{{ $supplier3->supplier_name }}</th>
                         </tr>
                         <tr>
-                            <th style="size:13px; width: 5%; font-weight: normal; text-align: left; border-right: thin solid black" >4</th>
-                            <th style="size:13px; font-weight: normal; text-align: left;" ></th>
+                            <th style="width: 5%; font-weight: normal; text-align: left; border-right: thin solid black" >4</th>
+                            <th style="font-weight: normal; text-align: left;" >{{ $supplier4->supplier_name }}</th>
                         </tr>
                         <tr>
-                            <th style="size:13px; width: 5%; font-weight: normal; text-align: left; border-right: thin solid black" >5</th>
-                            <th style="size:13px; font-weight: normal; text-align: left;" ></th>
+                            <th style="width: 5%; font-weight: normal; text-align: left; border-right: thin solid black" >5</th>
+                            <th style="font-weight: normal; text-align: left;" >{{ $supplier5->supplier_name }}</th>
                         </tr>                                                                                            
                     </tbody>
             </table>
             <table text-align="left" style=" width: 100%;">
                     <thead>
                         <tr>
-                            <th style="size:13px; width: 5%; text-align: center; border-right: thin solid black">Items</th>
-                            <th style="size:13px; width: 5%; text-align: center; border-right: thin solid black">QTY</th>
-                            <th style="size:13px; width: 10%; text-align: center; border-right: thin solid black">UNIT</th>
-                            <th style="size:13px; width: 40%; text-align: center; border-right: thin solid black">DESCRIPTION</th>
-                            <th style="size:13px; width: 10%; text-align: center; border-right: thin solid black">1</th>
-                            <th style="size:13px; width: 10%; text-align: center; border-right: thin solid black">2</th>
-                            <th style="size:13px; width: 10%; text-align: center; border-right: thin solid black">3</th>
-                            <th style="size:13px; width: 10%; text-align: center; border-right: thin solid black">4</th>
-                            <th style="size:13px; width: 10%; text-align: center;">5</th>
+                            <th style="width: 5%; text-align: center; font-weight: normal; font-size: 14px; border-right: thin solid black">Items</th>
+                            <th style="width: 5%; text-align: center; font-weight: normal; font-size: 14px; border-right: thin solid black">QTY</th>
+                            <th style="width: 10%; text-align: center; font-weight: normal; font-size: 14px; border-right: thin solid black">UNIT</th>
+                            <th style="width: 40%; text-align: center; font-weight: normal; font-size: 14px; border-right: thin solid black">DESCRIPTION</th>
+                            <th style="width: 10%; text-align: center; font-weight: normal; font-size: 14px; border-right: thin solid black">1</th>
+                            <th style="width: 10%; text-align: center; font-weight: normal; font-size: 14px; border-right: thin solid black">2</th>
+                            <th style="width: 10%; text-align: center; font-weight: normal; font-size: 14px; border-right: thin solid black">3</th>
+                            <th style="width: 10%; text-align: center; font-weight: normal; font-size: 14px; border-right: thin solid black">4</th>
+                            <th style="width: 10%; text-align: center; font-weight: normal; font-size: 14px;">5</th>
                         </tr>                        
                     </thead>
                     <tbody>  
+                        @foreach($items as $item)
                         <tr>
-                            <th style="size:13px; font-weight: normal; text-align: left; border-right: thin solid black">DN01</th>
-                            <th style="size:13px; font-weight: normal; text-align: left; border-right: thin solid black">5</th>
-                            <th style="size:13px; font-weight: normal; text-align: left; border-right: thin solid black">pc</th>
-                            <th style="size:13px; font-weight: normal; text-align: center; border-right: thin solid black">Donut</th>
-                            <th style="size:13px; font-weight: normal; text-align: right; border-right: thin solid black">50</th>
-                            <th style="size:13px; font-weight: normal; text-align: right; border-right: thin solid black">150</th>
-                            <th style="size:13px; font-weight: normal; text-align: right; border-right: thin solid black">250</th>
-                            <th style="size:13px; font-weight: normal; text-align: right; border-right: thin solid black"></th>
-                            <th style="size:13px; font-weight: normal; text-align: right;"></th>
-                        </tr>                                                                                          
+                            <th style="font-weight: bold; font-size: 15px; text-align: left; border-right: thin solid black">{{ $item->stock_no }}</th>
+                            <th style="font-weight: bold; font-size: 15px; text-align: left; border-right: thin solid black">{{ $item->quantity }}</th>
+                            <th style="font-weight: bold; font-size: 15px; text-align: left; border-right: thin solid black">{{ $item->unit_name }}</th>
+                            <th style="font-weight: bold; font-size: 15px; text-align: center; border-right: thin solid black">{{ $item->item_name }}</th>
+                            <th style="font-weight: bold; font-size: 15px; text-align: right; border-right: thin solid black">{{ $item->supplier1_amount }}</th>
+                            <th style="font-weight: bold; font-size: 15px; text-align: right; border-right: thin solid black">{{ $item->supplier2_amount }}</th>
+                            <th style="font-weight: bold; font-size: 15px; text-align: right; border-right: thin solid black">{{ $item->supplier3_amount }}</th>
+                            <th style="font-weight: bold; font-size: 15px; text-align: right; border-right: thin solid black">{{ $item->supplier4_amount }}</th>
+                            <th style="font-weight: bold; font-size: 15px; text-align: right;">{{ $item->supplier5_amount }}</th>
+                        </tr>
+                        @endforeach                                                                                          
                     </tbody>
             </table>            
         </div>
@@ -111,17 +102,17 @@
         <div style="margin: 20px"></div>
         <div style="width: 100%; font-size: 0">
             <div style="width: 25%; display:inline-block;">
-                <div style="font-size:14px; font-weight: bold; text-transform: uppercase; ">Geraldine A. Paler</div> 
+                <div style="font-size:14px; font-weight: bold; text-transform: uppercase; ">{{ $aq_supervising_admin->first_name }} {{ $aq_supervising_admin->middle_name }} {{ $aq_supervising_admin->last_name }}</div> 
                 <div style="font-size:14px; ">Supervising Admin, Officer</div>
                 <div style="font-size:14px; ">Regular Member, BAC</div>
             </div>
             <div style="width: 25%; display:inline-block;">
-                <div style="font-size:14px; font-weight: bold; text-transform: uppercase; ">Geraldine A. Paler</div> 
+                <div style="font-size:14px; font-weight: bold; text-transform: uppercase; ">{{ $aq_admin_officer->first_name }} {{ $aq_supervising_admin->middle_name }} {{ $aq_supervising_admin->last_name }}</div> 
                 <div style="font-size:14px; ">Supervising Admin, Officer</div>
                 <div style="font-size:14px; ">Regular Member, BAC</div>
             </div>
             <div style="width: 25%; display:inline-block;">
-                <div style="font-size:14px; font-weight: bold; text-transform: uppercase; ">Geraldine A. Paler</div> 
+                <div style="font-size:14px; font-weight: bold; text-transform: uppercase; ">{{ $aq_admin_officer_2->first_name }} {{ $aq_supervising_admin->middle_name }} {{ $aq_supervising_admin->last_name }}</div> 
                 <div style="font-size:14px; ">Supervising Admin, Officer</div>
                 <div style="font-size:14px; ">Regular Member, BAC</div>
             </div>
@@ -142,17 +133,17 @@
         <div style="margin: 35px"></div>
         <div style="width: 100%; font-size: 0">
             <div style="width: 35%; display:inline-block;">
-                <div style="font-size:14px; font-weight: bold; text-transform: uppercase; ">Mabel R. Calva</div> 
+                <div style="font-size:14px; font-weight: bold; text-transform: uppercase; ">{{ $aq_board_secretary->first_name }} {{ $aq_supervising_admin->middle_name }} {{ $aq_supervising_admin->last_name }}</div> 
                 <div style="font-size:14px; ">Board Secretary</div>
                 <div style="font-size:14px; ">Vice-Chairperson, BAC</div>
             </div>
             <div style="width: 40%; display:inline-block;">
-                <div style="font-size:14px; font-weight: bold; text-transform: uppercase; ">Valerio B. Cabalo, Ph. D</div> 
+                <div style="font-size:14px; font-weight: bold; text-transform: uppercase; ">{{ $aq_vpaf->first_name }} {{ $aq_supervising_admin->middle_name }} {{ $aq_supervising_admin->last_name }}</div> 
                 <div style="font-size:14px; ">VPAF</div>
                 <div style="font-size:14px; ">Chairperson, BAC</div>
             </div>
             <div style="width: 30%; display:inline-block;">
-                <div style="font-size:14px; font-weight: bold; text-transform: uppercase; ">Prose Ivy G. Yepes, Ed. D.</div> 
+                <div style="font-size:14px; font-weight: bold; text-transform: uppercase; ">{{ $aq_approve->first_name }} {{ $aq_supervising_admin->middle_name }} {{ $aq_supervising_admin->last_name }}</div> 
                 <div style="font-size:14px; ">University President</div>
             </div>                                
         </div>

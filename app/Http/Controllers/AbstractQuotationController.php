@@ -164,6 +164,8 @@ class AbstractQuotationController extends Controller
 
         $abstract_quotation->save();
 
+        session(["pdf_aq_id" => $abstract_quotation->id]);
+
         for($i = 0; $i < count($items); $i++){
 
             $abstract_quotation_detail = AbstractQuotationDetail::create(array(
@@ -183,16 +185,103 @@ class AbstractQuotationController extends Controller
 
         }
 
+        \Session::flash('aq_new_check','yes');
+
         return redirect("transaction/abstract-quotation");
     }
 
     public function aq_pdf()
     {
-        $items = Item::all();
-        $user = "Daniel John Israel Sison Valle Jr.";
+
+        $supplier1 = \DB::table("abstract_quotation AS aq")
+                ->leftJoin("supplier AS s", "aq.supplier1_fk", "=", "s.id")
+                ->select("s.supplier_name")
+                ->where("aq.id", session()->get("pdf_aq_id"))
+                ->first();
+
+        $supplier2 = \DB::table("abstract_quotation AS aq")
+                ->leftJoin("supplier AS s", "aq.supplier2_fk", "=", "s.id")
+                ->select("s.supplier_name")
+                ->where("aq.id", session()->get("pdf_aq_id"))
+                ->first();
+
+        $supplier3 = \DB::table("abstract_quotation AS aq")
+                ->leftJoin("supplier AS s", "aq.supplier3_fk", "=", "s.id")
+                ->select("s.supplier_name")
+                ->where("aq.id", session()->get("pdf_aq_id"))
+                ->first();
+
+        $supplier4 = \DB::table("abstract_quotation AS aq")
+                ->leftJoin("supplier AS s", "aq.supplier4_fk", "=", "s.id")
+                ->select("s.supplier_name")
+                ->where("aq.id", session()->get("pdf_aq_id"))
+                ->first();
+
+        $supplier5 = \DB::table("abstract_quotation AS aq")
+                ->leftJoin("supplier AS s", "aq.supplier5_fk", "=", "s.id")
+                ->select("s.supplier_name")
+                ->where("aq.id", session()->get("pdf_aq_id"))
+                ->first();
+
+        $aq_supervising_admin = \DB::table("abstract_quotation AS aq")
+                ->leftJoin("user", "aq.supervising_admin_fk", "=", "user.id")
+                ->select("user.first_name", "user.middle_name", "user.last_name")
+                ->where("aq.id", session()->get("pdf_aq_id"))
+                ->first();
+
+        $aq_admin_officer = \DB::table("abstract_quotation AS aq")
+                ->leftJoin("user", "aq.admin_officer_fk", "=", "user.id")
+                ->select("user.first_name", "user.middle_name", "user.last_name")
+                ->where("aq.id", session()->get("pdf_aq_id"))
+                ->first();
+
+        $aq_admin_officer_2 = \DB::table("abstract_quotation AS aq")
+                ->leftJoin("user", "aq.admin_officer_2_fk", "=", "user.id")
+                ->select("user.first_name", "user.middle_name", "user.last_name")
+                ->where("aq.id", session()->get("pdf_aq_id"))
+                ->first();
+
+        $aq_board_secretary = \DB::table("abstract_quotation AS aq")
+                ->leftJoin("user", "aq.board_secretary_fk", "=", "user.id")
+                ->select("user.first_name", "user.middle_name", "user.last_name")
+                ->where("aq.id", session()->get("pdf_aq_id"))
+                ->first();
+
+        $aq_vpaf = \DB::table("abstract_quotation AS aq")
+                ->leftJoin("user", "aq.vpaf_fk", "=", "user.id")
+                ->select("user.first_name", "user.middle_name", "user.last_name")
+                ->where("aq.id", session()->get("pdf_aq_id"))
+                ->first();
+
+        $aq_approve = \DB::table("abstract_quotation AS aq")
+                ->leftJoin("user", "aq.approve_fk", "=", "user.id")
+                ->select("user.first_name", "user.middle_name", "user.last_name")
+                ->where("aq.id", session()->get("pdf_aq_id"))
+                ->first();
+
+        $items = \DB::table("abstract_quotation_detail AS aqd")
+                ->leftJoin("item", "aqd.item_fk", "=", "item.id")
+                ->leftJoin("unit", "aqd.unit_fk", "=", "unit.id")
+                ->select("item.item_name", "unit.unit_name", "aqd.quantity", "item.stock_no",
+                         "aqd.supplier1_amount", "aqd.supplier2_amount", "aqd.supplier3_amount",
+                         "aqd.supplier4_amount", "aqd.supplier5_amount")
+                ->where("aqd.abstract_quotation_fk", session()->get("pdf_aq_id"))
+                ->get();
+
+        view()->share('supplier1', $supplier1);
+        view()->share('supplier2', $supplier2);
+        view()->share('supplier3', $supplier3);
+        view()->share('supplier4', $supplier4);
+        view()->share('supplier5', $supplier5);
+        
+        view()->share('aq_supervising_admin', $aq_supervising_admin);
+        view()->share('aq_admin_officer', $aq_admin_officer);
+        view()->share('aq_admin_officer_2', $aq_admin_officer_2);
+        view()->share('aq_board_secretary', $aq_board_secretary);
+        view()->share('aq_vpaf', $aq_vpaf);
+        view()->share('aq_approve', $aq_approve);
 
         view()->share('items', $items);
-        view()->share('user', $user);
 
         $pdf = PDF::loadView('pdf.abstract-quotation-pdf');
         return $pdf->download('aq_pdf.pdf');
