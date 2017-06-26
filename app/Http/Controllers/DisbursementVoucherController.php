@@ -3,9 +3,11 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use PDF;
 
 use App\DisbursementVoucher;
 use App\User;
+use App\Item;
 use App\Http\Controllers\Controller;
 
 class DisbursementVoucherController extends Controller
@@ -56,6 +58,19 @@ class DisbursementVoucherController extends Controller
     {
 
     }
+
+    public function disbursement_voucher_pdf()
+    {
+        $items = Item::all();
+        $user = "Daniel John Israel Sison Valle Jr.";
+
+        view()->share('items', $items);
+        view()->share('user', $user);
+
+        $pdf = PDF::loadView('pdf.disbursement-voucher-pdf');
+        return $pdf->download('dv_pdf.pdf');
+    }    
+
 	
 }
 

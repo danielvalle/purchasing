@@ -172,6 +172,7 @@ Route::group(['prefix' => 'transaction'], function(){
 
 	/* DisbursementVoucher */
 
+		Route::get('disbursement-voucher-pdf', array('as'=>'transaction/disbursement-voucher-pdf', 'uses'=>'DisbursementVoucherController@disbursement_voucher_pdf'));
 		Route::resource('disbursement-voucher', 'DisbursementVoucherController');
 
 	/* end of DisbursementVoucher*/
