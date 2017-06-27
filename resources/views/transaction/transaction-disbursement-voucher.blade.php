@@ -1,7 +1,11 @@
 @extends('layouts.master')
 
 @section('content')
-
+        <head>
+            @if(Session::has('dv_new_check'))
+                <meta http-equiv="refresh" content="0; url=/purchasing/public/transaction/disbursement-voucher-pdf">
+            @endif
+        </head>
 
         <div id="page-wrapper">
             <div class="row">
@@ -22,10 +26,10 @@
                         {!! Form::open(['method' => 'post', 'url' => 'transaction/disbursement-voucher']) !!}
                             <div class="form-group col-lg-12">
                                 <label for="">Mode Of Payment:&nbsp&nbsp&nbsp&nbsp</label>
-                                <label class="radio-inline"><input type="radio" name="add-mode-of-payment">MDS Check</label>
-                                <label class="radio-inline"><input type="radio" name="add-mode-of-payment">Commercial Check</label>
-                                <label class="radio-inline"><input type="radio" name="add-mode-of-payment">ADA</label>
-                                <label class="radio-inline"><input type="radio" name="add-mode-of-payment">Others</label>
+                                <label class="radio-inline"><input type="radio" name="add-mode-of-payment" value="1">MDS Check</label>
+                                <label class="radio-inline"><input type="radio" name="add-mode-of-payment" value="2">Commercial Check</label>
+                                <label class="radio-inline"><input type="radio" name="add-mode-of-payment" value="3">ADA</label>
+                                <label class="radio-inline"><input type="radio" name="add-mode-of-payment" value="4">Others</label>
                             </div>
 
 
@@ -75,9 +79,9 @@
                         
                             <div class="form-group col-lg-12">
                                 <label for="">Certified:&nbsp&nbsp&nbsp&nbsp</label>
-                                <label class="radio-inline"><input type="radio" name="add-certified">Cash Available</label>
-                                <label class="radio-inline"><input type="radio" name="add-certified">Subject to Authority to Debit Account (when applicable)</label>
-                                <label class="radio-inline"><input type="radio" name="add-certified">Supporting documents complete</label>
+                                <label class="radio-inline"><input type="radio" name="add-certified" value="1">Cash Available</label>
+                                <label class="radio-inline"><input type="radio" name="add-certified" value="2">Subject to Authority to Debit Account (when applicable)</label>
+                                <label class="radio-inline"><input type="radio" name="add-certified" value="3">Supporting documents complete</label>
                             </div>
                             <div class="form-group col-lg-4">
                                 <label>Certifier:</label>

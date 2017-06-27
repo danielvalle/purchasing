@@ -50,6 +50,10 @@ class DisbursementVoucherController extends Controller
     
         $disbursement_voucher->save();
 
+        session(["pdf_dv_id" => $disbursement_voucher->id]);
+
+        \Session::flash('dv_new_check','yes');
+
         return redirect("transaction/disbursement-voucher");
 
     }
@@ -61,11 +65,43 @@ class DisbursementVoucherController extends Controller
 
     public function disbursement_voucher_pdf()
     {
-        $items = Item::all();
-        $user = "Daniel John Israel Sison Valle Jr.";
+        $dv_header = \DB::table("disbursement_voucher")
+                ->select("mode_of_payment", "employee_no", "or_bur_no", "address", "project", "code", 
+                         "explanation", "amount", "certified", "date", "approved_for_payment",
+                         "approve_date", "ada_no", "payment_check_date", "bank_name", "jev_no",
+                         "check_date", "other_docs")
+                ->where("id", session()->get("pdf_dv_id"))
+                ->first();
 
-        view()->share('items', $items);
-        view()->share('user', $user);
+        $payee = \DB::table("disbursement_voucher as dv")
+                ->leftJoin("user", "dv.payee_fk", "=", "user.id")
+                ->select("user.first_name", "user.middle_name", "user.last_name")
+                ->where("dv.id", session()->get("pdf_dv_id"))
+                ->first();
+
+        $certifier = \DB::table("disbursement_voucher as dv")
+                ->leftJoin("user", "dv.certifier_name_fk", "=", "user.id")
+                ->select("user.first_name", "user.middle_name", "user.last_name")
+                ->where("dv.id", session()->get("pdf_dv_id"))
+                ->first();
+
+        $approver = \DB::table("disbursement_voucher as dv")
+                ->leftJoin("user", "dv.approver_fk", "=", "user.id")
+                ->select("user.first_name", "user.middle_name", "user.last_name")
+                ->where("dv.id", session()->get("pdf_dv_id"))
+                ->first();
+
+        $printed_name = \DB::table("disbursement_voucher as dv")
+                ->leftJoin("user", "dv.check_printed_name_fk", "=", "user.id")
+                ->select("user.first_name", "user.middle_name", "user.last_name")
+                ->where("dv.id", session()->get("pdf_dv_id"))
+                ->first();
+
+        view()->share('dv', $dv_header);
+        view()->share('payee', $payee);
+        view()->share('certifier', $certifier);
+        view()->share('approver', $approver);
+        view()->share('printed_name', $printed_name);
 
         $pdf = PDF::loadView('pdf.disbursement-voucher-pdf');
         return $pdf->download('dv_pdf.pdf');
