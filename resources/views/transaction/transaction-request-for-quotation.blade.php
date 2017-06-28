@@ -2,8 +2,8 @@
 
 @section('content')
         <head>
-            @if(Session::has('pr_new_check'))
-                <meta http-equiv="refresh" content="0; url=/purchasing/public/transaction/purchase-request-pdf">
+            @if(Session::has('rfq_new_check'))
+                <meta http-equiv="refresh" content="0; url=/purchasing/public/transaction/request-for-quotation-pdf">
             @endif
         </head>
 
@@ -34,7 +34,7 @@
                                         @foreach($pr_headers as $pr_header)
                                             <option value="{{ $pr_header->id }}" @if($pr_id == $pr_header->id) selected @endif>{{ $pr_header->pr_number }}</option>
                                         @endforeach
-                                    </select>                                  
+                                    </select>                               
                                 </div>
 
                                 <div class="form-group">
@@ -52,11 +52,11 @@
                             {!! Form::close() !!}
                         </div>
                     
+                        {!! Form::open(['method' => 'post', 'url' => 'transaction/request-for-quotation']) !!}
                             <div class="panel-body">
                                 <div class="panel panel-default">
                                     <div class="panel-heading"></div>
                                     <div class="panel-body">
-                                        {!! Form::open(['method' => 'post', 'url' => 'transaction/request-for-quotation']) !!}
 
                                         <input type="hidden" id="Date" name="Date">
                                         <input type="hidden" id="transaction_date" name="transaction_date" />
@@ -130,9 +130,35 @@
                                     </select>   
                                 </div>                              
                             </div>
+                                <div id="add-agency" class="modal fade" role="dialog">
+     
+                                    <div class="modal-dialog">
+                                
+                                        <!-- Modal content-->
+                                        <div class="modal-content ">
+                                            <div class="modal-header">
+                                                <h4 class="modal-title">Save Request for Quotation?</h4>
+                                            </div>
+                                            <div class="modal-body container-fluid">
+                                                <div class="form-group col-lg-12">   
+                                                    <label for="add-department">Select Supplier to be printed an RFQ Form</label>         
+                                                </div>
+                                                <div class="form-group col-lg-12">
+                                                    <select class="selectpicker" multiple name="add-print-supplier[]" id="add-print-supplier">
+                                                    </select>   
+                                                </div>      
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="submit" class="btn btn-success">Add</button>
+                                                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                            </div>
+                                        </div>
 
-                            <button class="btn btn-success" style="float: right; width: 20%;">Convert to AQ</button> 
+                                    </div>
+                                
+                                </div>
                         {!! Form::close() !!} 
+                        <button type="button" class="btn btn-success" data-toggle="modal" data-target="#add-agency" style="float: right; width: 20%;">Convert to AQ</button> 
                         </div>
                     </div>
                     <!-- /.panel -->
@@ -170,22 +196,32 @@
 
 
     $(document).ready(function(){
+          
+        var $options = $("#add-supplier > option:selected").clone();
+
+        $('#add-print-supplier').append($options); 
+        $('#add-print-supplier').selectpicker('refresh');
+          
+
+        $("#add-supplier").on("change", function(){
+  
+            $("#add-print-supplier").find('option').remove();
+          
+            var $options = $("#add-supplier > option:selected").clone();
+
+            $('#add-print-supplier').append($options); 
+            $('#add-print-supplier').selectpicker('refresh');
+
+
+          
+        });
+
 
         $('#modal-close').click(function(){
             location.reload(true);
         });
 
-        var monthNames = [ "January", "February", "March", "April", "May", "June",
-        "July", "August", "September", "October", "November", "December" ];
-        
-        var dayNames= ["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"]
-
-        var newDate = new Date();
-        newDate.setDate(newDate.getDate());    
-        $('#Date').html(dayNames[newDate.getDay()] +" | " +" " + " " + newDate.getDate() + ' ' + monthNames[newDate.getMonth()] + "," + ' ' + newDate.getFullYear());
-        $('#transaction_date').val(newDate.getFullYear() + "-" +  (newDate.getMonth()+1) + "-" + newDate.getDate());
-
-
+    
         $('#btn-add-supplier').click(function(){
 
             $.ajaxSetup({

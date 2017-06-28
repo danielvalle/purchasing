@@ -18,12 +18,17 @@
             .page-break {
                 page-break-after: always;
             }
+
+            .page-break:last-child {
+                page-break-after: avoid;
+            }
         </style>
     </head>
     
     <body>
-        
-    <div> 
+    
+    @for($i = 0; $i < count($supp_ids); $i++)
+    <div class="page-break"> 
         <div>
             <center>
                 <h1>
@@ -32,42 +37,15 @@
                     <div style="font-size: 15px;">Sogod, Southern Leyte</div>
                     <div style="font-size: 15px;">Telefax No. (053) 382-2523 </div>
                     <div style="margin: 10px"></div>
-                    <div style="font-size: 15px;">_____________________</div>
+                    <div style="font-size: 15px; text-align: center; text-decoration: underline">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{ $header->date }}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div>
                     <div style="font-size: 15px;">Date</div>
                     <p style="font-size:-0.5px;"></p>
                 </h1>
             </center>
         </div>
         <div>
-            <table text-align="left" style=" width: 30%">
-                    <thead>
-                    </thead>
-                    <tbody>  
-                        <tr>
-                            <td style="size:16px; text-align: left;">To:</td>
-                            <td style="size:16px; text-align: left;">_____________________________</td>
-                        </tr>
-                        <tr>
-                            <td style="size:16px; text-align: left;"></td>
-                            <td style="size:16px; text-align: left;">_____________________________</td>
-                        </tr>
-                        <tr>
-                            <td style="size:16px; text-align: left;"></td>
-                            <td style="size:16px; text-align: left;">_____________________________</td>
-                        </tr>                                                
-                    </tbody>
-            </table>
-            <div>VAT/NON-VAT TIN:</div>  
-            <table text-align="left" style=" width: 30%">
-                    <thead>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td style="size:16px; text-align: left; opacity: 0">To:</td>
-                            <td style="size:16px; text-align: left;">_____________________________</td>
-                        </tr>                                                
-                    </tbody>
-            </table>
+            <div>To: <span style="font-size: 16px; text-decoration: underline"><b>{{ $supplier[$i]->supplier_name }}</b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></div>  
+            <div>VAT/NON-VAT TIN: <span style="font-size: 16px; text-decoration: underline"><b>{{ $header->vat_nonvat_tin }}</b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></div>  
         </div>
             <center>
                 <h1>
@@ -79,24 +57,25 @@
             <table text-align="left" style=" width: 100%; ; border: thin solid black">
                     <thead>
                         <tr>
-                            <th style="size:16px; text-align: center; border-right: thin solid black">QTY.</th>
-                            <th style="size:16px; text-align: center; border-right: thin solid black">UNIT</th>
-                            <th style="size:16px; text-align: center; border-right: thin solid black">REQUEST FOR QUOTATION</th>
+                            <th style="font-size:16px; text-align: center; border-right: thin solid black">QTY.</th>
+                            <th style="font-size:16px; text-align: center; border-right: thin solid black">UNIT</th>
+                            <th style="font-size:16px; text-align: center; border-right: thin solid black">REQUEST FOR QUOTATION</th>
                         </tr>
                     </thead>
                     <tbody>  
                         @foreach($items as $item)
                         <tr>
-                            <th style="size:16px; text-align: left; font-weight: normal; border-right: thin solid black" >5</th>
-                            <th style="size:16px; text-align: left; font-weight: normal; border-right: thin solid black" >Piece</th>
-                            <th style="size:16px; text-align: left; font-weight: normal; border-right: thin solid black" >{{ $item->item_name }}</th>
+                            <th style="font-size:16px; text-align: left; font-weight: normal; border-right: thin solid black" >{{ $item->quantity }}</th>
+                            <th style="font-size:16px; text-align: left; font-weight: normal; border-right: thin solid black" >{{ $item->unit_name }}</th>
+                            <th style="font-size:16px; text-align: left; font-weight: normal; border-right: thin solid black" >{{ $item->item_name }}</th>
                         </tr>
                         @endforeach
                     </tbody>
             </table>
         </div>
         <div style="min-height: 70px;">
-            <div style="font-size:16px;">Place of Delivery:_____________________________ within ____ days</div> 
+            <div style="font-size:16px;">Place of Delivery: <span style="text-decoration: underline">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{ $header->place_of_delivery }}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span> 
+                    within <span style="text-decoration: underline">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{ $header->within_no_of_days }}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span> days</div> 
             <div style="font-size:16px;">_______________________________________________ from receipt of the delivery order.</div> 
         </div>
         <div style="margin: 20px"></div>
@@ -106,15 +85,16 @@
         <div style="margin: 35px"></div>
         <div style="width: 100%;">
             <div style="width: 65%; display:inline-block;">
-                <div style="width: 70%; font-size:16px; border-bottom: solid 1px black;"></div> 
+                <div style="width: 70%; font-size:16px; border-bottom: solid 1px black; text-align: center">{{ $requestor->first_name }} {{ $requestor->middle_name }} {{ $requestor->last_name }}</div> 
                 <div style="width: 70%; font-size:16px; font-style: italic; text-align: center;">Signature over Printed Name</div> 
             </div>
             <div style="width: 35%; display:inline-block;">
-                <div style="font-size:16px; border-bottom: solid 1px black;"></div> 
+                <div style="font-size:16px; border-bottom: solid 1px black; text-align: center">{{ $canvasser->first_name }} {{ $canvasser->middle_name }} {{ $canvasser->last_name }}</div> 
                 <div style="font-size:16px; font-style: italic; text-align: center;">Canvasser</div> 
             </div>
         </div>
     </div>
+    @endfor
     </body>
 
 </html>

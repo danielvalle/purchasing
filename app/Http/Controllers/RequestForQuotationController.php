@@ -83,6 +83,7 @@ class RequestForQuotationController extends Controller
     public function store(Request $request) 
     {
         $suppliers = $request->input("add-supplier");
+        $suppliers_for_printing = $request->input("add-print-supplier");
 
         for($i = count($suppliers); $i < 5; $i++){
             $suppliers[$i] = null;
@@ -96,7 +97,7 @@ class RequestForQuotationController extends Controller
                 'supplier4_fk' => $suppliers[3],
                 'supplier5_fk' => $suppliers[4],
                 'category_fk' => $request->input("category_id"),
-                'vat_notvat_tin' => $request->input("add-tin"),
+                'vat_nonvat_tin' => $request->input("add-tin"),
                 'place_of_delivery' => $request->input("add-place-delivery"),
                 'within_no_of_days' => $request->input("add-days"),
                 'requestor_fk' => $request->input("add-requestor"),
@@ -106,6 +107,9 @@ class RequestForQuotationController extends Controller
         ));
 
         $request_for_quotation->save();
+
+        session(["pdf_rfq_id" => $request_for_quotation->id]);
+        session(["pdf_supp_id" => $suppliers_for_printing]);
 
         for($i = 0; $i < session()->get('rfq_pr_count'); $i++){
 
@@ -122,18 +126,55 @@ class RequestForQuotationController extends Controller
 
         }
 
+        \Session::flash('rfq_new_check','yes');
+
         return redirect("transaction/request-for-quotation");
 
     }
 
     public function rfq_pdf()
-    {
-        $items = Item::all();
-        $user = "Daniel John Israel Sison Valle Jr.";
+    {   
+        $supp_ids = session()->get("pdf_supp_id");
 
-        view()->share('items', $items);
-        view()->share('user', $user);
+        for($i = 0; $i < count($supp_ids); $i++)
+        {
+            $rfq_suppliers[$i] = \DB::table("supplier")
+                        ->select("supplier_name")
+                        ->where("id", $supp_ids[$i])
+                        ->first();
+        }
 
+        $rfq_headers = \DB::table("request_for_quote")
+                        ->select("place_of_delivery", "within_no_of_days", "vat_nonvat_tin", "date")
+                        ->where("id", session()->get("pdf_rfq_id"))
+                        ->first();
+
+        $requestor = \DB::table("request_for_quote")
+                ->leftJoin("user", "requestor_fk", "=", "user.id")
+                ->select("user.first_name", "user.middle_name", "user.last_name")
+                ->where("request_for_quote.id", session()->get("pdf_rfq_id"))
+                ->first();
+
+        $canvasser = \DB::table("request_for_quote")
+                ->leftJoin("user", "canvasser_fk", "=", "user.id")
+                ->select("user.first_name", "user.middle_name", "user.last_name")
+                ->where("request_for_quote.id", session()->get("pdf_rfq_id"))
+                ->first();
+
+        $rfq_items = \DB::table("request_for_quote_detail as r")
+                ->leftJoin("item", "item.id", "=", "r.item_fk")
+                ->leftJoin("unit", "unit.id", "=", "r.unit_fk") 
+                ->select("item_name", "unit_name", "r.quantity")
+                ->where("r.request_for_quote_fk", session()->get("pdf_rfq_id"))
+                ->get();
+
+        view()->share('supp_ids', $supp_ids);
+        view()->share('supplier', $rfq_suppliers);
+        view()->share('header', $rfq_headers);
+        view()->share('requestor', $requestor);
+        view()->share('canvasser', $canvasser);
+        view()->share('items', $rfq_items);
+        
         $pdf = PDF::loadView('pdf.request-for-quotation-pdf');
         return $pdf->download('rfq_pdf.pdf');
     }    
