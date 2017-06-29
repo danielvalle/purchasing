@@ -19,23 +19,45 @@ class OfficeController extends Controller
 
     public function store(Request $request)
     {        
-        $office = Office::create(array(
-                'office_name' =>trim($request->input('add-office-name')),
+        $office_check = \DB::table('office')
+                    ->where('office_name', trim($request->input('add-office-name')))
+                    ->first();
+        
+        if($office_check == null)
+        {
+            $office = Office::create(array(
+                'office_name' => trim($request->input('add-office-name')),
                 'is_active' => 1
             ));
 
-        $added = $office->save();
+            $office->save();
+
+            \Session::flash('office_new_success', "Office is successfully added.");
+        }
+        else \Session::flash('office_new_fail', "Office already exists.");
 
         return redirect('maintenance/office');
     }
 
     public function update(Request $request)
     {
+        $office_check = \DB::table('office')
+                    ->where('office_name', trim($request->input('edit-office-name')))
+                    ->first();
+        
+        if($office_check == null)
+        {
+            $office = Office::find($request->input('edit-office-id'));
+            $office->office_name = trim($request->input('edit-office-name'));
+            $office->save();
 
-        $office = Office::find($request->input('edit-office-id'));
-
-        $office->office_name = trim($request->input('edit-office-name'));
-        $office->save();
+            \Session::flash('office_edit_success', trim($request->input('edit-office-name')) . " is successfully updated.");
+            
+        }
+        else if($office_check->office_name == trim($request->input('edit-office-name')) && $office_check->id != $request->input('edit-office-id'))
+        {
+            \Session::flash('office_edit_fail', trim($request->input('edit-office-name')) . " already exists.");
+        }
 
         return redirect('maintenance/office');
     }

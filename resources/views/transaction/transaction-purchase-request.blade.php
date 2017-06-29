@@ -1,7 +1,11 @@
 @extends('layouts.master')
 
 @section('content')
-
+        <head>
+            @if(Session::has('pdf_pr_id'))
+                <meta http-equiv="refresh" content="0; url=/purchasing/public/transaction/purchase-request-pdf">
+            @endif
+        </head>
 
         <div id="page-wrapper">
             <div class="row">

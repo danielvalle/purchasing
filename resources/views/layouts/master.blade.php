@@ -27,7 +27,7 @@
                 <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
                     <span class="sr-only">Toggle navigation</span>
                 </button>
-                <a class="navbar-brand" href="/purchasing/public/">Purchasing</a>
+                <a class="navbar-brand" href="/purchasing/public/">Southern Leyte State University</a>
             </div>
             <!-- /.navbar-header -->
 

@@ -10,7 +10,49 @@
                 </div>
                 <!-- /.col-lg-12 -->
             </div>
+            @if(Session::has('agency_new_success'))
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="alert alert-success alert-dismissable">
+                        <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                        <strong>{!! session('agency_new_success') !!}</strong>
+                    </div>
+                </div>
+            </div>
+            @endif
 
+            @if(Session::has('agency_new_fail'))
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="alert alert-danger alert-dismissable">
+                        <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                        <strong>{!! session('agency_new_fail') !!}</strong>
+                    </div>
+                </div>
+            </div>
+            @endif
+
+            @if(Session::has('agency_edit_success'))
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="alert alert-success alert-dismissable">
+                        <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                        <strong>{!! session('agency_edit_success') !!}</strong>
+                    </div>
+                </div>
+            </div>
+            @endif
+
+            @if(Session::has('agency_edit_fail'))
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="alert alert-danger alert-dismissable">
+                        <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                        <strong>{!! session('agency_edit_fail') !!}</strong>
+                    </div>
+                </div>
+            </div>
+            @endif
             <div class="row">
                 <div class="col-lg-12">
                     <div class="panel panel-default">
@@ -23,9 +65,7 @@
                             <table width="100%" class="table" id="dt-agency">
                                 <thead>
                                     <tr>
-                                        <th style="width:10%;">ID</th>
                                         <th>Agency Name</th>
-                                        <th>Department</th>
                                         <th style="width:10%;">Actions</th>
                                     </tr>
                                 </thead>
@@ -33,12 +73,10 @@
                                     @foreach($agencies as $agency)
                                         @if($agency->is_active == 1)
                                         <tr>
-                                            <td>{{ $agency->id }}</td>
                                             <td>{{ $agency->agency_name }}</td>
-                                            <td>{{ $agency->department_name }}</td>
                                             <td>
-                                                <a style="color:green" data-toggle="modal" href="#{{ $agency->id }}edit-agency"><span class="glyphicon glyphicon-edit"></span></a>
-                                                <a style="color:red" data-toggle="modal" href="#{{ $agency->id }}del-agency"><span class="glyphicon glyphicon-trash"></span></a>
+                                                <a data-toggle="modal" href="#{{ $agency->id }}edit-agency"><span class="glyphicon glyphicon-edit"></span></a>
+                                                <a data-toggle="modal" href="#{{ $agency->id }}del-agency"><span class="glyphicon glyphicon-trash"></span></a>
                                             </td>
                                         </tr>
                                         @endif
@@ -68,14 +106,6 @@
                                 <label for="agency-name">Agency Name</label>
                                 <input type="text" class="form-control" id="add-agency-name" name="add-agency-name" placeholder="Enter an agency name">
                             </div>
-                            <div class="form-group">   
-                                <label for="add-department">Department</label>         
-                                    <select class="form-control" id="add-department" name="add-department">
-                                        @foreach($departments as $department)
-                                            <option value="{{ $department->id }}">{{ $department->department_name }}</option>
-                                        @endforeach
-                                    </select>
-                            </div>
                         </div>
                         <div class="modal-footer">
                             <button type="submit" class="btn btn-success">Add</button>
@@ -104,14 +134,6 @@
                                 <label for="agency-name">Agency Name</label>
                                 <input type="hidden" value="{{ $agency->id }}" name="edit-agency-id">
                                 <input type="text" class="form-control" id="edit-agency-name" name="edit-agency-name" placeholder="Enter an agency name" value="{{ $agency->agency_name }}">
-                            </div>
-                            <div class="form-group">   
-                                <label for="edit-department">Department</label>         
-                                    <select class="form-control" id="edit-department" name="edit-department">
-                                        @foreach($departments as $department)
-                                            <option value="{{ $department->id }}" @if($agency->department_fk == $department->id) selected @endif>{{ $department->department_name }}</option>
-                                        @endforeach
-                                    </select>
                             </div>
                         </div>
                         <div class="modal-footer">

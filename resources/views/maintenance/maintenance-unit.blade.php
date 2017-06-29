@@ -10,7 +10,49 @@
                 </div>
                 <!-- /.col-lg-12 -->
             </div>
+            @if(Session::has('unit_new_success'))
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="alert alert-success alert-dismissable">
+                        <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                        <strong>{!! session('unit_new_success') !!}</strong>
+                    </div>
+                </div>
+            </div>
+            @endif
 
+            @if(Session::has('unit_new_fail'))
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="alert alert-danger alert-dismissable">
+                        <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                        <strong>{!! session('unit_new_fail') !!}</strong>
+                    </div>
+                </div>
+            </div>
+            @endif
+
+            @if(Session::has('unit_edit_success'))
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="alert alert-success alert-dismissable">
+                        <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                        <strong>{!! session('unit_edit_success') !!}</strong>
+                    </div>
+                </div>
+            </div>
+            @endif
+
+            @if(Session::has('unit_edit_fail'))
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="alert alert-danger alert-dismissable">
+                        <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                        <strong>{!! session('unit_edit_fail') !!}</strong>
+                    </div>
+                </div>
+            </div>
+            @endif
             <div class="row">
                 <div class="col-lg-12">
                     <div class="panel panel-default">
@@ -23,7 +65,6 @@
                             <table width="100%" class="table" id="dt-unit">
                                 <thead>
                                     <tr>
-                                        <th style="width:10%;">ID</th>
                                         <th>Unit Name</th>
                                         <th style="width:10%;">Actions</th>
                                     </tr>
@@ -32,11 +73,10 @@
                                     @foreach($units as $unit)
                                         @if($unit->is_active == 1)
                                         <tr>
-                                            <td>{{ $unit->id }}</td>
                                             <td>{{ $unit->unit_name }}</td>
                                             <td>
-                                                <a style="color:green" data-toggle="modal" href="#{{ $unit->id }}edit-unit"><span class="glyphicon glyphicon-edit"></span></a>
-                                                <a style="color:red" data-toggle="modal" href="#{{ $unit->id }}del-unit"><span class="glyphicon glyphicon-trash"></span></a>
+                                                <a data-toggle="modal" href="#{{ $unit->id }}edit-unit"><span class="glyphicon glyphicon-edit"></span></a>
+                                                <a data-toggle="modal" href="#{{ $unit->id }}del-unit"><span class="glyphicon glyphicon-trash"></span></a>
                                             </td>
                                         </tr>
                                         @endif

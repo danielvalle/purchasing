@@ -23,7 +23,6 @@
                             <table width="100%" class="table" id="dt-section">
                                 <thead>
                                     <tr>
-                                        <th style="width:10%;">ID</th>
                                         <th>Section Name</th>
                                         <th>Department</th>
                                         <th style="width:10%;">Actions</th>
@@ -33,12 +32,11 @@
                                     @foreach($sections as $section)
                                         @if($section->is_active == 1)
                                         <tr>
-                                            <td>{{ $section->id }}</td>
                                             <td>{{ $section->section_name }}</td>
                                             <td>{{ $section->department_name }}</td>
                                             <td>
-                                                <a style="color:green" data-toggle="modal" href="#{{ $section->id }}edit-section"><span class="glyphicon glyphicon-edit"></span></a>
-                                                <a style="color:red" data-toggle="modal" href="#{{ $section->id }}del-section"><span class="glyphicon glyphicon-trash"></span></a>
+                                                <a data-toggle="modal" href="#{{ $section->id }}edit-section"><span class="glyphicon glyphicon-edit"></span></a>
+                                                <a data-toggle="modal" href="#{{ $section->id }}del-section"><span class="glyphicon glyphicon-trash"></span></a>
                                             </td>
                                         </tr>
                                         @endif

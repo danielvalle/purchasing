@@ -51,8 +51,6 @@ class PurchaseRequestController extends Controller
         session(['temp_suppliers' => $temp_suppliers]);
         session(['temp_pr_items' => $temp_pr_items]);
 
-        session(['pdf_pr_id' => ""]);
-
 		return view("transaction.transaction-purchase-request")
             ->with("users", $users)
             ->with("items", $items)
@@ -249,7 +247,7 @@ class PurchaseRequestController extends Controller
         
         \Session::flash('pr_new_check','yes');
 
-        return redirect("transaction/request-for-quotation");
+        return redirect("transaction/purchase-request");
 
     }
 

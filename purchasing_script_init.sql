@@ -16,7 +16,6 @@ CREATE TABLE agency
   (
       `id` int NOT NULL AUTO_INCREMENT, 
       `agency_name` varchar(50),
-      `department_fk` int,
       `is_active` bit,
       `created_at` date,
       `updated_at` date,

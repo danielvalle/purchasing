@@ -19,23 +19,45 @@ class SupplierController extends Controller
 
     public function store(Request $request)
     {        
-        $supplier = Supplier::create(array(
-                'supplier_name' =>trim($request->input('add-supplier-name')),
+        $supplier_check = \DB::table('supplier')
+                    ->where('supplier_name', trim($request->input('add-supplier-name')))
+                    ->first();
+        
+        if($supplier_check == null)
+        {
+            $supplier = Supplier::create(array(
+                'supplier_name' => trim($request->input('add-supplier-name')),
                 'is_active' => 1
             ));
 
-        $added = $supplier->save();
+            $supplier->save();
+
+            \Session::flash('supplier_new_success', "Supplier is successfully added.");
+        }
+        else \Session::flash('supplier_new_fail', "Supplier already exists.");
 
         return redirect('maintenance/supplier');
     }
 
     public function update(Request $request)
     {
+        $supplier_check = \DB::table('supplier')
+                    ->where('supplier_name', trim($request->input('edit-supplier-name')))
+                    ->first();
+        
+        if($supplier_check == null)
+        {
+            $supplier = Supplier::find($request->input('edit-supplier-id'));
+            $supplier->supplier_name = trim($request->input('edit-supplier-name'));
+            $supplier->save();
 
-        $supplier = Supplier::find($request->input('edit-supplier-id'));
-
-        $supplier->supplier_name = trim($request->input('edit-supplier-name'));
-        $supplier->save();
+            \Session::flash('supplier_edit_success', trim($request->input('edit-supplier-name')) . " is successfully updated.");
+            
+        }
+        else if($supplier_check->supplier_name == trim($request->input('edit-supplier-name')) && $supplier_check->id != $request->input('edit-supplier-id'))
+        {
+            \Session::flash('supplier_edit_fail', trim($request->input('edit-supplier-name')) . " already exists.");
+        }
 
         return redirect('maintenance/supplier');
     }

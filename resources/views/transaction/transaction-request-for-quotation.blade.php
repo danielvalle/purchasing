@@ -130,7 +130,7 @@
                                     </select>   
                                 </div>                              
                             </div>
-                                <div id="add-agency" class="modal fade" role="dialog">
+                                <div id="submit-rfq" class="modal fade" role="dialog">
      
                                     <div class="modal-dialog">
                                 
@@ -158,7 +158,7 @@
                                 
                                 </div>
                         {!! Form::close() !!} 
-                        <button type="button" class="btn btn-success" data-toggle="modal" data-target="#add-agency" style="float: right; width: 20%;">Convert to AQ</button> 
+                        <button type="button" class="btn btn-success" data-toggle="modal" data-target="#submit-rfq" style="float: right; width: 20%;">Convert to AQ</button> 
                         </div>
                     </div>
                     <!-- /.panel -->

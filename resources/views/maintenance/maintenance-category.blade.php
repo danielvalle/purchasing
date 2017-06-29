@@ -10,7 +10,49 @@
                 </div>
                 <!-- /.col-lg-12 -->
             </div>
+            @if(Session::has('category_new_success'))
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="alert alert-success alert-dismissable">
+                        <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                        <strong>{!! session('category_new_success') !!}</strong>
+                    </div>
+                </div>
+            </div>
+            @endif
 
+            @if(Session::has('category_new_fail'))
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="alert alert-danger alert-dismissable">
+                        <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                        <strong>{!! session('category_new_fail') !!}</strong>
+                    </div>
+                </div>
+            </div>
+            @endif
+
+            @if(Session::has('category_edit_success'))
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="alert alert-success alert-dismissable">
+                        <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                        <strong>{!! session('category_edit_success') !!}</strong>
+                    </div>
+                </div>
+            </div>
+            @endif
+
+            @if(Session::has('category_edit_fail'))
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="alert alert-danger alert-dismissable">
+                        <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                        <strong>{!! session('category_edit_fail') !!}</strong>
+                    </div>
+                </div>
+            </div>
+            @endif
             <div class="row">
                 <div class="col-lg-12">
                     <div class="panel panel-default">
@@ -23,7 +65,6 @@
                             <table width="100%" class="table" id="dt-category">
                                 <thead>
                                     <tr>
-                                        <th style="width:10%;">ID</th>
                                         <th>Category Name</th>
                                         <th style="width:10%;">Actions</th>
                                     </tr>
@@ -32,11 +73,10 @@
                                     @foreach($categories as $category)
                                         @if($category->is_active == 1)
                                         <tr>
-                                            <td>{{ $category->id }}</td>
                                             <td>{{ $category->category_name }}</td>
                                             <td>
-                                                <a style="color:green" data-toggle="modal" href="#{{ $category->id }}edit-category"><span class="glyphicon glyphicon-edit"></span></a>
-                                                <a style="color:red" data-toggle="modal" href="#{{ $category->id }}del-category"><span class="glyphicon glyphicon-trash"></span></a>
+                                                <a data-toggle="modal" href="#{{ $category->id }}edit-category"><span class="glyphicon glyphicon-edit"></span></a>
+                                                <a data-toggle="modal" href="#{{ $category->id }}del-category"><span class="glyphicon glyphicon-trash"></span></a>
                                             </td>
                                         </tr>
                                         @endif
@@ -64,7 +104,7 @@
                         <div class="modal-body">
                             <div class="form-group">
                                 <label for="category-name">Category Name</label>
-                                <input type="text" class="form-control" id="add-category-name" name="add-category-name" placeholder="Enter an category name">
+                                <input type="text" class="form-control" id="add-category-name" name="add-category-name" placeholder="Enter an category name" required>
                             </div>
                         </div>
                         <div class="modal-footer">
@@ -93,7 +133,7 @@
                             <div class="form-group">
                                 <label for="category-name">Category Name</label>
                                 <input type="hidden" value="{{ $category->id }}" name="edit-category-id">
-                                <input type="text" class="form-control" id="edit-category-name" name="edit-category-name" placeholder="Enter an category name" value="{{ $category->category_name }}">
+                                <input type="text" class="form-control" id="edit-category-name" name="edit-category-name" placeholder="Enter an category name" value="{{ $category->category_name }}" required>
                             </div>
                         </div>
                         <div class="modal-footer">

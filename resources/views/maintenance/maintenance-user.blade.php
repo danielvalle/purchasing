@@ -23,7 +23,6 @@
                             <table width="100%" class="table" id="dt-user">
                                 <thead>
                                     <tr>
-                                        <th style="width:10%;">ID</th>
                                         <th>Name</th>
                                         <th>Sex</th>
                                         <th>E-mail</th>
@@ -48,8 +47,8 @@
                                             <td>{{ $user->agency_name }}</td>
                                             <td>{{ $user->designation_name }}</td>
                                             <td>
-                                                <a style="color:green" data-toggle="modal" href="#{{ $user->id }}edit-user"><span class="glyphicon glyphicon-edit"></span></a>
-                                                <a style="color:red" data-toggle="modal" href="#{{ $user->id }}del-user"><span class="glyphicon glyphicon-trash"></span></a>
+                                                <a data-toggle="modal" href="#{{ $user->id }}edit-user"><span class="glyphicon glyphicon-edit"></span></a>
+                                                <a data-toggle="modal" href="#{{ $user->id }}del-user"><span class="glyphicon glyphicon-trash"></span></a>
                                             </td>
                                         </tr>
                                         @endif

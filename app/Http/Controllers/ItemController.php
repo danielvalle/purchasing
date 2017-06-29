@@ -24,27 +24,76 @@ class ItemController extends Controller
 
     public function store(Request $request)
     {        
-        $item = Item::create(array(
+        $item_name_check = \DB::table('item')
+                    ->where('item_name', trim($request->input('add-item-name')))
+                    ->first();
+
+        $stock_no_check = \DB::table('item')
+                    ->where('stock_no', trim($request->input('add-stock-no')))
+                    ->first();
+
+        if($item_name_check == null && $stock_no_check == null)
+        {
+            $item = Item::create(array(
                 'stock_no' => trim($request->input('add-stock-no')),
                 'item_name' => trim($request->input('add-item-name')),
                 'item_description' => trim($request->input('add-item-description')),
                 'is_active' => 1
             ));
 
-        $added = $item->save();
+            $item->save();
+
+            \Session::flash('item_new_success', "Item is successfully added.");
+        }
+        else if($item_name_check != null)
+        {
+            \Session::flash('item_new_fail', "Item already exists.");
+        }
+        else if($stock_no_check != null)
+        {
+            \Session::flash('stock_no_new_fail', "Stock No. is already used.");
+        }
 
         return redirect('maintenance/item');
     }
 
     public function update(Request $request)
     {
+        $item_name_check = \DB::table('item')
+                    ->where('item_name', trim($request->input('edit-item-name')))
+                    ->first();
 
-        $item = Item::find($request->input('edit-item-id'));
+        $stock_no_check = \DB::table('item')
+                    ->where('stock_no', trim($request->input('edit-stock-no')))
+                    ->first();
 
-        $item->stock_no = trim($request->input('edit-stock-no'));
-        $item->item_name = trim($request->input('edit-item-name'));
-        $item->item_description = trim($request->input('edit-item-description'));
-        $item->save();
+        $item_check = \DB::table('item')
+                    ->where('item_name', trim($request->input('edit-item-name')))
+                    ->orWhere('stock_no', trim($request->input('edit-stock-no')))
+                    ->first();
+                    
+
+        if($item_check == null)
+        {
+           
+            $item = Item::find($request->input('edit-item-id'));
+
+            $item->stock_no = trim($request->input('edit-stock-no'));
+            $item->item_name = trim($request->input('edit-item-name'));
+            $item->item_description = trim($request->input('edit-item-description'));
+            
+            $item->save();
+
+            \Session::flash('item_edit_success', trim($request->input('edit-item-name')) . " is successfully updated.");
+        }
+        else if($item_name_check == trim($request->input('edit-item-name')) && $item_name_check->id != $request->input('edit-item-id'))
+        {
+            \Session::flash('item_edit_fail', trim($request->input('edit-item-name')) . " already exists.");
+        }
+        else if($stock_no_check == trim($request->input('edit-stock-no')) && $stock_no_check->id != $request->input('edit-item-id'))
+        {
+            \Session::flash('stock_no_edit_fail', trim($request->input('edit-stock-no')) . " already exists.");
+        }
 
         return redirect('maintenance/item');
     }

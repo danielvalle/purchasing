@@ -11,7 +11,6 @@ class Agency extends Model
 	protected $primaryKey = 'id';
 	protected $fillable = array('id',
 								'agency_name',
-								'department_fk',
 								'is_active'
 								//
 								);
