@@ -14,7 +14,27 @@
                 </div>
                 <!-- /.col-lg-12 -->
             </div>
+            @if(Session::has('rfq_add_success'))
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="alert alert-success alert-dismissable">
+                        <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                        <strong>{!! session('rfq_add_success') !!}</strong>
+                    </div>
+                </div>
+            </div>
+            @endif
 
+            @if(Session::has('rfq_add_fail'))
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="alert alert-danger alert-dismissable">
+                        <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                        <strong>{!! session('rfq_add_fail') !!}</strong>
+                    </div>
+                </div>
+            </div>
+            @endif
             <div class="row">   
                 <div class="col-lg-12">
                     <div class="panel panel-default">
@@ -31,6 +51,7 @@
                                 <div class="form-group" style="margin-right: 50px;">
                                     <label for="">Select Purchase Number: </label>
                                     <select class="selectpicker" name="select-pr-no" id="select-pr-no">
+                                            <option value="" selected disabled>Select a PR No.</option>
                                         @foreach($pr_headers as $pr_header)
                                             <option value="{{ $pr_header->id }}" @if($pr_id == $pr_header->id) selected @endif>{{ $pr_header->pr_number }}</option>
                                         @endforeach
@@ -63,7 +84,7 @@
 
                                         <div class="form-inline col-lg-6" style="margin-bottom: 20px;">
                                             <label for="">Supplier(s): </label>
-                                            <select class="selectpicker" multiple data-max-options="5" data-size="10" data-live-search="true" name="add-supplier[]" id="add-supplier">
+                                            <select class="selectpicker" multiple data-max-options="5" data-size="10" data-live-search="true" name="add-supplier[]" id="add-supplier" required>
                                                 @foreach($suppliers as $supplier)
                                                     <option data-tokens="{{ $supplier->supplier_name }}" value="{{ $supplier->id }}">{{ $supplier->supplier_name }}</option>   
                                                 @endforeach

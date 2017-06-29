@@ -137,7 +137,7 @@ class PurchaseRequestController extends Controller
         $pr_categories = $temp_categories;
 
         session(['pr_items' => $pr_items]);
-
+        //dd(session()->get('pr_items'));
         return view("transaction.transaction-purchase-request")
             ->with("agencies", $agencies)
             ->with("departments", $departments)
@@ -208,46 +208,57 @@ class PurchaseRequestController extends Controller
     {
         $pr_items = session()->get('pr_items');
 
-        $purchase_request = PurchaseRequest::create(array(
-                'agency_fk' => $request->input('add-agency'),
-                'department_fk' => $request->input('add-department'),
-                'section_fk' => $request->input('add-section'),
-                'pr_date' =>  date("Y-m-d", strtotime($request->input('transaction_date'))),
-                'sai_number' => $request->input('add-sai-no'),
-                'sai_date' =>  date("Y-m-d", strtotime($request->input('add-sai-date'))),
-                'purpose' => $request->input('add-purpose'),
-                'requested_by_fk' => $request->input('add-requested-by'),
-                'approved_by_fk' => $request->input('add-approved-by'),
-                'is_active' => 1
-        ));
+        if($pr_items == null)
+        {
+            \Session::flash('pr_add_fail','You have not selected any items. Purchase Request is not sent.');
 
-        $purchase_request->save();
-
-        $purchase_request = PurchaseRequest::find($purchase_request->id);
-
-        $purchase_request->pr_number = date("Y-m", strtotime($purchase_request->pr_date)) . "-" . sprintf("%04d", $purchase_request->id);
-        $purchase_request->save();
-        
-        session(["pdf_pr_id" => $purchase_request->id]);
-
-        for($i = 0; $i < count($pr_items); $i++){
-
-            $purchase_request_detail = PurchaseRequestDetail::create(array(
-                    'purchase_request_fk' => $purchase_request->id,
-                    'quantity' => session()->get('pr_quantities')[$i],
-                    'unit_of_issue_fk' => session()->get('pr_units')[$i],
-                    'item_fk' => $pr_items[$i]->id,
-                    'category_fk' => session()->get('pr_categories')[$i],
-                    'stock_no' => $pr_items[$i]->stock_no,
-            ));
-            
-            $purchase_request_detail->save();
-
+            return redirect("transaction/purchase-request-show");
         }
-        
-        \Session::flash('pr_new_check','yes');
+        else
+        {
+            $purchase_request = PurchaseRequest::create(array(
+                    'agency_fk' => $request->input('add-agency'),
+                    'department_fk' => $request->input('add-department'),
+                    'section_fk' => $request->input('add-section'),
+                    'pr_date' =>  date("Y-m-d", strtotime($request->input('transaction_date'))),
+                    'sai_number' => $request->input('add-sai-no'),
+                    'sai_date' =>  date("Y-m-d", strtotime($request->input('add-sai-date'))),
+                    'purpose' => $request->input('add-purpose'),
+                    'requested_by_fk' => $request->input('add-requested-by'),
+                    'approved_by_fk' => $request->input('add-approved-by'),
+                    'is_active' => 1
+            ));
 
-        return redirect("transaction/purchase-request");
+            $purchase_request->save();
+
+            $purchase_request = PurchaseRequest::find($purchase_request->id);
+
+            $purchase_request->pr_number = date("Y-m", strtotime($purchase_request->pr_date)) . "-" . sprintf("%04d", $purchase_request->id);
+            $purchase_request->save();
+            
+            session(["pdf_pr_id" => $purchase_request->id]);
+
+            for($i = 0; $i < count($pr_items); $i++){
+
+                $purchase_request_detail = PurchaseRequestDetail::create(array(
+                        'purchase_request_fk' => $purchase_request->id,
+                        'quantity' => session()->get('pr_quantities')[$i],
+                        'unit_of_issue_fk' => session()->get('pr_units')[$i],
+                        'item_fk' => $pr_items[$i]->id,
+                        'category_fk' => session()->get('pr_categories')[$i],
+                        'stock_no' => $pr_items[$i]->stock_no,
+                ));
+                
+                $purchase_request_detail->save();
+
+            }
+            
+            \Session::flash('pr_add_success','Purchase Request is successfully sent.');
+
+            \Session::flash('pr_new_check','yes');
+
+            return redirect("transaction/purchase-request");
+        }
 
     }
 
@@ -259,15 +270,16 @@ class PurchaseRequestController extends Controller
 
     public function delete(Request $request)
     {
+     
         $del_index = ((int)$request->input('del-item-id'));
 
-        $pr_items = session()->get('pr_items');
+        $temp_pr_items = session()->get('temp_pr_items');
         $pr_quantities = session()->get('pr_quantities');
         $pr_units = session()->get('pr_units');
         $pr_suppliers = session()->get('pr_suppliers');
         
-        unset($pr_items[$del_index]);
-        $pr_items = array_slice($pr_items, 0);
+        unset($temp_pr_items[$del_index]);
+        $temp_pr_items = array_slice($temp_pr_items, 0);
 
         unset($pr_quantities[$del_index]);
         $pr_quantities = array_slice($pr_quantities, 0);
@@ -278,8 +290,8 @@ class PurchaseRequestController extends Controller
         unset($pr_suppliers[$del_index]);
         $pr_suppliers = array_slice($pr_suppliers, 0);
 
-        session()->forget('pr_items');
-        session(['pr_items' => $pr_items]);
+        session()->forget('temp_pr_items');
+        session(['temp_pr_items' => $temp_pr_items]);
 
         session()->forget('pr_quantities');
         session(['pr_quantities' => $pr_quantities]);

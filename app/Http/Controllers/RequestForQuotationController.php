@@ -33,6 +33,8 @@ class RequestForQuotationController extends Controller
         $pr_id = "";
         $category_id = "";
 
+        session(['rfq_pr_no' => null]);
+
         return view("transaction.transaction-request-for-quotation")
                 ->with('categories', $categories)
                 ->with('pr_headers', $pr_headers)
@@ -84,51 +86,63 @@ class RequestForQuotationController extends Controller
     {
         $suppliers = $request->input("add-supplier");
         $suppliers_for_printing = $request->input("add-print-supplier");
+        $item_start = $request->input('item_id' . "0");
 
         for($i = count($suppliers); $i < 5; $i++){
             $suppliers[$i] = null;
         }
 
-        $request_for_quotation = RequestForQuote::create(array(
-                'date' => date("Y-m-d", strtotime($request->input('transaction_date'))),
-                'supplier1_fk' => $suppliers[0],
-                'supplier2_fk' => $suppliers[1],
-                'supplier3_fk' => $suppliers[2],
-                'supplier4_fk' => $suppliers[3],
-                'supplier5_fk' => $suppliers[4],
-                'category_fk' => $request->input("category_id"),
-                'vat_nonvat_tin' => $request->input("add-tin"),
-                'place_of_delivery' => $request->input("add-place-delivery"),
-                'within_no_of_days' => $request->input("add-days"),
-                'requestor_fk' => $request->input("add-requestor"),
-                'canvasser_fk' => $request->input("add-canvasser"),
-                'pr_fk' => $request->input("pr_id"),
-                'is_active' => 1
-        ));
-
-        $request_for_quotation->save();
-
-        session(["pdf_rfq_id" => $request_for_quotation->id]);
-        session(["pdf_supp_id" => $suppliers_for_printing]);
-
-        for($i = 0; $i < session()->get('rfq_pr_count'); $i++){
-
-            $request_for_quotation_detail = RequestForQuoteDetail::create(array(
-                    'request_for_quote_fk' => $request_for_quotation->id,
-                    'quantity' => $request->input('quantity' . $i),
-                    'item_fk' => $request->input('item_id' . $i),
-                    'unit_fk' => $request->input('unit_id' . $i),
-                    'total' => $request->input('total' . $i),
-                    'is_active' => 1
-            ));        
-
-            $request_for_quotation_detail->save();
-
+        if($item_start == null)
+        {
+            \Session::flash('rfq_add_fail','You have not selected a Purchase Request. Request For Quotation is not sent.');
+            
+            return redirect('transaction/request-for-quotation-show');
         }
+        else
+        {
+            $request_for_quotation = RequestForQuote::create(array(
+                    'date' => date("Y-m-d", strtotime($request->input('transaction_date'))),
+                    'supplier1_fk' => $suppliers[0],
+                    'supplier2_fk' => $suppliers[1],
+                    'supplier3_fk' => $suppliers[2],
+                    'supplier4_fk' => $suppliers[3],
+                    'supplier5_fk' => $suppliers[4],
+                    'category_fk' => $request->input("category_id"),
+                    'vat_nonvat_tin' => $request->input("add-tin"),
+                    'place_of_delivery' => $request->input("add-place-delivery"),
+                    'within_no_of_days' => $request->input("add-days"),
+                    'requestor_fk' => $request->input("add-requestor"),
+                    'canvasser_fk' => $request->input("add-canvasser"),
+                    'pr_fk' => $request->input("pr_id"),
+                    'is_active' => 1
+            ));
 
-        \Session::flash('rfq_new_check','yes');
+            $request_for_quotation->save();
 
-        return redirect("transaction/request-for-quotation");
+            session(["pdf_rfq_id" => $request_for_quotation->id]);
+            session(["pdf_supp_id" => $suppliers_for_printing]);
+
+            for($i = 0; $i < session()->get('rfq_pr_count'); $i++){
+
+                $request_for_quotation_detail = RequestForQuoteDetail::create(array(
+                        'request_for_quote_fk' => $request_for_quotation->id,
+                        'quantity' => $request->input('quantity' . $i),
+                        'item_fk' => $request->input('item_id' . $i),
+                        'unit_fk' => $request->input('unit_id' . $i),
+                        'total' => $request->input('total' . $i),
+                        'is_active' => 1
+                ));        
+
+                $request_for_quotation_detail->save();
+
+            }
+
+            \Session::flash('rfq_add_success','Request For Quotation is successfully sent.');
+
+            \Session::flash('rfq_new_check','yes');
+
+            return redirect("transaction/request-for-quotation");   
+        }
 
     }
 

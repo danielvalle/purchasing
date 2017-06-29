@@ -14,6 +14,27 @@
                 </div>
                 <!-- /.col-lg-12 -->
             </div>
+            @if(Session::has('pr_add_success'))
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="alert alert-success alert-dismissable">
+                        <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                        <strong>{!! session('pr_add_success') !!}</strong>
+                    </div>
+                </div>
+            </div>
+            @endif
+
+            @if(Session::has('pr_add_fail'))
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="alert alert-danger alert-dismissable">
+                        <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                        <strong>{!! session('pr_add_fail') !!}</strong>
+                    </div>
+                </div>
+            </div>
+            @endif
             {!! Form::open(['url' => 'transaction/purchase-request', 'method' => 'post']) !!} 
             <div class="row">
                 <div class="col-lg-12">

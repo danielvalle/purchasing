@@ -28,6 +28,12 @@ class AbstractQuotationController extends Controller
     	$rfqs = RequestForQuote::all();
         $rfq_suppliers = [0 => "", 1 => "", 2 => "", 3 => "", 4 => ""];
         $rfq_items = [];
+
+        session(['aq_rfq_no' => null]);
+        session(['aq_suppliers' => null]);
+        session(['aq_suppliers_id' => null]);
+        session(['aq_rfq_items' => null]);
+
         $users = User::all();
 
         return view("transaction.transaction-abstract-quotation")
@@ -40,6 +46,7 @@ class AbstractQuotationController extends Controller
 
     public function get_rfq(Request $request)
     {
+        
     	$rfqs = RequestForQuote::all();
         $users = User::all();
 
@@ -144,50 +151,62 @@ class AbstractQuotationController extends Controller
         $suppliers = session()->get('aq_suppliers');
         $suppliers_id = session()->get('aq_suppliers_id');
         $items = session()->get('aq_rfq_items');
-    
-        $abstract_quotation = AbstractQuotation::create(array(
-                'date' => date("Y-m-d", strtotime($request->input('transaction_date'))),
-                'supplier1_fk' => $suppliers_id[0],
-                'supplier2_fk' => $suppliers_id[1],
-                'supplier3_fk' => $suppliers_id[2],
-                'supplier4_fk' => $suppliers_id[3],
-                'supplier5_fk' => $suppliers_id[4],
-                'supervising_admin_fk' => $request->input("add-supervising-admin"),
-                'admin_officer_fk' => $request->input("add-admin-officer"),
-                'admin_officer_2_fk' => $request->input("add-admin-officer-2"),
-                'board_secretary_fk' => $request->input("add-board-secretary"),
-                'vpaf_fk' => $request->input("add-vpaf"),
-                'approve_fk' => $request->input("add-approved-by"),
-                'pr_fk' => $request->input("add-pr-fk"),
-                'is_active' => 1
-        ));
-
-        $abstract_quotation->save();
-
-        session(["pdf_aq_id" => $abstract_quotation->id]);
-
-        for($i = 0; $i < count($items); $i++){
-
-            $abstract_quotation_detail = AbstractQuotationDetail::create(array(
-                    'abstract_quotation_fk' => $abstract_quotation->id,
-                    'unit_fk' => $items[$i]->unit_fk,
-                    'item_fk' => $items[$i]->item_fk    ,
-                    'supplier1_amount' => $request->input('supplier1_amount' . $i),
-                    'supplier2_amount' => $request->input('supplier2_amount' . $i),
-                    'supplier3_amount' => $request->input('supplier3_amount' . $i),
-                    'supplier4_amount' => $request->input('supplier4_amount' . $i),
-                    'supplier5_amount' => $request->input('supplier5_amount' . $i),
-                    'quantity' => $items[$i]->quantity,
-                    'is_active' => 1
-            ));        
-
-            $abstract_quotation_detail->save();
-
+        
+        if($items == null)
+        {
+            \Session::flash('aq_add_fail','You have not selected a Request For Quotation. Abstract Quotation is not sent.');
+            
+            return redirect('transaction/abstract-quotation');
         }
+        else
+        {
+            $abstract_quotation = AbstractQuotation::create(array(
+                    'date' => date("Y-m-d", strtotime($request->input('transaction_date'))),
+                    'supplier1_fk' => $suppliers_id[0],
+                    'supplier2_fk' => $suppliers_id[1],
+                    'supplier3_fk' => $suppliers_id[2],
+                    'supplier4_fk' => $suppliers_id[3],
+                    'supplier5_fk' => $suppliers_id[4],
+                    'supervising_admin_fk' => $request->input("add-supervising-admin"),
+                    'admin_officer_fk' => $request->input("add-admin-officer"),
+                    'admin_officer_2_fk' => $request->input("add-admin-officer-2"),
+                    'board_secretary_fk' => $request->input("add-board-secretary"),
+                    'vpaf_fk' => $request->input("add-vpaf"),
+                    'approve_fk' => $request->input("add-approved-by"),
+                    'pr_fk' => $request->input("add-pr-fk"),
+                    'is_active' => 1
+            ));
 
-        \Session::flash('aq_new_check','yes');
+            $abstract_quotation->save();
 
-        return redirect("transaction/abstract-quotation");
+            session(["pdf_aq_id" => $abstract_quotation->id]);
+
+            for($i = 0; $i < count($items); $i++){
+
+                $abstract_quotation_detail = AbstractQuotationDetail::create(array(
+                        'abstract_quotation_fk' => $abstract_quotation->id,
+                        'unit_fk' => $items[$i]->unit_fk,
+                        'item_fk' => $items[$i]->item_fk    ,
+                        'supplier1_amount' => $request->input('supplier1_amount' . $i),
+                        'supplier2_amount' => $request->input('supplier2_amount' . $i),
+                        'supplier3_amount' => $request->input('supplier3_amount' . $i),
+                        'supplier4_amount' => $request->input('supplier4_amount' . $i),
+                        'supplier5_amount' => $request->input('supplier5_amount' . $i),
+                        'quantity' => $items[$i]->quantity,
+                        'is_active' => 1
+                ));        
+
+                $abstract_quotation_detail->save();
+
+            }
+
+            \Session::flash('aq_add_success','Abstract Quotation is successfully sent.');
+
+            \Session::flash('aq_new_check','yes');
+
+            return redirect("transaction/abstract-quotation");
+            
+        }
     }
 
     public function aq_pdf()

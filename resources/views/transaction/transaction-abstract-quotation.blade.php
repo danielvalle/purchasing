@@ -14,7 +14,27 @@
                 </div>
                 <!-- /.col-lg-12 -->
             </div>
+            @if(Session::has('aq_add_success'))
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="alert alert-success alert-dismissable">
+                        <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                        <strong>{!! session('aq_add_success') !!}</strong>
+                    </div>
+                </div>
+            </div>
+            @endif
 
+            @if(Session::has('aq_add_fail'))
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="alert alert-danger alert-dismissable">
+                        <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                        <strong>{!! session('aq_add_fail') !!}</strong>
+                    </div>
+                </div>
+            </div>
+            @endif
             <div class="row">   
                 <div class="col-lg-12">
                     <div class="panel panel-default">
@@ -30,6 +50,7 @@
                                 <div class="form-group" style="margin-right: 50px;">
                                     <label for="">Select Request for Quotation Number: </label>
                                     <select class="selectpicker" name="select-rfq-no" id="select-rfq-no">
+                                        <option value="" selected disabled>Select an RFQ No.</option>
                                         @foreach($rfqs as $rfq)
                                             <option value="{{ $rfq->id }}">RFQ No. {{ $rfq->id }}</option>
                                         @endforeach
