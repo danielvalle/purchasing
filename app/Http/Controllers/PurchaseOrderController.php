@@ -53,55 +53,69 @@ class PurchaseOrderController extends Controller
         $items = session()->get("po_items");
         $supplier_amounts = $request->input('supplier-amount');
 
-        $purchase_order = PurchaseOrder::create(array(
-                'agency_fk' => $request->input('add-agency'),
-                'supplier_fk' => $request->input('add-supplier'),
-                'address' => $request->input('add-address'),
-                'tin' => $request->input('add-tin'),
-                'invoice_date' =>  date("Y-m-d", strtotime($request->input('add-date'))),
-                'mode_of_procurement' => $request->input('add-mode-of-procurement'),
-                'place_of_delivery' => $request->input('add-place-delivery'),
-                'date_of_delivery' =>  date("Y-m-d", strtotime($request->input('add-date-delivery'))),
-                'delivery_term' => $request->input('add-delivery-term'),
-                'payment_term' => $request->input('add-payment-term'),
-                'authorized_official_fk' => $request->input('add-authorized-official'),
-                'total_amount' => $request->input('add-total-amount'),
-                'alobs_bub_no' => $request->input('add-alobs-no'),
-                'pr_no_fk' => $request->input('hdn-pr-no'),
-                'abstract_quotation_fk' => $request->input('hdn-aq-no'),
-                'is_active' => 1
-            ));
-
-        $purchase_order->save();
-
-        $purchase_order = PurchaseOrder::find($purchase_order->id);
-
-        $purchase_order->po_no = date("Y-m", strtotime($purchase_order->invoice_date)) . "-" . sprintf("%04d", $purchase_order->id);
-        $purchase_order->save();
-
-
-        session(["pdf_po_id" => $purchase_order->id]);
-
-        for($i = 0; $i < count($items); $i++){
-
-            $purchase_order_detail = PurchaseOrderDetail::create(array(
-                    'po_id_fk' => $purchase_order->id,
-                    'stock_no' => $items[$i]->stock_no,
-                    'unit_fk' => $items[$i]->unit_of_issue_fk,
-                    'item_fk' => $items[$i]->item_fk,
-                    'category_fk' => $items[$i]->category_fk,
-                    'quantity' => $items[$i]->quantity,
-                    'unit_cost' => $supplier_amounts[$i],
-                    'amount' => $items[$i]->quantity * ((int)$supplier_amounts[$i])
-            ));
+        if($items == null)
+        {
+            \Session::flash('po_add_fail','You have not selected a Purchase Request. Purchase Order is not sent.');
             
-            $purchase_order_detail->save();
+            return redirect('transaction/purchase-order');
+        }
+        else
+        {
+
+            $purchase_order = PurchaseOrder::create(array(
+                    'agency_fk' => $request->input('add-agency'),
+                    'supplier_fk' => $request->input('add-supplier'),
+                    'address' => $request->input('add-address'),
+                    'tin' => $request->input('add-tin'),
+                    'invoice_date' =>  date("Y-m-d", strtotime($request->input('add-date'))),
+                    'mode_of_procurement' => $request->input('add-mode-of-procurement'),
+                    'place_of_delivery' => $request->input('add-place-delivery'),
+                    'date_of_delivery' =>  date("Y-m-d", strtotime($request->input('add-date-delivery'))),
+                    'delivery_term' => $request->input('add-delivery-term'),
+                    'payment_term' => $request->input('add-payment-term'),
+                    'authorized_official_fk' => $request->input('add-authorized-official'),
+                    'total_amount' => $request->input('add-total-amount'),
+                    'alobs_bub_no' => $request->input('add-alobs-no'),
+                    'pr_no_fk' => $request->input('hdn-pr-no'),
+                    'abstract_quotation_fk' => $request->input('hdn-aq-no'),
+                    'is_active' => 1
+                ));
+
+            $purchase_order->save();
+
+            $purchase_order = PurchaseOrder::find($purchase_order->id);
+
+            $purchase_order->po_no = date("Y-m", strtotime($purchase_order->invoice_date)) . "-" . sprintf("%04d", $purchase_order->id);
+            $purchase_order->save();
+
+
+            session(["pdf_po_id" => $purchase_order->id]);
+
+            for($i = 0; $i < count($items); $i++){
+
+                $purchase_order_detail = PurchaseOrderDetail::create(array(
+                        'po_id_fk' => $purchase_order->id,
+                        'stock_no' => $items[$i]->stock_no,
+
+                        'unit_fk' => $items[$i]->unit_of_issue_fk,
+                        'item_fk' => $items[$i]->item_fk,
+                        'category_fk' => $items[$i]->category_fk,
+                        'quantity' => $items[$i]->quantity,
+                        'unit_cost' => $supplier_amounts[$i],
+                        'amount' => $items[$i]->quantity * ((int)$supplier_amounts[$i])
+                ));
+                
+                $purchase_order_detail->save();
+
+            }
+
+            \Session::flash('po_add_success','Purchase Order is successfully sent.');
+
+            \Session::flash('po_new_check','yes');
+
+            return redirect("transaction/purchase-order");
 
         }
-
-        \Session::flash('po_new_check','yes');
-
-        return redirect("transaction/purchase-order");
     }
 
     public function get_aq(Request $request)

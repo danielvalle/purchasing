@@ -53,61 +53,72 @@ class AcceptanceController extends Controller
     {
         $items = session()->get("acceptance_items");
 
-        $acceptance = Acceptance::create(array(
-                'agency_fk' => $request->input('add-agency'),
-                'supplier_fk' => $request->input('add-supplier'),
-                'po_fk' => session()->get("acceptance_po_no"),
-                'po_no' => $request->input('add-po-no'),
-                'po_date' => date("Y-m-d", strtotime($request->input('add-po-date'))),
-                'iar' => $request->input('add-iar'),
-                'invoice_no' => $request->input('add-invoice-no'),
-                'invoice_date' =>  date("Y-m-d", strtotime($request->input('add-invoice-date'))),
-                'requisitioning_dept_fk' => $request->input('select-dept'),
-                'date_inspected' => $request->input('add-date-inspected'),
-                'verification' =>  $request->input('cbx-inspected'),
-                'inspector_fk' => $request->input('add-inspector'),
-                'date_accepted' => $request->input('add-date-accepted'),
-                'completeness' => $request->input('rdb-completeness'),
-                'property_officer_fk' => $request->input('add-officer'),
-                'is_active' => 1
-            ));
+        if($items == null)
+        {
+            \Session::flash('accept_add_fail','You have not selected a Purchase Order. Acceptance is not sent.');
+        }
+        else
+        {
 
-        $acceptance->save();
-
-        session(["pdf_accept_id" => $acceptance->id]);
-
-        for($i = 0; $i < count($items); $i++){
-
-            $acceptance_detail = AcceptanceDetail::create(array(
-                    'acceptance_fk' => $acceptance->id,
-                    'item_fk' => $items[$i]->item_fk,
-                    'unit_fk' => $items[$i]->unit_fk,
-                    'quantity' => $items[$i]->quantity,
+            $acceptance = Acceptance::create(array(
+                    'agency_fk' => $request->input('add-agency'),
+                    'supplier_fk' => $request->input('add-supplier'),
+                    'po_fk' => session()->get("acceptance_po_no"),
+                    'po_no' => $request->input('add-po-no'),
+                    'po_date' => date("Y-m-d", strtotime($request->input('add-po-date'))),
+                    'iar' => $request->input('add-iar'),
+                    'invoice_no' => $request->input('add-invoice-no'),
+                    'invoice_date' =>  date("Y-m-d", strtotime($request->input('add-invoice-date'))),
+                    'requisitioning_dept_fk' => $request->input('select-dept'),
+                    'date_inspected' => $request->input('add-date-inspected'),
+                    'verification' =>  $request->input('cbx-inspected'),
+                    'inspector_fk' => $request->input('add-inspector'),
+                    'date_accepted' => $request->input('add-date-accepted'),
+                    'completeness' => $request->input('rdb-completeness'),
+                    'property_officer_fk' => $request->input('add-officer'),
                     'is_active' => 1
-            ));
-            
-            $acceptance_detail->save();
+                ));
 
-            $stock_card = StockCard::create(array(
-                        'item_fk' => $items[$i]->item_fk,
-                        'date' => date("Y-m-d"),
-                        'reference' => "Acceptance",
+            $acceptance->save();
+
+            session(["pdf_accept_id" => $acceptance->id]);
+
+            for($i = 0; $i < count($items); $i++){
+
+                $acceptance_detail = AcceptanceDetail::create(array(
                         'acceptance_fk' => $acceptance->id,
-                        'reference_no' => "ACC-" . sprintf("%04d", $acceptance_detail->id),
-                        'received_quantity' => $items[$i]->quantity
-            ));
+                        'item_fk' => $items[$i]->item_fk,
+                        'unit_fk' => $items[$i]->unit_fk,
+                        'quantity' => $items[$i]->quantity,
+                        'is_active' => 1
+                ));
+                
+                $acceptance_detail->save();
 
-            $stock_card->save();               
+                $stock_card = StockCard::create(array(
+                            'item_fk' => $items[$i]->item_fk,
+                            'date' => date("Y-m-d"),
+                            'reference' => "Acceptance",
+                            'acceptance_fk' => $acceptance->id,
+                            'reference_no' => "ACC-" . sprintf("%04d", $acceptance_detail->id),
+                            'received_quantity' => $items[$i]->quantity
+                ));
 
-            $item = Item::find($items[$i]->item_fk);
+                $stock_card->save();               
 
-            $item->item_quantity = ($item->item_quantity + (int)$items[$i]->quantity);
-            $item->save();
+                $item = Item::find($items[$i]->item_fk);
+
+                $item->item_quantity = ($item->item_quantity + (int)$items[$i]->quantity);
+                $item->save();
+
+            }
+
+            \Session::flash('accept_add_success','Acceptance is successfully sent.');
+
+            \Session::flash('accept_new_check','yes');
 
         }
-
-        \Session::flash('accept_new_check','yes');
-
+        
         return redirect("transaction/acceptance");
     }
 

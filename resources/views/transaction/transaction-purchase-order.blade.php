@@ -14,7 +14,27 @@
                 </div>
                 <!-- /.col-lg-12 -->
             </div>
+            @if(Session::has('po_add_success'))
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="alert alert-success alert-dismissable">
+                        <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                        <strong>{!! session('po_add_success') !!}</strong>
+                    </div>
+                </div>
+            </div>
+            @endif
 
+            @if(Session::has('po_add_fail'))
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="alert alert-danger alert-dismissable">
+                        <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                        <strong>{!! session('po_add_fail') !!}</strong>
+                    </div>
+                </div>
+            </div>
+            @endif
             <div class="row">   
                 <div class="col-lg-12">
                     <div class="panel panel-default">
@@ -33,8 +53,9 @@
                                     <div class="form-group" style="width: 100%">
                                         <label for="">Purchase Request Number:</label>
                                         <select class="selectpicker" name="select-pr-no" id="select-pr-no">
+                                            <option value="" selected disabled>Select a PR No.</option>
                                             @foreach($pr_nos as $pr_no)
-                                                <option value="{{ $pr_no->id }}" @if($selected_pr_no == $pr_no->id) selected @endif>PR No. {{ $pr_no->id }}</option>
+                                                <option value="{{ $pr_no->id }}" @if($selected_pr_no == $pr_no->id) selected @endif>{{ $pr_no->pr_number }}</option>
                                             @endforeach
                                         </select>     
 
