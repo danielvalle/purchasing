@@ -65,30 +65,10 @@
 
                                 {!! Form::close() !!}
                                 </div>
-                                <div style="margin: 25px 0"></div>
+
                             {!! Form::open(['class' => 'form-inline', 'method' => 'post', 'url' => 'transaction/purchase-order']) !!}
                                 <input type="hidden" name="hdn-pr-no" id="hdn-pr-no" value="{{ $selected_pr_no }}">
                                 <input type="hidden" name="hdn-aq-no" id="hdn-aq-no" value="{{ $selected_aq_no }}">
-                                <div class="form-group">
-                                    <div class="form-group" style="margin-right: 50px;">
-                                        <label for="" >Agency:</label>
-                                        <select class="selectpicker" name="add-agency" id="add-agency">
-                                            @foreach($agencies as $agency)
-                                                <option value="{{ $agency->id }}">{{ $agency->agency_name }}</option>
-                                            @endforeach
-                                        </select>                                      
-                                    </div>
-
-                                    <div class="form-group">
-                                        <label for="">Supplier:</label>
-                                        <select class="selectpicker" name="add-supplier" id="add-supplier">
-                                                <option disabled selected>Select winning supplier</option>
-                                            @for($i = 0; $i < count($suppliers); $i++)
-                                                <option value="{{ $suppliers[$i] }}">{{ $supplier_names[$i] }}</option>
-                                            @endfor          
-                                        </select> 
-                                    </div>
-                                </div>
 
                             </div>
                         </div>        
@@ -99,7 +79,15 @@
 
                          <div class="panel-body">
                             <div class="panel panel-default">
-                                <div class="panel-heading"></div>
+                                <div class="panel-heading">
+                                        <label for="">Supplier:</label>
+                                        <select class="selectpicker" name="add-supplier" id="add-supplier">
+                                                <option disabled selected>Select winning supplier</option>
+                                            @for($i = 0; $i < count($suppliers); $i++)
+                                                <option value="{{ $suppliers[$i] }}">{{ $supplier_names[$i] }}</option>
+                                            @endfor          
+                                        </select> 
+                                </div>
                                 <div class="panel-body">
                                     <div class="form-group col-lg-12">
                                         <table class="table table-bordered">
@@ -132,7 +120,18 @@
                                 </div>             
                             </div>
 
-                            <div style="float: left; width: 100%; margin: 30px 0;">
+                            <div style="margin: 50px 0"></div>
+                            <div style="float: left; width: 100%;">
+                                <div class="form-group col-lg-4">                                 
+                                    <label for="" >Agency</label>
+                                    <select class="form-control" name="add-agency" id="add-agency">
+                                        @foreach($agencies as $agency)
+                                            <option value="{{ $agency->id }}">{{ $agency->agency_name }}</option>
+                                        @endforeach
+                                    </select>                                      
+                                </div>                                
+                            </div>
+                            <div style="float: left; width: 100%; margin-bottom: 30px">
                                 <div class="form-group col-lg-5">
                                     <label for="">Address</label>
                                     <input type="text" class="form-control" name="add-address" id="add-address">

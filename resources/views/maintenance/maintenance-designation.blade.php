@@ -10,45 +10,45 @@
                 </div>
                 <!-- /.col-lg-12 -->
             </div>
-            @if(Session::has('category_new_success'))
+            @if(Session::has('designation_new_success'))
             <div class="row">
                 <div class="col-lg-12">
                     <div class="alert alert-success alert-dismissable">
                         <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-                        <strong>{!! session('category_new_success') !!}</strong>
+                        <strong>{!! session('designation_new_success') !!}</strong>
                     </div>
                 </div>
             </div>
             @endif
 
-            @if(Session::has('category_new_fail'))
+            @if(Session::has('designation_new_fail'))
             <div class="row">
                 <div class="col-lg-12">
                     <div class="alert alert-danger alert-dismissable">
                         <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-                        <strong>{!! session('category_new_fail') !!}</strong>
+                        <strong>{!! session('designation_new_fail') !!}</strong>
                     </div>
                 </div>
             </div>
             @endif
 
-            @if(Session::has('category_edit_success'))
+            @if(Session::has('designation_edit_success'))
             <div class="row">
                 <div class="col-lg-12">
                     <div class="alert alert-success alert-dismissable">
                         <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-                        <strong>{!! session('category_edit_success') !!}</strong>
+                        <strong>{!! session('designation_edit_success') !!}</strong>
                     </div>
                 </div>
             </div>
             @endif
 
-            @if(Session::has('category_edit_fail'))
+            @if(Session::has('designation_edit_fail'))
             <div class="row">
                 <div class="col-lg-12">
                     <div class="alert alert-danger alert-dismissable">
                         <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-                        <strong>{!! session('category_edit_fail') !!}</strong>
+                        <strong>{!! session('designation_edit_fail') !!}</strong>
                     </div>
                 </div>
             </div>
@@ -104,7 +104,7 @@
                         <div class="modal-body">
                             <div class="form-group">
                                 <label for="designation-name">Designation Name</label>
-                                <input type="text" class="form-control" id="add-designation-name" name="add-designation-name" placeholder="Enter an designation name">
+                                <input required type="text" class="form-control" id="add-designation-name" name="add-designation-name" placeholder="Enter an designation name">
                             </div>
                         </div>
                         <div class="modal-footer">
@@ -133,7 +133,7 @@
                             <div class="form-group">
                                 <label for="designation-name">Designation Name</label>
                                 <input type="hidden" value="{{ $designation->id }}" name="edit-designation-id">
-                                <input type="text" class="form-control" id="edit-designation-name" name="edit-designation-name" placeholder="Enter an designation name" value="{{ $designation->designation_name }}">
+                                <input required type="text" class="form-control" id="edit-designation-name" name="edit-designation-name" placeholder="Enter an designation name" value="{{ $designation->designation_name }}">
                             </div>
                         </div>
                         <div class="modal-footer">

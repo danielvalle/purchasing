@@ -104,7 +104,7 @@
                         <div class="modal-body">
                             <div class="form-group">
                                 <label for="agency-name">Agency Name</label>
-                                <input type="text" class="form-control" id="add-agency-name" name="add-agency-name" placeholder="Enter an agency name">
+                                <input required type="text" class="form-control" id="add-agency-name" name="add-agency-name" placeholder="Enter an agency name">
                             </div>
                         </div>
                         <div class="modal-footer">
@@ -133,7 +133,7 @@
                             <div class="form-group">
                                 <label for="agency-name">Agency Name</label>
                                 <input type="hidden" value="{{ $agency->id }}" name="edit-agency-id">
-                                <input type="text" class="form-control" id="edit-agency-name" name="edit-agency-name" placeholder="Enter an agency name" value="{{ $agency->agency_name }}">
+                                <input required type="text" class="form-control" id="edit-agency-name" name="edit-agency-name" placeholder="Enter an agency name" value="{{ $agency->agency_name }}">
                             </div>
                         </div>
                         <div class="modal-footer">

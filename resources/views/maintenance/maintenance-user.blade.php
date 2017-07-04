@@ -10,7 +10,49 @@
                 </div>
                 <!-- /.col-lg-12 -->
             </div>
+            @if(Session::has('user_new_success'))
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="alert alert-success alert-dismissable">
+                        <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                        <strong>{!! session('user_new_success') !!}</strong>
+                    </div>
+                </div>
+            </div>
+            @endif
 
+            @if(Session::has('user_new_fail'))
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="alert alert-danger alert-dismissable">
+                        <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                        <strong>{!! session('user_new_fail') !!}</strong>
+                    </div>
+                </div>
+            </div>
+            @endif
+
+            @if(Session::has('user_edit_success'))
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="alert alert-success alert-dismissable">
+                        <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                        <strong>{!! session('user_edit_success') !!}</strong>
+                    </div>
+                </div>
+            </div>
+            @endif
+
+            @if(Session::has('user_edit_fail'))
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="alert alert-danger alert-dismissable">
+                        <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                        <strong>{!! session('user_edit_fail') !!}</strong>
+                    </div>
+                </div>
+            </div>
+            @endif
             <div class="row">
                 <div class="col-lg-12">
                     <div class="panel panel-default">
@@ -36,7 +78,6 @@
                                     @foreach($users as $user)
                                         @if($user->is_active == 1)
                                         <tr>
-                                            <td>{{ $user->id }}</td>
                                             <td>{{ $user->first_name }} {{ $user->middle_name }} {{ $user->last_name }} {{ $user->suffix }}</td>
                                             <td>
                                                 @if( $user->sex == "M" )Male
@@ -102,7 +143,7 @@
                                 </div>
                                 <div class="form-group col-lg-4">
                                     <label for="add-email" >E-mail</label>         
-                                    <input type="email" class="form-control" id="add-email" name="add-email" placeholder="juandelacruz@gmail.com">
+                                    <input type="email" class="form-control" id="add-email" name="add-email" placeholder="juandelacruz@gmail.com" required>
                                 </div>
                                 <div class="form-group col-lg-3">
                                     <label for="add-birthday" >Birthday</label>         

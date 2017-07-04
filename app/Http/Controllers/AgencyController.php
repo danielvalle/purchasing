@@ -65,7 +65,6 @@ class AgencyController extends Controller
 
     public function delete(Request $request)
     {
-
     	$agency = Agency::find($request->input('del-agency-id'));
 
         $agency->is_active = 0;

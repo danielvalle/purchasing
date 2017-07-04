@@ -32,17 +32,6 @@
             </div>
             @endif
 
-            @if(Session::has('stock_no_new_fail'))
-            <div class="row">
-                <div class="col-lg-12">
-                    <div class="alert alert-danger alert-dismissable">
-                        <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-                        <strong>{!! session('stock_no_new_fail') !!}</strong>
-                    </div>
-                </div>
-            </div>
-            @endif
-
             @if(Session::has('item_edit_success'))
             <div class="row">
                 <div class="col-lg-12">
@@ -54,23 +43,23 @@
             </div>
             @endif
 
-            @if(Session::has('item_edit_fail'))
+            @if(Session::has('item_name_edit_fail'))
             <div class="row">
                 <div class="col-lg-12">
                     <div class="alert alert-danger alert-dismissable">
                         <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-                        <strong>{!! session('item_edit_fail') !!}</strong>
+                        <strong>{!! session('item_name_edit_fail') !!}</strong>
                     </div>
                 </div>
             </div>
             @endif
 
-            @if(Session::has('stock_no_edit_fail'))
+            @if(Session::has('item_stock_edit_fail'))
             <div class="row">
                 <div class="col-lg-12">
                     <div class="alert alert-danger alert-dismissable">
                         <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-                        <strong>{!! session('stock_no_edit_fail') !!}</strong>
+                        <strong>{!! session('item_stock_edit_fail') !!}</strong>
                     </div>
                 </div>
             </div>
@@ -133,11 +122,11 @@
                         <div class="modal-body">
                             <div class="form-group">
                                 <label for="add-item-name">Stock No.</label>
-                                <input type="text" class="form-control" id="add-stock-no" name="add-stock-no" placeholder="Enter a stock number">
+                                <input type="text" class="form-control" id="add-stock-no" name="add-stock-no" placeholder="Enter a stock number" required>
                             </div>
                             <div class="form-group">
                                 <label for="add-item-name">Item Name</label>
-                                <input type="text" class="form-control" id="add-item-name" name="add-item-name" placeholder="Enter an item name">
+                                <input type="text" class="form-control" id="add-item-name" name="add-item-name" placeholder="Enter an item name" required>
                             </div>
                             <div class="form-group">
                                 <label for="add-item-description">Item Description</label>
@@ -170,11 +159,11 @@
                             <input type="hidden" value="{{ $item->id }}" name="edit-item-id">
                             <div class="form-group">
                                 <label for="item-name">Stock No.</label>
-                                <input type="text" class="form-control" id="edit-stock-no" name="edit-stock-no" placeholder="Enter a stock number" value="{{ $item->stock_no }}">
+                                <input type="text" class="form-control" id="edit-stock-no" name="edit-stock-no" placeholder="Enter a stock number" value="{{ $item->stock_no }}" required>
                             </div>
                             <div class="form-group">
                                 <label for="item-name">Item Name</label>
-                                <input type="text" class="form-control" id="edit-item-name" name="edit-item-name" placeholder="Enter an item name" value="{{ $item->item_name }}">
+                                <input type="text" class="form-control" id="edit-item-name" name="edit-item-name" placeholder="Enter an item name" value="{{ $item->item_name }}" required>
                             </div>
                             <div class="form-group">
                                 <label for="edit-item-description">Item Description</label>
@@ -221,7 +210,6 @@
 
             <!-- View Stock Card -->
             <div id="{{ $item->id }}view-stock-card" class="modal fade" role="dialog">
-            {!! Form::open(['url' => 'maintenance/item', 'method' => 'post']) !!} 
                 <div class="modal-dialog  modal-lg">
             
                     <!-- Modal content-->
@@ -297,13 +285,11 @@
   
                         </div>
                         <div class="modal-footer">
-                            <button type="submit" class="btn btn-success">Add</button>
                             <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
                         </div>
                     </div>
 
                 </div>
-            {!! Form::close() !!}
             </div>
             <!-- /View Stock Card -->
 

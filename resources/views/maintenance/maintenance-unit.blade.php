@@ -104,7 +104,7 @@
                         <div class="modal-body">
                             <div class="form-group">
                                 <label for="unit-name">Unit Name</label>
-                                <input type="text" class="form-control" id="add-unit-name" name="add-unit-name" placeholder="Enter an unit name">
+                                <input required type="text" class="form-control" id="add-unit-name" name="add-unit-name" placeholder="Enter an unit name">
                             </div>
                         </div>
                         <div class="modal-footer">
@@ -133,7 +133,7 @@
                             <div class="form-group">
                                 <label for="unit-name">Unit Name</label>
                                 <input type="hidden" value="{{ $unit->id }}" name="edit-unit-id">
-                                <input type="text" class="form-control" id="edit-unit-name" name="edit-unit-name" placeholder="Enter an unit name" value="{{ $unit->unit_name }}">
+                                <input required type="text" class="form-control" id="edit-unit-name" name="edit-unit-name" placeholder="Enter an unit name" value="{{ $unit->unit_name }}">
                             </div>
                         </div>
                         <div class="modal-footer">

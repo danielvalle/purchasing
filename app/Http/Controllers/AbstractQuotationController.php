@@ -211,6 +211,10 @@ class AbstractQuotationController extends Controller
 
     public function aq_pdf()
     {
+        $header = \DB::table('abstract_quotation')
+                ->select("*")
+                ->where("aq.id", session()->get("pdf_aq_id"))
+                ->first();
 
         $supplier1 = \DB::table("abstract_quotation AS aq")
                 ->leftJoin("supplier AS s", "aq.supplier1_fk", "=", "s.id")
@@ -286,6 +290,8 @@ class AbstractQuotationController extends Controller
                          "aqd.supplier4_amount", "aqd.supplier5_amount")
                 ->where("aqd.abstract_quotation_fk", session()->get("pdf_aq_id"))
                 ->get();
+
+        view()->share('header', $header);
 
         view()->share('supplier1', $supplier1);
         view()->share('supplier2', $supplier2);

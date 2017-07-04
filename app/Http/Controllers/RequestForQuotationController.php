@@ -139,7 +139,7 @@ class RequestForQuotationController extends Controller
 
             \Session::flash('rfq_add_success','Request For Quotation is successfully sent.');
 
-            \Session::flash('rfq_new_check','yes');
+            if($suppliers_for_printing != null) \Session::flash('rfq_new_check','yes');
 
             return redirect("transaction/request-for-quotation");   
         }

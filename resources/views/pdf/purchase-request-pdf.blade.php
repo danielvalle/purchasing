@@ -1,14 +1,3 @@
-<?php
-    
-    $columns = 
-    [
-        'ITEM',
-        'FABRIC',
-        'DESCRIPTION',
-        'BASE PRICE'
-    ];
-?>
-
 <!DOCTYPE html>
 <html>
     <head>
@@ -52,20 +41,20 @@
                     </thead>
                     <tbody>  
                         <tr>
-                            <td style="size:16px; text-align: left;">Department:</td>
-                            <td style="size:16px; text-align: left; border-right: thin solid black">{{ $pr_header->department_name }}</td>
-                            <td style="size:16px; text-align: left;">PR No.</td>
-                            <td style="size:16px; text-align: left;">{{ $pr_header->pr_number }}</td>
-                            <td style="size:16px; text-align: left">Date:</td>
-                            <td style="size:16px; text-align: left;">{{ $pr_header->pr_date }}</td>
+                            <td style="font-size:16px; text-align: left;">Department:</td>
+                            <td style="font-size:16px; text-align: left; border-right: thin solid black">{{ $pr_header->department_name }}</td>
+                            <td style="font-size:16px; text-align: left;">PR No.</td>
+                            <td style="font-size:16px; text-align: left;">{{ $pr_header->pr_number }}</td>
+                            <td style="font-size:16px; text-align: left">Date:</td>
+                            <td style="font-size:16px; text-align: left;">{{ $pr_header->pr_date }}</td>
                         </tr>
                         <tr>
-                            <td style="size:16px; text-align: left;">Section:</td>
-                            <td style="size:16px; text-align: left; border-right: thin solid black">{{ $pr_header->section_name }}</td>
-                            <td style="size:16px; text-align: left;">SAI No.</td>
-                            <td style="size:16px; text-align: left;">{{ $pr_header->sai_number }}</td>
-                            <td style="size:16px; text-align: left">Date:</td>
-                            <td style="size:16px; text-align: left;">{{ $pr_header->sai_date }}</td>
+                            <td style="font-size:16px; text-align: left;">Section:</td>
+                            <td style="font-size:16px; text-align: left; border-right: thin solid black">{{ $pr_header->section_name }}</td>
+                            <td style="font-size:16px; text-align: left;">SAI No.</td>
+                            <td style="font-size:16px; text-align: left;">{{ $pr_header->sai_number }}</td>
+                            <td style="font-size:16px; text-align: left">Date:</td>
+                            <td style="font-size:16px; text-align: left;">{{ $pr_header->sai_date }}</td>
                         </tr>
                     </tbody>
             </table>
@@ -74,19 +63,19 @@
             <table text-align="left" style=" width: 100%; ;border-bottom: thin solid black">
                     <thead>
                         <tr>
-                            <td style="size:16px; text-align: center; border-right: thin solid black">Qty</td>
-                            <td style="size:16px; text-align: center; border-right: thin solid black">Unit of Issue</td>
-                            <td style="size:16px; text-align: center; border-right: thin solid black">Item Description</td>
-                            <td style="size:16px; text-align: center;">Stock No.</td>
+                            <td style="font-size:16px; text-align: center; border-right: thin solid black">Qty</td>
+                            <td style="font-size:16px; text-align: center; border-right: thin solid black">Unit of Issue</td>
+                            <td style="font-size:16px; text-align: center; border-right: thin solid black">Item Description</td>
+                            <td style="font-size:16px; text-align: center;">Stock No.</td>
                         </tr>
                     </thead>
                     <tbody>  
                         @foreach($items as $item)
                         <tr>
-                            <th style="size:16px; text-align: right; border-right: thin solid black" >{{ $item->quantity }}</th>
-                            <th style="size:16px; text-align: left; border-right: thin solid black" >{{ $item->unit_name }}</th>
-                            <th style="size:16px; text-align: left; border-right: thin solid black" >{{ $item->item_name }}</th>
-                            <th style="size:16px; text-align: left; " >{{ $item->stock_no}}</th>
+                            <th style="font-size:16px; text-align: right; border-right: thin solid black" >{{ $item->quantity }}</th>
+                            <th style="font-size:16px; text-align: left; border-right: thin solid black" >{{ $item->unit_name }}</th>
+                            <th style="font-size:16px; text-align: left; border-right: thin solid black" >{{ $item->item_name }}</th>
+                            <th style="font-size:16px; text-align: left; " >{{ $item->stock_no}}</th>
                         </tr>
                         @endforeach
                     </tbody>

@@ -10,7 +10,49 @@
                 </div>
                 <!-- /.col-lg-12 -->
             </div>
+            @if(Session::has('section_new_success'))
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="alert alert-success alert-dismissable">
+                        <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                        <strong>{!! session('section_new_success') !!}</strong>
+                    </div>
+                </div>
+            </div>
+            @endif
 
+            @if(Session::has('section_new_fail'))
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="alert alert-danger alert-dismissable">
+                        <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                        <strong>{!! session('section_new_fail') !!}</strong>
+                    </div>
+                </div>
+            </div>
+            @endif
+
+            @if(Session::has('section_edit_success'))
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="alert alert-success alert-dismissable">
+                        <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                        <strong>{!! session('section_edit_success') !!}</strong>
+                    </div>
+                </div>
+            </div>
+            @endif
+
+            @if(Session::has('section_edit_fail'))
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="alert alert-danger alert-dismissable">
+                        <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                        <strong>{!! session('section_edit_fail') !!}</strong>
+                    </div>
+                </div>
+            </div>
+            @endif
             <div class="row">
                 <div class="col-lg-12">
                     <div class="panel panel-default">
@@ -64,7 +106,7 @@
                         <div class="modal-body">
                             <div class="form-group">
                                 <label for="section-name">Section Name</label>
-                                <input type="text" class="form-control" id="add-section-name" name="add-section-name" placeholder="Enter an section name">
+                                <input required type="text" class="form-control" id="add-section-name" name="add-section-name" placeholder="Enter an section name">
                             </div>
                             <div class="form-group">
                                 <label for="add-section-department">Department</label>
@@ -101,7 +143,7 @@
                             <div class="form-group">
                                 <label for="section-name">Section Name</label>
                                 <input type="hidden" value="{{ $section->id }}" name="edit-section-id">
-                                <input type="text" class="form-control" id="edit-section-name" name="edit-section-name" placeholder="Enter an section name" value="{{ $section->section_name }}">
+                                <input required type="text" class="form-control" id="edit-section-name" name="edit-section-name" placeholder="Enter an section name" value="{{ $section->section_name }}">
                             </div>
                             <div class="form-group">
                                 <label for="edit-section-department">Department</label>

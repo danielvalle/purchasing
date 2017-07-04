@@ -104,7 +104,7 @@
                         <div class="modal-body  container-fluid">
                             <div class="form-group">
                                 <label for="department-name">Department Name</label>
-                                <input type="text" class="form-control" id="add-department-name" name="add-department-name" placeholder="Enter an department name">
+                                <input required type="text" class="form-control" id="add-department-name" name="add-department-name" placeholder="Enter an department name">
                             </div>
                         </div>
                         <div class="modal-footer">
@@ -133,7 +133,7 @@
                             <div class="form-group">
                                 <label for="department-name">Department Name</label>
                                 <input type="hidden" value="{{ $department->id }}" name="edit-department-id">
-                                <input type="text" class="form-control" id="edit-department-name" name="edit-department-name" placeholder="Enter an department name" value="{{ $department->department_name }}">
+                                <input required type="text" class="form-control" id="edit-department-name" name="edit-department-name" placeholder="Enter an department name" value="{{ $department->department_name }}">
                             </div>
                         </div>
                         <div class="modal-footer">

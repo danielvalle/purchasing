@@ -104,7 +104,7 @@
                         <div class="modal-body">
                             <div class="form-group">
                                 <label for="office-name">Office Name</label>
-                                <input type="text" class="form-control" id="add-office-name" name="add-office-name" placeholder="Enter an office name">
+                                <input required type="text" class="form-control" id="add-office-name" name="add-office-name" placeholder="Enter an office name">
                             </div>
                         </div>
                         <div class="modal-footer">
@@ -133,7 +133,7 @@
                             <div class="form-group">
                                 <label for="office-name">Office Name</label>
                                 <input type="hidden" value="{{ $office->id }}" name="edit-office-id">
-                                <input type="text" class="form-control" id="edit-office-name" name="edit-office-name" placeholder="Enter an office name" value="{{ $office->office_name }}">
+                                <input required type="text" class="form-control" id="edit-office-name" name="edit-office-name" placeholder="Enter an office name" value="{{ $office->office_name }}">
                             </div>
                         </div>
                         <div class="modal-footer">

@@ -2,7 +2,7 @@
 
 @section('content')
         <head>
-            @if(Session::has('pdf_pr_id'))
+            @if(Session::has('pr_new_check'))
                 <meta http-equiv="refresh" content="0; url=/purchasing/public/transaction/purchase-request-pdf">
             @endif
         </head>
@@ -80,8 +80,8 @@
                                                     <td>{{ $pr_quantities[$i] }}</td>
                                                     <td>{{ $pr_units[$i]->unit_name }}</td>                                            
                                                     <td>
-                                                        <a style="color:green" data-toggle="modal" href="#{{ $i }}edit-pr"><span class="glyphicon glyphicon-edit"></span></a>
-                                                        <a style="color:red" data-toggle="modal" href="#{{ $i }}del-pr"><span class="glyphicon glyphicon-trash"></span></a>
+                                                        <a data-toggle="modal" href="#{{ $i }}edit-pr"><span class="glyphicon glyphicon-edit"></span></a>
+                                                        <a data-toggle="modal" href="#{{ $i }}del-pr"><span class="glyphicon glyphicon-trash"></span></a>
                                                     </td>
                                                 </tr>
                                                 @endfor
@@ -412,7 +412,7 @@
                         '<td>' + data.name + '</td>' +
                         '<td>' +
                             '<input type="hidden" id="' + data.id + '" value="' + data.id + '" >' +
-                            '<button type="button" style="color:red" id="btn-del-supplier"><span class="glyphicon glyphicon-trash"></span></button>' +
+                            '<button type="button" id="btn-del-supplier"><span class="glyphicon glyphicon-trash"></span></button>' +
                         '</td>' +
                         '</tr>'
                     );
