@@ -25,7 +25,6 @@ class ItemController extends Controller
     public function store(Request $request)
     {        
         $item_check = \DB::table('item')
-                    ->where('item_name', trim($request->input('add-item-name')))
                     ->orWhere('stock_no', trim($request->input('add-stock-no')))
                     ->first();
 
@@ -44,7 +43,7 @@ class ItemController extends Controller
         }
         else if($item_check != null)
         {
-            \Session::flash('item_new_fail', "Item/Stock No. already exists.");
+            \Session::flash('item_new_fail', "Stock No. is already used.");
         }
 
         return redirect('maintenance/item');
@@ -52,15 +51,12 @@ class ItemController extends Controller
 
     public function update(Request $request)
     {
-
         $item_check = \DB::table('item')
-                    ->where('item_name', trim($request->input('edit-item-name')))
                     ->where('stock_no', trim($request->input('edit-stock-no')))
                     ->first();
 
         if($item_check == null)
         {
-           
             $item = Item::find($request->input('edit-item-id'));
 
             $item->stock_no = trim($request->input('edit-stock-no'));
@@ -71,9 +67,9 @@ class ItemController extends Controller
            
             \Session::flash('item_edit_success', trim($request->input('edit-item-name')) . " is successfully updated.");
         }
-        else
+        else if($item_check->stock_no == trim($request->input('edit-stock-no')) && $item_check->id != $request->input('edit-item-id')) 
         {
-            if(($item_check->item_name == trim($request->input('edit-item-name')) || $item_check->stock_no == trim($request->input('edit-stock-no'))) && $item_check->id != $request->input('edit-item-id')) \Session::flash('item_name_edit_fail', "Item/Stock No. already exists.");
+            \Session::flash('item_edit_fail', trim($request->input('edit-stock-no')) . " already exists.");
         }
 
         return redirect('maintenance/item');

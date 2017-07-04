@@ -43,27 +43,17 @@
             </div>
             @endif
 
-            @if(Session::has('item_name_edit_fail'))
+            @if(Session::has('item_edit_fail'))
             <div class="row">
                 <div class="col-lg-12">
                     <div class="alert alert-danger alert-dismissable">
                         <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-                        <strong>{!! session('item_name_edit_fail') !!}</strong>
+                        <strong>{!! session('item_edit_fail') !!}</strong>
                     </div>
                 </div>
             </div>
             @endif
 
-            @if(Session::has('item_stock_edit_fail'))
-            <div class="row">
-                <div class="col-lg-12">
-                    <div class="alert alert-danger alert-dismissable">
-                        <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-                        <strong>{!! session('item_stock_edit_fail') !!}</strong>
-                    </div>
-                </div>
-            </div>
-            @endif
             <div class="row">
                 <div class="col-lg-12">
                     <div class="panel panel-default">
