@@ -121,9 +121,9 @@
                                                     <td><input name="supplier4_amount{{ $i }}" class="form-control" type="number" min="1" @if(!array_key_exists(3, $rfq_suppliers)) readonly @endif></td>
                                                     <td><input name="supplier5_amount{{ $i }}" class="form-control" type="number" min="1" @if(!array_key_exists(4, $rfq_suppliers)) readonly @endif></td>
                                                     <td>
-                                                        <select class="form-control" name="add-supervising-admin" id="add-supervising-admin">
-                                                            @foreach($rfq_suppliers as $rfq_supplier)
-                                                                <option value="{{ $rfq_supplier->id }}">{{ $rfq_supplier->supplier_name }}</option>
+                                                        <select class="form-control" name="add-winner-supplier{{ $i }}" id="add-winner-supplier">
+                                                            @foreach($rfq_suppliers as $j => $rfq_supplier)
+                                                                <option value="{{ $rfq_supplier->id }},{{ $j }}">{{ $rfq_supplier->supplier_name }}</option>
                                                             @endforeach
                                                         </select>
                                                     </td>
@@ -228,43 +228,6 @@
         $('#modal-close').click(function(){
             location.reload(true);
         });
-
-        $('#btn-add-supplier').click(function(){
-
-            $.ajaxSetup({
-                headers:
-                { 'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content') }
-            });
-
-            $.ajax({
-                url: 'purchase-request/add-supplier',
-                type: "post",
-                data: {
-                    'id': $('#select-add-supplier').find('option:selected').val(), 
-                    'name' : $('#select-add-supplier').find('option:selected').text()
-                },
-                dataType: 'json',
-                success: function(data){
-
-                    $('#select-add-supplier option[value=' + data.id + ']').remove();
-                    $('#table-suppliers tbody').append(
-                        '<tr>' +
-                        '<td>' + data.name + '</td>' +
-                        '<td>' +
-                            '<input type="hidden" id="' + data.id + '" value="' + data.id + '" >' +
-                            '<button type="button" style="color:red" id="btn-del-supplier"><span class="glyphicon glyphicon-trash"></span></button>' +
-                        '</td>' +
-                        '</tr>'
-                    );
-
-                    if($('#select-add-supplier').has('option').length == 0 ) {
-                        $('#btn-add-supplier').prop('disabled', true);
-                    }
-                }
-
-            });      
-
-        }); 
     
     });
 

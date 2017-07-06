@@ -62,35 +62,30 @@ class AbstractQuotationController extends Controller
 
 
     	$rfq_supplier_1 = \DB::table('request_for_quote')
-    					->join('request_for_quote_detail', 'request_for_quote.id', '=', 'request_for_quote_detail.request_for_quote_fk')
     					->join('supplier', 'supplier.id', '=', 'request_for_quote.supplier1_fk')
     					->select('supplier_name', 'supplier1_fk as id')
                         ->where('request_for_quote.id', $request->input('select-rfq-no'))
                         ->get();
 
     	$rfq_supplier_2 = \DB::table('request_for_quote')
-    					->join('request_for_quote_detail', 'request_for_quote.id', '=', 'request_for_quote_detail.request_for_quote_fk')
     					->join('supplier', 'supplier.id', '=', 'request_for_quote.supplier2_fk')
     					->select('supplier_name', 'supplier2_fk as id')
                         ->where('request_for_quote.id', $request->input('select-rfq-no'))
                         ->get();
 
     	$rfq_supplier_3 = \DB::table('request_for_quote')
-    					->join('request_for_quote_detail', 'request_for_quote.id', '=', 'request_for_quote_detail.request_for_quote_fk')
     					->join('supplier', 'supplier.id', '=', 'request_for_quote.supplier3_fk')
     					->select('supplier_name', 'supplier3_fk as id')
                         ->where('request_for_quote.id', $request->input('select-rfq-no'))
                         ->get();
 
     	$rfq_supplier_4 = \DB::table('request_for_quote')
-    					->join('request_for_quote_detail', 'request_for_quote.id', '=', 'request_for_quote_detail.request_for_quote_fk')
     					->join('supplier', 'supplier.id', '=', 'request_for_quote.supplier4_fk')
     					->select('supplier_name', 'supplier4_fk as id')
                         ->where('request_for_quote.id', $request->input('select-rfq-no'))
                         ->get();
 
     	$rfq_supplier_5 = \DB::table('request_for_quote')
-    					->join('request_for_quote_detail', 'request_for_quote.id', '=', 'request_for_quote_detail.request_for_quote_fk')
     					->join('supplier', 'supplier.id', '=', 'request_for_quote.supplier5_fk')
     					->select('supplier_name', 'supplier5_fk as id')
                         ->where('request_for_quote.id', $request->input('select-rfq-no'))
@@ -121,6 +116,13 @@ class AbstractQuotationController extends Controller
         $suppliers = session()->get('aq_suppliers');
         $items = session()->get('aq_rfq_items');
         
+
+        for($i = 0; $i < count($items); $i++)
+        {
+            $winners[] = explode(",",$request->input('add-winner-supplier' . $i));
+        }
+     
+
         if($items == null)
         {
             \Session::flash('aq_add_fail','You have not selected a Request For Quotation. Abstract Quotation is not sent.');
@@ -161,6 +163,8 @@ class AbstractQuotationController extends Controller
                         'supplier3_amount' => $request->input('supplier3_amount' . $i),
                         'supplier4_amount' => $request->input('supplier4_amount' . $i),
                         'supplier5_amount' => $request->input('supplier5_amount' . $i),
+                        'winning_supplier_fk' => $winners[$i][0],
+                        'winning_supplier_amount' => $request->input('supplier'. ($winners[$i][1] + 1) . '_amount' . $i),
                         'quantity' => $items[$i]->quantity,
                         'is_active' => 1
                 ));        
