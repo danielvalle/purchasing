@@ -46,7 +46,7 @@
                             <td style="font-size:16px; text-align: left;">PR No.</td>
                             <td style="font-size:16px; text-align: left;">{{ $pr_header->pr_number }}</td>
                             <td style="font-size:16px; text-align: left">Date:</td>
-                            <td style="font-size:16px; text-align: left;">{{ $pr_header->pr_date }}</td>
+                            <td style="font-size:16px; text-align: left;">{{ date("M d, Y", strtotime($pr_header->pr_date)) }}</td>
                         </tr>
                         <tr>
                             <td style="font-size:16px; text-align: left;">Section:</td>
@@ -54,7 +54,7 @@
                             <td style="font-size:16px; text-align: left;">SAI No.</td>
                             <td style="font-size:16px; text-align: left;">{{ $pr_header->sai_number }}</td>
                             <td style="font-size:16px; text-align: left">Date:</td>
-                            <td style="font-size:16px; text-align: left;">{{ $pr_header->sai_date }}</td>
+                            <td style="font-size:16px; text-align: left;">{{ date("M d, Y", strtotime($pr_header->sai_date)) }}</td>
                         </tr>
                     </tbody>
             </table>

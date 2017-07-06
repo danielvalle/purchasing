@@ -54,7 +54,7 @@
                             <td style="font-size: 13px; width: 10%; text-align: left;">RIS No.</td>
                             <td style="font-size: 13px; width: 10%; text-align: left;">{{ $header->ris_no }}</td>
                             <td style="font-size: 13px; width: 10%; text-align: left;">Date:</td>
-                            <td style="font-size: 13px; width: 10%; text-align: left; ">{{ $header->ris_date }}</td>
+                            <td style="font-size: 13px; width: 10%; text-align: left; ">{{ date("M d, Y", strtotime($header->ris_date)) }}</td>
                         </tr>
                         <tr>
                             <td style="font-size: 13px; width: 15%; text-align: left;">Office:</td>
@@ -63,7 +63,7 @@
                             <td style="font-size: 13px; width: 10%; text-align: left;">SAI No.</td>
                             <td style="font-size: 13px; width: 10%; text-align: left;">{{ $header->sai_no }}</td>
                             <td style="font-size: 13px; width: 10%; text-align: left;">Date:</td>
-                            <td style="font-size: 13px; width: 10%; text-align: left; ">{{ $header->sai_date }}</td>
+                            <td style="font-size: 13px; width: 10%; text-align: left; ">{{ date("M d, Y", strtotime($header->sai_date)) }}</td>
                         </tr>
                     </tbody>
             </table> 
@@ -171,10 +171,10 @@
                         </tr>
                         <tr>
                             <th style="font-size: 13px; text-align: left; border-right: thin solid black">Date:</th>
-                            <th style="font-size: 13px; text-align: center; border-right: thin solid black;">{{ $requested_by->request_date }}</th>
-                            <th style="font-size: 13px; text-align: center; border-right: thin solid black;">{{ $approved_by->approved_date }}</th>
-                            <th style="font-size: 13px; text-align: center; border-right: thin solid black;">{{ $issued_by->issued_date }}</th>
-                            <th style="font-size: 13px; text-align: center;">{{ $received_by->receipt_date }}</th>
+                            <th style="font-size: 13px; text-align: center; border-right: thin solid black;">{{ date("M d, Y", strtotime($requested_by->request_date)) }}</th>
+                            <th style="font-size: 13px; text-align: center; border-right: thin solid black;">{{ date("M d, Y", strtotime($approved_by->approved_date)) }}</th>
+                            <th style="font-size: 13px; text-align: center; border-right: thin solid black;">{{ date("M d, Y", strtotime($issued_by->issued_date)) }}</th>
+                            <th style="font-size: 13px; text-align: center;">{{ date("M d, Y", strtotime($received_by->receipt_date)) }}</th>
                         </tr>
                     </tbody>
             </table> 

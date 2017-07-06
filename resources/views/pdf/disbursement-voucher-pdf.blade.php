@@ -250,9 +250,9 @@
                         </tr>
                         <tr>
                             <th style="width: 10%; text-align: center; font-weight: normal; padding: 3px 0px; border-right: thin solid black; border-bottom: thin solid black; font-size: 14px;">Date</th>
-                            <th style="width: 40%; text-align: center; font-weight: normal; padding: 3px 0px; border-right: thin solid black; border-bottom: thin solid black; font-size: 14px;">{{ $dv->date }}</th>
+                            <th style="width: 40%; text-align: center; font-weight: normal; padding: 3px 0px; border-right: thin solid black; border-bottom: thin solid black; font-size: 14px;">{{ date("M d, Y", strtotime($dv->date)) }}</th>
                             <th style="width: 10%; text-align: center; font-weight: normal; padding: 3px 0px; border-right: thin solid black; border-bottom: thin solid black; font-size: 14px;">Date</th>
-                            <th style="width: 40%; text-align: center; font-weight: normal; padding: 3px 0px; border-bottom: thin solid black; font-size: 14px;">{{ $dv->approve_date }}</th>
+                            <th style="width: 40%; text-align: center; font-weight: normal; padding: 3px 0px; border-bottom: thin solid black; font-size: 14px;">{{ date("M d, Y", strtotime($dv->approve_date)) }}</th>
                         </tr>   
                     </tbody>
             </table>
@@ -271,7 +271,7 @@
                             <th style="width: 20%; text-align: center; border-bottom: thin solid black; font-weight: bold; padding: 3px 0px; border-right: thin solid black; font-size: 16px">{{ $dv->ada_no }}</th>
                             <th style="width: 20%; text-align: left; border-bottom: thin solid black; font-weight: normal; padding: 3px 2px; border-right: thin solid black; font-size: 14px">
                                 <div style="text-align: left; font-size: 13px">Date</div>
-                                <div style="text-align: left; font-size: 13px">{{ $dv->payment_check_date }}</div>
+                                <div style="text-align: left; font-size: 13px">{{ date("M d, Y", strtotime($dv->payment_check_date)) }}</div>
                             </th>
                             <th style="width: 30%; text-align: center; border-bottom: thin solid black; font-weight: normal; padding: 3px 2px; border-right: thin solid black; font-size: 14px">
                                 <div style="text-align: left; font-size: 13px">Bank Name</div>
@@ -300,7 +300,7 @@
                             <div style="text-align: left; font-size: 13px">Official Receipt/Other Documents</div>
                             <div style="text-align: left; font-size: 13px">{{ $dv->other_docs }}</div>
                         </th>
-                        <th style="text-align: center; font-weight: normal; padding: 3px 2px;">{{ $dv->check_date }}</th>
+                        <th style="text-align: center; font-weight: normal; padding: 3px 2px;">{{ date("M d, Y", strtotime($dv->check_date)) }}</th>
                     </tr>
                     </tbody>
             </table>

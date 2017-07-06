@@ -50,7 +50,7 @@
                             <td style="font-size: 14px; text-align: left;">Address:</td>
                             <td style="font-size: 14px; text-align: left; width: 50%; ">{{ $po_header->address }}</td>
                             <td style="font-size: 14px; text-align: left;">Date:</td>
-                            <td style="font-size: 14px; text-align: left;">{{ $po_header->invoice_date }}</td>
+                            <td style="font-size: 14px; text-align: left;">{{ date("M d, Y", strtotime($po_header->invoice_date)) }}</td>
                         </tr>
                         <tr>
                             <td style="font-size: 14px; text-align: left;">TIN:</td>
@@ -78,7 +78,7 @@
                         </tr>
                         <tr>
                             <td style="font-size: 14px; text-align: left;">Date of Delivery:</td>
-                            <td style="font-size: 14px; text-align: center; width: 50%; ">{{ $po_header->date_of_delivery }}</td>
+                            <td style="font-size: 14px; text-align: center; width: 50%; ">{{ date("M d, Y", strtotime($po_header->date_of_delivery)) }}</td>
                             <td style="font-size: 14px; text-align: left;">Payment Term:</td>
                             <td style="font-size: 14px; text-align: left;">{{ $po_header->payment_term }}</td>
                         </tr>

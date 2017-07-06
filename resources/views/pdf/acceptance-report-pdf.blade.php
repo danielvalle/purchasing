@@ -64,11 +64,11 @@
                             <td style="font-size: 14px; width: 12.5%; text-align: left; border-right: thin solid black">PO No.:</td>
                             <td style="font-size: 14px; width: 12.5%; text-align: left; border-right: thin solid black">{{ $acceptance_header->po_no }}</td>
                             <td style="font-size: 14px; width: 12.5%; text-align: left; border-right: thin solid black">Date:</td>
-                            <td style="font-size: 14px; width: 12.5%; text-align: left; border-right: thin solid black">{{ $acceptance_header->po_date }}</td>
+                            <td style="font-size: 14px; width: 12.5%; text-align: left; border-right: thin solid black">{{ date("M d, Y", strtotime($acceptance_header->po_date)) }}</td>
                             <td style="font-size: 14px; width: 12.5%; text-align: left; border-right: thin solid black">Invoice No.:</td>
                             <td style="font-size: 14px; width: 12.5%; text-align: left; border-right: thin solid black">{{ $acceptance_header->invoice_no }}</td>
                             <td style="font-size: 14px; width: 12.5%; text-align: left; border-right: thin solid black">Date:</td>
-                            <td style="font-size: 14px; width: 12.5%; text-align: left; ">{{ $acceptance_header->invoice_date }}</td>
+                            <td style="font-size: 14px; width: 12.5%; text-align: left; ">{{ date("M d, Y", strtotime($acceptance_header->invoice_date)) }}</td>
                         </tr>
                     </tbody>
             </table>     
@@ -132,7 +132,7 @@
                     <tbody>  
                         <tr>
                             <th style="font-size: 14px; text-align: left; border-right: thin solid black" >
-                                <div style="font-weight: normal">Date Inspected: <span style="text-decoration: underline">{{ $acceptance_header->date_inspected }}</span></div>
+                                <div style="font-weight: normal">Date Inspected: <span style="text-decoration: underline">{{ date("M d, Y", strtotime($acceptance_header->date_inspected)) }}</span></div>
                                 <div style="padding: 10px 10px 30px 20px;">
                                     <input style="width: 5%; float: left" for="inspected" type="checkbox" value="1" @if($acceptance_header->verification == 1) checked @endif>
                                     <label id="inspected" name="inspected" style="width: 95%; float: left; font-weight: normal" class="checkbox-inline">
@@ -143,7 +143,7 @@
                                 <div style="text-align: center; font-weight: normal;">University Inspector</div>
                             </th>
                             <th style="font-size: 14px; text-align: left; border-right: thin solid black;" >
-                                <div style="font-weight: normal">Date Inspected: <span style="text-decoration: underline">{{ $acceptance_header->date_accepted }}</span></div>
+                                <div style="font-weight: normal">Date Inspected: <span style="text-decoration: underline">{{ date("M d, Y", strtotime($acceptance_header->date_accepted)) }}</span></div>
                                 <div style="padding: 10px 10px 30px 20px;">
                                     <div>
                                     <input style="width: 5%; float: left" for="inspected" type="checkbox" value="1"  @if($acceptance_header->completeness == 1) checked @endif>
