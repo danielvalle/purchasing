@@ -26,7 +26,7 @@ class AbstractQuotationController extends Controller
     {
 
     	$rfqs = RequestForQuote::all();
-        $rfq_suppliers = [0 => "", 1 => "", 2 => "", 3 => "", 4 => ""];
+        $rfq_suppliers = [];
         $rfq_items = [];
 
         session(['aq_rfq_no' => null]);
@@ -64,62 +64,37 @@ class AbstractQuotationController extends Controller
     	$rfq_supplier_1 = \DB::table('request_for_quote')
     					->join('request_for_quote_detail', 'request_for_quote.id', '=', 'request_for_quote_detail.request_for_quote_fk')
     					->join('supplier', 'supplier.id', '=', 'request_for_quote.supplier1_fk')
-    					->where('request_for_quote.id', $request->input('select-rfq-no'))
-    					->pluck('supplier_name');
+    					->select('supplier_name', 'supplier1_fk as id')
+                        ->where('request_for_quote.id', $request->input('select-rfq-no'))
+                        ->get();
 
     	$rfq_supplier_2 = \DB::table('request_for_quote')
     					->join('request_for_quote_detail', 'request_for_quote.id', '=', 'request_for_quote_detail.request_for_quote_fk')
     					->join('supplier', 'supplier.id', '=', 'request_for_quote.supplier2_fk')
-    					->where('request_for_quote.id', $request->input('select-rfq-no'))
-    					->pluck('supplier_name');
+    					->select('supplier_name', 'supplier2_fk as id')
+                        ->where('request_for_quote.id', $request->input('select-rfq-no'))
+                        ->get();
 
     	$rfq_supplier_3 = \DB::table('request_for_quote')
     					->join('request_for_quote_detail', 'request_for_quote.id', '=', 'request_for_quote_detail.request_for_quote_fk')
     					->join('supplier', 'supplier.id', '=', 'request_for_quote.supplier3_fk')
-    					->where('request_for_quote.id', $request->input('select-rfq-no'))
-    					->pluck('supplier_name');
+    					->select('supplier_name', 'supplier3_fk as id')
+                        ->where('request_for_quote.id', $request->input('select-rfq-no'))
+                        ->get();
 
     	$rfq_supplier_4 = \DB::table('request_for_quote')
     					->join('request_for_quote_detail', 'request_for_quote.id', '=', 'request_for_quote_detail.request_for_quote_fk')
     					->join('supplier', 'supplier.id', '=', 'request_for_quote.supplier4_fk')
-    					->where('request_for_quote.id', $request->input('select-rfq-no'))
-    					->pluck('supplier_name');
+    					->select('supplier_name', 'supplier4_fk as id')
+                        ->where('request_for_quote.id', $request->input('select-rfq-no'))
+                        ->get();
 
     	$rfq_supplier_5 = \DB::table('request_for_quote')
     					->join('request_for_quote_detail', 'request_for_quote.id', '=', 'request_for_quote_detail.request_for_quote_fk')
     					->join('supplier', 'supplier.id', '=', 'request_for_quote.supplier5_fk')
-    					->where('request_for_quote.id', $request->input('select-rfq-no'))
-    					->pluck('supplier_name');
-
-        $rfq_supplier_id_1 = \DB::table('request_for_quote')
-                        ->join('request_for_quote_detail', 'request_for_quote.id', '=', 'request_for_quote_detail.request_for_quote_fk')
-                        ->join('supplier', 'supplier.id', '=', 'request_for_quote.supplier1_fk')
+    					->select('supplier_name', 'supplier5_fk as id')
                         ->where('request_for_quote.id', $request->input('select-rfq-no'))
-                        ->pluck('supplier1_fk');
-
-        $rfq_supplier_id_2 = \DB::table('request_for_quote')
-                        ->join('request_for_quote_detail', 'request_for_quote.id', '=', 'request_for_quote_detail.request_for_quote_fk')
-                        ->join('supplier', 'supplier.id', '=', 'request_for_quote.supplier2_fk')
-                        ->where('request_for_quote.id', $request->input('select-rfq-no'))
-                        ->pluck('supplier2_fk');
-
-        $rfq_supplier_id_3 = \DB::table('request_for_quote')
-                        ->join('request_for_quote_detail', 'request_for_quote.id', '=', 'request_for_quote_detail.request_for_quote_fk')
-                        ->join('supplier', 'supplier.id', '=', 'request_for_quote.supplier3_fk')
-                        ->where('request_for_quote.id', $request->input('select-rfq-no'))
-                        ->pluck('supplier3_fk');
-
-        $rfq_supplier_id_4 = \DB::table('request_for_quote')
-                        ->join('request_for_quote_detail', 'request_for_quote.id', '=', 'request_for_quote_detail.request_for_quote_fk')
-                        ->join('supplier', 'supplier.id', '=', 'request_for_quote.supplier4_fk')
-                        ->where('request_for_quote.id', $request->input('select-rfq-no'))
-                        ->pluck('supplier4_fk');
-
-        $rfq_supplier_id_5 = \DB::table('request_for_quote')
-                        ->join('request_for_quote_detail', 'request_for_quote.id', '=', 'request_for_quote_detail.request_for_quote_fk')
-                        ->join('supplier', 'supplier.id', '=', 'request_for_quote.supplier5_fk')
-                        ->where('request_for_quote.id', $request->input('select-rfq-no'))
-                        ->pluck('supplier5_fk');                        
+                        ->get();
 
     	$rfq_suppliers[0] = $rfq_supplier_1;
     	$rfq_suppliers[1] = $rfq_supplier_2;
@@ -127,15 +102,10 @@ class AbstractQuotationController extends Controller
     	$rfq_suppliers[3] = $rfq_supplier_4;
     	$rfq_suppliers[4] = $rfq_supplier_5;
 
-        $rfq_suppliers_id[0] = $rfq_supplier_id_1;
-        $rfq_suppliers_id[1] = $rfq_supplier_id_2;
-        $rfq_suppliers_id[2] = $rfq_supplier_id_3;
-        $rfq_suppliers_id[3] = $rfq_supplier_id_4;
-        $rfq_suppliers_id[4] = $rfq_supplier_id_5;
+        $rfq_suppliers = array_reduce($rfq_suppliers, 'array_merge', array());
 
         session(['aq_rfq_no' => $request->input('select-rfq-no')]);
         session(['aq_suppliers' => $rfq_suppliers]);
-        session(['aq_suppliers_id' => $rfq_suppliers_id]);
         session(['aq_rfq_items' => $rfq_items]);
 
     	return view("transaction.transaction-abstract-quotation")
@@ -149,7 +119,6 @@ class AbstractQuotationController extends Controller
     public function store(Request $request) 
     {
         $suppliers = session()->get('aq_suppliers');
-        $suppliers_id = session()->get('aq_suppliers_id');
         $items = session()->get('aq_rfq_items');
         
         if($items == null)
@@ -162,11 +131,11 @@ class AbstractQuotationController extends Controller
         {
             $abstract_quotation = AbstractQuotation::create(array(
                     'date' => date("Y-m-d", strtotime($request->input('transaction_date'))),
-                    'supplier1_fk' => $suppliers_id[0],
-                    'supplier2_fk' => $suppliers_id[1],
-                    'supplier3_fk' => $suppliers_id[2],
-                    'supplier4_fk' => $suppliers_id[3],
-                    'supplier5_fk' => $suppliers_id[4],
+                    'supplier1_fk' => array_key_exists(0, $suppliers) == true ? $suppliers[0]->id : null,
+                    'supplier2_fk' => array_key_exists(1, $suppliers) == true ? $suppliers[1]->id : null,
+                    'supplier3_fk' => array_key_exists(2, $suppliers) == true ? $suppliers[2]->id : null,
+                    'supplier4_fk' => array_key_exists(3, $suppliers) == true ? $suppliers[3]->id : null,
+                    'supplier5_fk' => array_key_exists(4, $suppliers) == true ? $suppliers[4]->id : null,
                     'supervising_admin_fk' => $request->input("add-supervising-admin"),
                     'admin_officer_fk' => $request->input("add-admin-officer"),
                     'admin_officer_2_fk' => $request->input("add-admin-officer-2"),
@@ -213,7 +182,7 @@ class AbstractQuotationController extends Controller
     {
         $header = \DB::table('abstract_quotation')
                 ->select("*")
-                ->where("aq.id", session()->get("pdf_aq_id"))
+                ->where("id", session()->get("pdf_aq_id"))
                 ->first();
 
         $supplier1 = \DB::table("abstract_quotation AS aq")

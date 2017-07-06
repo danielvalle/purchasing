@@ -18,6 +18,8 @@ class AbstractQuotationDetail extends Model
 								'supplier3_amount',
 								'supplier4_amount',
 								'supplier5_amount',
+								'winning_supplier_fk',
+      							'winning_supplier_amount',
 								'quantity',
 								'is_active'
 								//

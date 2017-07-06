@@ -68,25 +68,25 @@
                         <div class="panel-body">
                             <div class="form-inline col-lg-4">
                                 <label for="">Supplier 1: </label>   
-                                <input class="form-control" type="text" value="{{ $rfq_suppliers[0] }}" readonly>     
+                                <input class="form-control" type="text" @if(array_key_exists(0, $rfq_suppliers)) value="{{ $rfq_suppliers[0]->supplier_name }}" @endif readonly>     
                             </div>
                             <div class="form-inline col-lg-4">
                                 <label for="">Supplier 2: </label>   
-                                <input class="form-control" type="text" value="{{ $rfq_suppliers[1] }}" readonly>    
+                                <input class="form-control" type="text" @if(array_key_exists(1, $rfq_suppliers)) value="{{ $rfq_suppliers[1]->supplier_name }}" @endif readonly>    
                             </div>
                             <div class="form-inline col-lg-4">  
                                 <label for="">Supplier 3: </label>   
-                                <input class="form-control" type="text" value="{{ $rfq_suppliers[2] }}" readonly> 
+                                <input class="form-control" type="text" @if(array_key_exists(2, $rfq_suppliers)) value="{{ $rfq_suppliers[2]->supplier_name }}" @endif readonly> 
                             </div>                                
                         </div>  
                         <div class="panel-body">   
                             <div class="form-inline col-lg-4">
                                 <label for="">Supplier 4: </label>   
-                                <input class="form-control" type="text" value="{{ $rfq_suppliers[3] }}" readonly>  
+                                <input class="form-control" type="text" @if(array_key_exists(3, $rfq_suppliers)) value="{{ $rfq_suppliers[3]->supplier_name }}" @endif readonly>  
                             </div>
                             <div class="form-inline col-lg-4">     
                                 <label for="">Supplier 5: </label>   
-                                <input class="form-control" type="text" value="{{ $rfq_suppliers[4] }}" readonly>   
+                                <input class="form-control" type="text" @if(array_key_exists(4, $rfq_suppliers)) value="{{ $rfq_suppliers[4]->supplier_name }}" @endif readonly>   
                             </div>  
                         </div>         
 
@@ -105,6 +105,7 @@
                                                     <th>Supplier 3 Amount</th>
                                                     <th>Supplier 4 Amount</th>
                                                     <th>Supplier 5 Amount</th>
+                                                    <th style="width: 20%;">Winning Supplier</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
@@ -114,11 +115,18 @@
                                                 <tr>
                                                     <td>{{ $rfq_item->item_name }}</td>
                                                     <td>{{ $rfq_item->unit_name }}</td>
-                                                    <td><input name="supplier1_amount{{ $i }}" class="form-control" type="number" min="1" @if($rfq_suppliers[0] == null) readonly @endif></td>
-                                                    <td><input name="supplier2_amount{{ $i }}" class="form-control" type="number" min="1" @if($rfq_suppliers[1] == null) readonly @endif></td>
-                                                    <td><input name="supplier3_amount{{ $i }}" class="form-control" type="number" min="1" @if($rfq_suppliers[2] == null) readonly @endif></td>
-                                                    <td><input name="supplier4_amount{{ $i }}" class="form-control" type="number" min="1" @if($rfq_suppliers[3] == null) readonly @endif></td>
-                                                    <td><input name="supplier5_amount{{ $i }}" class="form-control" type="number" min="1" @if($rfq_suppliers[4] == null) readonly @endif></td>
+                                                    <td><input name="supplier1_amount{{ $i }}" class="form-control" type="number" min="1" @if(!array_key_exists(0, $rfq_suppliers)) readonly @endif></td>
+                                                    <td><input name="supplier2_amount{{ $i }}" class="form-control" type="number" min="1" @if(!array_key_exists(1, $rfq_suppliers)) readonly @endif></td>
+                                                    <td><input name="supplier3_amount{{ $i }}" class="form-control" type="number" min="1" @if(!array_key_exists(2, $rfq_suppliers)) readonly @endif></td>
+                                                    <td><input name="supplier4_amount{{ $i }}" class="form-control" type="number" min="1" @if(!array_key_exists(3, $rfq_suppliers)) readonly @endif></td>
+                                                    <td><input name="supplier5_amount{{ $i }}" class="form-control" type="number" min="1" @if(!array_key_exists(4, $rfq_suppliers)) readonly @endif></td>
+                                                    <td>
+                                                        <select class="form-control" name="add-supervising-admin" id="add-supervising-admin">
+                                                            @foreach($rfq_suppliers as $rfq_supplier)
+                                                                <option value="{{ $rfq_supplier->id }}">{{ $rfq_supplier->supplier_name }}</option>
+                                                            @endforeach
+                                                        </select>
+                                                    </td>
                                                 </tr>
                                                 <input type="hidden" name="add-pr-fk" value="{{ $rfq_item->pr_fk }}">
                                                 @endforeach

@@ -254,12 +254,15 @@ CREATE TABLE abstract_quotation_detail
       `supplier3_amount` float,
       `supplier4_amount` float,
       `supplier5_amount` float,
+      `winning_supplier_fk` int,
+      `winning_supplier_amount` float,
       `quantity` float,
       `is_active` tinyint(1),
       `created_at` date,
       `updated_at` date,
       PRIMARY KEY(id),
       FOREIGN KEY(abstract_quotation_fk) REFERENCES abstract_quotation(id),
+      FOREIGN KEY(winning_supplier_fk) REFERENCES supplier(id),
       FOREIGN KEY(unit_fk) REFERENCES unit(id),
       FOREIGN KEY(item_fk) REFERENCES item(id)
     );
