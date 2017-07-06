@@ -52,12 +52,20 @@
 
                                     <div class="form-group" style="width: 100%">
                                         <label for="">Purchase Request Number:</label>
-                                        <select class="selectpicker" name="select-pr-no" id="select-pr-no">
+                                        <select style="margin-right: 20px;" class="selectpicker" name="select-pr-no" id="select-pr-no">
                                             <option value="" selected disabled>Select a PR No.</option>
                                             @foreach($pr_nos as $pr_no)
                                                 <option value="{{ $pr_no->id }}" @if($selected_pr_no == $pr_no->id) selected @endif>{{ $pr_no->pr_number }}</option>
                                             @endforeach
                                         </select>     
+
+                                        <label for="">Supplier:</label>
+                                        <select class="selectpicker" name="add-supplier" id="add-supplier">
+                                                <option disabled selected>Select a supplier</option>
+                                                @for($i = 0; $i < count($suppliers); $i++)
+                                                    <option value="{{ $suppliers[$i] }}">{{ $supplier_names[$i] }}</option>
+                                                @endfor          
+                                        </select> 
 
                                         <button class="form-control btn btn-success">Select</button> 
                                     </div>
@@ -79,15 +87,7 @@
 
                          <div class="panel-body">
                             <div class="panel panel-default">
-                                <div class="panel-heading">
-                                        <label for="">Supplier:</label>
-                                        <select class="selectpicker" name="add-supplier" id="add-supplier">
-                                                <option disabled selected>Select winning supplier</option>
-                                            @for($i = 0; $i < count($suppliers); $i++)
-                                                <option value="{{ $suppliers[$i] }}">{{ $supplier_names[$i] }}</option>
-                                            @endfor          
-                                        </select> 
-                                </div>
+                                <div class="panel-heading"></div>
                                 <div class="panel-body">
                                     <div class="form-group col-lg-12">
                                         <table class="table table-bordered">
