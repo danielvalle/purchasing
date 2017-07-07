@@ -148,6 +148,7 @@ Route::group(['prefix' => 'transaction'], function(){
 		Route::resource('purchase-order', 'PurchaseOrderController');
 
 			Route::post('purchase-order-search', 'PurchaseOrderController@get_aq');
+			Route::post('purchase-order/get-supplier', 'PurchaseOrderController@get_supplier');
 			Route::post('purchase-order/select-supplier', 'PurchaseOrderController@select_supplier');
 
 	/* end of Purchase Order */

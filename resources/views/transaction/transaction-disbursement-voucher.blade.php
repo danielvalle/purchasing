@@ -198,43 +198,6 @@
             location.reload(true);
         });
 
-        $('#btn-add-supplier').click(function(){
-
-            $.ajaxSetup({
-                headers:
-                { 'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content') }
-            });
-
-            $.ajax({
-                url: 'purchase-request/add-supplier',
-                type: "post",
-                data: {
-                    'id': $('#select-add-supplier').find('option:selected').val(), 
-                    'name' : $('#select-add-supplier').find('option:selected').text()
-                },
-                dataType: 'json',
-                success: function(data){
-
-                    $('#select-add-supplier option[value=' + data.id + ']').remove();
-                    $('#table-suppliers tbody').append(
-                        '<tr>' +
-                        '<td>' + data.name + '</td>' +
-                        '<td>' +
-                            '<input type="hidden" id="' + data.id + '" value="' + data.id + '" >' +
-                            '<button type="button" style="color:red" id="btn-del-supplier"><span class="glyphicon glyphicon-trash"></span></button>' +
-                        '</td>' +
-                        '</tr>'
-                    );
-
-                    if($('#select-add-supplier').has('option').length == 0 ) {
-                        $('#btn-add-supplier').prop('disabled', true);
-                    }
-                }
-
-            });      
-
-        }); 
-    
     });
 
     </script>

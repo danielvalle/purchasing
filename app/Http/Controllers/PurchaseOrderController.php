@@ -170,6 +170,57 @@ class PurchaseOrderController extends Controller
                 ->*/
     }
 
+    public function get_supplier(Request $request)
+    {
+
+        $rfq_supplier_1 = \DB::table('request_for_quote')
+                        ->join('supplier', 'supplier.id', '=', 'request_for_quote.supplier1_fk')
+                        ->select('supplier_name', 'supplier1_fk as id')
+                        ->where('request_for_quote.pr_fk', $request->input('id'))
+                        ->get();
+
+        $rfq_supplier_2 = \DB::table('request_for_quote')
+                        ->join('supplier', 'supplier.id', '=', 'request_for_quote.supplier2_fk')
+                        ->select('supplier_name', 'supplier2_fk as id')
+                        ->where('request_for_quote.pr_fk', $request->input('id'))
+                        ->get();
+
+        $rfq_supplier_3 = \DB::table('request_for_quote')
+                        ->join('supplier', 'supplier.id', '=', 'request_for_quote.supplier3_fk')
+                        ->select('supplier_name', 'supplier3_fk as id')
+                        ->where('request_for_quote.pr_fk', $request->input('id'))
+                        ->get();
+
+        $rfq_supplier_4 = \DB::table('request_for_quote')
+                        ->join('supplier', 'supplier.id', '=', 'request_for_quote.supplier4_fk')
+                        ->select('supplier_name', 'supplier4_fk as id')
+                        ->where('request_for_quote.pr_fk', $request->input('id'))
+                        ->get();
+
+        $rfq_supplier_5 = \DB::table('request_for_quote')
+                        ->join('supplier', 'supplier.id', '=', 'request_for_quote.supplier5_fk')
+                        ->select('supplier_name', 'supplier5_fk as id')
+                        ->where('request_for_quote.pr_fk', $request->input('id'))
+                        ->get();
+
+        $rfq_suppliers[0] = $rfq_supplier_1;
+        $rfq_suppliers[1] = $rfq_supplier_2;
+        $rfq_suppliers[2] = $rfq_supplier_3;
+        $rfq_suppliers[3] = $rfq_supplier_4;
+        $rfq_suppliers[4] = $rfq_supplier_5;
+
+        $rfq_suppliers = array_reduce($rfq_suppliers, 'array_merge', array());
+
+        if($request->ajax()){
+
+            return response()->json(array(
+                    'suppliers' => $rfq_suppliers
+                ));
+        }
+
+
+    }
+
     public function select_supplier(Request $request)
     {       
 

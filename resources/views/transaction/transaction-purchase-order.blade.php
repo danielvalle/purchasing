@@ -61,10 +61,7 @@
 
                                         <label for="">Supplier:</label>
                                         <select class="selectpicker" name="add-supplier" id="add-supplier">
-                                                <option disabled selected>Select a supplier</option>
-                                                @for($i = 0; $i < count($suppliers); $i++)
-                                                    <option value="{{ $suppliers[$i] }}">{{ $supplier_names[$i] }}</option>
-                                                @endfor          
+                                                <option disabled selected>Select a supplier</option>       
                                         </select> 
 
                                         <button class="form-control btn btn-success">Select</button> 
@@ -265,8 +262,40 @@
                 }
 
             });      
-
         }); 
+
+        $('#select-pr-no').change(function(){
+                    
+                    $.ajaxSetup({
+                        headers:
+                        { 'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content') }
+                    });
+
+                    $.ajax({
+                        url: 'purchase-order/get-supplier',
+                        type: "post",
+                        data: {
+                            'id': $('#select-pr-no').find('option:selected').val()
+                        },
+                        dataType: 'json',
+                        success: function(data){
+
+                            $("#add-supplier").find('option').remove();
+
+                            var len = data.suppliers.length;
+
+                            $('select#add-supplier').append('<option value="">Select a supplier</option>');
+
+                            for(var i = 0; i < len; i++)
+                            {
+                                $('select#add-supplier').append('<option value="' + data.suppliers[i].id + '">' + data.suppliers[i].supplier_name + '</option>');
+                            }
+
+                            $('#add-supplier').selectpicker('refresh');
+                        }
+
+                    });      
+            }); 
     
     });
 
