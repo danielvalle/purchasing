@@ -10,6 +10,7 @@ class AbstractQuotation extends Model
     
 	protected $primaryKey = 'id';
 	protected $fillable = array('id',
+								'aq_number',
 								'date',
 								'supplier1_fk',
 								'supplier2_fk',

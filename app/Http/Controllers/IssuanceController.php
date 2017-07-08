@@ -96,6 +96,11 @@ class IssuanceController extends Controller
 
             $issuance->save();
 
+            $issuance = Issuance::find($issuance->id);
+
+            $issuance->issuance_number = date("Y-m") . "-" . sprintf("%04d", $issuance->id);
+            $issuance->save();
+
             session(["pdf_issue_id" => $issuance->id]);
 
             for($i = 0; $i < count($item_count); $i++){
@@ -133,7 +138,7 @@ class IssuanceController extends Controller
                 $item->save();
 
             }
-            \Session::flash('issue_add_success','Issuance is successfully sent.');
+            \Session::flash('issue_add_success','Issuance is successfully sent. Reference No. is ISS No. ' . $issuance->issuance_number);
 
             \Session::flash('issue_new_check','yes');
         }

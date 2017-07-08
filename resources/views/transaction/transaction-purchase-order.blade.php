@@ -106,8 +106,8 @@
                                                     <td>{{ $item->item_name }}</td>
                                                     <td>{{ $item->quantity }}</td>
                                                     <td>{{ $item->unit_name }}</td>
-                                                    <td id="amount{!! $i !!}"></td>
-                                                    <td id="total-amount{!! $i !!}"></td>
+                                                    <td id="amount{!! $i !!}">{{ $item->winning_supplier_amount }}</td>
+                                                    <td id="total-amount{!! $i !!}">{{ $item->total }}</td>
                                                 </tr>
                                                 @endforeach
                                             </tbody>
@@ -173,7 +173,7 @@
                                 </div>
                                 <div class="form-group col-lg-3">
                                     <label for="">Total Amount</label>
-                                    <input type="text" class="form-control" name="add-total-amount" id="add-total-amount" readonly>
+                                    <input type="text" value="{{ $total }}" class="form-control" name="add-total-amount" id="add-total-amount" readonly>
                                 </div>
                                 <div class="form-group col-lg-5">
                                     <label for="">ALOBS/BUB No.</label>
@@ -223,48 +223,52 @@
             location.reload(true);
         });
 
-        $('#add-supplier').change(function(){
+        // $('#add-supplier').change(function(){
             
-            $.ajaxSetup({
-                headers:
-                { 'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content') }
-            });
+        //     $.ajaxSetup({
+        //         headers:
+        //         { 'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content') }
+        //     });
 
-            $.ajax({
-                url: 'purchase-order/select-supplier',
-                type: "post",
-                data: {
-                    'id': $('#add-supplier').find('option:selected').val(), 
-                    'pr_no' : $('#hdn-pr-no').val()
-                },
-                dataType: 'json',
-                success: function(data){
-                    var items = {!! json_encode($items) !!};
-                    var total_amount = 0;
-                    var len = (data.amount).length;
+        //     $.ajax({
+        //         url: 'purchase-order/select-supplier',
+        //         type: "post",
+        //         data: {
+        //             'id': $('#add-supplier').find('option:selected').val(), 
+        //             'pr_no' : $('#hdn-pr-no').val()
+        //         },
+        //         dataType: 'json',
+        //         success: function(data){
+        //             var items = {!! json_encode($items) !!};
+        //             var total_amount = 0;
+        //             var len = (data.amount).length;
 
-                    console.log(data.amount);
+        //             console.log(data.amount);
 
-                    for(var i = 0; i < items.length; i++)
-                    {
-                        if(data.amount[i] == null) $("td#amount" + i).html(0);
-                        else $("td#amount" + i).html(data.amount[i]);
+        //             for(var i = 0; i < items.length; i++)
+        //             {
+        //                 if(data.amount[i] == null) $("td#amount" + i).html(0);
+        //                 else $("td#amount" + i).html(data.amount[i]);
                     
-                        $("input#supplier-amount" + i).val(data.amount[i]);
-                        $("td#total-amount" + i).html((data.amount[i] * items[i].quantity));
+        //                 $("input#supplier-amount" + i).val(data.amount[i]);
+        //                 $("td#total-amount" + i).html((data.amount[i] * items[i].quantity));
 
                         
-                        total_amount += (data.amount[i] * items[i].quantity);
-                    }
+        //                 total_amount += (data.amount[i] * items[i].quantity);
+        //             }
 
-                    $("#add-total-amount").val(total_amount);
+        //             $("#add-total-amount").val(total_amount);
 
-                }
+        //         }
 
-            });      
-        }); 
+        //     });      
+        // }); 
 
-        $('#select-pr-no').change(function(){
+        
+    
+    });
+
+    $('#select-pr-no').change(function(){
                     
                     $.ajaxSetup({
                         headers:
@@ -295,9 +299,7 @@
                         }
 
                     });      
-            }); 
-    
-    });
+        }); 
 
     </script>
 

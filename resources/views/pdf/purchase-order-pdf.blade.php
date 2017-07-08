@@ -44,7 +44,7 @@
                             <td style="font-size: 14px; text-align: left;">Supplier:</td>
                             <td style="font-size: 14px; text-align: left; width: 50%; ">{{ $po_header->supplier_name }}</td>
                             <td style="font-size: 14px; text-align: left;">PO No.:</td>
-                            <td style="font-size: 14px; text-align: left;">{{ $po_header->po_no }}</td>
+                            <td style="font-size: 14px; text-align: left;">{{ $po_header->po_number }}</td>
                         </tr>
                         <tr>
                             <td style="font-size: 14px; text-align: left;">Address:</td>

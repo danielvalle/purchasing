@@ -14,7 +14,16 @@
                 </div>
                 <!-- /.col-lg-12 -->
             </div>
-
+            @if(Session::has('dv_add_success'))
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="alert alert-success alert-dismissable">
+                        <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                        <strong>{!! session('dv_add_success') !!}</strong>
+                    </div>
+                </div>
+            </div>
+            @endif
             <div class="row">   
                 <div class="col-lg-12">
                     <div class="panel panel-default">

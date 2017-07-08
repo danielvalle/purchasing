@@ -10,6 +10,7 @@ class Acceptance extends Model
     
 	protected $primaryKey = 'id';
 	protected $fillable = array('id',
+								'acceptance_number',
 								'agency_fk',
 								'supplier_fk',
 								'po_fk',

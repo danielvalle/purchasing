@@ -11,6 +11,7 @@ class RequestForQuote extends Model
 	protected $primaryKey = 'id';
 	protected $fillable = array('id',
 								'date',
+								'rfq_number',
 								'supplier1_fk',
 								'supplier2_fk',
 								'supplier3_fk',

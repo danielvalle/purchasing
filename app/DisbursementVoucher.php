@@ -10,6 +10,7 @@ class DisbursementVoucher extends Model
     
 	protected $primaryKey = 'id';
 	protected $fillable = array('id',
+								'dv_number',
 								'mode_of_payment',
 								'payee_fk',
 								'employee_no',

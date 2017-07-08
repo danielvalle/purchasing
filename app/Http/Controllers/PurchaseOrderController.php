@@ -33,6 +33,8 @@ class PurchaseOrderController extends Controller
         $selected_pr_no = "";
         $selected_aq_no = "";
 
+        $total = "";
+
         $suppliers = [];
         $supplier_names = [];
         $items = [];
@@ -45,6 +47,7 @@ class PurchaseOrderController extends Controller
             ->with("pr_nos", $pr_nos)
             ->with("suppliers", $suppliers)
             ->with("supplier_names", $supplier_names)
+            ->with("total", $total)
             ->with("items", $items);
     }
 
@@ -64,7 +67,7 @@ class PurchaseOrderController extends Controller
 
             $purchase_order = PurchaseOrder::create(array(
                     'agency_fk' => $request->input('add-agency'),
-                    'supplier_fk' => $request->input('add-supplier'),
+                    'supplier_fk' => session()->get('po_supplier'),
                     'address' => $request->input('add-address'),
                     'tin' => $request->input('add-tin'),
                     'invoice_date' =>  date("Y-m-d", strtotime($request->input('add-date'))),
@@ -85,9 +88,8 @@ class PurchaseOrderController extends Controller
 
             $purchase_order = PurchaseOrder::find($purchase_order->id);
 
-            $purchase_order->po_no = date("Y-m", strtotime($purchase_order->invoice_date)) . "-" . sprintf("%04d", $purchase_order->id);
+            $purchase_order->po_number = date("Y-m", strtotime($purchase_order->invoice_date)) . "-" . sprintf("%04d", $purchase_order->id);
             $purchase_order->save();
-
 
             session(["pdf_po_id" => $purchase_order->id]);
 
@@ -96,20 +98,18 @@ class PurchaseOrderController extends Controller
                 $purchase_order_detail = PurchaseOrderDetail::create(array(
                         'po_id_fk' => $purchase_order->id,
                         'stock_no' => $items[$i]->stock_no,
-
-                        'unit_fk' => $items[$i]->unit_of_issue_fk,
+                        'unit_fk' => $items[$i]->unit_fk,
                         'item_fk' => $items[$i]->item_fk,
-                        'category_fk' => $items[$i]->category_fk,
                         'quantity' => $items[$i]->quantity,
-                        'unit_cost' => $supplier_amounts[$i],
-                        'amount' => $items[$i]->quantity * ((int)$supplier_amounts[$i])
+                        'unit_cost' => $items[$i]->winning_supplier_amount,
+                        'amount' => $items[$i]->total
                 ));
                 
                 $purchase_order_detail->save();
 
             }
 
-            \Session::flash('po_add_success','Purchase Order is successfully sent.');
+            \Session::flash('po_add_success','Purchase Order is successfully sent. Reference No. is PO No. ' . $purchase_order->po_number);
 
             \Session::flash('po_new_check','yes');
 
@@ -124,6 +124,9 @@ class PurchaseOrderController extends Controller
         $users = User::all();
         $pr_nos = PurchaseRequest::all();
         $selected_pr_no = $request->input('select-pr-no');
+        $selected_supplier = $request->input('add-supplier');
+
+        $total = 0;
 
         $selected_aq = AbstractQuotation::where("pr_fk", $selected_pr_no)->first();
         
@@ -146,15 +149,21 @@ class PurchaseOrderController extends Controller
 
         for($i = 0; $i < count($suppliers); $i++) $supplier_names[$i] = $temp_supplier_names[$i]->supplier_name;           
 
-        $items = \DB::table("purchase_request")
-                ->join("purchase_request_detail AS prd", "purchase_request.id", "=", "prd.purchase_request_fk")
-                ->join("item", "item.id", "=", "prd.item_fk")
-                ->join("unit", "unit.id", "=", "prd.unit_of_issue_fk")
-                ->select("prd.item_fk", "prd.unit_of_issue_fk", "prd.category_fk", "prd.stock_no", "prd.quantity", "unit.unit_name", "item.item_name")
-                ->where("prd.purchase_request_fk", $selected_pr_no)
+        $items = \DB::table("abstract_quotation as aq")
+                ->leftJoin("abstract_quotation_detail AS aqd", "aq.id", "=", "aqd.abstract_quotation_fk")
+                ->leftJoin("item", "item.id", "=", "aqd.item_fk")
+                ->leftJoin("unit", "unit.id", "=", "aqd.unit_fk")
+                ->distinct()
+                ->select("aqd.item_fk", "aqd.unit_fk", "item.stock_no", "aqd.quantity", "unit.unit_name", "item.item_name",
+                         "aqd.winning_supplier_amount", \DB::raw('aqd.winning_supplier_amount * aqd.quantity as total'))
+                ->where("aq.pr_fk", $selected_pr_no)
+                ->where("aqd.winning_supplier_fk", $selected_supplier)
                 ->get();
 
+        foreach($items as $item) $total += $item->total;
+
         session(['po_items' => $items]);
+        session(['po_supplier' => $selected_supplier]);
 
         return view("transaction.transaction-purchase-order")
             ->with("selected_pr_no", $selected_pr_no)
@@ -164,10 +173,8 @@ class PurchaseOrderController extends Controller
             ->with("pr_nos", $pr_nos)
             ->with("suppliers", $suppliers)
             ->with("supplier_names", $supplier_names)
+            ->with("total", $total)
             ->with("items", $items);
-        /*$suppliers = \DB::table("abstract_quotation")
-                ->join("abstract_quotation_detail", "abstract_quotation.id", "=", "abstract_quotation_detail.abstract_quotation_fk")
-                ->*/
     }
 
     public function get_supplier(Request $request)
@@ -221,43 +228,11 @@ class PurchaseOrderController extends Controller
 
     }
 
-    public function select_supplier(Request $request)
-    {       
-
-        $suppliers = session()->get('po_suppliers');
-
-        $temp_supplier_amounts = \DB::table("abstract_quotation AS aq")
-                            ->join("abstract_quotation_detail AS aqd", "aq.id", "=", "aqd.abstract_quotation_fk")
-                            ->select("aqd.*")
-                            ->where("aq.pr_fk", $request->input('pr_no'))
-                            ->get();
-
-        for($i = 0; $i < count($suppliers); $i++)
-        {
-            for($j = 0; $j < count($temp_supplier_amounts); $j++)
-            {
-                if($i == 0) $supplier_amounts[$suppliers[$i]][$j] = $temp_supplier_amounts[$j]->supplier1_amount;
-                if($i == 1) $supplier_amounts[$suppliers[$i]][$j] = $temp_supplier_amounts[$j]->supplier2_amount;
-                if($i == 2) $supplier_amounts[$suppliers[$i]][$j] = $temp_supplier_amounts[$j]->supplier3_amount;
-                if($i == 3) $supplier_amounts[$suppliers[$i]][$j] = $temp_supplier_amounts[$j]->supplier4_amount;
-                if($i == 4) $supplier_amounts[$suppliers[$i]][$j] = $temp_supplier_amounts[$j]->supplier5_amount;
-            }
-        }        
-
-        if($request->ajax()){
-
-            return response()->json(array(
-                    'amount' => $supplier_amounts[$request->input('id')]
-                ));
-        }
-        
-    }
-
     public function po_pdf()
     {
         $po_header = \DB::table('purchase_order AS po')
                 ->leftJoin("supplier AS s", "po.supplier_fk", "=", "s.id")
-                ->select("s.supplier_name", "po.address", "po.tin", "po.po_no",
+                ->select("s.supplier_name", "po.address", "po.tin", "po.po_number",
                          "po.invoice_date", "po.mode_of_procurement", "po.place_of_delivery",
                          "po.delivery_term", "po.date_of_delivery", "po.payment_term", "po.alobs_bub_no",
                          "po.total_amount")

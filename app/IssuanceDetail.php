@@ -10,6 +10,7 @@ class IssuanceDetail extends Model
     
 	protected $primaryKey = 'id';
 	protected $fillable = array('id',
+								'issuance_number',
 								'issuance_fk',
 								'stock_no',
 								'unit_fk',

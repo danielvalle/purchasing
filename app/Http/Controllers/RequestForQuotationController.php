@@ -119,6 +119,11 @@ class RequestForQuotationController extends Controller
 
             $request_for_quotation->save();
 
+            $request_for_quotation = RequestForQuote::find($request_for_quotation->id);
+
+            $request_for_quotation->rfq_number = date("Y-m", strtotime($request_for_quotation->date)) . "-" . sprintf("%04d", $request_for_quotation->id);
+            $request_for_quotation->save();
+
             session(["pdf_rfq_id" => $request_for_quotation->id]);
             session(["pdf_supp_id" => $suppliers_for_printing]);
 
@@ -137,7 +142,7 @@ class RequestForQuotationController extends Controller
 
             }
 
-            \Session::flash('rfq_add_success','Request For Quotation is successfully sent.');
+            \Session::flash('rfq_add_success','Request For Quotation is successfully sent. Reference No. is RFQ No. ' . $request_for_quotation->rfq_number);
 
             if($suppliers_for_printing != null) \Session::flash('rfq_new_check','yes');
 

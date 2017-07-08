@@ -50,7 +50,14 @@ class DisbursementVoucherController extends Controller
     
         $disbursement_voucher->save();
 
+        $disbursement_voucher = DisbursementVoucher::find($disbursement_voucher->id);
+
+        $disbursement_voucher->dv_number = date("Y-m") . "-" . sprintf("%04d", $disbursement_voucher->id);
+        $disbursement_voucher->save();
+
         session(["pdf_dv_id" => $disbursement_voucher->id]);
+
+        \Session::flash('dv_add_success','Disbursement Voucher is successfully sent. Reference No. is DV No. ' . $disbursement_voucher->dv_number);
 
         \Session::flash('dv_new_check','yes');
 

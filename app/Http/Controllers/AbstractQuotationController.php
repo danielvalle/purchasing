@@ -150,6 +150,11 @@ class AbstractQuotationController extends Controller
 
             $abstract_quotation->save();
 
+            $abstract_quotation = AbstractQuotation::find($abstract_quotation->id);
+
+            $abstract_quotation->aq_number = date("Y-m", strtotime($abstract_quotation->date)) . "-" . sprintf("%04d", $abstract_quotation->id);
+            $abstract_quotation->save();
+
             session(["pdf_aq_id" => $abstract_quotation->id]);
 
             for($i = 0; $i < count($items); $i++){
@@ -173,7 +178,7 @@ class AbstractQuotationController extends Controller
 
             }
 
-            \Session::flash('aq_add_success','Abstract Quotation is successfully sent.');
+            \Session::flash('aq_add_success','Abstract Quotation is successfully sent. Reference No. is AQ No. ' . $abstract_quotation->aq_number);
 
             \Session::flash('aq_new_check','yes');
 

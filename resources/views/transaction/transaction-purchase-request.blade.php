@@ -182,7 +182,7 @@
                                     <a style="color:green; float: left; margin-left: 5px; font-size: 27px;" data-toggle="modal" href="#add-new-category"><span class="glyphicon glyphicon-plus-sign"></span></a>
                                 </div>              
                             </div>
-                            <div class="col-lg-12" style="border-bottom:1px solid rgba(51, 51, 51, 0.31); margin-bottom: 15px;">
+                            <div class="col-lg-12">
                                 <div class="form-group col-lg-6">
                                     <label for="">Item:</label>
                                     <select class="form-control" name="add-item" id="add-item">
@@ -228,7 +228,7 @@
                             </div>
                         </div>
                         <div class="modal-footer">
-                            <button type="submit" class="btn btn-success" id="btn-new-category">Add</button>
+                            <button type="button" class="btn btn-success" id="btn-new-category">Add</button>
                             <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
                         </div>
                     </div>
@@ -353,7 +353,12 @@
         $('#Date').html(dayNames[newDate.getDay()] +" | " +" " + " " + newDate.getDate() + ' ' + monthNames[newDate.getMonth()] + "," + ' ' + newDate.getFullYear());
         $('#transaction_date').val(newDate.getFullYear() + "-" +  (newDate.getMonth()+1) + "-" + newDate.getDate());
 
-
+        $(window).keydown(function(event){
+            if(event.keyCode == 13) {
+              event.preventDefault();
+              return false;
+            }
+          });
     });
 
 

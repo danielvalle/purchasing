@@ -167,6 +167,7 @@ CREATE TABLE request_for_quote
     (
       `id` int NOT NULL AUTO_INCREMENT,
       `date` date,
+      `rfq_number` varchar(50),
       `supplier1_fk` int,
       `supplier2_fk` int,
       `supplier3_fk` int,
@@ -213,6 +214,7 @@ CREATE TABLE abstract_quotation
     (
       `id` int NOT NULL AUTO_INCREMENT,
       `date` date,
+      `aq_number` varchar(50),
       `supplier1_fk` int,
       `supplier2_fk` int,
       `supplier3_fk` int,
@@ -272,7 +274,7 @@ CREATE TABLE purchase_order
     (
       `id` int NOT NULL AUTO_INCREMENT,
       `agency_fk` int,
-      `po_no` varchar(50),
+      `po_number` varchar(50),
       `supplier_fk` int,
       `address` varchar(255),
       `tin` varchar(50),
@@ -305,7 +307,6 @@ CREATE TABLE purchase_order_detail
       `stock_no` varchar(50),
       `unit_fk` int,
       `item_fk` int,
-      `category_fk` int,
       `quantity` float,
       `unit_cost` float,
       `amount` float,
@@ -315,8 +316,7 @@ CREATE TABLE purchase_order_detail
       PRIMARY KEY(id),
       FOREIGN KEY(po_id_fk) REFERENCES purchase_order(id),
       FOREIGN KEY(unit_fk) REFERENCES unit(id),
-      FOREIGN KEY(item_fk) REFERENCES item(id),
-      FOREIGN KEY(category_fk) REFERENCES category(id)
+      FOREIGN KEY(item_fk) REFERENCES item(id)
     );
 
 CREATE TABLE acceptance
@@ -324,6 +324,7 @@ CREATE TABLE acceptance
       `id` int NOT NULL AUTO_INCREMENT,
       `agency_fk` int,
       `supplier_fk` int,
+      `acceptance_number` varchar(50),
       `po_fk` int,
       `po_no` varchar(50),
       `po_date` date,
@@ -368,6 +369,7 @@ CREATE TABLE acceptance_detail
 CREATE TABLE issuance
     (
       `id` int NOT NULL AUTO_INCREMENT,
+      `issuance_number` varchar(50),
       `agency_fk` int,
       `department_fk` int,
       `office_fk` int,
@@ -455,6 +457,7 @@ CREATE TABLE stock_card
 CREATE TABLE disbursement_voucher
     (
       `id` int NOT NULL AUTO_INCREMENT,
+      `dv_number` varchar(50),
       `mode_of_payment` varchar(50),
       `payee_fk` int,
       `employee_no` varchar(50),

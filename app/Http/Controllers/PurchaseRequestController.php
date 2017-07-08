@@ -106,8 +106,6 @@ class PurchaseRequestController extends Controller
                 ->whereIn('id', $pr_categories)
                 ->get();
 
-        //dd($pr_units);
-
         for($i = 0; $i < count($pr_items); $i++){
             for($j = 0; $j < count($sql_items); $j++){
                 if($pr_items[$i] == $sql_items[$j]->id){
@@ -253,7 +251,7 @@ class PurchaseRequestController extends Controller
 
             }
             
-            \Session::flash('pr_add_success','Purchase Request is successfully sent.');
+            \Session::flash('pr_add_success','Purchase Request is successfully sent. Reference No. is PR No. ' . $purchase_request->pr_number);
 
             \Session::flash('pr_new_check','yes');
 

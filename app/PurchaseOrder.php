@@ -11,7 +11,7 @@ class PurchaseOrder extends Model
 	protected $primaryKey = 'id';
 	protected $fillable = array('id',
 								'agency_fk',
-								'po_no',
+								'po_number',
 								'supplier_fk',
 								'address',
 								'tin',
