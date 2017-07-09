@@ -217,7 +217,7 @@ class PurchaseOrderController extends Controller
         $rfq_suppliers[4] = $rfq_supplier_5;
 
         $rfq_suppliers = array_reduce($rfq_suppliers, 'array_merge', array());
-
+        
         if($request->ajax()){
 
             return response()->json(array(

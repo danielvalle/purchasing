@@ -52,7 +52,7 @@
                                     <select class="selectpicker" name="select-rfq-no" id="select-rfq-no">
                                         <option value="" selected disabled>Select an RFQ No.</option>
                                         @foreach($rfqs as $rfq)
-                                            <option value="{{ $rfq->id }}">RFQ No. {{ $rfq->id }}</option>
+                                            <option value="{{ $rfq->id }}">{{ $rfq->rfq_number }}</option>
                                         @endforeach
                                     </select>        
                                     <button class="form-control btn btn-success">Select</button>                          
@@ -121,7 +121,7 @@
                                                     <td><input name="supplier4_amount{{ $i }}" class="form-control" type="number" min="1" @if(!array_key_exists(3, $rfq_suppliers)) readonly @endif></td>
                                                     <td><input name="supplier5_amount{{ $i }}" class="form-control" type="number" min="1" @if(!array_key_exists(4, $rfq_suppliers)) readonly @endif></td>
                                                     <td>
-                                                        <select class="form-control" name="add-winner-supplier{{ $i }}" id="add-winner-supplier">
+                                                        <select class="form-control" name="add-winner-supplier{{ $i }}" id="add-winner-supplier" required>
                                                             @foreach($rfq_suppliers as $j => $rfq_supplier)
                                                                 <option value="{{ $rfq_supplier->id }},{{ $j }}">{{ $rfq_supplier->supplier_name }}</option>
                                                             @endforeach
@@ -141,7 +141,7 @@
                             
                             <div class="form-group col-lg-4">
                                 <label for="">Supervising Admin</label>
-                                <select class="form-control" name="add-supervising-admin" id="add-supervising-admin">
+                                <select class="form-control" name="add-supervising-admin" id="add-supervising-admin" required>
                                     @foreach($users as $user)
                                         <option value="{{ $user->id }}">{{ $user->first_name }} {{ $user->middle_name }} {{ $user->last_name }}</option>
                                     @endforeach
@@ -149,7 +149,7 @@
                             </div> 
                             <div class="form-group col-lg-4">
                                 <label for="">Admin Officer</label>
-                                <select class="form-control" name="add-admin-officer" id="add-admin-officer">
+                                <select class="form-control" name="add-admin-officer" id="add-admin-officer" required>
                                     @foreach($users as $user)
                                         <option value="{{ $user->id }}">{{ $user->first_name }} {{ $user->middle_name }} {{ $user->last_name }}</option>
                                     @endforeach
@@ -157,7 +157,7 @@
                             </div> 
                             <div class="form-group col-lg-4">
                                 <label for="">Admin Officer</label>
-                                <select class="form-control" name="add-admin-officer-2" id="add-admin-officer-2">
+                                <select class="form-control" name="add-admin-officer-2" id="add-admin-officer-2" required>
                                     @foreach($users as $user)
                                         <option value="{{ $user->id }}">{{ $user->first_name }} {{ $user->middle_name }} {{ $user->last_name }}</option>
                                     @endforeach
@@ -165,7 +165,7 @@
                             </div> 
                             <div class="form-group col-lg-4">
                                 <label for="">Board Secretary</label>
-                                <select class="form-control" name="add-board-secretary" id="add-board-secretary">
+                                <select class="form-control" name="add-board-secretary" id="add-board-secretary" required>
                                     @foreach($users as $user)
                                         <option value="{{ $user->id }}">{{ $user->first_name }} {{ $user->middle_name }} {{ $user->last_name }}</option>
                                     @endforeach
@@ -173,7 +173,7 @@
                             </div> 
                             <div class="form-group col-lg-4">
                                 <label for="">VPAF</label>
-                                <select class="form-control" name="add-vpaf" id="add-vpaf">
+                                <select class="form-control" name="add-vpaf" id="add-vpaf" required>
                                     @foreach($users as $user)
                                         <option value="{{ $user->id }}">{{ $user->first_name }} {{ $user->middle_name }} {{ $user->last_name }}</option>
                                     @endforeach
@@ -181,7 +181,7 @@
                             </div>  
                             <div class="form-group col-lg-4">
                                 <label for="">Approved by</label>
-                                <select class="form-control" name="add-approved-by" id="add-approved-by">
+                                <select class="form-control" name="add-approved-by" id="add-approved-by" required>
                                     @foreach($users as $user)
                                         <option value="{{ $user->id }}">{{ $user->first_name }} {{ $user->middle_name }} {{ $user->last_name }}</option>
                                     @endforeach

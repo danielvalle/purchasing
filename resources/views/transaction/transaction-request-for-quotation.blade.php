@@ -136,7 +136,7 @@
 
                                 <div class="form-group col-lg-6">
                                     <label for="">Requestor</label>
-                                    <select class="form-control" name="add-requestor" id="add-requestor">
+                                    <select class="form-control" name="add-requestor" id="add-requestor" required>
                                         @foreach($users as $user)
                                             <option value="{{ $user->id }}">{{ $user->first_name }} {{ $user->middle_name }} {{ $user->last_name }}</option>
                                         @endforeach
@@ -144,7 +144,7 @@
                                 </div>  
                                 <div class="form-group col-lg-6">
                                     <label for="">Canvasser</label>
-                                    <select class="form-control" name="add-canvasser" id="add-canvasser">
+                                    <select class="form-control" name="add-canvasser" id="add-canvasser" required>
                                         @foreach($users as $user)
                                             <option value="{{ $user->id }}">{{ $user->first_name }} {{ $user->middle_name }} {{ $user->last_name }}</option>
                                         @endforeach                                                

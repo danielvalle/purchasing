@@ -111,7 +111,7 @@
                         <div class="panel-body">
                             <div class="form-group col-lg-4">
                                 <label for="">Agency</label>
-                                <select class="form-control" name="add-agency" id="add-agency">
+                                <select class="form-control" name="add-agency" id="add-agency" required>
                                     @foreach($agencies as $agency)
                                         <option value="{{ $agency->id }}">{{ $agency->agency_name }}</option>
                                     @endforeach
@@ -119,7 +119,7 @@
                             </div>  
                             <div class="form-group col-lg-4">
                                 <label for="">Department</label>
-                                <select class="form-control" name="add-department" id="add-department">
+                                <select class="form-control" name="add-department" id="add-department" required>
                                     @foreach($departments as $department)
                                         <option value="{{ $department->id }}">{{ $department->department_name }}</option>
                                     @endforeach
@@ -127,7 +127,7 @@
                             </div>  
                             <div class="form-group col-lg-4">
                                 <label for="">Section</label>
-                                <select class="form-control" name="add-section" id="add-section">
+                                <select class="form-control" name="add-section" id="add-section" required>
                                     @foreach($sections as $section)
                                         <option value="{{ $section->id }}">{{ $section->section_name }}</option>
                                     @endforeach
@@ -136,7 +136,7 @@
 
                             <div class="form-group col-lg-6">
                                 <label for="">Requested by</label>
-                                <select class="form-control" name="add-requested-by" id="add-requested-by">
+                                <select class="form-control" name="add-requested-by" id="add-requested-by" required>
                                     @foreach($users as $user)
                                         <option value="{{ $user->id }}">{{ $user->first_name }} {{ $user->middle_name }} {{ $user->last_name }}</option>
                                     @endforeach
@@ -144,7 +144,7 @@
                             </div>  
                             <div class="form-group col-lg-6">
                                 <label for="">Approved by</label>
-                                <select class="form-control" name="add-approved-by" id="add-approved-by">
+                                <select class="form-control" name="add-approved-by" id="add-approved-by" required>
                                     @foreach($users as $user)
                                         <option value="{{ $user->id }}">{{ $user->first_name }} {{ $user->middle_name }} {{ $user->last_name }}</option>
                                     @endforeach
@@ -185,7 +185,7 @@
                             <div class="col-lg-12">
                                 <div class="form-group col-lg-6">
                                     <label for="">Item:</label>
-                                    <select class="form-control" name="add-item" id="add-item">
+                                    <select class="form-control" name="add-item" id="add-item" required>
                                         @foreach($items as $item)
                                             <option value="{{ $item->id }}">{{ $item->item_name }}</option>
                                         @endforeach

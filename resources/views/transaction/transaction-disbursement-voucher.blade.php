@@ -44,7 +44,7 @@
 
                             <div class="form-group col-lg-4">
                                 <label for="">Payee</label>
-                                <select class="form-control" name="add-payee">
+                                <select class="form-control" name="add-payee" required>
                                     @foreach($users as $user)
                                         <option value="{{ $user->id }}">{{ $user->first_name }} {{ $user->last_name }}</option>
                                     @endforeach
@@ -94,7 +94,7 @@
                             </div>
                             <div class="form-group col-lg-4">
                                 <label>Certifier:</label>
-                                <select class="form-control" name="add-certifier">
+                                <select class="form-control" name="add-certifier" required>
                                     @foreach($users as $user)
                                         <option value="{{ $user->id }}">{{ $user->first_name }} {{ $user->last_name  }}</option>
                                     @endforeach
@@ -115,7 +115,7 @@
                             </div>
                             <div class="form-group col-lg-4">
                                 <label>Approver:</label>
-                                <select class="form-control" name="add-approver">
+                                <select class="form-control" name="add-approver" required>
                                     @foreach($users as $user)
                                         <option value="{{ $user->id }}">{{ $user->first_name }} {{ $user->last_name  }}</option>
                                     @endforeach
@@ -144,7 +144,7 @@
                             </div>
                             <div class="form-group col-lg-5">
                                 <label for="">Printed Name</label>
-                                <select class="form-control" name="add-printed-name">
+                                <select class="form-control" name="add-printed-name" required>
                                     @foreach($users as $user)
                                         <option value="{{ $user->id }}">{{ $user->first_name }} {{ $user->last_name  }}</option>
                                     @endforeach

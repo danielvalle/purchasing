@@ -50,8 +50,9 @@
                                 <div class="form-group">
                                     <label for="">Purchase Order Number</label>
                                     <select class="selectpicker" name="select-po-no" id="select-po-no">
+                                        <option selected disabled>Select a PO No.</option>
                                         @foreach($po_nos as $po_no)
-                                            <option value="{{ $po_no->id }}">PO No. {{ $po_no->id }}</option>
+                                            <option value="{{ $po_no->id }}">{{ $po_no->po_number }}</option>
                                         @endforeach
                                     </select>     
                                 </div>
@@ -103,7 +104,7 @@
 
                                 <div class="form-group col-lg-4">
                                     <label for="">Requisitioning Office/Dept.</label>
-                                    <select class="form-control" name="select-dept" id="select-dept">   
+                                    <select class="form-control" name="select-dept" id="select-dept" required>   
                                         @foreach($departments as $department)
                                             <option value="{{ $department->id}}">{{ $department->department_name }}</option>
                                         @endforeach  
@@ -159,7 +160,7 @@
 
                                         <div class="form-group col-lg-6">
                                             <label for="">Inspector</label>
-                                            <select class="selectpicker" name="add-inspector" id="add-inspector">  
+                                            <select class="selectpicker" name="add-inspector" id="add-inspector" required>  
                                                 @foreach($users as $user)
                                                     <option value="{{ $user->id }}">{{ $user->first_name }} {{ $user->last_name }}</option>
                                                 @endforeach
@@ -186,7 +187,7 @@
 
                                         <div class="form-group col-lg-6">
                                             <label for="">Property Officer</label>
-                                            <select class="selectpicker" name="add-officer" id="add-officer">  
+                                            <select class="selectpicker" name="add-officer" id="add-officer" required>  
                                                 @foreach($users as $user)
                                                     <option value="{{ $user->id }}">{{ $user->first_name }} {{ $user->last_name }}</option>
                                                 @endforeach

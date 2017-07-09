@@ -121,7 +121,7 @@
                             <div style="float: left; width: 100%;">
                                 <div class="form-group col-lg-4">                                 
                                     <label for="" >Agency</label>
-                                    <select class="form-control" name="add-agency" id="add-agency">
+                                    <select class="form-control" name="add-agency" id="add-agency" required>
                                         @foreach($agencies as $agency)
                                             <option value="{{ $agency->id }}">{{ $agency->agency_name }}</option>
                                         @endforeach
@@ -165,7 +165,7 @@
 
                                 <div class="form-group col-lg-4">
                                     <label for="">Authorized Official</label>
-                                    <select class="form-control" name="add-authorized-official" id="add-authorized-official">
+                                    <select class="form-control" name="add-authorized-official" id="add-authorized-official" required> 
                                         @foreach($users as $user)
                                             <option value="{{ $user->id }}">{{ $user->first_name }} {{ $user->middle_name }} {{ $user->last_name }}</option>
                                         @endforeach
@@ -223,48 +223,35 @@
             location.reload(true);
         });
 
-        // $('#add-supplier').change(function(){
-            
-        //     $.ajaxSetup({
-        //         headers:
-        //         { 'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content') }
-        //     });
+                $.ajaxSetup({
+                        headers:
+                        { 'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content') }
+                    });
 
-        //     $.ajax({
-        //         url: 'purchase-order/select-supplier',
-        //         type: "post",
-        //         data: {
-        //             'id': $('#add-supplier').find('option:selected').val(), 
-        //             'pr_no' : $('#hdn-pr-no').val()
-        //         },
-        //         dataType: 'json',
-        //         success: function(data){
-        //             var items = {!! json_encode($items) !!};
-        //             var total_amount = 0;
-        //             var len = (data.amount).length;
+                    $.ajax({
+                        url: 'purchase-order/get-supplier',
+                        type: "post",
+                        data: {
+                            'id': $('#select-pr-no').find('option:selected').val()
+                        },
+                        dataType: 'json',
+                        success: function(data){
 
-        //             console.log(data.amount);
+                            $("#add-supplier").find('option').remove();
 
-        //             for(var i = 0; i < items.length; i++)
-        //             {
-        //                 if(data.amount[i] == null) $("td#amount" + i).html(0);
-        //                 else $("td#amount" + i).html(data.amount[i]);
-                    
-        //                 $("input#supplier-amount" + i).val(data.amount[i]);
-        //                 $("td#total-amount" + i).html((data.amount[i] * items[i].quantity));
+                            var len = data.suppliers.length;
 
-                        
-        //                 total_amount += (data.amount[i] * items[i].quantity);
-        //             }
+                            $('select#add-supplier').append('<option value="">Select a supplier</option>');
 
-        //             $("#add-total-amount").val(total_amount);
+                            for(var i = 0; i < len; i++)
+                            {
+                                $('select#add-supplier').append('<option value="' + data.suppliers[i].id + '">' + data.suppliers[i].supplier_name + '</option>');
+                            }
 
-        //         }
+                            $('#add-supplier').selectpicker('refresh');
+                        }
 
-        //     });      
-        // }); 
-
-        
+                    });         
     
     });
 
