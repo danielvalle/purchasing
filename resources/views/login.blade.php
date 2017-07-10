@@ -21,6 +21,7 @@
 <body>
 
     <div class="container">
+
         <div class="row">
             <div class="col-md-4 col-md-offset-4">
                 <div class="login-panel panel panel-default">
@@ -30,10 +31,27 @@
                     <div class="panel-body">
                         {!! Form::open(['url' => 'login', 'method' => 'post']) !!}
                             <fieldset>
+                                @if (count($errors->register) > 0)
+                                    <div class="alert alert-danger">
+                                        <ul>
+                                            @foreach ($errors->register->all() as $error)
+                                                <P>{{ $error }}</p>
+                                            @endforeach
+                                        </ul>
+                                    </div>
+                                @endif
+                                @if (Session::has('login_error'))
+                                    <div class="alert alert-danger">
+                                        <strong>{!! session('login_error') !!}</strong>
+                                    </div>
+                                @endif
                                 <div class="form-group">
-                                    <input class="form-control" placeholder="E-mail" name="email" type="email" autofocus>
+                                    <label for="email">E-mail</label>
+                                    <input value="{{ old('email') }}" class="form-control" placeholder="E-mail" name="email" type="email" autofocus>
                                 </div>
                                 <div class="form-group">
+
+                                    <label for="email">Password</label>
                                     <input class="form-control" placeholder="Password" name="password" type="password" value="">
                                 </div>
                                 <!-- Change this to a button or input when using this as a form -->

@@ -52,7 +52,7 @@ class HomeController extends Controller
 
         if($validator->fails())
         {   
-            return Redirect::back()->withInput(Input::except('password'))->withErrors($validator, 'login');
+            return Redirect::back()->withInput(Input::except('password'))->withError($validator, 'login');
         }
         else
         {
@@ -77,19 +77,20 @@ class HomeController extends Controller
             }
             else
             {
-                dd("Fail");
+                return redirect('/')->with('login_error', 'Email and password do not match.')
+                    ->withInput(Input::except('password'));
             }
         }
 	}
 
     public function LogOut()
     {    
-        if(Auth::check())
-        {   
+        //if(Auth::check())
+        //{   
             session()->flush();
             Auth::logout();
             return redirect('/');
-        }
+        //}
     }
 	
 }

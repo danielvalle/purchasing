@@ -27,7 +27,7 @@
                 <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
                     <span class="sr-only">Toggle navigation</span>
                 </button>
-                <a class="navbar-brand" href="/purchasing/public/">Southern Leyte State University</a>
+                <a class="navbar-brand">Southern Leyte State University</a>
             </div>
             <!-- /.navbar-header -->
 
@@ -60,21 +60,17 @@
                         <li class="divider"></li>
 
                         <li><a href="{{URL::to('maintenance/unit')}}"><strong>Unit</strong></a></li>
-                        
-                        @if(Auth::check())
-                            @if(Auth::user()->user_type == 1)
-                            <li class="divider"></li> 
-                            <li><a href="{{URL::to('maintenance/user')}}"><strong>User</strong></a></li>
-                            @endif
-                        @endif
+                        <li class="divider"></li> 
+
+                        <li><a href="{{URL::to('maintenance/user')}}"><strong>User</strong></a></li>
                     </ul>
                 </li>
-                @if(Auth::check())
-                    @if(Auth::user()->user_type == 1)
                     <li class="dropdown">
                         <a class="dropdown-toggle" data-toggle="dropdown" href="#">Transaction</a>
                         <ul class="dropdown-menu dropdown-messages">
                             <li><a href="{{URL::to('transaction/purchase-request')}}"><strong>Purchase Request</strong></a></li>
+                        @if(Auth::check())
+                            @if(Auth::user()->user_type == 1)
                             <li class="divider"></li>
 
                             <li><a href="{{URL::to('transaction/request-for-quotation')}}"><strong>Request For Quotation</strong></a></li>
@@ -93,16 +89,13 @@
                             <li class="divider"></li>
 
                             <li><a href="{{URL::to('transaction/disbursement-voucher')}}"><strong>Disbursement Voucher</strong></a></li>
+                            @endif
+                        @endif
                         </ul>
                     </li>
-                    @endif
-                @endif
                 <li class="dropdown">
                     <a class="dropdown-toggle" data-toggle="dropdown" href="#">Account</a>
                     <ul class="dropdown-menu dropdown-messages">
-                        <li><a href="{{URL::to('transaction/purchase-request')}}"><strong>Change Password</strong></a></li>
-                        <li class="divider"></li>
-
                         <li><a href="{{URL::to('logout')}}"><strong>Log Out</strong></a></li>
                     </ul>
                 </li>

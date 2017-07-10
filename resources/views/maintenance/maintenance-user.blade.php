@@ -171,13 +171,17 @@
                                     @endforeach
                                     </select>
                                 </div>
-                                <div class="form-group col-lg-2">
-                                    <label for="add-type" >User Type</label>         
-                                    <select class="form-control" id="add-type" name="add-type">
-                                        <option value="1">Admin</option>
-                                        <option value="0">User</option>
-                                    </select>
-                                </div>
+                                @if(Auth::check())
+                                    @if(Auth::user()->user_type == 1)
+                                        <div class="form-group col-lg-2">
+                                            <label for="add-type" >User Type</label>         
+                                            <select class="form-control" id="add-type" name="add-type">
+                                                <option value="1">Admin</option>
+                                                <option value="0" selected>User</option>
+                                            </select>
+                                        </div>
+                                    @endif
+                                @endif
                             </div>
                         </div>
                         <div class="modal-footer">
@@ -261,18 +265,22 @@
                                     @endforeach
                                     </select>
                                 </div>
-                                <div class="form-group col-lg-2">
-                                    <label for="edit-type" >User Type</label>         
-                                    <select class="form-control" id="edit-type" name="edit-type">
-                                        @if($user->user_type == 1)
-                                            <option value="1" selected>Admin</option>
-                                            <option value="0">User</option>
-                                        @else
-                                            <option value="1" >Admin</option>
-                                            <option value="0" selected>User</option>
-                                        @endif
-                                    </select>
-                                </div>
+                                @if(Auth::check())
+                                    @if(Auth::user()->user_type == 1)
+                                        <div class="form-group col-lg-2">
+                                            <label for="edit-type" >User Type</label>         
+                                            <select class="form-control" id="edit-type" name="edit-type">
+                                                @if($user->user_type == 1)
+                                                    <option value="1" selected>Admin</option>
+                                                    <option value="0">User</option>
+                                                @else
+                                                    <option value="1" >Admin</option>
+                                                    <option value="0" selected>User</option>
+                                                @endif
+                                            </select>
+                                        </div>
+                                    @endif
+                                @endif
                             </div>
                         </div>
                         <div class="modal-footer">
