@@ -68,6 +68,8 @@ class HomeController extends Controller
                 // Authentication passed...
                 $user = User::where('email', '=', Input::get('email'))->first();
 
+                session(['logged-user' => $user]);
+
                 if(Auth::user()->user_type == 0){
                     return redirect()->intended('transaction/purchase-request');
                 }else if(Auth::user()->user_type == 1){
@@ -91,6 +93,35 @@ class HomeController extends Controller
             Auth::logout();
             return redirect('/');
         //}
+    }
+
+    public function change_password(Request $request)
+    {
+        $user = session()->get('logged-user');
+
+        $old = $request->input('old-password');
+        $new = $request->input('new-password'); 
+        $confirm = $request->input('confirm-password');
+
+        Session::flash('change_pw', 'change');
+
+        if (Hash::check($old, $user->password))
+        {
+            if($new == $confirm)
+            {
+                return redirect()->back()->with('new_success', 'Password successfully changed.');
+            }
+            else
+            {
+                return redirect()->back()->with('confirm_error', 'Confirm password does not match.')
+                                         ->withInput(Input::all());
+            }
+        }
+        else
+        {
+            return redirect()->back()->with('old_error', 'Old password does not match.')
+                                     ->withInput(Input::all());
+        }
     }
 	
 }

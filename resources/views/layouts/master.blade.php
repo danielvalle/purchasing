@@ -96,6 +96,9 @@
                 <li class="dropdown">
                     <a class="dropdown-toggle" data-toggle="dropdown" href="#">Account</a>
                     <ul class="dropdown-menu dropdown-messages">
+                        <li><a data-toggle="modal" data-target="#change-password"><strong>Change Password</strong></a></li>
+                        <li class="divider"></li>
+
                         <li><a href="{{URL::to('logout')}}"><strong>Log Out</strong></a></li>
                     </ul>
                 </li>
@@ -104,6 +107,54 @@
             <!-- /.navbar-top-links -->
         </nav>
 
+            <div id="change-password" class="modal fade" role="dialog">
+            {!! Form::open(['url' => '/change-password', 'method' => 'post']) !!} 
+                <div class="modal-dialog">
+            
+                    <!-- Modal content-->
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h4 class="modal-title">Change Password</h4>
+                        </div>
+                        <div class="modal-body">
+                            @if (Session::has('new_success'))
+                                    <div class="alert alert-success">
+                                        <strong>{!! session('new_success') !!}</strong>
+                                    </div>
+                            @endif
+                            @if (Session::has('confirm_error'))
+                                    <div class="alert alert-warning">
+                                        <strong>{!! session('confirm_error') !!}</strong>
+                                    </div>
+                            @endif
+                            @if (Session::has('old_error'))
+                                    <div class="alert alert-danger">
+                                        <strong>{!! session('old_error') !!}</strong>
+                                    </div>
+                            @endif
+                            <div class="form-group">
+                                <label for="agency-name">Input Old Password</label>
+                                <input required type="password" class="form-control" id="old-password" name="old-password" placeholder="Old Password">
+                            </div>
+                            <div class="form-group">
+                                <label for="agency-name">Input New Password</label>
+                                <input required type="password" class="form-control" id="new-password" name="new-password" placeholder="New Password">
+                            </div>
+                            <div class="form-group">
+                                <label for="agency-name">Confirm New Password</label>
+                                <input required type="password" class="form-control" id="confirm-password" name="confirm-password" placeholder="Confirm Password">
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="submit" class="btn btn-success">Save</button>
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                        </div>
+                    </div>
+
+                </div>
+            {!! Form::close() !!}
+            </div>
+
     </div>
 
 
@@ -111,7 +162,7 @@
         @yield('content')
     </main>
 
-    <!-- SCRIPTS -->
+    <!-- SCRIPTS -->        
 
         {!! Html::script('js/jquery.js') !!}
         {!! Html::script('js/bootstrap.js') !!}
@@ -122,6 +173,14 @@
         {!! Html::script('js/sb-admin-2.js') !!}
         {!! Html::script('js/jquery.datetimepicker.full.min.js') !!}
         {!! Html::script('js/bootstrap-select.js') !!}
+        
+        @if(Session::has('change_pw'))
+            <script>
+                $(document).ready(function(){
+                    $('#change-password').modal('show');
+                });
+            </script>   
+        @endif 
 
     @yield('scripts')
 
