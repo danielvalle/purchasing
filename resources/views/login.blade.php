@@ -37,13 +37,93 @@
                                     <input class="form-control" placeholder="Password" name="password" type="password" value="">
                                 </div>
                                 <!-- Change this to a button or input when using this as a form -->
-                                <button type="submit" class="btn btn-lg btn-success btn-block">Login</a>
+                                <button type="submit" class="btn btn-md btn-success btn-block">Login</button>
+                                <a href="#add-user" data-toggle="modal" class="btn btn-md btn-primary btn-block">Register</a>
                             </fieldset>
                         {!! Form::close() !!}
                     </div>
                 </div>
             </div>
         </div>
+        <!-- Add New User -->
+            <div id="add-user" class="modal fade" role="dialog">
+            {!! Form::open(['url' => 'maintenance/user', 'method' => 'post']) !!} 
+                <div class="modal-dialog modal-lg">
+            
+                    <!-- Modal content-->
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h4 class="modal-title">Add New User</h4>
+                        </div>
+                        <div class="modal-body container-fluid">
+                            <div class="col-lg-12">
+                                <div class="form-group col-lg-4">
+                                    <label for="add-first-name">First Name</label>         
+                                    <input type="text" class="form-control" id="add-first-name" name="add-first-name" placeholder="Juan" required>
+                                </div>
+                                <div class="form-group col-lg-3">
+                                    <label for="add-middle-name">Middle Name</label>         
+                                    <input type="text" class="form-control" id="add-middle-name" name="add-middle-name" placeholder="Rivera">
+                                </div>
+                                <div class="form-group col-lg-3">
+                                    <label for="add-last-name" >Last Name</label>         
+                                    <input type="text" class="form-control" id="add-last-name" name="add-last-name" placeholder="Dela Cruz" required>
+                                </div>
+                                <div class="form-group col-lg-2">
+                                    <label for="add-suffix" >Suffix</label>         
+                                    <input type="text" class="form-control" id="add-suffix" name="add-suffix" placeholder="Jr.">
+                                </div>
+                            </div>
+                            <div class="col-lg-12">
+                                <div class="form-group col-lg-2">
+                                    <label for="add-first-sex" >Sex</label>         
+                                    <select class="form-control" id="add-sex" name="add-sex">
+                                        <option value="M">Male</option>
+                                        <option value="F">Female</option>
+                                    </select>
+                                </div>
+                                <div class="form-group col-lg-4">
+                                    <label for="add-email" >E-mail</label>         
+                                    <input type="email" class="form-control" id="add-email" name="add-email" placeholder="juandelacruz@gmail.com" required>
+                                </div>
+                                <div class="form-group col-lg-3">
+                                    <label for="add-birthday" >Birthday</label>         
+                                    <input type="date" class="form-control" id="add-birthday" name="add-birthday" value="{{ date("Y-m-d") }}" required>
+                                </div>
+                                <div class="form-group col-lg-3">
+                                    <label for="add-password" >Password</label>         
+                                    <input type="password" class="form-control" id="add-password" name="add-password"  required>
+                                </div>
+                            </div>
+                            <div class="col-lg-12">
+                                <div class="form-group col-lg-5">
+                                    <label for="add-agency" >Agency</label>         
+                                    <select class="form-control" id="add-agency" name="add-agency">
+                                    @foreach($agencies as $agency)
+                                        <option value="{{ $agency->id }}">{{ $agency->agency_name }}</option>
+                                    @endforeach
+                                    </select>
+                                </div>
+                                <div class="form-group col-lg-5">
+                                    <label for="add-designation" >Designation</label> 
+                                    <select class="form-control" id="add-designation" name="add-designation">
+                                    @foreach($designations as $designation)
+                                        <option value="{{ $designation->id }}">{{ $designation->designation_name }}</option>
+                                    @endforeach
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="submit" class="btn btn-success">Add</button>
+                            <button type="reset" class="btn btn-default" data-dismiss="modal">Close</button>
+                        </div>
+                    </div>
+
+                </div>
+            {!! Form::close() !!}
+            </div>
+            <!-- /Add New User -->
     </div>
 
         {!! Html::script('js/jquery.js') !!}

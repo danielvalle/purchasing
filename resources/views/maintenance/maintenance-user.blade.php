@@ -223,7 +223,7 @@
                                 </div>
                             </div>
                             <div class="col-lg-12">
-                                <div class="form-group col-lg-2">
+                                <div class="form-group col-lg-3">
                                     <label for="edit-first-sex" >Sex</label>         
                                     <select class="form-control" id="edit-sex" name="edit-sex">
                                         @if($user->sex == "M")
@@ -235,17 +235,13 @@
                                         @endif
                                     </select>
                                 </div>
-                                <div class="form-group col-lg-4">
+                                <div class="form-group col-lg-6">
                                     <label for="edit-email" >E-mail</label>         
                                     <input type="email" class="form-control" id="edit-email" name="edit-email" placeholder="juandelacruz@gmail.com" value="{{ $user->email }}">
                                 </div>
                                 <div class="form-group col-lg-3">
                                     <label for="edit-birthday" >Birthday</label>         
                                     <input type="date" class="form-control" id="edit-birthday" name="edit-birthday" value="{{ $user->birthday }}">
-                                </div>
-                                <div class="form-group col-lg-3">
-                                    <label for="edit-password" >Password</label>         
-                                    <input type="password" class="form-control" id="edit-password" name="edit-password" value="{{ $user->password }}">
                                 </div>
                             </div>
                             <div class="col-lg-12">

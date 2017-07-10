@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use View;
 use Input;
 use App\User;
-use Illuminate\Support\Facades\Mail;
 use Redirect;
 use Illuminate\Http\Request;
 use Validator;
@@ -13,18 +12,31 @@ use Auth;
 use Session;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
+use Hash;
+use DB;
+
+use App\Agency;
+use App\Department;
+use App\Designation;
 
 class HomeController extends Controller
 {
 	
 	public function index()
 	{
+        $agencies = Agency::all();
+        $departments = Department::all();
+        $designations = Designation::all();
 
-		return view("layouts.master");
+        return view("login")
+                ->with('agencies', $agencies)
+                ->with('departments', $departments)
+                ->with('designations', $designations);
+		//return view("layouts.master");
 
 	}
 
-	public function login(Request $request)
+	public function LogIn(Request $request)
 	{
 
     	$rules = [
@@ -34,31 +46,51 @@ class HomeController extends Controller
 
         $input = Input::only('email', 'password');
 
+        $user = User::first();
+
         $validator = Validator::make($input, $rules);
+
         if($validator->fails())
-        {
-        	dd("hm");
+        {   
             return Redirect::back()->withInput(Input::except('password'))->withErrors($validator, 'login');
         }
-
-        $email = Input::get('email');
-        $pass = Input::get('password');
-
-        if (Auth::attempt(['email' => $email, 'password' => $pass])) {
-        dd($email);
-            // Authentication passed...
-            $user = User::where('email', '=', Input::get('email'))->first();
-  
-            if(Auth::user()->type == 0){
-                return redirect()->intended('transaction/purchase-request');
-            }else if(Auth::user()->type == 1){
-                return redirect()->intended('transaction/purchase-request');
-            }
+        else
+        {
+            $user = array(
+                'email' => Input::get('email'),
+                'password' => Input::get('password')
+            );
             
-        }else{
-            dd("hmm :>");
+            //dd($user);
+
+            if (Auth::attempt($user, true)) 
+            {
+                // Authentication passed...
+                $user = User::where('email', '=', Input::get('email'))->first();
+
+                if(Auth::user()->user_type == 0){
+                    return redirect()->intended('transaction/purchase-request');
+                }else if(Auth::user()->user_type == 1){
+                    return redirect()->intended('transaction/request-for-quotation');
+                }
+                
+            }
+            else
+            {
+                dd("Fail");
+            }
         }
 	}
+
+    public function LogOut()
+    {    
+        if(Auth::check())
+        {   
+            session()->flush();
+            Auth::logout();
+            return redirect('/');
+        }
+    }
 	
 }
 

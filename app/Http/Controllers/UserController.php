@@ -8,6 +8,7 @@ use App\User;
 use App\Agency;
 use App\Designation;
 use App\Http\Controllers\Controller;
+use Hash;
 
 class UserController extends Controller
 {
@@ -45,7 +46,7 @@ class UserController extends Controller
                     'sex' => trim($request->input('add-sex')),
                     'email' => trim($request->input('add-email')),
                     'birthday' =>  date("Y-m-d", strtotime($request->input('add-birthday'))),
-                    'password' => trim($request->input('add-password')),
+                    'password' => Hash::make(trim($request->input('add-password'))),
                     'agency_fk' => trim($request->input('add-agency')),
                     'user_type' => trim($request->input('add-type')),
                     'designation_fk' => trim($request->input('add-designation')),
@@ -66,7 +67,7 @@ class UserController extends Controller
         $user_check = \DB::table('user')
                     ->where('email', trim($request->input('edit-email')))
                     ->first();
-        
+   
         if($user_check == null)
         {
             $user = User::find($request->input('edit-user-id'));
@@ -78,7 +79,6 @@ class UserController extends Controller
             $user->sex = trim($request->input('edit-sex'));
             $user->email = trim($request->input('edit-email'));
             $user->birthday = date("Y-m-d", strtotime($request->input('edit-birthday')));
-            $user->password = trim($request->input('edit-password'));
             $user->agency_fk = trim($request->input('edit-agency'));
             $user->user_type = trim($request->input('edit-type'));
             $user->designation_fk = trim($request->input('edit-designation'));

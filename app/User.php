@@ -40,6 +40,7 @@ class User extends Model implements AuthenticatableContract,
                             'agency_fk',
                             'user_type',
                             'designation_fk',
+                            'remember_token',
                             'is_active'
                         ];
 
@@ -49,4 +50,9 @@ class User extends Model implements AuthenticatableContract,
      * @var array
      */
     protected $hidden = ['password', 'remember_token'];
+
+    public function getAuthPassword()
+    {
+       return $this->password; 
+    }
 }
