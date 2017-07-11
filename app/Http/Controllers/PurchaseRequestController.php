@@ -325,6 +325,7 @@ class PurchaseRequestController extends Controller
     public function pr_pdf()
     {
         $items = Item::all();
+
         $pr_header = \DB::table("purchase_request AS pr")
                 ->leftJoin("department AS dept", "pr.department_fk", "=", "dept.id")
                 ->leftJoin("section AS sect", "pr.section_fk", "=", "sect.id")
@@ -362,7 +363,7 @@ class PurchaseRequestController extends Controller
         view()->share('items', $pr_items);
         
         $pdf = PDF::loadView('pdf.purchase-request-pdf');
-        return $pdf->download('pr_pdf.pdf');
+        return $pdf->download('PR ' . $pr_header->pr_number . '.pdf');
     }
 
 }

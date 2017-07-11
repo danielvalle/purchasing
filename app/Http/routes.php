@@ -15,6 +15,7 @@ Route::get('/', "HomeController@index");
 Route::post('/login', 'HomeController@LogIn');
 Route::get('/logout', 'HomeController@LogOut');
 Route::post('/change-password', 'HomeController@change_password');
+Route::post('/register', 'HomeController@register');
 
 
 Route::group(['prefix' => 'maintenance'], function(){

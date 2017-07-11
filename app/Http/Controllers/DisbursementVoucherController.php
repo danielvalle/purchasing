@@ -76,7 +76,7 @@ class DisbursementVoucherController extends Controller
                 ->select("mode_of_payment", "employee_no", "or_bur_no", "address", "project", "code", 
                          "explanation", "amount", "certified", "date", "approved_for_payment",
                          "approve_date", "ada_no", "payment_check_date", "bank_name", "jev_no",
-                         "check_date", "other_docs")
+                         "check_date", "other_docs", "dv_number")
                 ->where("id", session()->get("pdf_dv_id"))
                 ->first();
 
@@ -111,7 +111,7 @@ class DisbursementVoucherController extends Controller
         view()->share('printed_name', $printed_name);
 
         $pdf = PDF::loadView('pdf.disbursement-voucher-pdf');
-        return $pdf->download('dv_pdf.pdf');
+        return $pdf->download('DV' . $dv_header->dv_number . '.pdf');
     }    
 
 	

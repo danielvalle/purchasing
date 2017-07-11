@@ -184,7 +184,8 @@ class IssuanceController extends Controller
                     ->leftJoin("department as d", "i.department_fk", "=", "d.id")
                     ->leftJoin("office as o", "i.office_fk", "=", "o.id")
                     ->select("d.department_name", "o.office_name", "i.reasonability_center_code",
-                             "i.ris_no", "i.ris_date", "i.sai_no", "i.sai_date", "i.purpose")
+                             "i.ris_no", "i.ris_date", "i.sai_no", "i.sai_date", "i.purpose",
+                             "i.issuance_number")
                     ->where("i.id", session()->get("pdf_issue_id"))
                     ->first();
 
@@ -236,7 +237,7 @@ class IssuanceController extends Controller
         view()->share('received_by', $received_by);
 
         $pdf = PDF::loadView('pdf.issuance-report-pdf');
-        return $pdf->download('issuance_pdf.pdf');
+        return $pdf->download('ISS' . $issuance_header->issuance_number . '.pdf');
     }    
 
 

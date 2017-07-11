@@ -287,7 +287,7 @@ class AbstractQuotationController extends Controller
         view()->share('items', $items);
 
         $pdf = PDF::loadView('pdf.abstract-quotation-pdf');
-        return $pdf->download('aq_pdf.pdf');
+        return $pdf->download('AQ' . $header->aq_number . '.pdf');
     }    
 
 

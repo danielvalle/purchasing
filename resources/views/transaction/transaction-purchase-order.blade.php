@@ -35,6 +35,28 @@
                 </div>
             </div>
             @endif
+
+            @if(Session::has('pr_select_fail'))
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="alert alert-warning alert-dismissable">
+                        <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                        <strong>{!! session('pr_select_fail') !!}</strong>
+                    </div>
+                </div>
+            </div>
+            @endif
+
+            @if(Session::has('aq_supplier_fail'))
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="alert alert-warning alert-dismissable">
+                        <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                        <strong>{!! session('aq_supplier_fail') !!}</strong>
+                    </div>
+                </div>
+            </div>
+            @endif
             <div class="row">   
                 <div class="col-lg-12">
                     <div class="panel panel-default">
@@ -180,9 +202,36 @@
                                     <input type="text" class="form-control" name="add-alobs-no" id="add-alobs-no">
                                 </div>                   
                             </div>
+                                <div id="submit-po" class="modal fade" role="dialog">
+     
+                                    <div class="modal-dialog">
+                                
+                                        <!-- Modal content-->
+                                        <div class="modal-content ">
+                                            <div class="modal-header">
+                                                <h4 class="modal-title">Save Purchase Order?</h4>
+                                            </div>
+                                            <div class="modal-body container-fluid">
+                                                <div class="form-group col-lg-12">   
+                                                    <label for="add-department">
+                                                        Are you sure you want to save your Purchase Order? Changes cannot be made after it is sent.
+                                                    </label>         
+                                                </div>  
+                                                <div class="form-group col-lg-12">
+                                                    <span><i>A PDF will automatically be downloaded after saving.</i></span>
+                                                </div>    
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="submit" class="btn btn-success">Save</button>
+                                                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                            </div>
+                                        </div>
 
-                            <button class="btn btn-success" style="float: right; width: 20%;">Submit PO</button> 
+                                    </div>
+                                
+                                </div>
                             {!! Form::close() !!}
+                            <button button type="button" class="btn btn-success" data-toggle="modal" data-target="#submit-po" style="float: right; width: 20%;">Submit PO</button> 
                         </div>
                     </div>
                     <!-- /.panel -->

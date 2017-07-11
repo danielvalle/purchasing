@@ -47,12 +47,12 @@
                                 @endif
                                 <div class="form-group">
                                     <label for="email">E-mail</label>
-                                    <input value="{{ old('email') }}" class="form-control" placeholder="E-mail" name="email" type="email" autofocus>
+                                    <input required value="{{ old('email') }}" class="form-control" placeholder="E-mail" name="email" type="email" autofocus>
                                 </div>
                                 <div class="form-group">
 
                                     <label for="email">Password</label>
-                                    <input class="form-control" placeholder="Password" name="password" type="password" value="">
+                                    <input required class="form-control" placeholder="Password" name="password" type="password" value="">
                                 </div>
                                 <!-- Change this to a button or input when using this as a form -->
                                 <button type="submit" class="btn btn-md btn-success btn-block">Login</button>
@@ -65,7 +65,7 @@
         </div>
         <!-- Add New User -->
             <div id="add-user" class="modal fade" role="dialog">
-            {!! Form::open(['url' => 'maintenance/user', 'method' => 'post']) !!} 
+            {!! Form::open(['url' => '/register', 'method' => 'post']) !!} 
                 <div class="modal-dialog modal-lg">
             
                     <!-- Modal content-->
@@ -75,21 +75,31 @@
                         </div>
                         <div class="modal-body container-fluid">
                             <div class="col-lg-12">
+                                @if (Session::has('register_success'))
+                                    <div class="alert alert-success">
+                                        <strong>{!! session('register_success') !!}</strong>
+                                    </div>
+                                @endif
+                                @if (Session::has('register_fail'))
+                                    <div class="alert alert-danger">
+                                        <strong>{!! session('register_fail') !!}</strong>
+                                    </div>
+                                @endif
                                 <div class="form-group col-lg-4">
                                     <label for="add-first-name">First Name</label>         
-                                    <input type="text" class="form-control" id="add-first-name" name="add-first-name" placeholder="Juan" required>
+                                    <input value="{{ old('add-first-name') }}" type="text" class="form-control" id="add-first-name" name="add-first-name" placeholder="Juan" required>
                                 </div>
                                 <div class="form-group col-lg-3">
                                     <label for="add-middle-name">Middle Name</label>         
-                                    <input type="text" class="form-control" id="add-middle-name" name="add-middle-name" placeholder="Rivera">
+                                    <input value="{{ old('add-middle-name') }}" type="text" class="form-control" id="add-middle-name" name="add-middle-name" placeholder="Rivera">
                                 </div>
                                 <div class="form-group col-lg-3">
                                     <label for="add-last-name" >Last Name</label>         
-                                    <input type="text" class="form-control" id="add-last-name" name="add-last-name" placeholder="Dela Cruz" required>
+                                    <input value="{{ old('add-last-name') }}" type="text" class="form-control" id="add-last-name" name="add-last-name" placeholder="Dela Cruz" required>
                                 </div>
                                 <div class="form-group col-lg-2">
                                     <label for="add-suffix" >Suffix</label>         
-                                    <input type="text" class="form-control" id="add-suffix" name="add-suffix" placeholder="Jr.">
+                                    <input value="{{ old('add-suffix') }}" type="text" class="form-control" id="add-suffix" name="add-suffix" placeholder="Jr.">
                                 </div>
                             </div>
                             <div class="col-lg-12">
@@ -102,11 +112,11 @@
                                 </div>
                                 <div class="form-group col-lg-4">
                                     <label for="add-email" >E-mail</label>         
-                                    <input type="email" class="form-control" id="add-email" name="add-email" placeholder="juandelacruz@gmail.com" required>
+                                    <input value="{{ old('add-email') }}" type="email" class="form-control" id="add-email" name="add-email" placeholder="juandelacruz@gmail.com" required>
                                 </div>
                                 <div class="form-group col-lg-3">
                                     <label for="add-birthday" >Birthday</label>         
-                                    <input type="date" class="form-control" id="add-birthday" name="add-birthday" value="{{ date("Y-m-d") }}" required>
+                                    <input type="date" class="form-control" id="add-birthday" name="add-birthday" @if(Session::has('register_fail')) value="{{ old('add-birthday') }}" else value="{{ date("Y-m-d") }}" @endif required>
                                 </div>
                                 <div class="form-group col-lg-3">
                                     <label for="add-password" >Password</label>         
@@ -118,7 +128,7 @@
                                     <label for="add-agency" >Agency</label>         
                                     <select class="form-control" id="add-agency" name="add-agency">
                                     @foreach($agencies as $agency)
-                                        <option value="{{ $agency->id }}">{{ $agency->agency_name }}</option>
+                                        <option @if(old('add-agency') == $agency->id) selected @endif value="{{ $agency->id }}">{{ $agency->agency_name }}</option>
                                     @endforeach
                                     </select>
                                 </div>
@@ -126,7 +136,7 @@
                                     <label for="add-designation" >Designation</label> 
                                     <select class="form-control" id="add-designation" name="add-designation">
                                     @foreach($designations as $designation)
-                                        <option value="{{ $designation->id }}">{{ $designation->designation_name }}</option>
+                                        <option @if(old('add-designation') == $designation->id) selected @endif value="{{ $designation->id }}">{{ $designation->designation_name }}</option>
                                     @endforeach
                                     </select>
                                 </div>
@@ -152,6 +162,14 @@
         {!! Html::script('js/dataTables.responsive.js') !!}
         {!! Html::script('js/sb-admin-2.js') !!}
         {!! Html::script('js/jquery.datetimepicker.full.min.js') !!}
+
+        @if(Session::has('register_success') || Session::has('register_fail'))
+            <script>
+                $(document).ready(function(){
+                    $('#add-user').modal('show');
+                });
+            </script>   
+        @endif 
 
 </body>
 

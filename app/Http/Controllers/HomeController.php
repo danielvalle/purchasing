@@ -95,6 +95,38 @@ class HomeController extends Controller
         //}
     }
 
+    public function register(Request $request)
+    {
+        $user_check = \DB::table('user')
+                    ->where('email', trim($request->input('add-email')))
+                    ->first();
+
+        if($user_check == null)
+        {      
+            $user = User::create(array(
+                    'first_name' => trim($request->input('add-first-name')),
+                    'last_name' => trim($request->input('add-last-name')),
+                    'middle_name' => trim($request->input('add-middle-name')),
+                    'suffix' => trim($request->input('add-suffix')),
+                    'sex' => trim($request->input('add-sex')),
+                    'email' => trim($request->input('add-email')),
+                    'birthday' =>  date("Y-m-d", strtotime($request->input('add-birthday'))),
+                    'password' => Hash::make(trim($request->input('add-password'))),
+                    'agency_fk' => trim($request->input('add-agency')),
+                    'user_type' => 0,
+                    'designation_fk' => trim($request->input('add-designation')),
+                    'is_active' => 1
+                ));
+
+            $user->save();
+
+            return redirect()->back()->with('register_success', 'User is successfully added.');
+        }
+        else return redirect()->back()->with('register_fail', 'E-mail already exists.')->withInput(Input::all());
+        
+        
+    }
+
     public function change_password(Request $request)
     {
         $user = session()->get('logged-user');
@@ -104,11 +136,14 @@ class HomeController extends Controller
         $confirm = $request->input('confirm-password');
 
         Session::flash('change_pw', 'change');
-
+        
         if (Hash::check($old, $user->password))
         {
             if($new == $confirm)
             {
+                $user->password = Hash::make($new);
+                $user->save();
+
                 return redirect()->back()->with('new_success', 'Password successfully changed.');
             }
             else

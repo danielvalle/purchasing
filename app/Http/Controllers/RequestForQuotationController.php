@@ -63,6 +63,8 @@ class RequestForQuotationController extends Controller
 
         $users = User::all();
 
+        if($purchase_requests == null) Session::flash('rfq_search_error', 'There are no items for that category in that Purchase Request.');
+
         return view("transaction.transaction-request-for-quotation")
                 ->with('categories', $categories)
                 ->with('pr_headers', $pr_headers)
@@ -163,8 +165,8 @@ class RequestForQuotationController extends Controller
                         ->first();
         }
 
-        $rfq_headers = \DB::table("request_for_quote")
-                        ->select("place_of_delivery", "within_no_of_days", "vat_nonvat_tin", "date")
+        $rfq_header = \DB::table("request_for_quote")
+                        ->select("place_of_delivery", "within_no_of_days", "vat_nonvat_tin", "date", "rfq_number")
                         ->where("id", session()->get("pdf_rfq_id"))
                         ->first();
 
@@ -189,13 +191,13 @@ class RequestForQuotationController extends Controller
 
         view()->share('supp_ids', $supp_ids);
         view()->share('supplier', $rfq_suppliers);
-        view()->share('header', $rfq_headers);
+        view()->share('header', $rfq_header);
         view()->share('requestor', $requestor);
         view()->share('canvasser', $canvasser);
         view()->share('items', $rfq_items);
         
         $pdf = PDF::loadView('pdf.request-for-quotation-pdf');
-        return $pdf->download('rfq_pdf.pdf');
+        return $pdf->download('RFQ' . $rfq_header->rfq_number . '.pdf');
     }    
 
 }

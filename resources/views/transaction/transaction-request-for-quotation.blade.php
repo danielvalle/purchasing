@@ -35,6 +35,17 @@
                 </div>
             </div>
             @endif
+
+            @if(Session::has('rfq_search_error'))
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="alert alert-warning alert-dismissable">
+                        <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                        <strong>{!! session('rfq_search_error') !!}</strong>
+                    </div>
+                </div>
+            </div>
+            @endif
             <div class="row">   
                 <div class="col-lg-12">
                     <div class="panel panel-default">
@@ -165,12 +176,12 @@
                                                     <label for="add-department">Select Supplier to be printed an RFQ Form</label>         
                                                 </div>
                                                 <div class="form-group col-lg-12">
-                                                    <select class="selectpicker" multiple name="add-print-supplier[]" id="add-print-supplier">
+                                                    <select style="width: 100% !important" class="selectpicker" multiple name="add-print-supplier[]" id="add-print-supplier">
                                                     </select>   
                                                 </div>      
                                             </div>
                                             <div class="modal-footer">
-                                                <button type="submit" class="btn btn-success">Add</button>
+                                                <button type="submit" class="btn btn-success">Save</button>
                                                 <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
                                             </div>
                                         </div>

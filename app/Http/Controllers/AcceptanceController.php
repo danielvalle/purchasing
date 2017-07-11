@@ -182,7 +182,7 @@ class AcceptanceController extends Controller
                     ->leftJoin("department AS d", "a.requisitioning_dept_fk", "=", "d.id")
                     ->select("s.supplier_name", "d.department_name", "a.iar", "a.po_no", "a.po_date",
                              "a.invoice_no", "a.invoice_date", "a.date_inspected", "a.date_accepted",
-                             "a.verification", "a.completeness")
+                             "a.verification", "a.completeness", "a.acceptance_number")
                     ->where("a.id", session()->get("pdf_accept_id"))
                     ->first();
 
@@ -211,7 +211,7 @@ class AcceptanceController extends Controller
         view()->share('property_officer', $accept_property_officer);
 
         $pdf = PDF::loadView('pdf.acceptance-report-pdf');
-        return $pdf->download('acceptance_pdf.pdf');
+        return $pdf->download('ACC' . $acceptance_header->acceptance_number . '.pdf');
     }    
 
 

@@ -126,44 +126,65 @@ class PurchaseOrderController extends Controller
         $selected_pr_no = $request->input('select-pr-no');
         $selected_supplier = $request->input('add-supplier');
 
+        $selected_aq_no = "";
+        $suppliers = [];
+        $supplier_names = [];
+        $items = [];
+
         $total = 0;
 
-        $selected_aq = AbstractQuotation::where("pr_fk", $selected_pr_no)->first();
+        if($selected_pr_no == null)
+        {
+            Session::flash('pr_select_fail', 'You have not selected a Purchase Request Number.');   
+        }
+        else
+        {
+            $selected_aq = AbstractQuotation::where("pr_fk", $selected_pr_no)->first();
         
-        $selected_aq_no = $selected_aq->id;
+            if($selected_aq == null)
+            {
+                Session::flash('aq_select_fail', 'You have not selected a Purchase Request Number.');
+            }
+            else
+            {
+                $selected_aq_no = $selected_aq->id;
 
-        $suppliers[0] = $selected_aq->supplier1_fk;
-        $suppliers[1] = $selected_aq->supplier2_fk;
-        $suppliers[2] = $selected_aq->supplier3_fk;
-        $suppliers[3] = $selected_aq->supplier4_fk;
-        $suppliers[4] = $selected_aq->supplier5_fk;
+                $suppliers[0] = $selected_aq->supplier1_fk;
+                $suppliers[1] = $selected_aq->supplier2_fk;
+                $suppliers[2] = $selected_aq->supplier3_fk;
+                $suppliers[3] = $selected_aq->supplier4_fk;
+                $suppliers[4] = $selected_aq->supplier5_fk;
 
-        $suppliers = array_values(array_filter($suppliers)); 
+                $suppliers = array_values(array_filter($suppliers)); 
 
-        session(['po_suppliers' => $suppliers]); 
+                session(['po_suppliers' => $suppliers]); 
 
-        $temp_supplier_names = \DB::table("supplier")
-                        ->select("supplier_name")
-                        ->whereIn("id", $suppliers)
+                $temp_supplier_names = \DB::table("supplier")
+                                ->select("supplier_name")
+                                ->whereIn("id", $suppliers)
+                                ->get();
+
+                for($i = 0; $i < count($suppliers); $i++) $supplier_names[$i] = $temp_supplier_names[$i]->supplier_name;           
+
+                $items = \DB::table("abstract_quotation as aq")
+                        ->leftJoin("abstract_quotation_detail AS aqd", "aq.id", "=", "aqd.abstract_quotation_fk")
+                        ->leftJoin("item", "item.id", "=", "aqd.item_fk")
+                        ->leftJoin("unit", "unit.id", "=", "aqd.unit_fk")
+                        ->distinct()
+                        ->select("aqd.item_fk", "aqd.unit_fk", "item.stock_no", "aqd.quantity", "unit.unit_name", "item.item_name",
+                                 "aqd.winning_supplier_amount", \DB::raw('aqd.winning_supplier_amount * aqd.quantity as total'))
+                        ->where("aq.pr_fk", $selected_pr_no)
+                        ->where("aqd.winning_supplier_fk", $selected_supplier)
                         ->get();
 
-        for($i = 0; $i < count($suppliers); $i++) $supplier_names[$i] = $temp_supplier_names[$i]->supplier_name;           
+                foreach($items as $item) $total += $item->total;
 
-        $items = \DB::table("abstract_quotation as aq")
-                ->leftJoin("abstract_quotation_detail AS aqd", "aq.id", "=", "aqd.abstract_quotation_fk")
-                ->leftJoin("item", "item.id", "=", "aqd.item_fk")
-                ->leftJoin("unit", "unit.id", "=", "aqd.unit_fk")
-                ->distinct()
-                ->select("aqd.item_fk", "aqd.unit_fk", "item.stock_no", "aqd.quantity", "unit.unit_name", "item.item_name",
-                         "aqd.winning_supplier_amount", \DB::raw('aqd.winning_supplier_amount * aqd.quantity as total'))
-                ->where("aq.pr_fk", $selected_pr_no)
-                ->where("aqd.winning_supplier_fk", $selected_supplier)
-                ->get();
+                session(['po_items' => $items]);
+                session(['po_supplier' => $selected_supplier]);
 
-        foreach($items as $item) $total += $item->total;
-
-        session(['po_items' => $items]);
-        session(['po_supplier' => $selected_supplier]);
+                if($items == null) Session::flash('aq_supplier_fail', 'There are no items for the Purchase Request under that supplier.');
+            }
+        }
 
         return view("transaction.transaction-purchase-order")
             ->with("selected_pr_no", $selected_pr_no)
@@ -251,7 +272,7 @@ class PurchaseOrderController extends Controller
         view()->share('items', $items);
 
         $pdf = PDF::loadView('pdf.purchase-order-pdf');
-        return $pdf->download('po_pdf.pdf');
+        return $pdf->download('PO' . $po_header->po_number . '.pdf');
     }
 
 

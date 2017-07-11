@@ -164,9 +164,37 @@
                                 <label for="">Official Receipt/Other Documents</label>
                                 <input type="text" class="form-control" name="add-documents">
                             </div>
+                                <div id="submit-iss" class="modal fade" role="dialog">
+     
+                                    <div class="modal-dialog">
+                                
+                                        <!-- Modal content-->
+                                        <div class="modal-content ">
+                                            <div class="modal-header">
+                                                <h4 class="modal-title">Save Disbursement Voucher Request?</h4>
+                                            </div>
+                                            <div class="modal-body container-fluid">
+                                                <div class="form-group col-lg-12">   
+                                                    <label for="add-department">
+                                                        Are you sure you want to save your Disbursement Voucher Request? Changes cannot be made after it is sent.
+                                                    </label>         
+                                                </div>  
+                                                <div class="form-group col-lg-12">
+                                                    <span><i>A PDF will automatically be downloaded after saving.</i></span>
+                                                </div>    
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="submit" class="btn btn-success">Save</button>
+                                                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                            </div>
+                                        </div>
 
-                            <button type="submit" style="float: right; width: 20%;"class="btn btn-success">Submit Disbursement Voucher</button>  
+                                    </div>
+                                
+                                </div>
+
                         {!! Form::close() !!}
+                            <button type="button" class="btn btn-success" data-toggle="modal" data-target="#submit-iss" style="float: right; width: 20%;">Submit Disbursement Voucher</button>  
                         </div>                        
 
                     <!-- /.panel -->

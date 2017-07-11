@@ -206,9 +206,38 @@
                             </div>
 
                         </div>
-                        <button type="submit" style="float: right; width: 20%;"class="btn btn-success">Submit Acceptance Form</button>  
-                    </div>
+
+                                <div id="submit-acc" class="modal fade" role="dialog">
+     
+                                    <div class="modal-dialog">
+                                
+                                        <!-- Modal content-->
+                                        <div class="modal-content ">
+                                            <div class="modal-header">
+                                                <h4 class="modal-title">Save Acceptance?</h4>
+                                            </div>
+                                            <div class="modal-body container-fluid">
+                                                <div class="form-group col-lg-12">   
+                                                    <label for="add-department">
+                                                        Are you sure you want to save your Acceptance? Changes cannot be made after it is sent.
+                                                    </label>         
+                                                </div>  
+                                                <div class="form-group col-lg-12">
+                                                    <span><i>A PDF will automatically be downloaded after saving.</i></span>
+                                                </div>    
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="submit" class="btn btn-success">Save</button>
+                                                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                
+                                </div>
                     {!! Form::close() !!}
+                        <button button type="button" class="btn btn-success" data-toggle="modal" data-target="#submit-acc" style="float: right; width: 20%;">Submit Acceptance Form</button>  
+                    </div>
                     </div>
                     <!-- /.panel -->
                 </div>

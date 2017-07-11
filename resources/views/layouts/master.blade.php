@@ -96,8 +96,10 @@
                 <li class="dropdown">
                     <a class="dropdown-toggle" data-toggle="dropdown" href="#">Account</a>
                     <ul class="dropdown-menu dropdown-messages">
+                        @if(Auth::check())
                         <li><a data-toggle="modal" data-target="#change-password"><strong>Change Password</strong></a></li>
                         <li class="divider"></li>
+                        @endif
 
                         <li><a href="{{URL::to('logout')}}"><strong>Log Out</strong></a></li>
                     </ul>
