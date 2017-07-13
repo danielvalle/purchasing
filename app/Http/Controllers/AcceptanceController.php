@@ -105,7 +105,7 @@ class AcceptanceController extends Controller
                             'date' => date("Y-m-d"),
                             'reference' => "Acceptance",
                             'acceptance_fk' => $acceptance->id,
-                            'reference_no' => "ACC-" . sprintf("%04d", $acceptance_detail->id),
+                            'reference_no' => "PO-" . $request->input('add-po-no'),
                             'received_quantity' => $items[$i]->quantity
                 ));
 

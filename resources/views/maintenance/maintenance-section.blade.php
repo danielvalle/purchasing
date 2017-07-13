@@ -1,5 +1,7 @@
 @extends('layouts.master')
 
+@section('title', 'SLSU - Section')
+
 @section('content')
 
 

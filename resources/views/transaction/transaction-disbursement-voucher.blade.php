@@ -1,5 +1,7 @@
 @extends('layouts.master')
 
+@section('title', 'SLSU - Disbursement Voucher')
+
 @section('content')
         <head>
             @if(Session::has('dv_new_check'))

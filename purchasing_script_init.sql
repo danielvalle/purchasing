@@ -117,7 +117,7 @@ INSERT INTO user(first_name, last_name, sex, email, birthday, password, agency_f
 VALUES ("Super", "Admin", "M", "superadmin@gmail.com", NOW(), "$2y$10$cwli4dox7NjqBLptzb6jjOkT9Wj5h69wDjkDwWfhtq4c9o2/ercXi", 
         (SELECT id from agency WHERE agency_name = "Main Agency" LIMIT 1), 
         (SELECT id from designation WHERE designation_name = "Administrator" LIMIT 1), 
-        1, 1, NOW(), NOW())
+        1, 1, NOW(), NOW());
 
 CREATE TABLE supplier
   (

@@ -1,5 +1,7 @@
 @extends('layouts.master')
 
+@section('title', 'SLSU - Request For Quotation')
+
 @section('content')
         <head>
             @if(Session::has('rfq_new_check'))

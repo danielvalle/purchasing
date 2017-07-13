@@ -123,7 +123,7 @@ class IssuanceController extends Controller
                             'date' => date("Y-m-d"),
                             'reference' => "Issuance",
                             'issuance_fk' => $issuance->id,
-                            'reference_no' => "ISS-" . sprintf("%04d", $issuance_detail->id),
+                            'reference_no' => "RIS-" . date("Y-m") . "-" . sprintf("%04d", $issuance_detail->id),
                             'issued_quantity' => $quantities[$i],
                             'office_fk' => $request->input("add-office"),
                             'no_of_days_consume' => $no_of_days_consume[$i]
@@ -237,7 +237,7 @@ class IssuanceController extends Controller
         view()->share('received_by', $received_by);
 
         $pdf = PDF::loadView('pdf.issuance-report-pdf');
-        return $pdf->download('ISS' . $issuance_header->issuance_number . '.pdf');
+        return $pdf->download('RIS' . $issuance_header->issuance_number . '.pdf');
     }    
 
 

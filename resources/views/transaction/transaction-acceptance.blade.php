@@ -1,5 +1,7 @@
 @extends('layouts.master')
 
+@section('title', 'SLSU - Acceptance')
+
 @section('content')
         <head>
             @if(Session::has('accept_new_check'))

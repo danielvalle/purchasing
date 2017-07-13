@@ -1,5 +1,7 @@
 @extends('layouts.master')
 
+@section('title', 'SLSU - Purchase Order')
+
 @section('content')
         <head>
             @if(Session::has('po_new_check'))

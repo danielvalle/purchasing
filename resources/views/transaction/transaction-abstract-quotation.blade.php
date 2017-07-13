@@ -1,5 +1,7 @@
 @extends('layouts.master')
 
+@section('title', 'SLSU - Abstract Quotation')
+
 @section('content')
         <head>
             @if(Session::has('aq_new_check'))

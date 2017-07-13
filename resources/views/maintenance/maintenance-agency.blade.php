@@ -1,7 +1,8 @@
 @extends('layouts.master')
 
-@section('content')
+@section('title', 'SLSU - Agency')
 
+@section('content')
 
         <div id="page-wrapper">
             <div class="row">

@@ -363,7 +363,7 @@ class PurchaseRequestController extends Controller
         view()->share('items', $pr_items);
         
         $pdf = PDF::loadView('pdf.purchase-request-pdf');
-        return $pdf->download('PR ' . $pr_header->pr_number . '.pdf');
+        return $pdf->download('PR' . $pr_header->pr_number . '.pdf');
     }
 
 }

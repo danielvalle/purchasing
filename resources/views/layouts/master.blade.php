@@ -1,7 +1,8 @@
 <!DOCTYPE HTML>
 <html>
 	<head>
-		<title>Purchasing</title>
+        <title>@yield('title')</title>
+        <link rel="shortcut icon" href="{{ asset('slsulogo.png') }}">
 		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
         <meta name="_token" content="{!! csrf_token() !!}"/>
 
