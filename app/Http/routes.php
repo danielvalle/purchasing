@@ -20,13 +20,13 @@ Route::post('/register', 'HomeController@register');
 
 Route::group(['prefix' => 'maintenance'], function(){
 
-	/* Agency */
+	/* Entity */
 
-		Route::resource('agency', 'AgencyController');
-			Route::post('agency/update', 'AgencyController@update');
-			Route::post('agency/destroy', 'AgencyController@delete');
+		Route::resource('entity', 'EntityController');
+			Route::post('entity/update', 'EntityController@update');
+			Route::post('entity/destroy', 'EntityController@delete');
 
-	/* end of Agency */
+	/* end of Entity */
 
 	/* Category */
 

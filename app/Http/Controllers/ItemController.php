@@ -25,7 +25,7 @@ class ItemController extends Controller
     public function store(Request $request)
     {        
         $item_check = \DB::table('item')
-                    ->orWhere('stock_no', trim($request->input('add-stock-no')))
+                    ->where('item_name', trim($request->input('add-item-name')))
                     ->first();
 
         if($item_check == null)
@@ -33,6 +33,7 @@ class ItemController extends Controller
             $item = Item::create(array(
                 'stock_no' => trim($request->input('add-stock-no')),
                 'item_name' => trim($request->input('add-item-name')),
+                'item_quantity' => $request->input('add-stock-on-hand'),
                 'item_description' => trim($request->input('add-item-description')),
                 'is_active' => 1
             ));
@@ -52,7 +53,7 @@ class ItemController extends Controller
     public function update(Request $request)
     {
         $item_check = \DB::table('item')
-                    ->where('stock_no', trim($request->input('edit-stock-no')))
+                    ->where('item_name', trim($request->input('add-item-name')))
                     ->first();
 
         if($item_check == null)

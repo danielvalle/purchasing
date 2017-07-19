@@ -15,7 +15,6 @@ use App\Http\Controllers\Controller;
 use Hash;
 use DB;
 
-use App\Agency;
 use App\Department;
 use App\Designation;
 
@@ -24,12 +23,10 @@ class HomeController extends Controller
 	
 	public function index()
 	{
-        $agencies = Agency::all();
         $departments = Department::all();
         $designations = Designation::all();
 
         return view("login")
-                ->with('agencies', $agencies)
                 ->with('departments', $departments)
                 ->with('designations', $designations);
 		//return view("layouts.master");
@@ -112,7 +109,6 @@ class HomeController extends Controller
                     'email' => trim($request->input('add-email')),
                     'birthday' =>  date("Y-m-d", strtotime($request->input('add-birthday'))),
                     'password' => Hash::make(trim($request->input('add-password'))),
-                    'agency_fk' => trim($request->input('add-agency')),
                     'user_type' => 0,
                     'designation_fk' => trim($request->input('add-designation')),
                     'is_active' => 1

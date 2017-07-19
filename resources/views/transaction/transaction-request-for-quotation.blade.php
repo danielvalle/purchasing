@@ -150,11 +150,21 @@
                                 <div class="form-group col-lg-6">
                                     <label for="">Requestor</label>
                                     <select class="form-control" name="add-requestor" id="add-requestor" required>
+                                        <option value="">None</option>
                                         @foreach($users as $user)
                                             <option value="{{ $user->id }}">{{ $user->first_name }} {{ $user->middle_name }} {{ $user->last_name }}</option>
                                         @endforeach
                                     </select>
                                 </div>  
+                                <div class="form-group col-lg-6">
+                                    <label for="">Requestor Designation</label>
+                                    <select class="form-control" name="add-requestor-designation" id="add-requestor-designation">                                        
+                                        @foreach($designations as $designation)
+                                            <option value="{{ $designation->id }}">{{ $designation->designation_name }}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+
                                 <div class="form-group col-lg-6">
                                     <label for="">Canvasser</label>
                                     <select class="form-control" name="add-canvasser" id="add-canvasser" required>
@@ -162,7 +172,15 @@
                                             <option value="{{ $user->id }}">{{ $user->first_name }} {{ $user->middle_name }} {{ $user->last_name }}</option>
                                         @endforeach                                                
                                     </select>   
-                                </div>                              
+                                </div>   
+                                <div class="form-group col-lg-6">
+                                    <label for="">Canvasser Designation</label>
+                                    <select class="form-control" name="add-canvasser-designation" id="add-canvasser-designation" required>
+                                        @foreach($designations as $designation)
+                                            <option value="{{ $designation->id }}">{{ $designation->designation_name }}</option>
+                                        @endforeach
+                                    </select>
+                                </div>                           
                             </div>
                                 <div id="submit-rfq" class="modal fade" role="dialog">
      

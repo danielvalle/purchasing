@@ -60,6 +60,8 @@
                             <th style="font-size:16px; text-align: center; border-right: thin solid black">QTY.</th>
                             <th style="font-size:16px; text-align: center; border-right: thin solid black">UNIT</th>
                             <th style="font-size:16px; text-align: center; border-right: thin solid black">REQUEST FOR QUOTATION</th>
+                            <th style="font-size:16px; text-align: center; border-right: thin solid black">UNIT PRICE</th>
+                            <th style="font-size:16px; text-align: center; border-right: thin solid black">UNIT TOTAL</th>
                         </tr>
                     </thead>
                     <tbody>  
@@ -68,6 +70,8 @@
                             <th style="font-size:16px; text-align: left; font-weight: normal; border-right: thin solid black" >{{ $item->quantity }}</th>
                             <th style="font-size:16px; text-align: left; font-weight: normal; border-right: thin solid black" >{{ $item->unit_name }}</th>
                             <th style="font-size:16px; text-align: left; font-weight: normal; border-right: thin solid black" >{{ $item->item_name }}</th>
+                            <th style="font-size:16px; text-align: left; font-weight: normal; border-right: thin solid black" ></th>
+                            <th style="font-size:16px; text-align: left; font-weight: normal; border-right: thin solid black" ></th>
                         </tr>
                         @endforeach
                     </tbody>

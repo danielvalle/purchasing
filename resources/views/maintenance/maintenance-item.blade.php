@@ -112,9 +112,13 @@
                             <h4 class="modal-title">Add New Item</h4>
                         </div>
                         <div class="modal-body">
-                            <div class="form-group">
+                            <div class="form-group col-lg-7" style="padding-left: 0">
                                 <label for="add-item-name">Stock No.</label>
-                                <input type="text" class="form-control" id="add-stock-no" name="add-stock-no" placeholder="Enter a stock number" required>
+                                <input type="text" class="form-control" id="add-stock-no" name="add-stock-no" placeholder="Enter a stock number">
+                            </div>
+                            <div class="form-group col-lg-5">
+                                <label for="add-item-name">Stock On Hand</label>
+                                <input type="number" class="form-control" id="add-stock-on-hand" name="add-stock-on-hand" placeholder="Enter stock on hand">
                             </div>
                             <div class="form-group">
                                 <label for="add-item-name">Item Name</label>
@@ -151,7 +155,7 @@
                             <input type="hidden" value="{{ $item->id }}" name="edit-item-id">
                             <div class="form-group">
                                 <label for="item-name">Stock No.</label>
-                                <input type="text" class="form-control" id="edit-stock-no" name="edit-stock-no" placeholder="Enter a stock number" value="{{ $item->stock_no }}" required>
+                                <input type="text" class="form-control" id="edit-stock-no" name="edit-stock-no" placeholder="Enter a stock number" value="{{ $item->stock_no }}">
                             </div>
                             <div class="form-group">
                                 <label for="item-name">Item Name</label>
@@ -244,32 +248,63 @@
                                 </div>             
                                 
                                 <div class="form-group col-lg-12">
-                                    <table class="table table-bordered">
-                                        <thead>
-                                            <tr>
-                                                <th>Date</th>
-                                                <th>Reference</th>
-                                                <th>Received Qty</th>
-                                                <th>Office</th>
-                                                <th>Issued Qty</th>
-                                                <th>No. Of Days To Consume</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            @foreach($stock_cards as $stock_card)
-                                                @if($stock_card->item_fk == $item->id)
-                                                <tr>    
-                                                    <td>{{ $stock_card->date }}</td>
-                                                    <td>({{ $stock_card->reference }}) {{ $stock_card->reference_no }}</td>
-                                                    <td>{{ $stock_card->received_quantity }}</td>
-                                                    <td>{{ $stock_card->office_name }}</td>
-                                                    <td>{{ $stock_card->issued_quantity }}</td>
-                                                    <td>{{ $stock_card->no_of_days_consume }}</td>
-                                                </tr>
-                                                @endif
-                                            @endforeach
-                                           </tbody>
-                                        </table>
+                                    <ul class="nav nav-tabs">
+                                        <li class="active"><a data-toggle="tab" href="#stock-card">Stock Card</a></li>
+                                        <li><a data-toggle="tab" href="#outright-expense">Outright Expense</a></li>
+                                    </ul>
+
+                                    <div class="tab-content" style="padding-top: 20px">
+                                        <div id="stock-card" class="tab-pane fade in active">
+                                            <table class="table" id="dt-stock-card" style="width: 100%;">
+                                                <thead>
+                                                    <tr>
+                                                        <th>Date</th>
+                                                        <th>Reference</th>
+                                                        <th>Received Qty</th>
+                                                        <th>Office</th>
+                                                        <th>Issued Qty</th>
+                                                        <th>No. Of Days To Consume</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    @foreach($stock_cards as $stock_card)
+                                                        @if($stock_card->item_fk == $item->id)
+                                                        <tr>    
+                                                            <td>{{ $stock_card->date }}</td>
+                                                            <td>({{ $stock_card->reference }}) {{ $stock_card->reference_no }}</td>
+                                                            <td>{{ $stock_card->received_quantity }}</td>
+                                                            <td>{{ $stock_card->office_name }}</td>
+                                                            <td>{{ $stock_card->issued_quantity }}</td>
+                                                            <td>{{ $stock_card->no_of_days_consume }}</td>
+                                                        </tr>
+                                                        @endif
+                                                    @endforeach
+                                                   </tbody>
+                                            </table>
+                                        </div>
+                                        <div id="outright-expense" class="tab-pane fade in">
+                                            <table class="table" id="dt-outright-expense" style="width: 100%;">
+                                                <thead>
+                                                    <tr>
+                                                        <th>Date</th>
+                                                        <th>Reference</th>
+                                                        <th>Issued Qty</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    @foreach($stock_cards as $stock_card)
+                                                        @if($stock_card->item_fk == $item->id)
+                                                        <tr>    
+                                                            <td>{{ $stock_card->date }}</td>
+                                                            <td>({{ $stock_card->reference }}) {{ $stock_card->reference_no }}</td>
+                                                            <td>{{ $stock_card->received_quantity }}</td>
+                                                        </tr>
+                                                        @endif
+                                                    @endforeach
+                                                   </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
                                 </div>               
                         </div>
                         <!-- /.col-lg-12 -->
@@ -300,6 +335,11 @@
     $(document).ready(function() {
         $('#dt-item').DataTable({
             responsive: true
+        });
+
+        $('#dt-stock-card, #dt-outright-expense').DataTable({
+            responsive: true,
+            searching: false
         });
     });
     </script>

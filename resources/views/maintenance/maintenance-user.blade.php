@@ -71,7 +71,6 @@
                                         <th>Sex</th>
                                         <th>E-mail</th>
                                         <th>Birthday</th>
-                                        <th>Agency</th>
                                         <th>Designation</th>
                                         <th style="width:10%;">Actions</th>
                                     </tr>
@@ -86,8 +85,7 @@
                                                 @elseif( $user->sex == "F" )Female @endif
                                             </td>
                                             <td>{{ $user->email }}</td>
-                                            <td>{{ $user->birthday }}</td>
-                                            <td>{{ $user->agency_name }}</td>
+                                            <td>{{ date("M d, Y", strtotime($user->birthday)) }}</td>
                                             <td>{{ $user->designation_name }}</td>
                                             <td>
                                                 <a data-toggle="modal" href="#{{ $user->id }}edit-user"><span class="glyphicon glyphicon-edit"></span></a>
@@ -136,35 +134,23 @@
                                 </div>
                             </div>
                             <div class="col-lg-12">
-                                <div class="form-group col-lg-2">
+                                <div class="form-group col-lg-3">
                                     <label for="add-first-sex" >Sex</label>         
                                     <select class="form-control" id="add-sex" name="add-sex">
                                         <option value="M">Male</option>
                                         <option value="F">Female</option>
                                     </select>
                                 </div>
-                                <div class="form-group col-lg-4">
+                                <div class="form-group col-lg-5">
                                     <label for="add-email" >E-mail</label>         
                                     <input type="email" class="form-control" id="add-email" name="add-email" placeholder="juandelacruz@gmail.com" required>
                                 </div>
-                                <div class="form-group col-lg-3">
+                                <div class="form-group col-lg-4">
                                     <label for="add-birthday" >Birthday</label>         
                                     <input type="date" class="form-control" id="add-birthday" name="add-birthday" value="{{ date("Y-m-d") }}" required>
                                 </div>
-                                <div class="form-group col-lg-3">
-                                    <label for="add-password" >Password</label>         
-                                    <input type="password" class="form-control" id="add-password" name="add-password"  required>
-                                </div>
                             </div>
                             <div class="col-lg-12">
-                                <div class="form-group col-lg-5">
-                                    <label for="add-agency" >Agency</label>         
-                                    <select class="form-control" id="add-agency" name="add-agency">
-                                    @foreach($agencies as $agency)
-                                        <option value="{{ $agency->id }}">{{ $agency->agency_name }}</option>
-                                    @endforeach
-                                    </select>
-                                </div>
                                 <div class="form-group col-lg-5">
                                     <label for="add-designation" >Designation</label> 
                                     <select class="form-control" id="add-designation" name="add-designation">
@@ -172,6 +158,10 @@
                                         <option value="{{ $designation->id }}">{{ $designation->designation_name }}</option>
                                     @endforeach
                                     </select>
+                                </div>
+                                <div class="form-group col-lg-4">
+                                    <label for="add-password" >Password</label>         
+                                    <input type="password" class="form-control" id="add-password" name="add-password" required>
                                 </div>
                                 @if(Auth::check())
                                     @if(Auth::user()->user_type == 1)
@@ -251,14 +241,6 @@
                                 </div>
                             </div>
                             <div class="col-lg-12">
-                                <div class="form-group col-lg-5">
-                                    <label for="edit-agency" >Agency</label>         
-                                    <select class="form-control" id="edit-agency" name="edit-agency">
-                                        @foreach($agencies as $agency)
-                                            <option value="{{ $agency->id }}" @if($user->agency_fk == $agency->id) selected @endif>{{ $agency->agency_name }}</option>
-                                        @endforeach
-                                    </select>
-                                </div>
                                 <div class="form-group col-lg-5">
                                     <label for="edit-designation" >Designation</label> 
                                     <select class="form-control" id="edit-designation" name="edit-designation">

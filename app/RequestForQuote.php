@@ -21,7 +21,9 @@ class RequestForQuote extends Model
 								'place_of_delivery',
 								'within_no_of_days',
 								'requestor_fk',
+								'requestor_designation_fk',
 								'canvasser_fk',
+								'canvasser_designation_fk',
 								'pr_fk',
 								'is_active'
 								//

@@ -10,7 +10,7 @@ use App\PurchaseRequest;
 use App\PurchaseRequestDetail;
 use App\Issuance;
 use App\IssuanceDetail;
-use App\Agency;
+use App\Entity;
 use App\Department;
 use App\Office;
 use App\Designation;
@@ -28,7 +28,7 @@ class IssuanceController extends Controller
 	public function index()
     {
         $i = 0;
-    	$agencies = Agency::all();
+    	$entities = Entity::all();
     	$departments = Department::all();
     	$offices = Office::all();
     	$users = User::all();
@@ -40,7 +40,7 @@ class IssuanceController extends Controller
         session(["item-counter" => $i]);  
 
 		return view("transaction.transaction-issuance")
-			->with("agencies", $agencies)
+			->with("entities", $entities)
 			->with("departments", $departments)
 			->with("offices", $offices)
 			->with("users", $users)
@@ -70,7 +70,7 @@ class IssuanceController extends Controller
             }
             
             $issuance = Issuance::create(array(
-                    'agency_fk' => $request->input('add-agency'),
+                    'entity_fk' => $request->input('add-entity'),
                     'department_fk' => $request->input('add-department'),
                     'office_fk' => $request->input("add-office"),
                     'reasonability_center_code' => $request->input('add-code'),

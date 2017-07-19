@@ -11,6 +11,7 @@ use App\PurchaseRequestDetail;
 use App\RequestForQuote;
 use App\RequestForQuoteDetail;
 use App\User;
+use App\Designation;
 use App\Item;
 use App\Category;
 use App\Unit;
@@ -29,6 +30,7 @@ class RequestForQuotationController extends Controller
         $suppliers = Supplier::all();
 
         $users = User::all();
+        $designations = Designation::all();
 
         $pr_id = "";
         $category_id = "";
@@ -41,6 +43,7 @@ class RequestForQuotationController extends Controller
                 ->with('suppliers', $suppliers)
                 ->with('purchase_requests', $purchase_requests)
                 ->with('users', $users)
+                ->with('designations', $designations)
                 ->with('pr_id', $pr_id)
                 ->with('category_id', $category_id);
     }
@@ -62,6 +65,7 @@ class RequestForQuotationController extends Controller
         $suppliers = Supplier::all();
 
         $users = User::all();
+        $designations = Designation::all();
 
         if($purchase_requests == null) Session::flash('rfq_search_error', 'There are no items for that category in that Purchase Request.');
 
@@ -70,6 +74,7 @@ class RequestForQuotationController extends Controller
                 ->with('pr_headers', $pr_headers)
                 ->with('suppliers', $suppliers)
                 ->with('users', $users)
+                ->with('designations', $designations)
                 ->with('purchase_requests', $purchase_requests)
                 ->with('pr_id', session()->get('rfq_pr_no'))
                 ->with('category_id', session()->get('rfq_category'));

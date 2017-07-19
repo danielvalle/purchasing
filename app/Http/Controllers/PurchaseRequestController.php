@@ -8,10 +8,11 @@ use PDF;
 
 use App\PurchaseRequest;
 use App\PurchaseRequestDetail;
-use App\Agency;
+use App\Entity;
 use App\Department;
-use App\Section;
+use App\Office;
 use App\User;
+use App\Designation;
 use App\Item;
 use App\Category;
 use App\Unit;
@@ -23,10 +24,11 @@ class PurchaseRequestController extends Controller
 	
 	public function index()
     {
-        $agencies = Agency::all();
+        $entities = Entity::all();
         $departments = Department::all();
-        $sections = Section::all();
+        $offices = Office::all();
         $users = User::all();
+        $designations = Designation::all();
 
         $items = Item::all();
         $categories = Category::all();
@@ -53,10 +55,11 @@ class PurchaseRequestController extends Controller
 
 		return view("transaction.transaction-purchase-request")
             ->with("users", $users)
+            ->with("designations", $designations)
             ->with("items", $items)
-            ->with("agencies", $agencies)
+            ->with("entities", $entities)
             ->with("departments", $departments)
-            ->with("sections", $sections)
+            ->with("offices", $offices)
             ->with("categories", $categories)
             ->with("units", $units)
             ->with("suppliers", $suppliers)
@@ -68,10 +71,11 @@ class PurchaseRequestController extends Controller
 
     public function show_pr(Request $request)
     {
-        $agencies = Agency::all();
+        $entities = Entity::all();
         $departments = Department::all();
-        $sections = Section::all();
+        $offices = Office::all();
         $users = User::all();
+        $designations = Designation::all();
 
         $items = Item::all();
         $categories = Category::all();
@@ -137,10 +141,11 @@ class PurchaseRequestController extends Controller
         session(['pr_items' => $pr_items]);
         //dd(session()->get('pr_items'));
         return view("transaction.transaction-purchase-request")
-            ->with("agencies", $agencies)
+            ->with("entities", $entities)
             ->with("departments", $departments)
-            ->with("sections", $sections)
+            ->with("offices", $offices)
             ->with("users", $users)
+            ->with("designations", $designations)
             ->with("items", $items)
             ->with("categories", $categories)
             ->with("units", $units)
@@ -215,9 +220,9 @@ class PurchaseRequestController extends Controller
         else
         {
             $purchase_request = PurchaseRequest::create(array(
-                    'agency_fk' => $request->input('add-agency'),
+                    'entity_fk' => $request->input('add-entity'),
                     'department_fk' => $request->input('add-department'),
-                    'section_fk' => $request->input('add-section'),
+                    'office_fk' => $request->input('add-office'),
                     'pr_date' =>  date("Y-m-d", strtotime($request->input('transaction_date'))),
                     'sai_number' => $request->input('add-sai-no'),
                     'sai_date' =>  date("Y-m-d", strtotime($request->input('add-sai-date'))),
@@ -328,9 +333,11 @@ class PurchaseRequestController extends Controller
 
         $pr_header = \DB::table("purchase_request AS pr")
                 ->leftJoin("department AS dept", "pr.department_fk", "=", "dept.id")
-                ->leftJoin("section AS sect", "pr.section_fk", "=", "sect.id")
-                ->select("dept.department_name", "sect.section_name", "pr.pr_number",
-                         "pr.sai_number", "pr.pr_date", "pr.sai_date", "pr.purpose")
+                ->leftJoin("office AS of", "pr.office_fk", "=", "of.id")
+                ->leftJoin("entity AS e", "pr.entity_fk", "=", "e.id")
+                ->select("dept.department_name", "of.office_name", "pr.pr_number",
+                         "pr.entity_name", "pr.pr_date", "pr.fund_cluster", "pr.purpose",
+                         "pr.responsibility_center_code")
                 ->where("pr.id", session()->get("pdf_pr_id"))
                 ->first();
 

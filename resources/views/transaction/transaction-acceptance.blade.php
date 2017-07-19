@@ -80,9 +80,9 @@
                                 </div>
      
                                 <div class="form-group col-lg-4">
-                                    <label for="">Agency</label>
-                                    <input type="hidden" name="add-agency" id="add-agency" value="{{ $po_agency_fk }}" >
-                                    <input class="form-control" value="{{ $po_agency_name }}" readonly>                            
+                                    <label for="">Entity</label>
+                                    <input type="hidden" name="add-entity" id="add-entity" value="{{ $po_entity_fk }}" >
+                                    <input class="form-control" value="{{ $po_entity_name }}" readonly>                            
                                 </div>
 
                                 <div class="form-group col-lg-4">

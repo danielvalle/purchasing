@@ -22,8 +22,8 @@ class PurchaseOrder extends Model
 								'delivery_term',
 								'payment_term',
 								'total_amount',
+								'total_amount_in_words',
 								'authorized_official_fk',
-								'alobs_bub_no',
 								'pr_no_fk',
 								'abstract_quotation_fk',
 								'is_active'

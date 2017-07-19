@@ -125,14 +125,6 @@
                             </div>
                             <div class="col-lg-12">
                                 <div class="form-group col-lg-5">
-                                    <label for="add-agency" >Agency</label>         
-                                    <select class="form-control" id="add-agency" name="add-agency">
-                                    @foreach($agencies as $agency)
-                                        <option @if(old('add-agency') == $agency->id) selected @endif value="{{ $agency->id }}">{{ $agency->agency_name }}</option>
-                                    @endforeach
-                                    </select>
-                                </div>
-                                <div class="form-group col-lg-5">
                                     <label for="add-designation" >Designation</label> 
                                     <select class="form-control" id="add-designation" name="add-designation">
                                     @foreach($designations as $designation)

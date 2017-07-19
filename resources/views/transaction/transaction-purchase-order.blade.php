@@ -144,10 +144,10 @@
                             <div style="margin: 50px 0"></div>
                             <div style="float: left; width: 100%;">
                                 <div class="form-group col-lg-4">                                 
-                                    <label for="" >Agency</label>
-                                    <select class="form-control" name="add-agency" id="add-agency" required>
-                                        @foreach($agencies as $agency)
-                                            <option value="{{ $agency->id }}">{{ $agency->agency_name }}</option>
+                                    <label for="" >Entity</label>
+                                    <select class="form-control" name="add-entity" id="add-entity" required>
+                                        @foreach($entities as $entity)
+                                            <option value="{{ $entity->id }}">{{ $entity->entity_name }}</option>
                                         @endforeach
                                     </select>                                      
                                 </div>                                
@@ -170,13 +170,13 @@
                                     <input type="text" class="form-control" name="add-mode-of-procurement" id="add-mode-of-procurement">
                                 </div>
 
-                                <div class="form-group col-lg-6">
+                                <div class="form-group col-lg-5">
                                     <label for="">Place Of Delivery</label>
                                     <input type="text" class="form-control" name="add-place-delivery" id="add-place-delivery">
-                                </div>   
-                                <div class="form-group col-lg-2">
+                                </div>  
+                                <div class="form-group col-lg-3">
                                     <label for="">Date Of Delivery</label>
-                                    <input type="date" class="form-control" id="add-date-delivery" name="add-date-delivery" value="{{ date("Y-m-d") }}" required>
+                                    <input type="text" class="form-control" name="add-date-delivery" id="add-date-delivery">
                                 </div>   
                                 <div class="form-group col-lg-2">
                                     <label for="">Delivery Term</label>
@@ -200,8 +200,8 @@
                                     <input type="text" value="{{ $total }}" class="form-control" name="add-total-amount" id="add-total-amount" readonly>
                                 </div>
                                 <div class="form-group col-lg-5">
-                                    <label for="">ALOBS/BUB No.</label>
-                                    <input type="text" class="form-control" name="add-alobs-no" id="add-alobs-no">
+                                    <label for="">Total Amount in Words</label>
+                                    <input type="text" class="form-control" name="add-total-words" id="add-total-words">
                                 </div>                   
                             </div>
                                 <div id="submit-po" class="modal fade" role="dialog">

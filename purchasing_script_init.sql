@@ -1,4 +1,4 @@
-CREATE DATABASE dbpurchasing;
+CREATE DATABASE dbfrchasing ;
 
 USE dbpurchasing;
 
@@ -12,10 +12,10 @@ CREATE TABLE department
       PRIMARY KEY (id)
     );
   
-CREATE TABLE agency
+CREATE TABLE entity
   (
       `id` int NOT NULL AUTO_INCREMENT, 
-      `agency_name` varchar(50),
+      `entity_name` varchar(50),
       `is_active` tinyint(1),
       `created_at` date,
       `updated_at` date,
@@ -41,18 +41,6 @@ CREATE TABLE unit
       `created_at` date,
       `updated_at` date,
       PRIMARY KEY (id)
-    );
-    
-CREATE TABLE section
-    (
-      `id` int NOT NULL AUTO_INCREMENT,
-      `section_name` varchar(50),
-      `department_fk` int,
-      `is_active` tinyint(1),
-      `created_at` date,
-      `updated_at` date,
-      PRIMARY KEY (id),
-      FOREIGN KEY (department_fk) REFERENCES department(id)
     );
 
 CREATE TABLE office
@@ -99,7 +87,6 @@ CREATE TABLE user
       `email` varchar(50),
       `birthday` date,
       `password` varchar(255),
-      `agency_fk` int,
       `user_type` int,
       `designation_fk` int,
       `remember_token` varchar(255),
@@ -107,15 +94,14 @@ CREATE TABLE user
       `created_at` date,
       `updated_at` date,
        PRIMARY KEY (id), 
-       FOREIGN KEY (agency_fk) REFERENCES agency(id),
        FOREIGN KEY (designation_fk) REFERENCES designation(id)
     );
     
-INSERT INTO agency(agency_name, is_active, created_at, updated_at) values ("Main Agency", 1, NOW(), NOW());
+INSERT INTO entity(entity_name, is_active, created_at, updated_at) values ("Main Entity", 1, NOW(), NOW());
 INSERT INTO designation(designation_name, is_active, created_at, updated_at) values ("Administrator", 1, NOW(), NOW());
-INSERT INTO user(first_name, last_name, sex, email, birthday, password, agency_fk, designation_fk, user_type, is_active, created_at, updated_at)
+INSERT INTO user(first_name, last_name, sex, email, birthday, password, entity_fk, designation_fk, user_type, is_active, created_at, updated_at)
 VALUES ("Super", "Admin", "M", "superadmin@gmail.com", NOW(), "$2y$10$cwli4dox7NjqBLptzb6jjOkT9Wj5h69wDjkDwWfhtq4c9o2/ercXi", 
-        (SELECT id from agency WHERE agency_name = "Main Agency" LIMIT 1), 
+        (SELECT id from entity WHERE entity_name = "Main Entity" LIMIT 1), 
         (SELECT id from designation WHERE designation_name = "Administrator" LIMIT 1), 
         1, 1, NOW(), NOW());
 
@@ -132,25 +118,32 @@ CREATE TABLE supplier
 CREATE TABLE purchase_request
     (
       `id` int NOT NULL AUTO_INCREMENT,
-      `agency_fk` int,
+      `entity_fk` int,
       `department_fk` int,
-      `section_fk` int,
+      `office_fk` int,
+      `entity_fk` int,
+      `fund_cluster` varchar(50),
+      `responsibility_center_code` varchar(50),
       `pr_number` varchar(50),
       `pr_date` datetime,
       `sai_number` varchar(50),
       `sai_date` datetime,
       `purpose` varchar(255),
       `requested_by_fk` int,
+      `requestor_designation_fk`,
       `approved_by_fk` int,
+      `approver_designation_fk` int,
       `is_active` tinyint(1),
       `created_at` date,
       `updated_at` date,
       PRIMARY KEY (id),
-      FOREIGN KEY (agency_fk) REFERENCES agency(id),
+      FOREIGN KEY (entity_fk) REFERENCES entity(id),
       FOREIGN KEY (department_fk) REFERENCES department(id),
-      FOREIGN KEY (section_fk) REFERENCES section(id),
+      FOREIGN KEY (office_fk) REFERENCES office(id),
       FOREIGN KEY (requested_by_fk) REFERENCES user(id),
-      FOREIGN KEY (approved_by_fk) REFERENCES user(id)
+      FOREIGN KEY (approved_by_fk) REFERENCES user(id),
+      FOREIGN KEY (requestor_designation_fk) REFERENCES designation(id),
+      FOREIGN KEY (approver_designation_fk) REFERENCES designation(id)
     );
 
 CREATE TABLE purchase_request_detail
@@ -186,7 +179,9 @@ CREATE TABLE request_for_quote
       `place_of_delivery` varchar(255),
       `within_no_of_days` float,
       `requestor_fk` int,
+      `requestor_designation_fk`,
       `canvasser_fk` int,
+      `canvasser_designation_fk`,
       `pr_fk` int,
       `is_active` tinyint(1),
       `created_at` date,
@@ -199,6 +194,8 @@ CREATE TABLE request_for_quote
       FOREIGN KEY(supplier5_fk) REFERENCES supplier(id),
       FOREIGN KEY(requestor_fk) REFERENCES user(id),
       FOREIGN KEY(canvasser_fk) REFERENCES user(id),
+      FOREIGN KEY(requestor_designation_fk) REFERENCES designation(id),
+      FOREIGN KEY(canvasser_designation_fk) REFERENCES designation(id),
       FOREIGN KEY(pr_fk) REFERENCES purchase_request(id)
     );
 
@@ -282,7 +279,7 @@ CREATE TABLE abstract_quotation_detail
 CREATE TABLE purchase_order
     (
       `id` int NOT NULL AUTO_INCREMENT,
-      `agency_fk` int,
+      `entity_fk` int,
       `po_number` varchar(50),
       `supplier_fk` int,
       `address` varchar(255),
@@ -290,19 +287,19 @@ CREATE TABLE purchase_order
       `invoice_date` date,
       `mode_of_procurement` varchar(50),
       `place_of_delivery` varchar(255),
-      `date_of_delivery` date,
+      `date_of_delivery` varchar(255),
       `delivery_term` varchar(50),
       `payment_term` varchar(50),
       `total_amount` float,
       `authorized_official_fk` int,
-      `alobs_bub_no` varchar(50),
+      `total_amount_in_words` varchar(255),
       `pr_no_fk` int,
       `abstract_quotation_fk` int,
       `is_active` tinyint(1),
       `created_at` date,
       `updated_at` date,
       PRIMARY KEY(id),
-      FOREIGN KEY(agency_fk) REFERENCES agency(id),
+      FOREIGN KEY(entity_fk) REFERENCES entity(id),
       FOREIGN KEY(supplier_fk) REFERENCES supplier(id),
       FOREIGN KEY(authorized_official_fk) REFERENCES user(id),
       FOREIGN KEY(pr_no_fk) REFERENCES purchase_request(id),
@@ -331,7 +328,7 @@ CREATE TABLE purchase_order_detail
 CREATE TABLE acceptance
     (
       `id` int NOT NULL AUTO_INCREMENT,
-      `agency_fk` int,
+      `entity_fk` int,
       `supplier_fk` int,
       `acceptance_number` varchar(50),
       `po_fk` int,
@@ -351,7 +348,7 @@ CREATE TABLE acceptance
       `created_at` date,
       `updated_at` date,
       PRIMARY KEY(id),
-      FOREIGN KEY(agency_fk) REFERENCES agency(id),
+      FOREIGN KEY(entity_fk) REFERENCES entity(id),
       FOREIGN KEY(supplier_fk) REFERENCES supplier(id),
       FOREIGN KEY(po_fk) REFERENCES purchase_order(id),
       FOREIGN KEY(requisitioning_dept_fk) REFERENCES department(id),
@@ -379,7 +376,7 @@ CREATE TABLE issuance
     (
       `id` int NOT NULL AUTO_INCREMENT,
       `issuance_number` varchar(50),
-      `agency_fk` int,
+      `entity_fk` int,
       `department_fk` int,
       `office_fk` int,
       `reasonability_center_code` varchar(50),
@@ -405,7 +402,7 @@ CREATE TABLE issuance
       `created_at` date,
       `updated_at` date,
       PRIMARY KEY(id),
-      FOREIGN KEY(agency_fk) REFERENCES agency(id),
+      FOREIGN KEY(entity_fk) REFERENCES entity(id),
       FOREIGN KEY(department_fk) REFERENCES department(id),
       FOREIGN KEY(office_fk) REFERENCES office(id),
       FOREIGN KEY(requested_by_fk) REFERENCES user(id),
@@ -426,7 +423,7 @@ CREATE TABLE issuance_detail
       `unit_fk` int,
       `item_fk` int,
       `quantity` float,
-      `no_of_days_consume` float,
+      `no_of_days_consume` varchar(50),
       `remarks` varchar(255),
       `is_active` tinyint(1),
       `created_at` date,

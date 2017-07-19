@@ -36,7 +36,7 @@
                 <li class="dropdown">
                     <a class="dropdown-toggle" data-toggle="dropdown" href="#">Maintenance</a>
                     <ul class="dropdown-menu dropdown-messages">
-                        <li><a href="{{URL::to('maintenance/agency')}}"><strong>Agency</strong></a></li>
+                        <li><a href="{{URL::to('maintenance/entity')}}"><strong>Entity</strong></a></li>
                         <li class="divider"></li>
 
                         <li><a href="{{URL::to('maintenance/category')}}"><strong>Category</strong></a></li>
@@ -52,9 +52,6 @@
                         <li class="divider"></li>
 
                         <li><a href="{{URL::to('maintenance/office')}}"><strong>Office</strong></a></li>
-                        <li class="divider"></li>
-
-                        <li><a href="{{URL::to('maintenance/section')}}"><strong>Section</strong></a></li>
                         <li class="divider"></li>
 
                         <li><a href="{{URL::to('maintenance/supplier')}}"><strong>Supplier</strong></a></li>

@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 use Session;
 use PDF;
 
-use App\Agency;
+use App\Entity;
 use App\PurchaseRequest;
 use App\PurchaseRequestDetail;
 use App\RequestForQuote;
@@ -27,7 +27,7 @@ class PurchaseOrderController extends Controller
     
     public function index()
     {
-    	$agencies = Agency::all();
+    	$entities = Entity::all();
     	$users = User::all();
         $pr_nos = PurchaseRequest::all();
         $selected_pr_no = "";
@@ -42,7 +42,7 @@ class PurchaseOrderController extends Controller
         return view("transaction.transaction-purchase-order")
             ->with("selected_pr_no", $selected_pr_no)
             ->with("selected_aq_no", $selected_aq_no)
-        	->with("agencies", $agencies)
+        	->with("entities", $entities)
         	->with("users", $users)
             ->with("pr_nos", $pr_nos)
             ->with("suppliers", $suppliers)
@@ -66,7 +66,7 @@ class PurchaseOrderController extends Controller
         {
 
             $purchase_order = PurchaseOrder::create(array(
-                    'agency_fk' => $request->input('add-agency'),
+                    'entity_fk' => $request->input('add-entity'),
                     'supplier_fk' => session()->get('po_supplier'),
                     'address' => $request->input('add-address'),
                     'tin' => $request->input('add-tin'),
@@ -120,7 +120,7 @@ class PurchaseOrderController extends Controller
 
     public function get_aq(Request $request)
     {
-        $agencies = Agency::all();
+        $entities = Entity::all();
         $users = User::all();
         $pr_nos = PurchaseRequest::all();
         $selected_pr_no = $request->input('select-pr-no');
@@ -189,7 +189,7 @@ class PurchaseOrderController extends Controller
         return view("transaction.transaction-purchase-order")
             ->with("selected_pr_no", $selected_pr_no)
             ->with("selected_aq_no", $selected_aq_no)
-            ->with("agencies", $agencies)
+            ->with("entities", $entities)
             ->with("users", $users)
             ->with("pr_nos", $pr_nos)
             ->with("suppliers", $suppliers)

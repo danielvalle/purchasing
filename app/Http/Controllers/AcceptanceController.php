@@ -31,8 +31,8 @@ class AcceptanceController extends Controller
     	$po_date = "";
         $po_supplier_fk = "";
         $po_supplier_name = "";
-        $po_agency_fk = "";
-        $po_agency_name = "";
+        $po_entity_fk = "";
+        $po_entity_name = "";
         $po_no = "";
 
     	$po_items = [];
@@ -42,8 +42,8 @@ class AcceptanceController extends Controller
 				->with("po_date", $po_date)
                 ->with("po_supplier_fk", $po_supplier_fk)
                 ->with("po_supplier_name", $po_supplier_name)
-                ->with("po_agency_fk", $po_agency_fk)
-                ->with("po_agency_name", $po_agency_name)
+                ->with("po_entity_fk", $po_entity_fk)
+                ->with("po_entity_name", $po_entity_name)
 				->with("po_items", $po_items)
 				->with("po_nos", $po_nos)
 				->with("departments", $departments)
@@ -61,7 +61,7 @@ class AcceptanceController extends Controller
         {
 
             $acceptance = Acceptance::create(array(
-                    'agency_fk' => $request->input('add-agency'),
+                    'entity_fk' => $request->input('add-entity'),
                     'supplier_fk' => $request->input('add-supplier'),
                     'po_fk' => session()->get("acceptance_po_no"),
                     'po_no' => $request->input('add-po-no'),
@@ -136,18 +136,18 @@ class AcceptanceController extends Controller
     	$users = User::all();
 
     	$po_header = \DB::table("purchase_order")
-    				->join("agency", "agency.id", "=", "purchase_order.agency_fk")
+    				->join("entity", "entity.id", "=", "purchase_order.entity_fk")
     				->join("supplier", "supplier.id", "=", "purchase_order.supplier_fk")
     				->select("purchase_order.invoice_date", "purchase_order.supplier_fk", "supplier.supplier_name",
-    							"purchase_order.po_number", "purchase_order.agency_fk", "agency.agency_name")
+    							"purchase_order.po_number", "purchase_order.entity_fk", "entity.entity_name")
     				->where("purchase_order.id", $selected_po_no)
                     ->first();
 
         $po_date = date('F d, Y', strtotime($po_header->invoice_date));
         $po_supplier_fk = $po_header->supplier_fk;
         $po_supplier_name = $po_header->supplier_name;
-        $po_agency_fk = $po_header->agency_fk;
-        $po_agency_name = $po_header->agency_name;
+        $po_entity_fk = $po_header->entity_fk;
+        $po_entity_name = $po_header->entity_name;
         $po_no = $po_header->po_number;
                     
     	$po_items = \DB::table("purchase_order_detail")
@@ -167,8 +167,8 @@ class AcceptanceController extends Controller
     			->with("po_date", $po_date)
                 ->with("po_supplier_fk", $po_supplier_fk)
                 ->with("po_supplier_name", $po_supplier_name)
-                ->with("po_agency_fk", $po_agency_fk)
-                ->with("po_agency_name", $po_agency_name)
+                ->with("po_entity_fk", $po_entity_fk)
+                ->with("po_entity_name", $po_entity_name)
     			->with("po_items", $po_items)
     			->with("po_nos", $po_nos)
 				->with("departments", $departments)
