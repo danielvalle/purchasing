@@ -189,7 +189,7 @@ class AbstractQuotationController extends Controller
 
     public function aq_pdf()
     {
-        $header = \DB::table('abstract_quotation')
+        /*$header = \DB::table('abstract_quotation')
                 ->select("*")
                 ->where("id", session()->get("pdf_aq_id"))
                 ->first();
@@ -284,10 +284,10 @@ class AbstractQuotationController extends Controller
         view()->share('aq_vpaf', $aq_vpaf);
         view()->share('aq_approve', $aq_approve);
 
-        view()->share('items', $items);
+        view()->share('items', $items);*/
 
         $pdf = PDF::loadView('pdf.abstract-quotation-pdf');
-        return $pdf->download('AQ' . $header->aq_number . '.pdf');
+        return $pdf->download('AQ' . /*$header->aq_number . */'.pdf');
     }    
 
 

@@ -37,6 +37,8 @@ class AcceptanceController extends Controller
 
     	$po_items = [];
 
+        $a = [7, 10, 15];
+
 		return view("transaction.transaction-acceptance")
                 ->with("po_number", $po_no)
 				->with("po_date", $po_date)
@@ -47,7 +49,8 @@ class AcceptanceController extends Controller
 				->with("po_items", $po_items)
 				->with("po_nos", $po_nos)
 				->with("departments", $departments)
-				->with("users", $users);
+				->with("users", $users)
+                ->with("a", $a);
     }
     public function store(Request $request) 
     {

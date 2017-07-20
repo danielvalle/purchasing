@@ -4,20 +4,19 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class StockCardDetail extends Model
+class OutrightExpense extends Model
 {
-    protected $table = 'stock_card_detail';
+    protected $table = 'outright_expense';
     
 	protected $primaryKey = 'id';
 	protected $fillable = array('id',
+								'item_fk',
 								'date',
-								'reference_fk',
+								'reference',
+								'po_fk',
+								'acceptance_fk',
 								'reference_no',
-								'received_quantity',
 								'issued_quantity',
-								'office_fk',
-								'balanced_quantity',
-								'no_of_days_consume',
 								'is_active'
 								//
 								);

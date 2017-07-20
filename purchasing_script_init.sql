@@ -460,6 +460,25 @@ CREATE TABLE stock_card
       FOREIGN KEY(office_fk) REFERENCES office(id)
     );
 
+CREATE TABLE outright_expense
+    (
+      `id` int NOT NULL AUTO_INCREMENT,
+      `item_fk` int,
+      `date` date,
+      `reference` varchar(50),
+      `po_fk` int,
+      `acceptance_fk` int,
+      `reference_no` varchar(50),
+      `issued_quantity` float,
+      `is_active` tinyint(1),
+      `created_at` date,
+      `updated_at` date,
+      PRIMARY KEY(id),
+      FOREIGN KEY(item_fk) REFERENCES item(id),
+      FOREIGN KEY(po_fk) REFERENCES purchase_order(id),
+      FOREIGN KEY(acceptance_fk) REFERENCES acceptance(id),
+    );
+
 CREATE TABLE disbursement_voucher
     (
       `id` int NOT NULL AUTO_INCREMENT,

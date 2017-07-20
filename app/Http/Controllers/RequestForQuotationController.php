@@ -160,7 +160,7 @@ class RequestForQuotationController extends Controller
 
     public function rfq_pdf()
     {   
-        $supp_ids = session()->get("pdf_supp_id");
+        /*$supp_ids = session()->get("pdf_supp_id");
 
         for($i = 0; $i < count($supp_ids); $i++)
         {
@@ -199,10 +199,10 @@ class RequestForQuotationController extends Controller
         view()->share('header', $rfq_header);
         view()->share('requestor', $requestor);
         view()->share('canvasser', $canvasser);
-        view()->share('items', $rfq_items);
+        view()->share('items', $rfq_items);*/
         
         $pdf = PDF::loadView('pdf.request-for-quotation-pdf');
-        return $pdf->download('RFQ' . $rfq_header->rfq_number . '.pdf');
+        return $pdf->download('RFQ' . /*$rfq_header->rfq_number . */'.pdf');
     }    
 
 }

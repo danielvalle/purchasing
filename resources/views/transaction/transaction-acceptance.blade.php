@@ -120,7 +120,7 @@
                                 <div class="panel-heading"></div>
                                 <div class="panel-body">
                                     <div class="form-group col-lg-12">
-                                        <table class="table table-bordered">
+                                        <table class="table table-bordered" id="dt-acceptance-det">
                                             <thead>
                                                 <tr>
                                                     <th>Stock No.</th>
@@ -128,6 +128,8 @@
                                                     <th>Quantity</th>
                                                     <th>Unit</th>
                                                     <th>Item Description</th>
+                                                    <th style="width: 15%">Received Qty</th>
+                                                    <th style="width: 15%">Outright Expense</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
@@ -138,11 +140,25 @@
                                                     <td>{!! $po_item->quantity !!}</td>
                                                     <td>{!! $po_item->unit_name !!}</td>
                                                     <td>{!! $po_item->item_description !!}</td>
+                                                    <td><input type="number" class="form-control" id="add-received-qty" name="add-received-qty" /></td>
+                                                    <td><input type="number" class="form-control" id="add-outright-expense" name="add-outright-expense" /></td>
                                                     <input type="hidden" name="add-item[]" value="{!! $po_item->item_fk !!}"> 
                                                     <input type="hidden" name="add-unit[]" value="{!! $po_item->unit_fk !!}"> 
                                                     <input type="hidden" name="add-quantity[]" value="{!! $po_item->quantity !!}"> 
                                                 </tr>
                                             @endforeach
+                                            @for($i = 0; $i < 3; $i++)
+                                                <tr>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td><input type="number" class="form-control add-received-qty" id="{!! $i !!}" name="add-received-qty[]" /></td>
+                                                    <td><input type="number" class="form-control add-outright-expense" id="{!! $i !!}" name="add-outright-expense[]" /></td>
+                                                    <input type="hidden" id="add-quantity{!! $i !!}">
+                                                </tr>
+                                            @endfor
                                             </tbody>
                                         </table>
                                         
@@ -255,7 +271,7 @@
 
     <script>
     $(document).ready(function() {
-        $('#dt-designation').DataTable({
+        $('#dt-acceptance-det').DataTable({
             responsive: true
         });
 
@@ -269,16 +285,34 @@
         $('#Date').html(dayNames[newDate.getDay()] +" | " +" " + " " + newDate.getDate() + ' ' + monthNames[newDate.getMonth()] + "," + ' ' + newDate.getFullYear());
         $('#transaction_date').val(newDate.getFullYear() + "-" +  (newDate.getMonth()+1) + "-" + newDate.getDate());
 
-
-    });
-
-
-    $(document).ready(function(){
-
         $('#modal-close').click(function(){
             location.reload(true);
         });
-    
+
+    });
+
+    $(".add-received-qty, .add-outright-expense").keyup(function(){
+
+            var id = $(this).attr('id');
+
+            var received = parseInt($("#" + id + ".add-received-qty").val(), 10);
+            var outright = parseInt($("#" + id + ".add-outright-expense").val(), 10);
+
+            if(isNaN(received)) received = 0;
+            if(isNaN(outright)) outright = 0;
+
+            var qty = received + outright;
+            var input = parseInt($(this).val(), 10);
+
+            var item_qty = {!! json_encode($a) !!};
+
+            if(qty > item_qty[id]) 
+            {
+                var excess = qty - item_qty[id];
+                var new_qty = input - excess;
+                $(this).val(new_qty);
+            }
+
     });
 
     </script>

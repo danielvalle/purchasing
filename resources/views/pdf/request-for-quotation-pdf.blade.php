@@ -27,7 +27,7 @@
     
     <body>
     
-    @for($i = 0; $i < count($supp_ids); $i++)
+    {{-- @for($i = 0; $i < count($supp_ids); $i++) --}}
     <div class="page-break"> 
         <div>
             <center>
@@ -37,15 +37,15 @@
                     <div style="font-size: 15px;">Sogod, Southern Leyte</div>
                     <div style="font-size: 15px;">Telefax No. (053) 382-2523 </div>
                     <div style="margin: 10px"></div>
-                    <div style="font-size: 15px; text-align: center; text-decoration: underline">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{ date("M d, Y", strtotime($header->date)) }}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div>
+                    <div style="font-size: 15px; text-align: center; text-decoration: underline">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{-- {{ date("M d, Y", strtotime($header->date)) }} --}}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div>
                     <div style="font-size: 15px;">Date</div>
                     <p style="font-size:-0.5px;"></p>
                 </h1>
             </center>
         </div>
         <div>
-            <div>To: <span style="font-size: 16px; text-decoration: underline"><b>{{ $supplier[$i]->supplier_name }}</b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></div>  
-            <div>VAT/NON-VAT TIN: <span style="font-size: 16px; text-decoration: underline"><b>{{ $header->vat_nonvat_tin }}</b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></div>  
+            <div>To: <span style="font-size: 16px; text-decoration: underline"><b>{{-- {{ $supplier[$i]->supplier_name }} --}}</b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></div>  
+            <div>VAT/NON-VAT TIN: <span style="font-size: 16px; text-decoration: underline"><b>{{-- {{ $header->vat_nonvat_tin }} --}}</b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></div>  
         </div>
             <center>
                 <h1>
@@ -65,7 +65,7 @@
                         </tr>
                     </thead>
                     <tbody>  
-                        @foreach($items as $item)
+                        {{-- @foreach($items as $item)
                         <tr>
                             <th style="font-size:16px; text-align: left; font-weight: normal; border-right: thin solid black" >{{ $item->quantity }}</th>
                             <th style="font-size:16px; text-align: left; font-weight: normal; border-right: thin solid black" >{{ $item->unit_name }}</th>
@@ -73,13 +73,52 @@
                             <th style="font-size:16px; text-align: left; font-weight: normal; border-right: thin solid black" ></th>
                             <th style="font-size:16px; text-align: left; font-weight: normal; border-right: thin solid black" ></th>
                         </tr>
-                        @endforeach
+                        @endforeach --}}
+                        <tr>
+                            <th style="font-size:16px; text-align: left; font-weight: normal; border-right: thin solid black" >&nbsp;</th>
+                            <th style="font-size:16px; text-align: left; font-weight: normal; border-right: thin solid black" >&nbsp;</th>
+                            <th style="font-size:16px; text-align: left; font-weight: normal; border-right: thin solid black" >&nbsp;</th>
+                            <th style="font-size:16px; text-align: left; font-weight: normal; border-right: thin solid black" >&nbsp;</th>
+                            <th style="font-size:16px; text-align: left; font-weight: normal; border-right: thin solid black" >&nbsp;</th>
+                        </tr>
+                        <tr>
+                            <th style="font-size:16px; text-align: left; font-weight: normal; border-right: thin solid black" >&nbsp;</th>
+                            <th style="font-size:16px; text-align: left; font-weight: normal; border-right: thin solid black" >&nbsp;</th>
+                            <th style="font-size:16px; text-align: left; font-weight: normal; border-right: thin solid black" >&nbsp;</th>
+                            <th style="font-size:16px; text-align: left; font-weight: normal; border-right: thin solid black" >&nbsp;</th>
+                            <th style="font-size:16px; text-align: left; font-weight: normal; border-right: thin solid black" >&nbsp;</th>
+                        </tr>
+                        <tr>
+                            <th style="font-size:16px; text-align: left; font-weight: normal; border-right: thin solid black" >&nbsp;</th>
+                            <th style="font-size:16px; text-align: left; font-weight: normal; border-right: thin solid black" >&nbsp;</th>
+                            <th style="font-size:16px; text-align: left; font-weight: normal; border-right: thin solid black" >&nbsp;</th>
+                            <th style="font-size:16px; text-align: left; font-weight: normal; border-right: thin solid black" >&nbsp;</th>
+                            <th style="font-size:16px; text-align: left; font-weight: normal; border-right: thin solid black" >&nbsp;</th>
+                        </tr>
+                        <tr>
+                            <th style="font-size:16px; text-align: left; font-weight: normal; border-right: thin solid black" >&nbsp;</th>
+                            <th style="font-size:16px; text-align: left; font-weight: normal; border-right: thin solid black" >&nbsp;</th>
+                            <th style="font-size:16px; text-align: left; font-weight: normal; border-right: thin solid black" >&nbsp;</th>
+                            <th style="font-size:16px; text-align: left; font-weight: normal; border-right: thin solid black" >&nbsp;</th>
+                            <th style="font-size:16px; text-align: left; font-weight: normal; border-right: thin solid black" >&nbsp;</th>
+                        </tr>
+                        <tr>
+                            <th style="font-size:16px; text-align: left; font-weight: normal; border-right: thin solid black" >&nbsp;</th>
+                            <th style="font-size:16px; text-align: left; font-weight: normal; border-right: thin solid black" >&nbsp;</th>
+                            <th style="font-size:16px; text-align: left; font-weight: normal; border-right: thin solid black" >&nbsp;</th>
+                            <th style="font-size:16px; text-align: left; font-weight: normal; border-right: thin solid black" >&nbsp;</th>
+                            <th style="font-size:16px; text-align: left; font-weight: normal; border-right: thin solid black" >&nbsp;</th>
+                        </tr>
                     </tbody>
             </table>
         </div>
+        <div style="min-height: 70px; border: solid thin black; padding: 5px;">
+            <div style="font-size:16px;">PR No: <span style="text-decoration: underline"></span></div> 
+            <div style="font-size:16px;">Purpose: <span style="text-decoration: underline"></span></div>
+        </div>
         <div style="min-height: 70px;">
-            <div style="font-size:16px;">Place of Delivery: <span style="text-decoration: underline">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{ $header->place_of_delivery }}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span> 
-                    within <span style="text-decoration: underline">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{ $header->within_no_of_days }}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span> days</div> 
+            <div style="font-size:16px;">Place of Delivery: <span style="text-decoration: underline">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{-- {{ $header->place_of_delivery }} --}}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span> 
+                    within <span style="text-decoration: underline">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{-- {{ $header->within_no_of_days }} --}}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span> days</div> 
             <div style="font-size:16px;">_______________________________________________ from receipt of the delivery order.</div> 
         </div>
         <div style="margin: 20px"></div>
@@ -89,16 +128,16 @@
         <div style="margin: 35px"></div>
         <div style="width: 100%;">
             <div style="width: 65%; display:inline-block;">
-                <div style="width: 70%; font-size:16px; border-bottom: solid 1px black; text-align: center">{{ $requestor->first_name }} {{ $requestor->middle_name }} {{ $requestor->last_name }}</div> 
+                <div style="width: 70%; font-size:16px; border-bottom: solid 1px black; text-align: center">{{-- {{ $requestor->first_name }} {{ $requestor->middle_name }} {{ $requestor->last_name }} --}}</div> 
                 <div style="width: 70%; font-size:16px; font-style: italic; text-align: center;">Signature over Printed Name</div> 
             </div>
             <div style="width: 35%; display:inline-block;">
-                <div style="font-size:16px; border-bottom: solid 1px black; text-align: center">{{ $canvasser->first_name }} {{ $canvasser->middle_name }} {{ $canvasser->last_name }}</div> 
+                <div style="font-size:16px; border-bottom: solid 1px black; text-align: center">{{-- {{ $canvasser->first_name }} {{ $canvasser->middle_name }} {{ $canvasser->last_name }} --}}</div> 
                 <div style="font-size:16px; font-style: italic; text-align: center;">Canvasser</div> 
             </div>
         </div>
     </div>
-    @endfor
+    {{-- @endfor --}}
     </body>
 
 </html>

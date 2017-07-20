@@ -264,6 +264,7 @@
                                                         <th>Office</th>
                                                         <th>Issued Qty</th>
                                                         <th>No. Of Days To Consume</th>
+                                                        <th>Unit Price</th>
                                                     </tr>
                                                 </thead>
                                                 <tbody>
@@ -276,6 +277,7 @@
                                                             <td>{{ $stock_card->office_name }}</td>
                                                             <td>{{ $stock_card->issued_quantity }}</td>
                                                             <td>{{ $stock_card->no_of_days_consume }}</td>
+                                                            <td></td>
                                                         </tr>
                                                         @endif
                                                     @endforeach
@@ -289,6 +291,7 @@
                                                         <th>Date</th>
                                                         <th>Reference</th>
                                                         <th>Issued Qty</th>
+                                                        <th>Unit Price</th>
                                                     </tr>
                                                 </thead>
                                                 <tbody>
@@ -298,6 +301,7 @@
                                                             <td>{{ $stock_card->date }}</td>
                                                             <td>({{ $stock_card->reference }}) {{ $stock_card->reference_no }}</td>
                                                             <td>{{ $stock_card->received_quantity }}</td>
+                                                            <td></td>
                                                         </tr>
                                                         @endif
                                                     @endforeach
