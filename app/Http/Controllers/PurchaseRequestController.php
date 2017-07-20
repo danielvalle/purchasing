@@ -77,7 +77,7 @@ class PurchaseRequestController extends Controller
         $users = User::all();
         $designations = Designation::all();
 
-        $items = Item::all();
+        $items = \DB::table('item')->select('*')->get();
         $categories = Category::all();
         $units = Unit::all();
         $suppliers = Supplier::all();
@@ -139,7 +139,13 @@ class PurchaseRequestController extends Controller
         $pr_categories = $temp_categories;
 
         session(['pr_items' => $pr_items]);
-        //dd(session()->get('pr_items'));
+        
+        foreach($items as $key => $item) {
+            if(in_array($item, $pr_items)) {
+                unset($items[$key]);
+            }
+        }
+
         return view("transaction.transaction-purchase-request")
             ->with("entities", $entities)
             ->with("departments", $departments)

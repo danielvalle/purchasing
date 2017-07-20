@@ -187,9 +187,17 @@
                                     <input type="text" class="form-control" name="add-payment-term" id="add-payment-term">
                                 </div>
 
-                                <div class="form-group col-lg-4">
+                                <div class="form-group col-lg-6">
                                     <label for="">Authorized Official</label>
                                     <select class="form-control" name="add-authorized-official" id="add-authorized-official" required> 
+                                        @foreach($users as $user)
+                                            <option value="{{ $user->id }}">{{ $user->first_name }} {{ $user->middle_name }} {{ $user->last_name }}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                                <div class="form-group col-lg-6">
+                                    <label for="">Authorized Official Designation</label>
+                                    <select class="form-control" name="add-authorized-official-designation" id="add-authorized-official-designation" required> 
                                         @foreach($users as $user)
                                             <option value="{{ $user->id }}">{{ $user->first_name }} {{ $user->middle_name }} {{ $user->last_name }}</option>
                                         @endforeach
@@ -199,7 +207,7 @@
                                     <label for="">Total Amount</label>
                                     <input type="text" value="{{ $total }}" class="form-control" name="add-total-amount" id="add-total-amount" readonly>
                                 </div>
-                                <div class="form-group col-lg-5">
+                                <div class="form-group col-lg-9">
                                     <label for="">Total Amount in Words</label>
                                     <input type="text" class="form-control" name="add-total-words" id="add-total-words">
                                 </div>                   

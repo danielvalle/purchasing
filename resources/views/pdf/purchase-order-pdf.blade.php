@@ -24,17 +24,17 @@
     
     <body>
         
-    <div style="border: solid 1px black"> 
         <div>
             <center>
                 <h1>
-                    <div style="font-size:20px"><b>PURCHASE ORDER</b></div> 
-                    <div style="font-size: 14px; text-decoration: underline">SOUTHERN LEYTE STATE UNIVERSITY</div>
-                    <div style="font-size: 14px;">Agency</div>
+                    <div style="font-size:15px"><b>PURCHASE ORDER</b></div> 
+                    <div style="font-size: 20px; text-decoration: underline"></div>
+                    <div style="font-size: 14px;">Entity Name</div>
                     <p style="font-size:-0.5px;"></p>
                 </h1>
             </center>
         </div>
+    <div style="border: solid 1px black"> 
         <div>
             <table text-align="left" style=" width: 100%; border-top: 0px !important; ">
                     <thead>

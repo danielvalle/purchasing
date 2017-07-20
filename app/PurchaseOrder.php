@@ -24,6 +24,7 @@ class PurchaseOrder extends Model
 								'total_amount',
 								'total_amount_in_words',
 								'authorized_official_fk',
+								'authorized_official_designation_fk',
 								'pr_no_fk',
 								'abstract_quotation_fk',
 								'is_active'

@@ -17,6 +17,7 @@ use App\PurchaseOrder;
 use App\PurchaseOrderDetail;
 use App\Supplier;
 use App\User;
+use App\Designation;
 use App\Item;
 use App\Category;
 use App\Unit;
@@ -29,6 +30,7 @@ class PurchaseOrderController extends Controller
     {
     	$entities = Entity::all();
     	$users = User::all();
+        $designations = Designation::all();
         $pr_nos = PurchaseRequest::all();
         $selected_pr_no = "";
         $selected_aq_no = "";
@@ -44,6 +46,7 @@ class PurchaseOrderController extends Controller
             ->with("selected_aq_no", $selected_aq_no)
         	->with("entities", $entities)
         	->with("users", $users)
+            ->with("designations", $designations)
             ->with("pr_nos", $pr_nos)
             ->with("suppliers", $suppliers)
             ->with("supplier_names", $supplier_names)

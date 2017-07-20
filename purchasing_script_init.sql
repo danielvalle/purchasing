@@ -1,4 +1,4 @@
-CREATE DATABASE dbfrchasing ;
+CREATE DATABASE dbpurchasing ;
 
 USE dbpurchasing;
 
@@ -97,11 +97,9 @@ CREATE TABLE user
        FOREIGN KEY (designation_fk) REFERENCES designation(id)
     );
     
-INSERT INTO entity(entity_name, is_active, created_at, updated_at) values ("Main Entity", 1, NOW(), NOW());
 INSERT INTO designation(designation_name, is_active, created_at, updated_at) values ("Administrator", 1, NOW(), NOW());
-INSERT INTO user(first_name, last_name, sex, email, birthday, password, entity_fk, designation_fk, user_type, is_active, created_at, updated_at)
+INSERT INTO user(first_name, last_name, sex, email, birthday, password, designation_fk, user_type, is_active, created_at, updated_at)
 VALUES ("Super", "Admin", "M", "superadmin@gmail.com", NOW(), "$2y$10$cwli4dox7NjqBLptzb6jjOkT9Wj5h69wDjkDwWfhtq4c9o2/ercXi", 
-        (SELECT id from entity WHERE entity_name = "Main Entity" LIMIT 1), 
         (SELECT id from designation WHERE designation_name = "Administrator" LIMIT 1), 
         1, 1, NOW(), NOW());
 
@@ -118,7 +116,6 @@ CREATE TABLE supplier
 CREATE TABLE purchase_request
     (
       `id` int NOT NULL AUTO_INCREMENT,
-      `entity_fk` int,
       `department_fk` int,
       `office_fk` int,
       `entity_fk` int,
@@ -130,7 +127,7 @@ CREATE TABLE purchase_request
       `sai_date` datetime,
       `purpose` varchar(255),
       `requested_by_fk` int,
-      `requestor_designation_fk`,
+      `requestor_designation_fk` int,
       `approved_by_fk` int,
       `approver_designation_fk` int,
       `is_active` tinyint(1),
@@ -179,9 +176,9 @@ CREATE TABLE request_for_quote
       `place_of_delivery` varchar(255),
       `within_no_of_days` float,
       `requestor_fk` int,
-      `requestor_designation_fk`,
+      `requestor_designation_fk` int,
       `canvasser_fk` int,
-      `canvasser_designation_fk`,
+      `canvasser_designation_fk` int,
       `pr_fk` int,
       `is_active` tinyint(1),
       `created_at` date,
@@ -292,6 +289,7 @@ CREATE TABLE purchase_order
       `payment_term` varchar(50),
       `total_amount` float,
       `authorized_official_fk` int,
+      `authorized_official_designation_fk` int,
       `total_amount_in_words` varchar(255),
       `pr_no_fk` int,
       `abstract_quotation_fk` int,
@@ -302,6 +300,7 @@ CREATE TABLE purchase_order
       FOREIGN KEY(entity_fk) REFERENCES entity(id),
       FOREIGN KEY(supplier_fk) REFERENCES supplier(id),
       FOREIGN KEY(authorized_official_fk) REFERENCES user(id),
+      FOREIGN KEY(authorized_official_designation_fk) REFERENCES designation(id),
       FOREIGN KEY(pr_no_fk) REFERENCES purchase_request(id),
       FOREIGN KEY(abstract_quotation_fk) REFERENCES abstract_quotation(id)
     );
@@ -476,7 +475,7 @@ CREATE TABLE outright_expense
       PRIMARY KEY(id),
       FOREIGN KEY(item_fk) REFERENCES item(id),
       FOREIGN KEY(po_fk) REFERENCES purchase_order(id),
-      FOREIGN KEY(acceptance_fk) REFERENCES acceptance(id),
+      FOREIGN KEY(acceptance_fk) REFERENCES acceptance(id)
     );
 
 CREATE TABLE disbursement_voucher
