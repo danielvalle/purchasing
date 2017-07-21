@@ -13,6 +13,7 @@ use App\PurchaseRequestDetail;
 use App\RequestForQuote;
 use App\RequestForQuoteDetail;
 use App\User;
+use App\Designation;
 use App\Item;
 use App\Category;
 use App\Unit;
@@ -35,12 +36,14 @@ class AbstractQuotationController extends Controller
         session(['aq_rfq_items' => null]);
 
         $users = User::all();
+        $designations = Designation::all();
 
         return view("transaction.transaction-abstract-quotation")
         	->with("rfqs", $rfqs)
             ->with("rfq_suppliers", $rfq_suppliers)
             ->with("rfq_items", $rfq_items)
-            ->with("users", $users);
+            ->with("users", $users)
+            ->with("designations", $designations);
     }
 
 
@@ -49,6 +52,7 @@ class AbstractQuotationController extends Controller
         
     	$rfqs = RequestForQuote::all();
         $users = User::all();
+        $designations = Designation::all();
 
     	$rfq_items = \DB::table('request_for_quote')
     					->join('request_for_quote_detail', 'request_for_quote.id', '=', 'request_for_quote_detail.request_for_quote_fk')
@@ -107,7 +111,8 @@ class AbstractQuotationController extends Controller
     		->with("rfqs", $rfqs)
         	->with("rfq_suppliers", $rfq_suppliers)
             ->with("rfq_items", $rfq_items)
-            ->with("users", $users);
+            ->with("users", $users)
+            ->with("designations", $designations);
     }
 
 
@@ -138,12 +143,20 @@ class AbstractQuotationController extends Controller
                     'supplier3_fk' => array_key_exists(2, $suppliers) == true ? $suppliers[2]->id : null,
                     'supplier4_fk' => array_key_exists(3, $suppliers) == true ? $suppliers[3]->id : null,
                     'supplier5_fk' => array_key_exists(4, $suppliers) == true ? $suppliers[4]->id : null,
-                    'supervising_admin_fk' => $request->input("add-supervising-admin"),
-                    'admin_officer_fk' => $request->input("add-admin-officer"),
-                    'admin_officer_2_fk' => $request->input("add-admin-officer-2"),
-                    'board_secretary_fk' => $request->input("add-board-secretary"),
-                    'vpaf_fk' => $request->input("add-vpaf"),
-                    'approve_fk' => $request->input("add-approved-by"),
+                    'supervising_admin_fk' => $request->input("add-supervising-admin") == "" ? null : $request->input("add-supervising-admin"),
+                    'admin_officer_fk' => $request->input("add-admin-officer") == "" ? null : $request->input("add-admin-officer"),
+                    'admin_officer_2_fk' => $request->input("add-admin-officer-2") == "" ? null : $request->input("add-admin-officer-2"),
+                    'requesting_officer_fk' => $request->input("add-requesting-officer") == "" ? null : $request->input("add-requesting-officer"),
+                    'board_secretary_fk' => $request->input("add-board-secretary") == "" ? null : $request->input("add-supervisingboard-secretary"),
+                    'vpaf_fk' => $request->input("add-vpaf") == "" ? null : $request->input("add-vpaf"),
+                    'approve_fk' => $request->input("add-approved-by") == "" ? null : $request->input("add-approved-by"),
+                    'supervising_admin_designation_fk' => $request->input("add-supervising-admin-designation") == "" ? null : $request->input("add-supervising-admin-designation"),
+                    'admin_officer_designation_fk' => $request->input("add-admin-officer-designation") == "" ? null : $request->input("add-admin-officer-designation"),
+                    'admin_officer_2_designation_fk' => $request->input("add-admin-officer-designation-2") == "" ? null : $request->input("add-admin-officer-designation-2"),
+                    'requesting_officer_designation_fk' => $request->input("add-requesting-officer-designation") == "" ? null : $request->input("add-requesting-officer-designation"),
+                    'board_secretary_designation_fk' => $request->input("add-board-secretary-designation") == "" ? null : $request->input("add-supervisingboard-secretary-designation"),
+                    'vpaf_designation_fk' => $request->input("add-vpaf-designation") == "" ? null : $request->input("add-vpaf-designation"),
+                    'approve_designation_fk' => $request->input("add-approved-by-designation") == "" ? null : $request->input("add-approved-by-designation"),
                     'pr_fk' => $request->input("add-pr-fk"),
                     'is_active' => 1
             ));
@@ -189,7 +202,7 @@ class AbstractQuotationController extends Controller
 
     public function aq_pdf()
     {
-        /*$header = \DB::table('abstract_quotation')
+        $header = \DB::table('abstract_quotation')
                 ->select("*")
                 ->where("id", session()->get("pdf_aq_id"))
                 ->first();
@@ -225,38 +238,51 @@ class AbstractQuotationController extends Controller
                 ->first();
 
         $aq_supervising_admin = \DB::table("abstract_quotation AS aq")
+                ->leftJoin("designation as d", "aq.supervising_admin_designation_fk", "=", "d.id")
                 ->leftJoin("user", "aq.supervising_admin_fk", "=", "user.id")
-                ->select("user.first_name", "user.middle_name", "user.last_name")
+                ->select("user.first_name", "user.middle_name", "user.last_name", "d.designation_name")
                 ->where("aq.id", session()->get("pdf_aq_id"))
                 ->first();
 
         $aq_admin_officer = \DB::table("abstract_quotation AS aq")
+                ->leftJoin("designation as d", "aq.admin_officer_designation_fk", "=", "d.id")
                 ->leftJoin("user", "aq.admin_officer_fk", "=", "user.id")
-                ->select("user.first_name", "user.middle_name", "user.last_name")
+                ->select("user.first_name", "user.middle_name", "user.last_name", "d.designation_name")
                 ->where("aq.id", session()->get("pdf_aq_id"))
                 ->first();
 
         $aq_admin_officer_2 = \DB::table("abstract_quotation AS aq")
+                ->leftJoin("designation as d", "aq.admin_officer_2_designation_fk", "=", "d.id")
                 ->leftJoin("user", "aq.admin_officer_2_fk", "=", "user.id")
-                ->select("user.first_name", "user.middle_name", "user.last_name")
+                ->select("user.first_name", "user.middle_name", "user.last_name", "d.designation_name")
+                ->where("aq.id", session()->get("pdf_aq_id"))
+                ->first();
+
+        $aq_requesting_officer = \DB::table("abstract_quotation AS aq")
+                ->leftJoin("designation as d", "aq.", "=", "d.id")
+                ->leftJoin("user", "aq.requesting_officer_fk", "=", "user.id")
+                ->select("user.first_name", "user.middle_name", "user.last_name", "d.designation_name")
                 ->where("aq.id", session()->get("pdf_aq_id"))
                 ->first();
 
         $aq_board_secretary = \DB::table("abstract_quotation AS aq")
+                ->leftJoin("designation as d", "aq.", "=", "d.id")
                 ->leftJoin("user", "aq.board_secretary_fk", "=", "user.id")
-                ->select("user.first_name", "user.middle_name", "user.last_name")
+                ->select("user.first_name", "user.middle_name", "user.last_name", "d.designation_name")
                 ->where("aq.id", session()->get("pdf_aq_id"))
                 ->first();
 
         $aq_vpaf = \DB::table("abstract_quotation AS aq")
+                ->leftJoin("designation as d", "aq.", "=", "d.id")
                 ->leftJoin("user", "aq.vpaf_fk", "=", "user.id")
-                ->select("user.first_name", "user.middle_name", "user.last_name")
+                ->select("user.first_name", "user.middle_name", "user.last_name", "d.designation_name")
                 ->where("aq.id", session()->get("pdf_aq_id"))
                 ->first();
 
         $aq_approve = \DB::table("abstract_quotation AS aq")
+                ->leftJoin("designation as d", "aq.", "=", "d.id")
                 ->leftJoin("user", "aq.approve_fk", "=", "user.id")
-                ->select("user.first_name", "user.middle_name", "user.last_name")
+                ->select("user.first_name", "user.middle_name", "user.last_name", "d.designation_name")
                 ->where("aq.id", session()->get("pdf_aq_id"))
                 ->first();
 
@@ -284,10 +310,10 @@ class AbstractQuotationController extends Controller
         view()->share('aq_vpaf', $aq_vpaf);
         view()->share('aq_approve', $aq_approve);
 
-        view()->share('items', $items);*/
+        view()->share('items', $items);
 
         $pdf = PDF::loadView('pdf.abstract-quotation-pdf');
-        return $pdf->download('AQ' . /*$header->aq_number . */'.pdf');
+        return $pdf->download('AQ' . $header->aq_number . '.pdf');
     }    
 
 

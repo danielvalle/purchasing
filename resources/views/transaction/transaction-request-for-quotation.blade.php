@@ -22,6 +22,7 @@
                     <div class="alert alert-success alert-dismissable">
                         <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
                         <strong>{!! session('rfq_add_success') !!}</strong>
+                        <a href="{{ URL::to('transaction/request-for-quotation-pdf') }}" class="btn-sm btn-info">Save PDF</a>
                     </div>
                 </div>
             </div>
@@ -149,7 +150,7 @@
 
                                 <div class="form-group col-lg-6">
                                     <label for="">Requestor</label>
-                                    <select class="form-control" name="add-requestor" id="add-requestor" required>
+                                    <select class="form-control" name="add-requestor" id="add-requestor">
                                         <option value="">None</option>
                                         @foreach($users as $user)
                                             <option value="{{ $user->id }}">{{ $user->first_name }} {{ $user->middle_name }} {{ $user->last_name }}</option>

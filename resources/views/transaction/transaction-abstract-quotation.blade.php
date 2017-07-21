@@ -141,54 +141,138 @@
                         </div>
                         <div class="panel-body">
                             
-                            <div class="form-group col-lg-4">
+                            <div class="form-group col-lg-6">
                                 <label for="">Supervising Admin</label>
-                                <select class="form-control" name="add-supervising-admin" id="add-supervising-admin" required>
+                                <select class="form-control" name="add-supervising-admin" id="add-supervising-admin">
+                                    <option value="">None</option>
                                     @foreach($users as $user)
                                         <option value="{{ $user->id }}">{{ $user->first_name }} {{ $user->middle_name }} {{ $user->last_name }}</option>
                                     @endforeach
                                 </select>
                             </div> 
-                            <div class="form-group col-lg-4">
+                            <div class="form-group col-lg-6">
+                                <label for="">Supervising Admin Designation</label>
+                                <select class="form-control" name="add-supervising-admin-designation" id="add-supervising-admin-designation">
+                                    <option value="" disabled>None</option>
+                                    @foreach($designations as $designation)
+                                        <option value="{{ $designation->id }}">{{ $designation->designation_name }}</option>
+                                    @endforeach
+                                </select>
+                            </div> 
+
+                            <div class="form-group col-lg-6">
                                 <label for="">Admin Officer</label>
-                                <select class="form-control" name="add-admin-officer" id="add-admin-officer" required>
+                                <select class="form-control" name="add-admin-officer" id="add-admin-officer">
+                                    <option value="">None</option>
                                     @foreach($users as $user)
                                         <option value="{{ $user->id }}">{{ $user->first_name }} {{ $user->middle_name }} {{ $user->last_name }}</option>
                                     @endforeach
                                 </select>
                             </div> 
-                            <div class="form-group col-lg-4">
+                            <div class="form-group col-lg-6">
+                                <label for="">Admin Officer Designation</label>
+                                <select class="form-control" name="add-admin-officer-designation" id="add-admin-officer-designation">
+                                    <option value="" disabled>None</option>
+                                    @foreach($designations as $designation)
+                                        <option value="{{ $designation->id }}">{{ $designation->designation_name }}</option>
+                                    @endforeach
+                                </select>
+                            </div> 
+
+                            <div class="form-group col-lg-6">
                                 <label for="">Admin Officer</label>
-                                <select class="form-control" name="add-admin-officer-2" id="add-admin-officer-2" required>
+                                <select class="form-control" name="add-admin-officer-2" id="add-admin-officer-2">
+                                    <option value="">None</option>
                                     @foreach($users as $user)
                                         <option value="{{ $user->id }}">{{ $user->first_name }} {{ $user->middle_name }} {{ $user->last_name }}</option>
                                     @endforeach
                                 </select>
                             </div> 
-                            <div class="form-group col-lg-4">
+                            <div class="form-group col-lg-6">
+                                <label for="">Admin Officer Designation</label>
+                                <select class="form-control" name="add-admin-officer-2-designation" id="add-admin-officer-2-designation">
+                                    <option value="" disabled>None</option>
+                                    @foreach($designations as $designation)
+                                        <option value="{{ $designation->id }}">{{ $designation->designation_name }}</option>
+                                    @endforeach
+                                </select>
+                            </div> 
+
+                            <div class="form-group col-lg-6">
+                                <label for="">Head of Requesting Officer/Authorized Representative</label>
+                                <select class="form-control" name="add-requesting-officer" id="add-requesting-officer">
+                                    <option value="">None</option>
+                                    @foreach($users as $user)
+                                        <option value="{{ $user->id }}">{{ $user->first_name }} {{ $user->middle_name }} {{ $user->last_name }}</option>
+                                    @endforeach
+                                </select>
+                            </div> 
+                            <div class="form-group col-lg-6">
+                                <label for="">Head of Requesting Officer/Authorized Representative Designation</label>
+                                <select class="form-control" name="add-requesting-officer-designation" id="add-requesting-officer-designation">
+                                    <option value="" disabled>None</option>
+                                    @foreach($designations as $designation)
+                                        <option value="{{ $designation->id }}">{{ $designation->designation_name }}</option>
+                                    @endforeach
+                                </select>
+                            </div> 
+
+                            <div class="form-group col-lg-6">
                                 <label for="">Board Secretary</label>
-                                <select class="form-control" name="add-board-secretary" id="add-board-secretary" required>
+                                <select class="form-control" name="add-board-secretary" id="add-board-secretary">
+                                    <option value="">None</option>
                                     @foreach($users as $user)
                                         <option value="{{ $user->id }}">{{ $user->first_name }} {{ $user->middle_name }} {{ $user->last_name }}</option>
                                     @endforeach
                                 </select>
                             </div> 
-                            <div class="form-group col-lg-4">
+                            <div class="form-group col-lg-6">
+                                <label for="">Board Secretary Designation</label>
+                                <select class="form-control" name="add-board-secretary-designation" id="add-board-secretary-designation">
+                                    <option value="" disabled>None</option>
+                                    @foreach($designations as $designation)
+                                        <option value="{{ $designation->id }}">{{ $designation->designation_name }}</option>
+                                    @endforeach
+                                </select>
+                            </div> 
+
+                            <div class="form-group col-lg-6">
                                 <label for="">VPAF</label>
-                                <select class="form-control" name="add-vpaf" id="add-vpaf" required>
+                                <select class="form-control" name="add-vpaf" id="add-vpaf">
+                                    <option value="">None</option>
                                     @foreach($users as $user)
                                         <option value="{{ $user->id }}">{{ $user->first_name }} {{ $user->middle_name }} {{ $user->last_name }}</option>
                                     @endforeach
                                 </select>
                             </div>  
-                            <div class="form-group col-lg-4">
+                            <div class="form-group col-lg-6">
+                                <label for="">VPAF Designation</label>
+                                <select class="form-control" name="add-vpaf-designation" id="add-vpaf-designation">
+                                    <option value="" disabled>None</option>
+                                    @foreach($designations as $designation)
+                                        <option value="{{ $designation->id }}">{{ $designation->designation_name }}</option>
+                                    @endforeach
+                                </select>
+                            </div> 
+
+                            <div class="form-group col-lg-6">
                                 <label for="">Approved by</label>
-                                <select class="form-control" name="add-approved-by" id="add-approved-by" required>
+                                <select class="form-control" name="add-approved-by" id="add-approved-by">
+                                    <option value="">None</option>
                                     @foreach($users as $user)
                                         <option value="{{ $user->id }}">{{ $user->first_name }} {{ $user->middle_name }} {{ $user->last_name }}</option>
                                     @endforeach
                                 </select>   
-                            </div>                              
+                            </div>  
+                            <div class="form-group col-lg-6">
+                                <label for="">Approver Designation</label>
+                                <select class="form-control" name="add-approved-by-designation" id="add-approved-by-designation">
+                                    <option value="" disabled>None</option>
+                                    @foreach($designations as $designation)
+                                        <option value="{{ $designation->id }}">{{ $designation->designation_name }}</option>
+                                    @endforeach
+                                </select>
+                            </div>                             
                         </div>
 
                                 <div id="submit-aq" class="modal fade" role="dialog">
@@ -250,17 +334,49 @@
         $('#Date').html(dayNames[newDate.getDay()] +" | " +" " + " " + newDate.getDate() + ' ' + monthNames[newDate.getMonth()] + "," + ' ' + newDate.getFullYear());
         $('#transaction_date').val(newDate.getFullYear() + "-" +  (newDate.getMonth()+1) + "-" + newDate.getDate());
 
-
-    });
-
-
-    $(document).ready(function(){
-
         $('#modal-close').click(function(){
             location.reload(true);
         });
-    
+
+        $('select#add-supervising-admin option:eq(1)').prop('selected', 1);
+        $('select#add-admin-officer option:eq(1)').prop('selected', 1);
+        $('select#add-admin-officer-2 option:eq(1)').prop('selected', 1);
+        $('select#add-requesting-officer option:eq(1)').prop('selected', 1);
+        $('select#add-board-secretary option:eq(1)').prop('selected', 1);
+        $('select#add-vpaf option:eq(1)').prop('selected', 1);
+        $('select#add-approved-by option:eq(1)').prop('selected', 1);
+
     });
+
+
+    $('#add-supervising-admin, #add-admin-officer, #add-admin-officer-2, #add-requesting-officer, #add-board-secretary, #add-vpaf, #add-approved-by').change(function(){
+
+        var id = "#" + $(this).attr('id');
+        var id_designation = id + "-designation";
+
+        var designations = {!! json_encode($designations) !!}
+
+        if($(id).val() == "") 
+        {
+            $(id_designation).val($(id_designation + " option:first").val());
+            $(id_designation).find('option').remove();
+            $(id_designation).prepend("<option value='' selected disabled>None</option>");
+        }
+        else
+        {
+            $(id_designation).find('option').remove();
+
+            $.each(designations, function (i, designation) {
+                $(id_designation).append($('<option>', { 
+                    value: designation.id,
+                    text : designation.designation_name 
+                }));
+            });
+        }
+
+    });
+
+
 
     </script>
 

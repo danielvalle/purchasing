@@ -34,8 +34,8 @@
                             <td colspan="2" style="width: 100%; padding-bottom: 10px; font-size:20px; text-align: center; font-weight: bold">PURCHASE REQUEST</td>
                         </tr>
                         <tr>
-                            <td style="width: 65%; font-size:14px; text-align: left;">Entity Name: <span style="text-decoration: underline"></span></td>
-                            <td style="width: 35%; font-size:14px; text-align: left;">Fund Cluster: <span style="text-decoration: underline"></span></td>
+                            <td style="width: 65%; font-size:14px; text-align: left;">Entity Name: <span style="text-decoration: underline">{{ $pr_header->entity_name }}</span></td>
+                            <td style="width: 35%; font-size:14px; text-align: left;">Fund Cluster: <span style="text-decoration: underline">{{ $pr_header->fund_cluster }}</span></td>
                         </tr>
                     </tbody>
             </table>
@@ -46,20 +46,14 @@
                     </thead>
                     <tbody>  
                         <tr>
-                            <td style="font-size:14px; text-align: left;">Office/Section:</td>
-                            <td style="font-size:14px; text-align: left; border-right: thin solid black"></td>
-                            <td style="font-size:14px; text-align: left; border-right: thin solid black">PR No.</td>
-                            <td style="font-size:14px; text-align: left;"></td>
+                            <td style="font-size:14px; text-align: left; border-right: thin solid black">Office/Section:</td>
+                            <td style="font-size:14px; text-align: left; border-right: thin solid black">PR No. &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="text-decoration: underline">{{ $pr_header->pr_number }}</span></td>
                             <td style="font-size:14px; text-align: left">Date:</td>
-                            <td style="font-size:14px; text-align: left;"> </td>
                         </tr>
                         <tr>
-                            <td style="font-size:14px; text-align: left;"></td>
-                            <td style="font-size:14px; text-align: left; border-right: thin solid black"></td>
-                            <td style="font-size:14px; text-align: left; border-right: thin solid black">Responsibility Center Code:</td>
-                            <td style="font-size:14px; text-align: left;"></td>
-                            <td style="font-size:14px; text-align: left"></td>
-                            <td style="font-size:14px; text-align: left;"></td>
+                            <td style="font-size:14px; text-align: left; border-right: thin solid black;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="text-decoration: underline">{{ $pr_header->office_name }}</span></td>
+                            <td style="font-size:14px; text-align: left; border-right: thin solid black">Responsibility Center Code: &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="text-decoration: underline">{{ $pr_header->responsibility_center_code }}</span></td>
+                            <td style="font-size:14px; text-align: left;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{ date("M d, Y", strtotime($pr_header->pr_date)) }}</td>
                         </tr>
                     </tbody>
             </table>
@@ -79,12 +73,12 @@
                     <tbody>  
                         @foreach($items as $item)
                         <tr>
-                            <th style="font-size:14px; text-align: right; border-right: thin solid black" >&nbsp;</th>
-                            <th style="font-size:14px; text-align: left; border-right: thin solid black" >&nbsp;</th>
-                            <th style="font-size:14px; text-align: left; border-right: thin solid black" >&nbsp;</th>
-                            <th style="font-size:14px; text-align: left; border-right: thin solid black" >&nbsp;</th>
-                            <th style="font-size:14px; text-align: left; border-right: thin solid black" >&nbsp;</th>
-                            <th style="font-size:14px; text-align: left; " ></th>
+                            <th style="font-size:14px; text-align: right; border-right: thin solid black">{{ $item->stock_no }}</th>
+                            <th style="font-size:14px; text-align: left; border-right: thin solid black">{{ $item->unit_name }}</th>
+                            <th style="font-size:14px; text-align: left; border-right: thin solid black">{{ $item->item_name }}</th>
+                            <th style="font-size:14px; text-align: right; border-right: thin solid black">{{ $item->quantity }}</th>
+                            <th style="font-size:14px; text-align: left; border-right: thin solid black"></th>
+                            <th style="font-size:14px; text-align: left;"></th>
                         </tr>
                         @endforeach
                         <tr>
@@ -132,8 +126,8 @@
         </div>
         <div style="min-height: 70px;">
             <div style="font-size:14px; font-weight: bold">Purpose:</div> 
-            <div style="padding: 2px 10px; text-align: justify">
-                <p></p>
+            <div style="padding: 2px 10px; text-align: justify; font-size: 14px">
+                <p>{{ $pr_header->purpose }}</p>
             </div>
         </div>
         <div>
@@ -153,13 +147,13 @@
                         </tr>
                         <tr>
                             <th style="font-size:14px; width: 10% ; text-align: left; border-right: thin solid black">Printed Name:</th>
-                            <th style="font-weight: normal; text-align: center; border-right: thin solid black">  </th>
-                            <th style="font-weight: normal; text-align: center; " >  </th>
+                            <th style="font-weight: normal; text-align: center; border-right: thin solid black">{{ $pr_requested_by->first_name }} {{ $pr_requested_by->last_name }}</th>
+                            <th style="font-weight: normal; text-align: center;">{{ $pr_approved_by->first_name }} {{ $pr_approved_by->last_name }}</th>
                         </tr>                      
                         <tr>
                             <th style="font-size:14px; width: 10%; text-align: left; border-right: thin solid black">Designation:</th>
-                            <th style="font-weight: normal; text-align: center; border-right: thin solid black"></th>
-                            <th style="font-weight: normal; text-align: center; " ></th>
+                            <th style="font-weight: normal; text-align: center; border-right: thin solid black">{{ $pr_approved_by->designation_name }}</th>
+                            <th style="font-weight: normal; text-align: center;">{{ $pr_approved_by->designation_name }}</th>
                         </tr>
                     </tbody>
             </table>

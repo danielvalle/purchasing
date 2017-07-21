@@ -22,6 +22,7 @@
                     <div class="alert alert-success alert-dismissable">
                         <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
                         <strong>{!! session('pr_add_success') !!}</strong>
+                        <a href="{{ URL::to('transaction/purchase-request-pdf') }}" class="btn-sm btn-info">Save PDF</a>
                     </div>
                 </div>
             </div>
@@ -118,8 +119,15 @@
                             </div> 
                             <div class="form-group col-lg-6">
                                 <label for="">Responsibility Center Code:</label>
-                                <input class="form-control" id="add-fund-cluster" name="add-fund-cluster">
+                                <input class="form-control" id="add-responsibility-center-code" name="add-responsibility-center-code">
                             </div>                               
+                        </div>
+
+                        <div class="panel-body">
+                            <div class="form-group col-lg-12">
+                                <label for="">Purpose:</label>
+                                <textarea class="form-control" row="4" id="add-purpose" name="add-purpose"></textarea>
+                            </div>
                         </div>
 
                         <div class="panel-body">

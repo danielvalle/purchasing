@@ -227,14 +227,16 @@ class PurchaseRequestController extends Controller
         {
             $purchase_request = PurchaseRequest::create(array(
                     'entity_fk' => $request->input('add-entity'),
-                    'department_fk' => $request->input('add-department'),
+                    'fund_cluster' => $request->input('add-fund-cluster'),
                     'office_fk' => $request->input('add-office'),
-                    'pr_date' =>  date("Y-m-d", strtotime($request->input('transaction_date'))),
-                    'sai_number' => $request->input('add-sai-no'),
-                    'sai_date' =>  date("Y-m-d", strtotime($request->input('add-sai-date'))),
-                    'purpose' => $request->input('add-purpose'),
+                    'responsibility_center_code' => $request->input('add-responsibility-center-code'),
+                    'department_fk' => $request->input('add-department'),
                     'requested_by_fk' => $request->input('add-requested-by'),
+                    'requestor_designation_fk' => $request->input('add-requestor-designation'),
                     'approved_by_fk' => $request->input('add-approved-by'),
+                    'approver_designation_fk' => $request->input('add-approver-designation'),
+                    'purpose' => $request->input('add-purpose'),
+                    'pr_date' =>  date("Y-m-d", strtotime($request->input('transaction_date'))),
                     'is_active' => 1
             ));
 
@@ -336,20 +338,20 @@ class PurchaseRequestController extends Controller
     public function pr_pdf()
     {
         $items = Item::all();
-
+        
         $pr_header = \DB::table("purchase_request AS pr")
                 ->leftJoin("department AS dept", "pr.department_fk", "=", "dept.id")
                 ->leftJoin("office AS of", "pr.office_fk", "=", "of.id")
                 ->leftJoin("entity AS e", "pr.entity_fk", "=", "e.id")
                 ->select("dept.department_name", "of.office_name", "pr.pr_number",
-                         "pr.entity_name", "pr.pr_date", "pr.fund_cluster", "pr.purpose",
+                         "e.entity_name", "pr.pr_date", "pr.fund_cluster", "pr.purpose",
                          "pr.responsibility_center_code")
                 ->where("pr.id", session()->get("pdf_pr_id"))
                 ->first();
 
         $pr_requested_by = \DB::table("purchase_request AS pr")
                 ->leftJoin("user", "pr.requested_by_fk", "=", "user.id")
-                ->leftJoin("designation AS des", "user.designation_fk", "=", "des.id")
+                ->leftJoin("designation AS des", "pr.requestor_designation_fk", "=", "des.id")
                 ->select("user.first_name", "user.middle_name", "user.last_name",
                          "des.designation_name")
                 ->where("pr.id", session()->get("pdf_pr_id"))
@@ -357,7 +359,7 @@ class PurchaseRequestController extends Controller
 
         $pr_approved_by = \DB::table("purchase_request AS pr")
                 ->leftJoin("user", "pr.approved_by_fk", "=", "user.id")
-                ->leftJoin("designation AS des", "user.designation_fk", "=", "des.id")
+                ->leftJoin("designation AS des", "pr.approver_designation_fk", "=", "des.id")
                 ->select("user.first_name", "user.middle_name", "user.last_name",
                          "des.designation_name")
                 ->where("pr.id", session()->get("pdf_pr_id"))

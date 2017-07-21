@@ -118,7 +118,7 @@ class RequestForQuotationController extends Controller
                     'vat_nonvat_tin' => $request->input("add-tin"),
                     'place_of_delivery' => $request->input("add-place-delivery"),
                     'within_no_of_days' => $request->input("add-days"),
-                    'requestor_fk' => $request->input("add-requestor"),
+                    'requestor_fk' => $request->input("add-requestor") == "" ? null : $request->input("add-requestor"),
                     'canvasser_fk' => $request->input("add-canvasser"),
                     'pr_fk' => $request->input("pr_id"),
                     'is_active' => 1
@@ -160,7 +160,7 @@ class RequestForQuotationController extends Controller
 
     public function rfq_pdf()
     {   
-        /*$supp_ids = session()->get("pdf_supp_id");
+        $supp_ids = session()->get("pdf_supp_id");
 
         for($i = 0; $i < count($supp_ids); $i++)
         {
@@ -170,9 +170,11 @@ class RequestForQuotationController extends Controller
                         ->first();
         }
 
-        $rfq_header = \DB::table("request_for_quote")
-                        ->select("place_of_delivery", "within_no_of_days", "vat_nonvat_tin", "date", "rfq_number")
-                        ->where("id", session()->get("pdf_rfq_id"))
+        $rfq_header = \DB::table("request_for_quote as rfq")
+                        ->leftJoin("purchase_request as pr", "pr.id", "=", "rfq.pr_fk")
+                        ->select("rfq.place_of_delivery", "rfq.within_no_of_days", "rfq.vat_nonvat_tin", "rfq.date", "rfq.rfq_number", 
+                                 "pr.pr_number", "pr.purpose")
+                        ->where("rfq.id", session()->get("pdf_rfq_id"))
                         ->first();
 
         $requestor = \DB::table("request_for_quote")
@@ -199,10 +201,10 @@ class RequestForQuotationController extends Controller
         view()->share('header', $rfq_header);
         view()->share('requestor', $requestor);
         view()->share('canvasser', $canvasser);
-        view()->share('items', $rfq_items);*/
+        view()->share('items', $rfq_items);
         
         $pdf = PDF::loadView('pdf.request-for-quotation-pdf');
-        return $pdf->download('RFQ' . /*$rfq_header->rfq_number . */'.pdf');
+        return $pdf->download('RFQ' . $rfq_header->rfq_number . '.pdf');
     }    
 
 }
