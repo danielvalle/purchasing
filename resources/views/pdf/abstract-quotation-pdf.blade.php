@@ -82,10 +82,10 @@
                         </tr>                        
                     </thead>
                     <tbody>  
-                        {{ @foreach($items as $item) }}
+                        @foreach($items as $item)
                         <tr>
                             <th style="font-weight: bold; font-size: 14px; text-align: left; border-right: thin solid black">{{ $item->stock_no }}</th>
-                            <th style="font-weight: bold; font-size: 14px; text-align: left; border-right: thin solid black">{{ $item->quantity }}</th>
+                            <th style="font-weight: bold; font-size: 14px; text-align: right; border-right: thin solid black">{{ $item->quantity }}</th>
                             <th style="font-weight: bold; font-size: 14px; text-align: left; border-right: thin solid black">{{ $item->unit_name }}</th>
                             <th style="font-weight: bold; font-size: 14px; text-align: center; border-right: thin solid black">{{ $item->item_name }}</th>
                             <th style="font-weight: bold; font-size: 14px; text-align: right; border-right: thin solid black">{{ $item->supplier1_amount }}</th>
@@ -94,7 +94,7 @@
                             <th style="font-weight: bold; font-size: 14px; text-align: right; border-right: thin solid black">{{ $item->supplier4_amount }}</th>
                             <th style="font-weight: bold; font-size: 14px; text-align: right;">{{ $item->supplier5_amount }}</th>
                         </tr>
-                        {{ @endforeach  }}        
+                            @endforeach       
                         <tr>
                             <th style="font-weight: bold; font-size: 14px; text-align: left; border-right: thin solid black">&nbsp;</th>
                             <th style="font-weight: bold; font-size: 14px; text-align: left; border-right: thin solid black">&nbsp;</th>
@@ -155,7 +155,7 @@
                             <th style="font-weight: bold; font-size: 14px; text-align: left; border-right: thin solid black">&nbsp;</th>
                             <th style="font-weight: bold; font-size: 14px; text-align: left; border-right: thin solid black">&nbsp;</th>
                             <th style="font-weight: bold; font-size: 14px; text-align: left; border-right: thin solid black">&nbsp;</th>
-                            <th style="font-weight: bold; font-size: 14px; text-align: left; border-right: thin solid black">PR No.: </th>
+                            <th style="font-weight: bold; font-size: 14px; text-align: left; border-right: thin solid black">PR No.: {{ $pr->pr_number }}</th>
                             <th style="font-weight: bold; font-size: 14px; text-align: right; border-right: thin solid black">&nbsp;</th>
                             <th style="font-weight: bold; font-size: 14px; text-align: right; border-right: thin solid black">&nbsp;</th>
                             <th style="font-weight: bold; font-size: 14px; text-align: right; border-right: thin solid black">&nbsp;</th>
@@ -166,7 +166,7 @@
                             <th style="font-weight: bold; font-size: 14px; text-align: left; border-right: thin solid black">&nbsp;</th>
                             <th style="font-weight: bold; font-size: 14px; text-align: left; border-right: thin solid black">&nbsp;</th>
                             <th style="font-weight: bold; font-size: 14px; text-align: left; border-right: thin solid black">&nbsp;</th>
-                            <th colspan="6" style="font-weight: bold; font-size: 14px; text-align: left;">(Purpose goes here)</th>
+                            <th colspan="6" style="font-weight: bold; font-size: 14px; text-align: left;">{{ $pr->purpose }}</th>
                         </tr>
                         <tr>
                             <th style="font-weight: bold; font-size: 14px; text-align: left; border-right: thin solid black">&nbsp;</th>
@@ -181,31 +181,33 @@
         <div style="margin: 20px"></div>
 
         <div style="width: 70%; min-height: 70px; border: solid thin black; padding: 5px; margin-left: auto; margin-right: auto;">
-            <div style="font-size:16px;">Item # (s): &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; is/are awarded to &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <span style="text-decoration: underline"></span></div> 
+            @foreach($items as $item)
+                <div style="font-size:16px;">Item # (s): <span style="text-decoration: underline">{{ $item->item_name }}</span> is/are awarded to <span style="text-decoration: underline">{{ $item->supplier_name}}</span></div> 
+            @endforeach
         </div>
 
         <div style="margin: 20px"></div>
         <div style="width: 100%; font-size: 0">
             <div style="width: 25%; display:inline-block;">
-                <div style="font-size:14px; font-weight: bold; text-transform: uppercase; ">{{ $aq_supervising_admin->first_name }} {{ $aq_supervising_admin->middle_name }} {{ $aq_supervising_admin->last_name }}</div> 
+                <div style="font-size:14px; font-weight: bold; text-transform: uppercase; ">{{ $aq_supervising_admin->first_name }} {{ $aq_supervising_admin->middle_name }} {{ $aq_supervising_admin->last_name }}&nbsp;</div> 
                 <div style="font-size:14px; ">Supervising Admin, Officer</div>
-                <div style="font-size:14px; ">Regular Member, BAC</div>
+                <div style="font-size:14px; ">{{ $aq_supervising_admin->designation_name }}</div>
             </div>
             <div style="width: 25%; display:inline-block;">
-                <div style="font-size:14px; font-weight: bold; text-transform: uppercase; ">{{ $aq_admin_officer->first_name }} {{ $aq_supervising_admin->middle_name }} {{ $aq_supervising_admin->last_name }}</div> 
+                <div style="font-size:14px; font-weight: bold; text-transform: uppercase; ">{{ $aq_admin_officer->first_name }} {{ $aq_admin_officer->middle_name }} {{ $aq_admin_officer->last_name }}&nbsp;</div> 
                 <div style="font-size:14px; ">Supervising Admin, Officer</div>
-                <div style="font-size:14px; ">Regular Member, BAC</div>
+                <div style="font-size:14px; ">{{ $aq_admin_officer->designation_name }}</div>
             </div>
             <div style="width: 25%; display:inline-block;">
-                <div style="font-size:14px; font-weight: bold; text-transform: uppercase; ">{{ $aq_admin_officer_2->first_name }} {{ $aq_supervising_admin->middle_name }} {{ $aq_supervising_admin->last_name }}</div> 
+                <div style="font-size:14px; font-weight: bold; text-transform: uppercase; ">{{ $aq_admin_officer_2->first_name }} {{ $aq_admin_officer_2->middle_name }} {{ $aq_admin_officer_2->last_name }}&nbsp;</div> 
                 <div style="font-size:14px; ">Supervising Admin, Officer</div>
-                <div style="font-size:14px; ">Regular Member, BAC</div>
+                <div style="font-size:14px; ">{{ $aq_supervising_admin->designation_name }}</div>
             </div>
             <div style="width: 25%; display:inline-block;">
-                <div style="font-size:14px; font-weight: bold; text-transform: uppercase; ">&nbsp;</div> 
+                <div style="font-size:14px; font-weight: bold; text-transform: uppercase; ">{{ $aq_requesting_officer->first_name }} {{ $aq_requesting_officer->middle_name }} {{ $aq_requesting_officer->last_name }}&nbsp;</div> 
                 <div style="font-size:14px; ">Head of Requesting Officer or</div>
                 <div style="font-size:14px; ">Authorized Representative</div>
-                <div style="font-size:14px; ">Provisional Member, BAC</div>
+                <div style="font-size:14px; ">{{ $aq_requesting_officer->designation_name }}</div>
             </div>                                    
         </div>
         <div style="margin: 5px"></div>
@@ -218,18 +220,18 @@
         <div style="margin: 35px"></div>
         <div style="width: 100%; font-size: 0">
             <div style="width: 35%; display:inline-block;">
-                <div style="font-size:14px; font-weight: bold; text-transform: uppercase; ">{{ $aq_board_secretary->first_name }} {{ $aq_supervising_admin->middle_name }} {{ $aq_supervising_admin->last_name }}</div> 
+                <div style="font-size:14px; font-weight: bold; text-transform: uppercase; ">{{ $aq_board_secretary->first_name }} {{ $aq_board_secretary->middle_name }} {{ $aq_board_secretary->last_name }}&nbsp;</div> 
                 <div style="font-size:14px; ">Board Secretary</div>
-                <div style="font-size:14px; ">Vice-Chairperson, BAC</div>
+                <div style="font-size:14px; ">{{ $aq_board_secretary->designation_name }}</div>
             </div>
             <div style="width: 40%; display:inline-block;">
-                <div style="font-size:14px; font-weight: bold; text-transform: uppercase; ">{{ $aq_vpaf->first_name }} {{ $aq_supervising_admin->middle_name }} {{ $aq_supervising_admin->last_name }}</div> 
+                <div style="font-size:14px; font-weight: bold; text-transform: uppercase; ">{{ $aq_vpaf->first_name }} {{ $aq_vpaf->middle_name }} {{ $aq_vpaf->last_name }}&nbsp;</div> 
                 <div style="font-size:14px; ">VPAF</div>
-                <div style="font-size:14px; ">Chairperson, BAC</div>
+                <div style="font-size:14px; ">{{ $aq_vpaf->designation_name }}</div>
             </div>
             <div style="width: 30%; display:inline-block;">
-                <div style="font-size:14px; font-weight: bold; text-transform: uppercase; ">{{ $aq_approve->first_name }} {{ $aq_supervising_admin->middle_name }} {{ $aq_supervising_admin->last_name }}</div> 
-                <div style="font-size:14px; ">University President</div>
+                <div style="font-size:14px; font-weight: bold; text-transform: uppercase; ">{{ $aq_approve->first_name }} {{ $aq_approve->middle_name }} {{ $aq_approve->last_name }}&nbsp;</div> 
+                <div style="font-size:14px; ">{{ $aq_approve->designation_name }}</div>
             </div>                                
         </div>
     </div>

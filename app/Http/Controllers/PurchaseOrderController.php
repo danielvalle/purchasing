@@ -34,11 +34,10 @@ class PurchaseOrderController extends Controller
         $pr_nos = PurchaseRequest::all();
         $selected_pr_no = "";
         $selected_aq_no = "";
+        $selected_supplier = "";
 
         $total = "";
 
-        $suppliers = [];
-        $supplier_names = [];
         $items = [];
 
         return view("transaction.transaction-purchase-order")
@@ -49,7 +48,7 @@ class PurchaseOrderController extends Controller
             ->with("designations", $designations)
             ->with("pr_nos", $pr_nos)
             ->with("suppliers", $suppliers)
-            ->with("supplier_names", $supplier_names)
+            ->with("selected_supplier", $selected_supplier)
             ->with("total", $total)
             ->with("items", $items);
     }
@@ -130,8 +129,6 @@ class PurchaseOrderController extends Controller
         $selected_supplier = $request->input('add-supplier');
 
         $selected_aq_no = "";
-        $suppliers = [];
-        $supplier_names = [];
         $items = [];
 
         $total = 0;
@@ -195,8 +192,7 @@ class PurchaseOrderController extends Controller
             ->with("entities", $entities)
             ->with("users", $users)
             ->with("pr_nos", $pr_nos)
-            ->with("suppliers", $suppliers)
-            ->with("supplier_names", $supplier_names)
+            ->with("selected_supplier", $selected_supplier)
             ->with("total", $total)
             ->with("items", $items);
     }

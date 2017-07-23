@@ -22,6 +22,7 @@
                     <div class="alert alert-success alert-dismissable">
                         <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
                         <strong>{!! session('aq_add_success') !!}</strong>
+                        <a href="{{ URL::to('transaction/abstract-quotation-pdf') }}" class="btn-sm btn-info">Save PDF</a>
                     </div>
                 </div>
             </div>
@@ -41,7 +42,7 @@
                 <div class="col-lg-12">
                     <div class="panel panel-default">
                         <div class="panel-heading">
-                            <span style="font-size: 20px;">Abstract Quotation</span> 
+                            <span style="font-size: 20px;">Abstract of Quotation</span> 
                         </div>
                         <!-- /.panel-heading -->
                         <div class="panel-body">

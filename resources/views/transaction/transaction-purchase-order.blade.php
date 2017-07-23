@@ -85,7 +85,7 @@
 
                                         <label for="">Supplier:</label>
                                         <select class="selectpicker" name="add-supplier" id="add-supplier">
-                                                <option disabled selected>Select a supplier</option>       
+                                            <option disabled selected>Select a supplier</option>       
                                         </select> 
 
                                         <button class="form-control btn btn-success">Select</button> 
@@ -299,12 +299,20 @@
                             $("#add-supplier").find('option').remove();
 
                             var len = data.suppliers.length;
+                            var selected_supplier = {!! json_encode($selected_supplier) !!};
 
                             $('select#add-supplier').append('<option value="">Select a supplier</option>');
 
                             for(var i = 0; i < len; i++)
                             {
-                                $('select#add-supplier').append('<option value="' + data.suppliers[i].id + '">' + data.suppliers[i].supplier_name + '</option>');
+                                if(selected_supplier == data.suppliers[i].id)
+                                {
+                                    $('select#add-supplier').append('<option selected value="' + data.suppliers[i].id + '">' + data.suppliers[i].supplier_name + '</option>');
+                                }
+                                else
+                                {
+                                    $('select#add-supplier').append('<option value="' + data.suppliers[i].id + '">' + data.suppliers[i].supplier_name + '</option>');
+                                }
                             }
 
                             $('#add-supplier').selectpicker('refresh');

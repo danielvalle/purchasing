@@ -245,6 +245,8 @@
         $('#transaction_date').val(newDate.getFullYear() + "-" +  (newDate.getMonth()+1) + "-" + newDate.getDate());
 
 
+        $('select#add-requestor option:eq(1)').prop('selected', 1);
+
     });
 
 
@@ -271,10 +273,35 @@
         $('#modal-close').click(function(){
             location.reload(true);
         });
-
-    
     });
 
+
+    $('#add-requestor').change(function(){
+
+        var id = "#" + $(this).attr('id');
+        var id_designation = id + "-designation";
+
+        var designations = {!! json_encode($designations) !!}
+
+        if($(id).val() == "") 
+        {
+            $(id_designation).val($(id_designation + " option:first").val());
+            $(id_designation).find('option').remove();
+            $(id_designation).prepend("<option value='' selected disabled>None</option>");
+        }
+        else
+        {
+            $(id_designation).find('option').remove();
+
+            $.each(designations, function (i, designation) {
+                $(id_designation).append($('<option>', { 
+                    value: designation.id,
+                    text : designation.designation_name 
+                }));
+            });
+        }
+
+    });
     </script>
 
 @stop

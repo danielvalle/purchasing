@@ -207,6 +207,11 @@ class AbstractQuotationController extends Controller
                 ->where("id", session()->get("pdf_aq_id"))
                 ->first();
 
+        $pr = \DB::table('purchase_request')
+                ->select('pr_number', 'purpose')
+                ->where('id', $header->pr_fk)
+                ->first();
+
         $supplier1 = \DB::table("abstract_quotation AS aq")
                 ->leftJoin("supplier AS s", "aq.supplier1_fk", "=", "s.id")
                 ->select("s.supplier_name")
@@ -259,28 +264,28 @@ class AbstractQuotationController extends Controller
                 ->first();
 
         $aq_requesting_officer = \DB::table("abstract_quotation AS aq")
-                ->leftJoin("designation as d", "aq.", "=", "d.id")
+                ->leftJoin("designation as d", "aq.requesting_officer_designation_fk", "=", "d.id")
                 ->leftJoin("user", "aq.requesting_officer_fk", "=", "user.id")
                 ->select("user.first_name", "user.middle_name", "user.last_name", "d.designation_name")
                 ->where("aq.id", session()->get("pdf_aq_id"))
                 ->first();
 
         $aq_board_secretary = \DB::table("abstract_quotation AS aq")
-                ->leftJoin("designation as d", "aq.", "=", "d.id")
+                ->leftJoin("designation as d", "aq.board_secretary_designation_fk", "=", "d.id")
                 ->leftJoin("user", "aq.board_secretary_fk", "=", "user.id")
                 ->select("user.first_name", "user.middle_name", "user.last_name", "d.designation_name")
                 ->where("aq.id", session()->get("pdf_aq_id"))
                 ->first();
 
         $aq_vpaf = \DB::table("abstract_quotation AS aq")
-                ->leftJoin("designation as d", "aq.", "=", "d.id")
+                ->leftJoin("designation as d", "aq.vpaf_designation_fk", "=", "d.id")
                 ->leftJoin("user", "aq.vpaf_fk", "=", "user.id")
                 ->select("user.first_name", "user.middle_name", "user.last_name", "d.designation_name")
                 ->where("aq.id", session()->get("pdf_aq_id"))
                 ->first();
 
         $aq_approve = \DB::table("abstract_quotation AS aq")
-                ->leftJoin("designation as d", "aq.", "=", "d.id")
+                ->leftJoin("designation as d", "aq.approve_designation_fk", "=", "d.id")
                 ->leftJoin("user", "aq.approve_fk", "=", "user.id")
                 ->select("user.first_name", "user.middle_name", "user.last_name", "d.designation_name")
                 ->where("aq.id", session()->get("pdf_aq_id"))
@@ -289,13 +294,15 @@ class AbstractQuotationController extends Controller
         $items = \DB::table("abstract_quotation_detail AS aqd")
                 ->leftJoin("item", "aqd.item_fk", "=", "item.id")
                 ->leftJoin("unit", "aqd.unit_fk", "=", "unit.id")
+                ->leftJoin("supplier", "aqd.winning_supplier_fk", "=", "supplier.id")
                 ->select("item.item_name", "unit.unit_name", "aqd.quantity", "item.stock_no",
                          "aqd.supplier1_amount", "aqd.supplier2_amount", "aqd.supplier3_amount",
-                         "aqd.supplier4_amount", "aqd.supplier5_amount")
+                         "aqd.supplier4_amount", "aqd.supplier5_amount", "supplier.supplier_name")
                 ->where("aqd.abstract_quotation_fk", session()->get("pdf_aq_id"))
                 ->get();
 
         view()->share('header', $header);
+        view()->share('pr', $pr);
 
         view()->share('supplier1', $supplier1);
         view()->share('supplier2', $supplier2);
@@ -306,6 +313,7 @@ class AbstractQuotationController extends Controller
         view()->share('aq_supervising_admin', $aq_supervising_admin);
         view()->share('aq_admin_officer', $aq_admin_officer);
         view()->share('aq_admin_officer_2', $aq_admin_officer_2);
+        view()->share('aq_requesting_officer', $aq_requesting_officer);
         view()->share('aq_board_secretary', $aq_board_secretary);
         view()->share('aq_vpaf', $aq_vpaf);
         view()->share('aq_approve', $aq_approve);
