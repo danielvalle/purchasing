@@ -47,7 +47,6 @@ class PurchaseOrderController extends Controller
         	->with("users", $users)
             ->with("designations", $designations)
             ->with("pr_nos", $pr_nos)
-            ->with("suppliers", $suppliers)
             ->with("selected_supplier", $selected_supplier)
             ->with("total", $total)
             ->with("items", $items);
@@ -68,7 +67,7 @@ class PurchaseOrderController extends Controller
         {
 
             $purchase_order = PurchaseOrder::create(array(
-                    'entity_fk' => $request->input('add-entity'),
+                    //'entity_fk' => $request->input('add-entity'),
                     'supplier_fk' => session()->get('po_supplier'),
                     'address' => $request->input('add-address'),
                     'tin' => $request->input('add-tin'),
@@ -79,6 +78,7 @@ class PurchaseOrderController extends Controller
                     'delivery_term' => $request->input('add-delivery-term'),
                     'payment_term' => $request->input('add-payment-term'),
                     'authorized_official_fk' => $request->input('add-authorized-official'),
+                    'authorized_official_designation_fk' => $request->input('add-authorized-official-designation'),
                     'total_amount' => $request->input('add-total-amount'),
                     'alobs_bub_no' => $request->input('add-alobs-no'),
                     'pr_no_fk' => $request->input('hdn-pr-no'),
@@ -252,12 +252,18 @@ class PurchaseOrderController extends Controller
     {
         $po_header = \DB::table('purchase_order AS po')
                 ->leftJoin("supplier AS s", "po.supplier_fk", "=", "s.id")
+                ->leftJoin("user AS u", "po.authorized_official_fk", "=", "u.id")
+                ->leftJoin("designation as d", "po.authorized_official_designation_fk", "=", "d.id")
                 ->select("s.supplier_name", "po.address", "po.tin", "po.po_number",
                          "po.invoice_date", "po.mode_of_procurement", "po.place_of_delivery",
-                         "po.delivery_term", "po.date_of_delivery", "po.payment_term", "po.alobs_bub_no",
-                         "po.total_amount")
+                         "po.delivery_term", "po.date_of_delivery", "po.payment_term", "po.total_amount",
+                         "u.first_name", "u.middle_name", "u.last_name", "d.designation_name")
                 ->where("po.id", session()->get('pdf_po_id'))
                 ->first();
+
+        $pr = \DB::table('purchase_request')
+                ->leftJoin('entity', 'entity.id', '=', 'purchase_request.entity_fk')
+                ->select('entity.entity_name')->first();
 
         $items = \DB::table('purchase_order_detail AS pod')
                 ->leftJoin("item AS i", "pod.item_fk", "=", "i.id")
@@ -268,6 +274,7 @@ class PurchaseOrderController extends Controller
                 ->get();
 
         view()->share('po_header', $po_header);
+        view()->share('pr', $pr);
         view()->share('items', $items);
 
         $pdf = PDF::loadView('pdf.purchase-order-pdf');

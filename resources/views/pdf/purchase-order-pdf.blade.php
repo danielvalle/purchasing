@@ -7,7 +7,7 @@
 
             table {
                 border-collapse: collapse;
-                border-top: 1px solid black;
+                border-top: 2px solid black;
                 text-align: center;
             }
 
@@ -28,42 +28,42 @@
             <center>
                 <h1>
                     <div style="font-size:15px"><b>PURCHASE ORDER</b></div> 
-                    <div style="font-size: 20px; text-decoration: underline"></div>
-                    <div style="font-size: 14px;">Entity Name</div>
+                    <div style="font-size: 20px; text-decoration: underline">{{ $pr->entity_name }}</div>
+                    <div style="font-size: 13px;">Entity Name</div>
                     <p style="font-size:-0.5px;"></p>
                 </h1>
             </center>
         </div>
-    <div style="border: solid 1px black"> 
+    <div style="border: solid 2px black"> 
         <div>
             <table text-align="left" style=" width: 100%; border-top: 0px !important; ">
                     <thead>
                     </thead>
                     <tbody>  
                         <tr>
-                            <td style="font-size: 14px; text-align: left;">Supplier:</td>
-                            <td style="font-size: 14px; text-align: left; width: 50%; ">{{ $po_header->supplier_name }}</td>
-                            <td style="font-size: 14px; text-align: left;">PO No.:</td>
-                            <td style="font-size: 14px; text-align: left;">{{ $po_header->po_number }}</td>
+                            <td style="font-size: 13px; text-align: left;">Supplier:</td>
+                            <td style="font-size: 13px; text-align: left; width: 50%; text-decoration: underline; border-right: solid 2px black">{{ $po_header->supplier_name }}</td>
+                            <td style="font-size: 13px; text-align: left;">PO No.:</td>
+                            <td style="font-size: 13px; text-align: left; text-decoration: underline;">{{ $po_header->po_number }}</td>
                         </tr>
                         <tr>
-                            <td style="font-size: 14px; text-align: left;">Address:</td>
-                            <td style="font-size: 14px; text-align: left; width: 50%; ">{{ $po_header->address }}</td>
-                            <td style="font-size: 14px; text-align: left;">Date:</td>
-                            <td style="font-size: 14px; text-align: left;">{{ date("M d, Y", strtotime($po_header->invoice_date)) }}</td>
+                            <td style="font-size: 13px; text-align: left;">Address:</td>
+                            <td style="font-size: 13px; text-align: left; width: 50%; text-decoration: underline; border-right: solid 2px black">{{ $po_header->address }}</td>
+                            <td style="font-size: 13px; text-align: left;">Date:</td>
+                            <td style="font-size: 13px; text-align: left; text-decoration: underline;">{{ date("M d, Y", strtotime($po_header->invoice_date)) }}</td>
                         </tr>
                         <tr>
-                            <td style="font-size: 14px; text-align: left;">TIN:</td>
-                            <td style="font-size: 14px; text-align: left; width: 50%; ">{{ $po_header->tin }}</td>
-                            <td style="font-size: 14px; text-align: left;">Mode Of Procurement:</td>
-                            <td style="font-size: 14px; text-align: left;">{{ $po_header->mode_of_procurement }}</td>
+                            <td style="font-size: 13px; text-align: left;">TIN:</td>
+                            <td style="font-size: 13px; text-align: left; width: 50%; text-decoration: underline; border-right: solid 2px black">{{ $po_header->tin }}</td>
+                            <td style="font-size: 13px; text-align: left;">Mode of Procurement:</td>
+                            <td style="font-size: 13px; text-align: left; text-decoration: underline;">{{ $po_header->mode_of_procurement }}</td>
                         </tr>
                     </tbody>
             </table>
         </div>
-        <div style="margin-top: 3px; border-top: 2px solid black">
-            <div style="font-size: 14px; text-align: left;">Gentlemen:</div>
-            <div style="font-size: 14px; text-align: left; text-indent: 75px">Please furnish this office the following articles subject to the terms and conditions contained herein:</div>
+        <div style="border-top: 2px solid black">
+            <div style="font-size: 13px; text-align: left;">Gentlemen:</div>
+            <div style="font-size: 13px; text-align: left; text-indent: 75px">Please furnish this office the following articles subject to the terms and conditions contained herein:</div>
         </div>
         <div>
             <table text-align="left" style=" width: 100%; ">
@@ -71,16 +71,16 @@
                     </thead>
                     <tbody>  
                         <tr>
-                            <td style="font-size: 14px; text-align: left;">Place of Delivery:</td>
-                            <td style="font-size: 14px; text-align: center; width: 50%; ">{{ $po_header->place_of_delivery }}</td>
-                            <td style="font-size: 14px; text-align: left;">Delivery Term:</td>
-                            <td style="font-size: 14px; text-align: left;">{{ $po_header->delivery_term }}</td>
+                            <td style="font-size: 13px; text-align: left;">Place of Delivery:</td>
+                            <td style="font-size: 13px; text-align: center; width: 50%; ">{{ $po_header->place_of_delivery }}</td>
+                            <td style="font-size: 13px; text-align: left;">Delivery Term:</td>
+                            <td style="font-size: 13px; text-align: left;">{{ $po_header->delivery_term }}</td>
                         </tr>
                         <tr>
-                            <td style="font-size: 14px; text-align: left;">Date of Delivery:</td>
-                            <td style="font-size: 14px; text-align: center; width: 50%; ">{{ date("M d, Y", strtotime($po_header->date_of_delivery)) }}</td>
-                            <td style="font-size: 14px; text-align: left;">Payment Term:</td>
-                            <td style="font-size: 14px; text-align: left;">{{ $po_header->payment_term }}</td>
+                            <td style="font-size: 13px; text-align: left;">Date of Delivery:</td>
+                            <td style="font-size: 13px; text-align: center; width: 50%; ">{{ date("M d, Y", strtotime($po_header->date_of_delivery)) }}</td>
+                            <td style="font-size: 13px; text-align: left;">Payment Term:</td>
+                            <td style="font-size: 13px; text-align: left;">{{ $po_header->payment_term }}</td>
                         </tr>
                     </tbody>
             </table>
@@ -89,23 +89,23 @@
             <table text-align="left" style=" width: 100%; border-bottom: thin solid black">
                     <thead>
                         <tr>
-                            <td style="font-size: 14px; text-align: center; width: 10%; border-right: thin solid black">Stock No.</td>
-                            <td style="font-size: 14px; text-align: center; width: 10%; border-right: thin solid black">Unit</td>
-                            <td style="font-size: 14px; text-align: center; width: 55%; border-right: thin solid black">Item Description</td>
-                            <td style="font-size: 14px; text-align: center; width: 10%; border-right: thin solid black">Quantity</td>
-                            <td style="font-size: 14px; text-align: center; width: 10%; border-right: thin solid black">Unit Cost</td>
-                            <td style="font-size: 14px; text-align: center; width: 15%;">Amount</td>
+                            <td style="font-size: 13px; text-align: center; width: 10%; border-right: thin solid black">Stock No.</td>
+                            <td style="font-size: 13px; text-align: center; width: 10%; border-right: thin solid black">Unit</td>
+                            <td style="font-size: 13px; text-align: center; width: 55%; border-right: thin solid black">Item Description</td>
+                            <td style="font-size: 13px; text-align: center; width: 10%; border-right: thin solid black">Quantity</td>
+                            <td style="font-size: 13px; text-align: center; width: 10%; border-right: thin solid black">Unit Cost</td>
+                            <td style="font-size: 13px; text-align: center; width: 15%;">Amount</td>
                         </tr>
                     </thead>
                     <tbody>  
                         @foreach($items as $item)
                         <tr>
-                            <th style="font-size: 14px; text-align: left; border-right: thin solid black" >{{ $item->stock_no }}</th>
-                            <th style="font-size: 14px; text-align: left; border-right: thin solid black" >{{ $item->unit_name }}</th>
-                            <th style="font-size: 14px; text-align: left; border-right: thin solid black" >{{ $item->item_name }}</th>
-                            <th style="font-size: 14px; text-align: left; border-right: thin solid black" >{{ $item->quantity }}</th>
-                            <th style="font-size: 14px; text-align: left; border-right: thin solid black" >{{ $item->unit_cost }}</th>
-                            <th style="font-size: 14px; text-align: left;" >{{ $item->amount }}</th>
+                            <th style="font-size: 13px; text-align: left; border-right: thin solid black" >{{ $item->stock_no }}</th>
+                            <th style="font-size: 13px; text-align: left; border-right: thin solid black" >{{ $item->unit_name }}</th>
+                            <th style="font-size: 13px; text-align: left; border-right: thin solid black" >{{ $item->item_name }}</th>
+                            <th style="font-size: 13px; text-align: left; border-right: thin solid black" >{{ $item->quantity }}</th>
+                            <th style="font-size: 13px; text-align: left; border-right: thin solid black" >{{ $item->unit_cost }}</th>
+                            <th style="font-size: 13px; text-align: left;" >{{ $item->amount }}</th>
                         </tr>
                         @endforeach
                     </tbody>
@@ -117,27 +117,37 @@
                     </thead>
                     <tbody>  
                         <tr>
-                            <th style="font-size: 14px; text-align: center; width: 25%; border-right: thin solid black">Total Amount in Words:</th>
-                            <th style="font-size: 14px; text-align: center; width: 60%; border-right: thin solid black"></th>
-                            <th style="font-size: 14px; text-align: center; width: 15%;">{{ $po_header->total_amount }}</th>
+                            <th style="font-size: 13px; text-align: center; width: 25%; ">Total Amount in Words:</th>
+                            <th style="font-size: 13px; text-align: center; width: 60%; border-right: thin solid black"></th>
+                            <th style="font-size: 13px; text-align: center; width: 15%;">{{ $po_header->total_amount }}</th>
                         </tr>
                     </tbody>
             </table>
         </div>
-        <div style="border-top: thin solid black">
-            <div style="text-indent: 30px; font-size: 14px; padding: 5px 10px">In case of failure to make the full delivery within the time specified above, a penalty of one-tenth (1/10) of one percent for every day of delay shall be imposed.</div>
-            <div style="font-size: 15px; padding-left: 2px">Conforme:</div>
-            <div style="margin: 35px"></div>
-            <div style="width: 100%; font-size: 0;">
-                <div style="width: 55%; display:inline-block; padding: 10px 10px 10px 20px">
-                    <div style="width: 70%; font-size:13px; text-align: center;">Signature over Printed Name of Supplier</div> 
-                    <div style="width: 70%; font-size:13px; text-align: center;">&nbsp;</div> 
-                    <div style="width: 70%; text-align: center; font-size:13px; border-top: solid 1px black;">Date</div> 
-                </div>
-                <div style="width: 35%; display:inline-block; padding: 10px 10px">
+        <div style="border-top: thin solid black;">
+            <div style="text-indent: 30px; font-size: 13px; padding: 5px 10px">In case of failure to make the full delivery within the time specified above, a penalty of one-tenth (1/10) of one percent for every day of delay shall be imposed.</div>
+            <div style="margin: 10px"></div>
+            <div style="width:100%; font-size: 0; margin-left: 5%; margin-right: 5%;">
+                <div style="width: 50%; display:inline-block; padding: 10px 10px;">
+                <div style="font-size: 14px; padding-left: 2px; padding-bottom: 40px">Conforme:</div>
+                    <div style="font-size:13px; text-indent: 10px;">&nbsp;</div> 
+                    <div style="font-size:13px; text-align: center;">&nbsp;</div>
+                    <div style="font-size:13px; text-align: center">&nbsp;&nbsp;</div>
+                    <div style="font-size:13px; text-align: center; border-top: solid 1px black; width: 90%; margin-left: 5%; margin-right: 5%;">Signature over Printed Name of Supplier</div> 
+                    <div style="font-size:13px; text-align: center">&nbsp;&nbsp;</div>
+                    <div style="font-size:13px; text-align: center">&nbsp;&nbsp;</div>
+                    <div style="font-size:13px; text-align: center">&nbsp;&nbsp;</div>
+                    <div style="font-size:13px; text-align: center; border-top: solid 1px black; width: 70%; margin-left: 10%; margin-right: 10%;">Date</div> 
+                </div>      
+                <div style="width: 40%; display:inline-block; padding: 10px 10px; float: right">
+                <div style="font-size: 14px; padding-left: 2px; padding-bottom: 40px">Very truly yours,</div>
                     <div style="font-size:13px; text-indent: 10px;">Authorized Official</div> 
-                    <div style="font-size:13px; ">&nbsp;</div>
-                    <div style="font-size:13px; text-align: center; border-top: solid 1px black;">Date</div> 
+                    <div style="font-size:13px; text-align: center">&nbsp;&nbsp;</div>
+                    <div style="font-size:13px; text-align: center">&nbsp;{{ $po_header->first_name }} {{ $po_header->middle_name }} {{ $po_header->last_name }}&nbsp;</div>
+                    <div style="font-size:13px; text-align: center; border-top: solid 1px black;">Signature over Printed Name of Authorized Official</div> 
+                    <div style="font-size:13px; text-align: center">&nbsp;&nbsp;</div>
+                    <div style="font-size:13px; text-align: center">&nbsp;{{ $po_header->designation_name }}&nbsp;</div>
+                    <div style="font-size:13px; text-align: center; border-top: solid 1px black;">Designation</div> 
                 </div>
             </div>
         </div>
@@ -145,18 +155,22 @@
             <table text-align="left" style=" width: 100%;">
                     <thead>
                     </thead>
-                    <tbody>  
+                    <tbody> 
                         <tr>
-                            <td style="font-size: 14px; text-align: left; width: 65%;">Funds Available:</td>
-                            <td style="font-size: 14px; text-align: left; width: 30%;">ALOBS/BUB No.: {{ $po_header->alobs_bub_no }}</td>
+                            <td style="font-size: 13px; text-align: left; width: 60%; font-weight: bold; border-right: solid 2px black">Fund Cluster:</td>
+                            <td style="font-size: 13px; text-align: left; width: 35%; font-weight: bold;">ORS/BURS No.: </td>
+                        </tr> 
+                        <tr>
+                            <td style="font-size: 13px; text-align: left; width: 60%; font-weight: bold; border-right: solid 2px black">Funds Available:</td>
+                            <td style="font-size: 13px; text-align: left; width: 35%; font-weight: bold;">Date of the ORS/BURS: </td>
                         </tr>
                         <tr>
-                            <td style="font-size: 14px; text-align: center; text-transform: uppercase;">_________________________________________</td>
-                            <td style="font-size: 14px; text-align: left; width: 30%; ">Amount:</td>
+                            <td style="font-size: 13px; text-align: center; text-transform: uppercase; border-right: solid 2px black">_________________________________________</td>
+                            <td style="font-size: 13px; text-align: left; width: 35%; font-weight: bold;">Amount:</td>
                         </tr>
                         <tr>
-                            <td style="font-size: 13px; text-align: center; width: 65%; ">Accountant III</td>
-                            <td style="font-size: 14px; text-align: center; width: 30%; "></td>
+                            <td style="font-size: 13px; text-align: center; width: 60%; font-weight: bold;border-right: solid 2px black">Signature over Printed Name of Chief Accountant/Head of Accounting Division/Unit</td>
+                            <td style="font-size: 13px; text-align: center; width: 35%; "></td>
                         </tr>
                     </tbody>
             </table>
