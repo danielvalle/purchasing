@@ -103,9 +103,9 @@
                             <th style="font-size: 13px; text-align: left; border-right: thin solid black" >{{ $item->stock_no }}</th>
                             <th style="font-size: 13px; text-align: left; border-right: thin solid black" >{{ $item->unit_name }}</th>
                             <th style="font-size: 13px; text-align: left; border-right: thin solid black" >{{ $item->item_name }}</th>
-                            <th style="font-size: 13px; text-align: left; border-right: thin solid black" >{{ $item->quantity }}</th>
-                            <th style="font-size: 13px; text-align: left; border-right: thin solid black" >{{ $item->unit_cost }}</th>
-                            <th style="font-size: 13px; text-align: left;" >{{ $item->amount }}</th>
+                            <th style="font-size: 13px; text-align: right; border-right: thin solid black" >{{ number_format($item->quantity, 2) }}</th>
+                            <th style="font-size: 13px; text-align: right; border-right: thin solid black" >{{ number_format($item->unit_cost, 2) }}</th>
+                            <th style="font-size: 13px; text-align: right;" >{{ number_format($item->amount, 2) }}</th>
                         </tr>
                         @endforeach
                     </tbody>
@@ -119,7 +119,7 @@
                         <tr>
                             <th style="font-size: 13px; text-align: center; width: 25%; ">Total Amount in Words:</th>
                             <th style="font-size: 13px; text-align: center; width: 60%; border-right: thin solid black"></th>
-                            <th style="font-size: 13px; text-align: center; width: 15%;">{{ $po_header->total_amount }}</th>
+                            <th style="font-size: 13px; text-align: center; width: 15%;">{{ number_format($po_header->total_amount, 2) }}</th>
                         </tr>
                     </tbody>
             </table>
@@ -143,10 +143,10 @@
                 <div style="font-size: 14px; padding-left: 2px; padding-bottom: 40px">Very truly yours,</div>
                     <div style="font-size:13px; text-indent: 10px;">Authorized Official</div> 
                     <div style="font-size:13px; text-align: center">&nbsp;&nbsp;</div>
-                    <div style="font-size:13px; text-align: center">&nbsp;{{ $po_header->first_name }} {{ $po_header->middle_name }} {{ $po_header->last_name }}&nbsp;</div>
+                    <div style="font-size:14px; text-align: center">&nbsp;{{ $po_header->first_name }} {{ $po_header->middle_name }} {{ $po_header->last_name }}&nbsp;</div>
                     <div style="font-size:13px; text-align: center; border-top: solid 1px black;">Signature over Printed Name of Authorized Official</div> 
                     <div style="font-size:13px; text-align: center">&nbsp;&nbsp;</div>
-                    <div style="font-size:13px; text-align: center">&nbsp;{{ $po_header->designation_name }}&nbsp;</div>
+                    <div style="font-size:14px; text-align: center">&nbsp;{{ $po_header->designation_name }}&nbsp;</div>
                     <div style="font-size:13px; text-align: center; border-top: solid 1px black;">Designation</div> 
                 </div>
             </div>
@@ -157,16 +157,16 @@
                     </thead>
                     <tbody> 
                         <tr>
-                            <td style="font-size: 13px; text-align: left; width: 60%; font-weight: bold; border-right: solid 2px black">Fund Cluster:</td>
-                            <td style="font-size: 13px; text-align: left; width: 35%; font-weight: bold;">ORS/BURS No.: </td>
+                            <td style="font-size: 13px; text-align: left; width: 60%; font-weight: bold; border-right: solid 2px black">Fund Cluster: <span style="text-decoration: underline; font-weight: normal !important">{{ $pr->fund_cluster }}</span></td>
+                            <td style="font-size: 13px; text-align: left; width: 35%; font-weight: bold;">ORS/BURS No.:</td>
                         </tr> 
                         <tr>
-                            <td style="font-size: 13px; text-align: left; width: 60%; font-weight: bold; border-right: solid 2px black">Funds Available:</td>
+                            <td style="font-size: 13px; text-align: left; width: 60%; font-weight: bold; border-right: solid 2px black">Funds Available: </td>
                             <td style="font-size: 13px; text-align: left; width: 35%; font-weight: bold;">Date of the ORS/BURS: </td>
                         </tr>
                         <tr>
                             <td style="font-size: 13px; text-align: center; text-transform: uppercase; border-right: solid 2px black">_________________________________________</td>
-                            <td style="font-size: 13px; text-align: left; width: 35%; font-weight: bold;">Amount:</td>
+                            <td style="font-size: 13px; text-align: left; width: 35%; font-weight: bold;">Amount: </td>
                         </tr>
                         <tr>
                             <td style="font-size: 13px; text-align: center; width: 60%; font-weight: bold;border-right: solid 2px black">Signature over Printed Name of Chief Accountant/Head of Accounting Division/Unit</td>

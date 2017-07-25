@@ -103,11 +103,11 @@
                                                 <tr>
                                                     <th style="width: 20%;">Item</th>
                                                     <th>Unit</th>
-                                                    <th>Supplier 1 Amount</th>
-                                                    <th>Supplier 2 Amount</th>
-                                                    <th>Supplier 3 Amount</th>
-                                                    <th>Supplier 4 Amount</th>
-                                                    <th>Supplier 5 Amount</th>
+                                                    @if(array_key_exists(0, $rfq_suppliers))<th>Supplier 1 Amount</th>@endif
+                                                    @if(array_key_exists(1, $rfq_suppliers))<th>Supplier 2 Amount</th>@endif
+                                                    @if(array_key_exists(2, $rfq_suppliers))<th>Supplier 3 Amount</th>@endif
+                                                    @if(array_key_exists(3, $rfq_suppliers))<th>Supplier 4 Amount</th>@endif
+                                                    @if(array_key_exists(4, $rfq_suppliers))<th>Supplier 5 Amount</th>@endif
                                                     <th style="width: 20%;">Winning Supplier</th>
                                                 </tr>
                                             </thead>
@@ -118,11 +118,11 @@
                                                 <tr>
                                                     <td>{{ $rfq_item->item_name }}</td>
                                                     <td>{{ $rfq_item->unit_name }}</td>
-                                                    <td><input name="supplier1_amount{{ $i }}" class="form-control" type="number" min="1" @if(!array_key_exists(0, $rfq_suppliers)) readonly @endif></td>
-                                                    <td><input name="supplier2_amount{{ $i }}" class="form-control" type="number" min="1" @if(!array_key_exists(1, $rfq_suppliers)) readonly @endif></td>
-                                                    <td><input name="supplier3_amount{{ $i }}" class="form-control" type="number" min="1" @if(!array_key_exists(2, $rfq_suppliers)) readonly @endif></td>
-                                                    <td><input name="supplier4_amount{{ $i }}" class="form-control" type="number" min="1" @if(!array_key_exists(3, $rfq_suppliers)) readonly @endif></td>
-                                                    <td><input name="supplier5_amount{{ $i }}" class="form-control" type="number" min="1" @if(!array_key_exists(4, $rfq_suppliers)) readonly @endif></td>
+                                                    @if(array_key_exists(0, $rfq_suppliers))<td><input name="supplier1_amount{{ $i }}" class="form-control" type="number" min="1"></td>@endif
+                                                    @if(array_key_exists(1, $rfq_suppliers))<td><input name="supplier2_amount{{ $i }}" class="form-control" type="number" min="1"></td>@endif
+                                                    @if(array_key_exists(2, $rfq_suppliers))<td><input name="supplier3_amount{{ $i }}" class="form-control" type="number" min="1"></td>@endif
+                                                    @if(array_key_exists(3, $rfq_suppliers))<td><input name="supplier4_amount{{ $i }}" class="form-control" type="number" min="1"></td>@endif
+                                                    @if(array_key_exists(4, $rfq_suppliers))<td><input name="supplier5_amount{{ $i }}" class="form-control" type="number" min="1"></td>@endif
                                                     <td>
                                                         <select class="form-control" name="add-winner-supplier{{ $i }}" id="add-winner-supplier" required>
                                                             @foreach($rfq_suppliers as $j => $rfq_supplier)

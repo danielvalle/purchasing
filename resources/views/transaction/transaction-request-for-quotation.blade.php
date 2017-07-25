@@ -145,7 +145,7 @@
                                 </div>   
                                 <div class="form-group col-lg-2">
                                     <label for="">Within No. Of Days</label>
-                                    <input type="number" class="form-control" name="add-days" id="add-days">
+                                    <input type="number" class="form-control" name="add-days" id="add-days" min="1">
                                 </div>   
 
                                 <div class="form-group col-lg-6">

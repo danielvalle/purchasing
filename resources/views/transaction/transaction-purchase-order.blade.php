@@ -22,6 +22,7 @@
                     <div class="alert alert-success alert-dismissable">
                         <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
                         <strong>{!! session('po_add_success') !!}</strong>
+                        <a href="{{ URL::to('transaction/purchase-order-pdf') }}" class="btn-sm btn-info">Save PDF</a>
                     </div>
                 </div>
             </div>
@@ -142,16 +143,6 @@
                             </div>
 
                             <div style="margin: 50px 0"></div>
-                            <div style="float: left; width: 100%;">
-                                <div class="form-group col-lg-4">                                 
-                                    <label for="" >Entity</label>
-                                    <select class="form-control" name="add-entity" id="add-entity" required>
-                                        @foreach($entities as $entity)
-                                            <option value="{{ $entity->id }}">{{ $entity->entity_name }}</option>
-                                        @endforeach
-                                    </select>                                      
-                                </div>                                
-                            </div>
                             <div style="float: left; width: 100%; margin-bottom: 30px">
                                 <div class="form-group col-lg-5">
                                     <label for="">Address</label>
@@ -198,8 +189,8 @@
                                 <div class="form-group col-lg-6">
                                     <label for="">Authorized Official Designation</label>
                                     <select class="form-control" name="add-authorized-official-designation" id="add-authorized-official-designation" required> 
-                                        @foreach($users as $user)
-                                            <option value="{{ $user->id }}">{{ $user->first_name }} {{ $user->middle_name }} {{ $user->last_name }}</option>
+                                        @foreach($designations as $designation)
+                                            <option value="{{ $designation->id }}">{{ $designation->designation_name }}</option>
                                         @endforeach
                                     </select>
                                 </div>

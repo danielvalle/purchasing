@@ -74,7 +74,7 @@ class PurchaseOrderController extends Controller
                     'invoice_date' =>  date("Y-m-d", strtotime($request->input('add-date'))),
                     'mode_of_procurement' => $request->input('add-mode-of-procurement'),
                     'place_of_delivery' => $request->input('add-place-delivery'),
-                    'date_of_delivery' =>  date("Y-m-d", strtotime($request->input('add-date-delivery'))),
+                    'date_of_delivery' =>  $request->input('add-date-delivery'),
                     'delivery_term' => $request->input('add-delivery-term'),
                     'payment_term' => $request->input('add-payment-term'),
                     'authorized_official_fk' => $request->input('add-authorized-official'),
@@ -124,6 +124,7 @@ class PurchaseOrderController extends Controller
     {
         $entities = Entity::all();
         $users = User::all();
+        $designations = Designation::all();
         $pr_nos = PurchaseRequest::all();
         $selected_pr_no = $request->input('select-pr-no');
         $selected_supplier = $request->input('add-supplier');
@@ -191,6 +192,7 @@ class PurchaseOrderController extends Controller
             ->with("selected_aq_no", $selected_aq_no)
             ->with("entities", $entities)
             ->with("users", $users)
+            ->with("designations", $designations)
             ->with("pr_nos", $pr_nos)
             ->with("selected_supplier", $selected_supplier)
             ->with("total", $total)
@@ -263,7 +265,7 @@ class PurchaseOrderController extends Controller
 
         $pr = \DB::table('purchase_request')
                 ->leftJoin('entity', 'entity.id', '=', 'purchase_request.entity_fk')
-                ->select('entity.entity_name')->first();
+                ->select('entity.entity_name', 'purchase_request.fund_cluster')->first();
 
         $items = \DB::table('purchase_order_detail AS pod')
                 ->leftJoin("item AS i", "pod.item_fk", "=", "i.id")

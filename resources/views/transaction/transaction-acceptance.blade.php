@@ -79,11 +79,11 @@
                                     <input class="form-control" name="add-iar" id="add-iar">                                
                                 </div>
      
-                                <div class="form-group col-lg-4">
+                                {{-- <div class="form-group col-lg-4">
                                     <label for="">Entity</label>
                                     <input type="hidden" name="add-entity" id="add-entity" value="{{ $po_entity_fk }}" >
                                     <input class="form-control" value="{{ $po_entity_name }}" readonly>                            
-                                </div>
+                                </div> --}}
 
                                 <div class="form-group col-lg-4">
                                     <label for="">Supplier</label>
@@ -133,32 +133,19 @@
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                            @foreach($po_items as $po_item)
+                                            @foreach($po_items as $i => $po_item)
                                                 <tr>
                                                     <td>{!! $po_item->stock_no !!}</td>
                                                     <td>{!! $po_item->item_name !!}</td>
                                                     <td>{!! $po_item->quantity !!}</td>
                                                     <td>{!! $po_item->unit_name !!}</td>
                                                     <td>{!! $po_item->item_description !!}</td>
-                                                    <td><input type="number" class="form-control" id="add-received-qty" name="add-received-qty" /></td>
-                                                    <td><input type="number" class="form-control" id="add-outright-expense" name="add-outright-expense" /></td>
-                                                    <input type="hidden" name="add-item[]" value="{!! $po_item->item_fk !!}"> 
-                                                    <input type="hidden" name="add-unit[]" value="{!! $po_item->unit_fk !!}"> 
-                                                    <input type="hidden" name="add-quantity[]" value="{!! $po_item->quantity !!}"> 
-                                                </tr>
-                                            @endforeach
-                                            @for($i = 0; $i < 3; $i++)
-                                                <tr>
-                                                    <td></td>
-                                                    <td></td>
-                                                    <td></td>
-                                                    <td></td>
-                                                    <td></td>
                                                     <td><input type="number" class="form-control add-received-qty" id="{!! $i !!}" name="add-received-qty[]" /></td>
                                                     <td><input type="number" class="form-control add-outright-expense" id="{!! $i !!}" name="add-outright-expense[]" /></td>
-                                                    <input type="hidden" id="add-quantity{!! $i !!}">
+                                                    <input type="hidden" name="add-item[]" value="{!! $po_item->item_fk !!}"> 
+                                                    <input type="hidden" name="add-unit[]" value="{!! $po_item->unit_fk !!}"> 
                                                 </tr>
-                                            @endfor
+                                            @endforeach
                                             </tbody>
                                         </table>
                                         
@@ -272,7 +259,9 @@
     <script>
     $(document).ready(function() {
         $('#dt-acceptance-det').DataTable({
-            responsive: true
+            responsive: true,
+            searching: false,
+            paging: false
         });
 
         var monthNames = [ "January", "February", "March", "April", "May", "June",
@@ -304,11 +293,11 @@
             var qty = received + outright;
             var input = parseInt($(this).val(), 10);
 
-            var item_qty = {!! json_encode($a) !!};
+            var item_qty = {!! json_encode($po_items) !!};
 
-            if(qty > item_qty[id]) 
+            if(qty > item_qty[id].quantity) 
             {
-                var excess = qty - item_qty[id];
+                var excess = qty - item_qty[id].quantity;
                 var new_qty = input - excess;
                 $(this).val(new_qty);
             }

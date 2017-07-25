@@ -58,7 +58,6 @@
                         <div class="panel-body">
                             <div class="panel panel-default">
                                 <div class="panel-heading">
-                                    <span style="font-size: 20px;">Purchase Request Detail</span> 
                                     <button type="button" class="btn btn-success btn-sm" data-toggle="modal" data-target="#add-item">Add New Item</button> 
                                 </div>
                                 <div class="panel-body">
@@ -237,7 +236,7 @@
                                 </div>        
                                 <div class="form-group col-lg-3">
                                     <label for="">Quantity</label>
-                                    <input type="number" class="form-control" name="add-quantity" id="add-quantity" required>
+                                    <input type="number" class="form-control" name="add-quantity" id="add-quantity" min="1" required>
                                 </div>   
                                 <div class="form-group col-lg-3">
                                     <label for="">Unit</label>
@@ -305,7 +304,7 @@
                                 </div>   
 
                             </div>
-                            <div class="col-lg-12" style="border-bottom:1px solid rgba(51, 51, 51, 0.31); margin-bottom: 15px;">
+                            <div class="col-lg-12">
                                 <div class="form-group col-lg-4">
                                     <label for="">Item:</label>
                                     <select class="form-control" name="edit-item" id="edit-item">
@@ -320,7 +319,7 @@
                                 </div>        
                                 <div class="form-group col-lg-3">
                                     <label for="">Quantity</label>
-                                    <input type="number" class="form-control" name="edit-quantity" id="edit-quantity" value="{{ $pr_quantities[$i] }}">
+                                    <input type="number" class="form-control" name="edit-quantity" id="edit-quantity" min="1" value="{{ $pr_quantities[$i] }}">
                                 </div>   
                                 <div class="form-group col-lg-3">
                                     <label for="">Unit</label>

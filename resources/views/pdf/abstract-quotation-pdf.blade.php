@@ -88,11 +88,11 @@
                             <th style="font-weight: bold; font-size: 14px; text-align: right; border-right: thin solid black">{{ $item->quantity }}</th>
                             <th style="font-weight: bold; font-size: 14px; text-align: left; border-right: thin solid black">{{ $item->unit_name }}</th>
                             <th style="font-weight: bold; font-size: 14px; text-align: center; border-right: thin solid black">{{ $item->item_name }}</th>
-                            <th style="font-weight: bold; font-size: 14px; text-align: right; border-right: thin solid black">{{ $item->supplier1_amount }}</th>
-                            <th style="font-weight: bold; font-size: 14px; text-align: right; border-right: thin solid black">{{ $item->supplier2_amount }}</th>
-                            <th style="font-weight: bold; font-size: 14px; text-align: right; border-right: thin solid black">{{ $item->supplier3_amount }}</th>
-                            <th style="font-weight: bold; font-size: 14px; text-align: right; border-right: thin solid black">{{ $item->supplier4_amount }}</th>
-                            <th style="font-weight: bold; font-size: 14px; text-align: right;">{{ $item->supplier5_amount }}</th>
+                            <th style="font-weight: bold; font-size: 14px; text-align: right; border-right: thin solid black">@if($item->supplier1_amount != 0){{ number_format($item->supplier1_amount, 2) }}@endif</th>
+                            <th style="font-weight: bold; font-size: 14px; text-align: right; border-right: thin solid black">@if($item->supplier2_amount != 0){{ number_format($item->supplier2_amount, 2) }}@endif</th>
+                            <th style="font-weight: bold; font-size: 14px; text-align: right; border-right: thin solid black">@if($item->supplier3_amount != 0){{ number_format($item->supplier3_amount, 2) }}@endif</th>
+                            <th style="font-weight: bold; font-size: 14px; text-align: right; border-right: thin solid black">@if($item->supplier4_amount != 0){{ number_format($item->supplier4_amount, 2) }}@endif</th>
+                            <th style="font-weight: bold; font-size: 14px; text-align: right;">@if($item->supplier5_amount != 0){{ number_format($item->supplier5_amount, 2) }}@endif</th>
                         </tr>
                             @endforeach       
                         <tr>
