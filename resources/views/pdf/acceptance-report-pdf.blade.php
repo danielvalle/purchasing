@@ -31,44 +31,53 @@
     
     <body>
         
-    <div style="border: solid 1px black"> 
         <div>
-            <center>
-                <h1>
-                    <p style="font-size:15px">INSPECTION & ACCEPTANCE REPORT</p> 
-                    <p style="font-size:-0.5px;"></p>
-                    <div style="font-size: 15px; text-decoration: underline">SOUTHERN LEYTE STATE UNIVERSITY</div>
-                    <div style="font-size: 15px;">(Agency)</div>
-                    <p style="font-size:-0.5px;"></p>
-                </h1>
-            </center>
-        </div>
-        <div>
-            <table text-align="left" style=" width: 100%">
+            <table text-align="left" style=" width: 100%; border-top: 0; margin-bottom: 10px;">
                     <thead>
                     </thead>
                     <tbody>  
                         <tr>
-                            <td style="font-size: 14px; width: 20%; text-align: left; border-right: thin solid black">Supplier:</td>
-                            <td style="font-size: 14px; width: 55%; text-align: left; border-right: thin solid black">{{ $acceptance_header->supplier_name }}</td>
-                            <td style="font-size: 14px; width: 10%; text-align: left; border-right: thin solid black">IAR:</td>
-                            <td style="font-size: 14px; width: 15%; text-align: left;">{{ $acceptance_header->iar }}</td>
+                            <td colspan="2" style="width: 100%; padding-bottom: 10px; font-size:20px; text-align: center; font-weight: bold">INSPECTION AND ACCEPTANCE REPORT</td>
+                        </tr>
+                        <tr>
+                            <td style="width: 65%; font-size:14px; text-align: left;"><span style="font-weight: bold">Entity Name:</span> <span style="text-decoration: underline">{{ $pr_header->entity_name }}</span></td>
+                            <td style="width: 35%; font-size:14px; text-align: left;"><span style="font-weight: bold">Fund Cluster:</span> <span style="text-decoration: underline">{{ $pr_header->fund_cluster }}</span></td>
                         </tr>
                     </tbody>
             </table>
+        </div>
+
+    <div style="border: solid 2px black"> 
+        <div>
+            {{-- <table text-align="left" style=" width: 100%; border-top: none">
+                    <thead>
+                    </thead>
+                    <tbody>  
+                        <tr>
+                            <td style="font-size: 14px; width: 55%; text-align: left; border-right: thin solid black">Supplier:</td>
+                            <td style="font-size: 14px; width: 55%; text-align: left; border-right: thin solid black">{{ $acceptance_header->supplier_name }}</td>
+                            <td style="font-size: 14px; width: 55%; text-align: left; border-right: thin solid black">IAR:</td>
+                            <td style="font-size: 14px; width: 55%; text-align: left;">{{ $acceptance_header->iar }}</td>
+                        </tr>
+                    </tbody>
+            </table> --}}
             <table text-align="left" style=" width: 100%">
                     <thead>
                     </thead>
                     <tbody>  
                         <tr>
-                            <td style="font-size: 14px; width: 12.5%; text-align: left; border-right: thin solid black">PO No.:</td>
-                            <td style="font-size: 14px; width: 12.5%; text-align: left; border-right: thin solid black">{{ $acceptance_header->po_no }}</td>
-                            <td style="font-size: 14px; width: 12.5%; text-align: left; border-right: thin solid black">Date:</td>
-                            <td style="font-size: 14px; width: 12.5%; text-align: left; border-right: thin solid black">{{ date("M d, Y", strtotime($acceptance_header->po_date)) }}</td>
-                            <td style="font-size: 14px; width: 12.5%; text-align: left; border-right: thin solid black">Invoice No.:</td>
-                            <td style="font-size: 14px; width: 12.5%; text-align: left; border-right: thin solid black">{{ $acceptance_header->invoice_no }}</td>
-                            <td style="font-size: 14px; width: 12.5%; text-align: left; border-right: thin solid black">Date:</td>
-                            <td style="font-size: 14px; width: 12.5%; text-align: left; ">{{ date("M d, Y", strtotime($acceptance_header->invoice_date)) }}</td>
+                            <td style="font-size: 14px; text-align: left; border-right: thin solid black">Supplier:</td>
+                            <td style="font-size: 14px; text-align: left; border-right: thin solid black">{{ $acceptance_header->supplier_name }}</td>
+                            <td style="font-size: 14px; text-align: left; border-right: thin solid black">IAR:</td>
+                            <td style="font-size: 14px; text-align: left;">{{ $acceptance_header->iar }}</td>
+                            <td style="font-size: 14px; text-align: left; border-right: thin solid black">PO No.:</td>
+                            <td style="font-size: 14px; text-align: left; border-right: thin solid black">{{ $acceptance_header->po_no }}</td>
+                            <td style="font-size: 14px; text-align: left; border-right: thin solid black">Date:</td>
+                            <td style="font-size: 14px; text-align: left; border-right: thin solid black">{{ date("M d, Y", strtotime($acceptance_header->po_date)) }}</td>
+                            <td style="font-size: 14px; text-align: left; border-right: thin solid black">Invoice No.:</td>
+                            <td style="font-size: 14px; text-align: left; border-right: thin solid black">{{ $acceptance_header->invoice_no }}</td>
+                            <td style="font-size: 14px; text-align: left; border-right: thin solid black">Date:</td>
+                            <td style="font-size: 14px; text-align: left; ">{{ date("M d, Y", strtotime($acceptance_header->invoice_date)) }}</td>
                         </tr>
                     </tbody>
             </table>     

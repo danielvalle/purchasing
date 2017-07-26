@@ -107,7 +107,7 @@ class AcceptanceController extends Controller
                 
                 $acceptance_detail->save();
 
-                if(!$check_received_qty == 0)
+                if($check_received_qty != 0)
                 {
 
                     $stock_card = StockCard::create(array(
@@ -122,7 +122,7 @@ class AcceptanceController extends Controller
                     $stock_card->save();               
                 }
 
-                if(!$check_outright_expense == 0)
+                if($check_outright_expense != 0)
                 {
                     
                     $outright_expense = OutrightExpense::create(array(
@@ -196,7 +196,7 @@ class AcceptanceController extends Controller
 				->with("users", $users);
     }
 
-    public function acceptance_pdf()
+    public function acceptance_pdf(Request $request)
     {
         $acceptance_header = \DB::table("acceptance AS a")
                     ->leftJoin("supplier AS s", "a.supplier_fk", "=", "s.id")
@@ -206,6 +206,11 @@ class AcceptanceController extends Controller
                              "a.verification", "a.completeness", "a.acceptance_number")
                     ->where("a.id", session()->get("pdf_accept_id"))
                     ->first();
+
+        $pr = \DB::table('purchase_request')
+                ->leftJoin('entity', 'entity.id', '=', 'purchase_request.entity_fk')
+                ->select('entity.entity_name', 'purchase_request.fund_cluster', 'purchase_request.responsibility_center_code')
+                ->where('purchase_request.id', session()->get('acceptance_po_no'))->first();
 
         $items = \DB::table("acceptance_detail as ad")
                     ->leftJoin("item as i", "ad.item_fk", "=", "i.id")
@@ -227,6 +232,7 @@ class AcceptanceController extends Controller
                 ->first();
 
         view()->share('acceptance_header', $acceptance_header);
+        view()->share('pr_header', $pr);
         view()->share('items', $items);
         view()->share('inspector', $accept_inspector);
         view()->share('property_officer', $accept_property_officer);

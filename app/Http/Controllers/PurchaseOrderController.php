@@ -256,7 +256,7 @@ class PurchaseOrderController extends Controller
                 ->leftJoin("supplier AS s", "po.supplier_fk", "=", "s.id")
                 ->leftJoin("user AS u", "po.authorized_official_fk", "=", "u.id")
                 ->leftJoin("designation as d", "po.authorized_official_designation_fk", "=", "d.id")
-                ->select("s.supplier_name", "po.address", "po.tin", "po.po_number",
+                ->select("s.supplier_name", "po.address", "po.tin", "po.po_number", "po.pr_no_fk",
                          "po.invoice_date", "po.mode_of_procurement", "po.place_of_delivery",
                          "po.delivery_term", "po.date_of_delivery", "po.payment_term", "po.total_amount",
                          "u.first_name", "u.middle_name", "u.last_name", "d.designation_name")
@@ -265,7 +265,8 @@ class PurchaseOrderController extends Controller
 
         $pr = \DB::table('purchase_request')
                 ->leftJoin('entity', 'entity.id', '=', 'purchase_request.entity_fk')
-                ->select('entity.entity_name', 'purchase_request.fund_cluster')->first();
+                ->select('entity.entity_name', 'purchase_request.fund_cluster')
+                ->where('purchase_request.id', $po_header->pr_no_fk)->first();
 
         $items = \DB::table('purchase_order_detail AS pod')
                 ->leftJoin("item AS i", "pod.item_fk", "=", "i.id")

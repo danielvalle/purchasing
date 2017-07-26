@@ -22,6 +22,7 @@
                     <div class="alert alert-success alert-dismissable">
                         <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
                         <strong>{!! session('accept_add_success') !!}</strong>
+                        <a href="{{ URL::to('transaction/acceptance-pdf') }}" class="btn-sm btn-info">Save PDF</a>
                     </div>
                 </div>
             </div>
