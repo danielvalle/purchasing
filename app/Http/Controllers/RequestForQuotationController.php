@@ -78,7 +78,6 @@ class RequestForQuotationController extends Controller
                 ->with('purchase_requests', $purchase_requests)
                 ->with('pr_id', session()->get('rfq_pr_no'))
                 ->with('category_id', session()->get('rfq_category'));
-
     }
 
     public function get_rfq(Request $request)
@@ -103,7 +102,7 @@ class RequestForQuotationController extends Controller
         {
             \Session::flash('rfq_add_fail','You have not selected a Purchase Request. Request For Quotation is not sent.');
             
-            return redirect('transaction/request-for-quotation-show');
+            return redirect('transaction/request-for-quotation');
         }
         else
         {

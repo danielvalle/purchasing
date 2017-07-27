@@ -302,7 +302,8 @@ CREATE TABLE purchase_order
       `date_of_delivery` varchar(255),
       `delivery_term` varchar(50),
       `payment_term` varchar(50),
-      `total_amount` float,
+      `total_amount` decimal,
+      `funds_available` decimal,
       `authorized_official_fk` int,
       `authorized_official_designation_fk` int,
       `total_amount_in_words` varchar(255),
@@ -527,4 +528,34 @@ CREATE TABLE disbursement_voucher
       FOREIGN KEY(certifier_name_fk) REFERENCES user(id),
       FOREIGN KEY(approver_fk) REFERENCES user(id),
       FOREIGN KEY(check_printed_name_fk) REFERENCES user(id)
+    );
+
+CREATE TABLE disbursement_voucher_detail
+    (
+      `id` int NOT NULL AUTO_INCREMENT,
+      `dv_fk` int,
+      `particulars` varchar(255),
+      `responsibility_center` varchar(255),
+      `mfo_pap` varchar(50),
+      `amount` decimal,
+      `is_active` tinyint(1),
+      `created_at` date,
+      `updated_at` date,
+      PRIMARY KEY(id),
+      FOREIGN KEY(dv_fk) REFERENCES disbursement_voucher(id)
+    );
+
+CREATE TABLE disbursement_voucher_accounting
+    (
+      `id` int NOT NULL AUTO_INCREMENT,
+      `dv_fk` int,
+      `accounting_title` varchar(255),
+      `uacs_code` varchar(255),
+      `debit` decimal,
+      `credit` decimal,
+      `is_active` tinyint(1),
+      `created_at` date,
+      `updated_at` date,
+      PRIMARY KEY(id),
+      FOREIGN KEY(dv_fk) REFERENCES disbursement_voucher(id)
     );

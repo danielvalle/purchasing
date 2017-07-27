@@ -74,6 +74,7 @@ class AcceptanceController extends Controller
                     'po_no' => $request->input('add-po-no'),
                     'po_date' => date("Y-m-d", strtotime($request->input('add-po-date'))),
                     'iar' => $request->input('add-iar'),
+                    'iar_date' =>  date("Y-m-d", strtotime($request->input('add-iar-date'))),
                     'invoice_no' => $request->input('add-invoice-no'),
                     'invoice_date' =>  date("Y-m-d", strtotime($request->input('add-invoice-date'))),
                     'requisitioning_dept_fk' => $request->input('select-dept'),

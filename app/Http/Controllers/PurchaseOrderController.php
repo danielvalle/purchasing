@@ -79,7 +79,9 @@ class PurchaseOrderController extends Controller
                     'payment_term' => $request->input('add-payment-term'),
                     'authorized_official_fk' => $request->input('add-authorized-official'),
                     'authorized_official_designation_fk' => $request->input('add-authorized-official-designation'),
+                    'funds_available' => $request->input('add-funds-available'),
                     'total_amount' => $request->input('add-total-amount'),
+                    'total_amount_in_words' => $request->input('add-total-words'),
                     'alobs_bub_no' => $request->input('add-alobs-no'),
                     'pr_no_fk' => $request->input('hdn-pr-no'),
                     'abstract_quotation_fk' => $request->input('hdn-aq-no'),
@@ -256,8 +258,8 @@ class PurchaseOrderController extends Controller
                 ->leftJoin("supplier AS s", "po.supplier_fk", "=", "s.id")
                 ->leftJoin("user AS u", "po.authorized_official_fk", "=", "u.id")
                 ->leftJoin("designation as d", "po.authorized_official_designation_fk", "=", "d.id")
-                ->select("s.supplier_name", "po.address", "po.tin", "po.po_number", "po.pr_no_fk",
-                         "po.invoice_date", "po.mode_of_procurement", "po.place_of_delivery",
+                ->select("s.supplier_name", "po.address", "po.tin", "po.po_number", "po.pr_no_fk", "po.funds_available",
+                         "po.invoice_date", "po.mode_of_procurement", "po.place_of_delivery", "po.total_amount_in_words",
                          "po.delivery_term", "po.date_of_delivery", "po.payment_term", "po.total_amount",
                          "u.first_name", "u.middle_name", "u.last_name", "d.designation_name")
                 ->where("po.id", session()->get('pdf_po_id'))

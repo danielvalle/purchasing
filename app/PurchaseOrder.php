@@ -21,6 +21,7 @@ class PurchaseOrder extends Model
 								'date_of_delivery',
 								'delivery_term',
 								'payment_term',
+								'funds_available',
 								'total_amount',
 								'total_amount_in_words',
 								'authorized_official_fk',

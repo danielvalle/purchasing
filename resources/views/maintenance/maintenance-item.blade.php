@@ -112,6 +112,8 @@
                             <h4 class="modal-title">Add New Item</h4>
                         </div>
                         <div class="modal-body">
+                        @if(Auth::check())
+                            @if(Auth::user()->user_type == 1)
                             <div class="form-group col-lg-7" style="padding-left: 0">
                                 <label for="add-item-name">Stock No.</label>
                                 <input type="text" class="form-control" id="add-stock-no" name="add-stock-no" placeholder="Enter a stock number">
@@ -120,6 +122,13 @@
                                 <label for="add-item-name">Stock On Hand</label>
                                 <input type="number" class="form-control" id="add-stock-on-hand" name="add-stock-on-hand" placeholder="Enter stock on hand">
                             </div>
+                            @else
+                            <div class="form-group col-lg-12" style="padding-left: 0">
+                                <label for="add-item-name">Stock No.</label>
+                                <input type="text" class="form-control" id="add-stock-no" name="add-stock-no" placeholder="Enter a stock number">
+                            </div>
+                            @endif
+                        @endif
                             <div class="form-group">
                                 <label for="add-item-name">Item Name</label>
                                 <input type="text" class="form-control" id="add-item-name" name="add-item-name" placeholder="Enter an item name" required>

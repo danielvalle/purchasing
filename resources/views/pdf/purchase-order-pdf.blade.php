@@ -78,7 +78,7 @@
                         </tr>
                         <tr>
                             <td style="font-size: 13px; text-align: left;">Date of Delivery:</td>
-                            <td style="font-size: 13px; text-align: center; width: 50%; ">{{ date("M d, Y", strtotime($po_header->date_of_delivery)) }}</td>
+                            <td style="font-size: 13px; text-align: center; width: 50%; ">{{ $po_header->date_of_delivery }}</td>
                             <td style="font-size: 13px; text-align: left;">Payment Term:</td>
                             <td style="font-size: 13px; text-align: left;">{{ $po_header->payment_term }}</td>
                         </tr>
@@ -118,7 +118,7 @@
                     <tbody>  
                         <tr>
                             <th style="font-size: 13px; text-align: center; width: 25%; ">Total Amount in Words:</th>
-                            <th style="font-size: 13px; text-align: center; width: 60%; border-right: thin solid black"></th>
+                            <th style="font-size: 13px; text-align: center; width: 60%; border-right: thin solid black">{{  }}</th>
                             <th style="font-size: 13px; text-align: center; width: 15%;">{{ number_format($po_header->total_amount, 2) }}</th>
                         </tr>
                     </tbody>

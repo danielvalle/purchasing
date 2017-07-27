@@ -49,35 +49,29 @@
 
     <div style="border: solid 2px black"> 
         <div>
-            {{-- <table text-align="left" style=" width: 100%; border-top: none">
+            <table text-align="left" style=" width: 100%; border-top: 0px">
                     <thead>
                     </thead>
                     <tbody>  
                         <tr>
-                            <td style="font-size: 14px; width: 55%; text-align: left; border-right: thin solid black">Supplier:</td>
-                            <td style="font-size: 14px; width: 55%; text-align: left; border-right: thin solid black">{{ $acceptance_header->supplier_name }}</td>
-                            <td style="font-size: 14px; width: 55%; text-align: left; border-right: thin solid black">IAR:</td>
-                            <td style="font-size: 14px; width: 55%; text-align: left;">{{ $acceptance_header->iar }}</td>
+                            <td style="font-size: 14px; text-align: left; border-right: thin solid black">Supplier: &nbsp;&nbsp;&nbsp;<span style="text-decoration: underline">{{ $acceptance_header->supplier_name }}</span></td>
+                            <td style="font-size: 14px; text-align: left; ">IAR: &nbsp;&nbsp;&nbsp;<span style="text-decoration: underline">{{ $acceptance_header->iar }}</span></td>
                         </tr>
-                    </tbody>
-            </table> --}}
-            <table text-align="left" style=" width: 100%">
-                    <thead>
-                    </thead>
-                    <tbody>  
+
                         <tr>
-                            <td style="font-size: 14px; text-align: left; border-right: thin solid black">Supplier:</td>
-                            <td style="font-size: 14px; text-align: left; border-right: thin solid black">{{ $acceptance_header->supplier_name }}</td>
-                            <td style="font-size: 14px; text-align: left; border-right: thin solid black">IAR:</td>
-                            <td style="font-size: 14px; text-align: left;">{{ $acceptance_header->iar }}</td>
-                            <td style="font-size: 14px; text-align: left; border-right: thin solid black">PO No.:</td>
-                            <td style="font-size: 14px; text-align: left; border-right: thin solid black">{{ $acceptance_header->po_no }}</td>
-                            <td style="font-size: 14px; text-align: left; border-right: thin solid black">Date:</td>
-                            <td style="font-size: 14px; text-align: left; border-right: thin solid black">{{ date("M d, Y", strtotime($acceptance_header->po_date)) }}</td>
-                            <td style="font-size: 14px; text-align: left; border-right: thin solid black">Invoice No.:</td>
-                            <td style="font-size: 14px; text-align: left; border-right: thin solid black">{{ $acceptance_header->invoice_no }}</td>
-                            <td style="font-size: 14px; text-align: left; border-right: thin solid black">Date:</td>
-                            <td style="font-size: 14px; text-align: left; ">{{ date("M d, Y", strtotime($acceptance_header->invoice_date)) }}</td>
+                            <td style="font-size: 14px; text-align: left; border-right: thin solid black">PO No./Date: &nbsp;&nbsp;&nbsp;<span style="text-decoration: underline">{{ $acceptance_header->po_no }} / {{ date("M d, Y", strtotime($acceptance_header->po_date)) }}</span></td>
+                            <td style="font-size: 14px; text-align: left; ">Date: &nbsp;&nbsp;&nbsp;<span style="text-decoration: underline"></span></td>
+                        </tr>
+
+                        <tr>
+                            <td style="font-size: 14px; text-align: left; border-right: thin solid black">Requisitioning Office/Dept.: &nbsp;&nbsp;&nbsp;<span style="text-decoration: underline">{{ $acceptance_header->department_name }} </span></td>
+                            <td style="font-size: 14px; text-align: left;">Invoice No.: &nbsp;&nbsp;&nbsp;<span style="text-decoration: underline">{{ $acceptance_header->invoice_no }}</span></td>
+                        </tr>
+
+
+                        <tr>
+                            <td style="font-size: 14px; text-align: left; border-right: thin solid black">Responsibility Cenner Code: &nbsp;&nbsp;&nbsp;<span style="text-decoration: underline">{{ $pr_header->responsibility_center_code }}</span></td>
+                            <td style="font-size: 14px; text-align: left; ">Date: &nbsp;&nbsp;&nbsp;<span style="text-decoration: underline">{{ date("M d, Y", strtotime($acceptance_header->invoice_date)) }}</span></td>
                         </tr>
                     </tbody>
             </table>     
@@ -86,8 +80,8 @@
                     </thead>
                     <tbody>  
                         <tr>
-                            <td style="font-size: 14px; width: 30%; text-align: center; border-right: thin solid black">Requisitioning Office/Dept.:</td>
-                            <td style="font-size: 14px; width: 70%; text-align: center;">{{ $acceptance_header->department_name }}</td>
+                            <td style="font-size: 14px; width: 30%; text-align: center; border-right: thin solid black"></td>
+                            <td style="font-size: 14px; width: 70%; text-align: center;"></td>
                     </tbody>
             </table>        
         </div>

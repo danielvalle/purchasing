@@ -17,6 +17,7 @@ class Acceptance extends Model
 								'po_no',
 								'po_date',
 								'iar',
+								'iar_date',
 								'invoice_no',
 								'invoice_date',
 								'requisitioning_dept_fk',
