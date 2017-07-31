@@ -105,6 +105,27 @@
                                     </div>
                                 </div>
                                     
+                                <div class="panel-body">
+                                    <div class="panel panel-default">
+                                        <div class="panel-heading">
+                                            <label for="">A. Certified: Expenses/Cash Advance necessary, lawful and incurred under my direct supervision.</label>
+                                        </div>
+                                        <div class="panel-body">
+                                            <div class="form-group col-lg-6">
+                                                <label>Certifier:</label>
+                                                <select class="form-control" name="add-approver" required>
+                                                    @foreach($users as $user)
+                                                        <option value="{{ $user->id }}">{{ $user->first_name }} {{ $user->last_name  }}</option>
+                                                    @endforeach
+                                                </select> 
+                                            </div>
+                                            <div class="form-group col-lg-6">
+                                                <label>Designation:</label>
+                                                <input type="date" class="form-control" id="add-approved-date" name="add-approved-date" value="{{ date("Y-m-d") }}" required>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
 
                                 <div class="panel-body">
                                     <div class="panel panel-default">
@@ -152,6 +173,14 @@
                                                 </select> 
                                             </div>
                                             <div class="form-group col-lg-4">
+                                                <label>Designation:</label>
+                                                <select class="form-control" name="add-certifier" required>
+                                                    @foreach($users as $user)
+                                                        <option value="{{ $user->id }}">{{ $user->first_name }} {{ $user->last_name  }}</option>
+                                                    @endforeach
+                                                </select> 
+                                            </div>
+                                            <div class="form-group col-lg-4">
                                                 <label>Date:</label>
                                                 <input type="date" class="form-control" name="add-certified-date" value="{{ date("Y-m-d") }}" required>
                                             </div>
@@ -170,6 +199,14 @@
                                             </div>
                                             <div class="form-group col-lg-4">
                                                 <label>Approver:</label>
+                                                <select class="form-control" name="add-approver" required>
+                                                    @foreach($users as $user)
+                                                        <option value="{{ $user->id }}">{{ $user->first_name }} {{ $user->last_name  }}</option>
+                                                    @endforeach
+                                                </select> 
+                                            </div>
+                                            <div class="form-group col-lg-4">
+                                                <label>Designation:</label>
                                                 <select class="form-control" name="add-approver" required>
                                                     @foreach($users as $user)
                                                         <option value="{{ $user->id }}">{{ $user->first_name }} {{ $user->last_name  }}</option>
@@ -269,21 +306,23 @@
                                             </div>
                                             <div class="modal-body container-fluid">
                                                 <div class="col-lg-12">
-                                                    <div class="form-group col-lg-6">
-                                                        <label for="">Item:</label>
-                                                        <select class="form-control" name="add-item" id="add-item" required>
-                                                        </select>
+                                                    <div class="form-group col-lg-12">
+                                                        <label for="">Particulars</label>
+                                                        <inpnut class="form-control" name="add-particulars" id="add-particulars" required>
                                                     </div>        
-                                                    <div class="form-group col-lg-3">
-                                                        <label for="">Unit</label>
-                                                        <select class="form-control" name="add-unit" id="add-unit" required>
-                                                        </select>
-                                                    </div>    
                                                 </div>
                                                 <div class="col-lg-12">
-                                                    <div class="form-group col-lg-12">
-                                                        <label for="">Remarks:</label>
-                                                        <textarea type="text" class="form-control" name="add-remarks" id="add-remarks"></textarea>
+                                                    <div class="form-group col-lg-5">
+                                                        <label for="">Responsibility Center</label>
+                                                        <input class="form-control" name="add-responsibility-center" id="add-responsibility-center" required>
+                                                    </div>    
+                                                    <div class="form-group col-lg-4">
+                                                        <label for="">MFO/PAP</label>
+                                                        <input type="text" class="form-control" name="add-mfo-pap" id="add-mfo-pap">
+                                                    </div> 
+                                                    <div class="form-group col-lg-3">
+                                                        <label for="">Amount</label>
+                                                        <input type="number" class="form-control" name="add-amount" id="add-amount">
                                                     </div>        
                                                 </div>
 
@@ -305,25 +344,25 @@
                                             </div>
                                             <div class="modal-body container-fluid">
                                                 <div class="col-lg-12">
-                                                    <div class="form-group col-lg-6">
-                                                        <label for="">Item:</label>
-                                                        <select class="form-control" name="add-item" id="add-item" required>
-                                                        </select>
+                                                    <div class="form-group col-lg-12">
+                                                        <label for="">Accounting Title</label>
+                                                        <inpnut class="form-control" name="add-accounting-title" id="add-accounting-title" required>
                                                     </div>        
-                                                    <div class="form-group col-lg-3">
-                                                        <label for="">Unit</label>
-                                                        <select class="form-control" name="add-unit" id="add-unit" required>
-                                                        </select>
-                                                    </div>    
                                                 </div>
                                                 <div class="col-lg-12">
-                                                    <div class="form-group col-lg-12">
-                                                        <label for="">Remarks:</label>
-                                                        <textarea type="text" class="form-control" name="add-remarks" id="add-remarks"></textarea>
+                                                    <div class="form-group col-lg-4">
+                                                        <label for="">UACS Code</label>
+                                                        <input class="form-control" name="add-uacs" id="add-uacs" required>
+                                                    </div>    
+                                                    <div class="form-group col-lg-4">
+                                                        <label for="">Debit</label>
+                                                        <input type="text" class="form-control" name="add-debit" id="add-debit">
+                                                    </div> 
+                                                    <div class="form-group col-lg-4">
+                                                        <label for="">Credit</label>
+                                                        <input type="number" class="form-control" name="add-credit" id="add-credit">
                                                     </div>        
                                                 </div>
-
-
                                             </div>
                                                 <div class="modal-footer">
                                                     <button type="submit" class="btn btn-success" id="btn-add-item">Add</button>
