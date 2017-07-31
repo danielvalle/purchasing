@@ -204,7 +204,7 @@ class AcceptanceController extends Controller
                     ->leftJoin("department AS d", "a.requisitioning_dept_fk", "=", "d.id")
                     ->select("s.supplier_name", "d.department_name", "a.iar", "a.po_no", "a.po_date",
                              "a.invoice_no", "a.invoice_date", "a.date_inspected", "a.date_accepted",
-                             "a.verification", "a.completeness", "a.acceptance_number")
+                             "a.verification", "a.completeness", "a.acceptance_number", "a.iar_date")
                     ->where("a.id", session()->get("pdf_accept_id"))
                     ->first();
 

@@ -60,7 +60,7 @@
 
                         <tr>
                             <td style="font-size: 14px; text-align: left; border-right: thin solid black">PO No./Date: &nbsp;&nbsp;&nbsp;<span style="text-decoration: underline">{{ $acceptance_header->po_no }} / {{ date("M d, Y", strtotime($acceptance_header->po_date)) }}</span></td>
-                            <td style="font-size: 14px; text-align: left; ">Date: &nbsp;&nbsp;&nbsp;<span style="text-decoration: underline"></span></td>
+                            <td style="font-size: 14px; text-align: left; ">Date: &nbsp;&nbsp;&nbsp;<span style="text-decoration: underline">{{ date("M d, Y", strtotime($acceptance_header->iar_date)) }}</span></td>
                         </tr>
 
                         <tr>
