@@ -83,17 +83,18 @@
                                 <div class="panel-body">
                                     <div class="panel panel-default">
                                         <div class="panel-heading"> 
-                                            <button type="button" class="btn btn-success btn-sm" data-toggle="modal" data-target="#add-item">Add New Item</button>
+                                            <button type="button" class="btn btn-success btn-sm" data-toggle="modal" data-target="#add-item-particulars">Add New Item</button>
                                         </div>
                                         <div class="panel-body">
                                             <div class="form-group col-lg-12">
-                                                <table class="table table-bordered" id="dt-acceptance-det">
+                                                <table class="table table-bordered" id="dv-detail">
                                                     <thead>
                                                         <tr>
                                                             <th style="width: 40%;">Particulars</th>
                                                             <th>Responsibility Center</th>
                                                             <th>MFO/PAP</th>
                                                             <th>Amount</th>
+                                                            <th>Actions</th>
                                                         </tr>
                                                     </thead>
                                                     <tbody>
@@ -113,7 +114,7 @@
                                         <div class="panel-body">
                                             <div class="form-group col-lg-6">
                                                 <label>Certifier:</label>
-                                                <select class="form-control" name="add-approver" required>
+                                                <select class="form-control" name="add-certifier-expense" required>
                                                     @foreach($users as $user)
                                                         <option value="{{ $user->id }}">{{ $user->first_name }} {{ $user->last_name  }}</option>
                                                     @endforeach
@@ -121,7 +122,11 @@
                                             </div>
                                             <div class="form-group col-lg-6">
                                                 <label>Designation:</label>
-                                                <input type="date" class="form-control" id="add-approved-date" name="add-approved-date" value="{{ date("Y-m-d") }}" required>
+                                                <select class="form-control" id="add-certifier-expense-designation" name="add-certifier-expense-designation"> 
+                                                    @foreach($designations as $designation) 
+                                                        <option id="{{ $designation->id }}">{{ $designation->designation_name }}</option>
+                                                    @endforeach
+                                                </select>
                                             </div>
                                         </div>
                                     </div>
@@ -135,7 +140,7 @@
                                         </div>
                                         <div class="panel-body">
                                             <div class="form-group col-lg-12">
-                                                <table class="table table-bordered" id="dt-acceptance-det">
+                                                <table class="table table-bordered" id="dv-accounting">
                                                     <thead>
                                                         <tr>
                                                             <th style="width: 50%;">Accounting Title</th>
@@ -174,9 +179,9 @@
                                             </div>
                                             <div class="form-group col-lg-4">
                                                 <label>Designation:</label>
-                                                <select class="form-control" name="add-certifier" required>
-                                                    @foreach($users as $user)
-                                                        <option value="{{ $user->id }}">{{ $user->first_name }} {{ $user->last_name  }}</option>
+                                                <select class="form-control" name="add-certifier-designation" required>
+                                                    @foreach($designations as $designation) 
+                                                        <option id="{{ $designation->id }}">{{ $designation->designation_name }}</option>
                                                     @endforeach
                                                 </select> 
                                             </div>
@@ -207,9 +212,9 @@
                                             </div>
                                             <div class="form-group col-lg-4">
                                                 <label>Designation:</label>
-                                                <select class="form-control" name="add-approver" required>
-                                                    @foreach($users as $user)
-                                                        <option value="{{ $user->id }}">{{ $user->first_name }} {{ $user->last_name  }}</option>
+                                                <select class="form-control" name="add-approver-designation" required>
+                                                    @foreach($designations as $designation) 
+                                                        <option id="{{ $designation->id }}">{{ $designation->designation_name }}</option>
                                                     @endforeach
                                                 </select> 
                                             </div>
@@ -298,17 +303,18 @@
                                     <button type="button" class="btn btn-success" data-toggle="modal" data-target="#submit-iss" style="float: right; width: 20%;">Submit Disbursement Voucher</button>  
                                 </div> 
 
-                                <div id="add-item" class="modal fade" role="dialog">
+                                <div id="add-item-particulars" class="modal fade" role="dialog">
                                     <div class="modal-dialog">
                                         <div class="modal-content">
                                             <div class="modal-header">
                                                 <h4 class="modal-title">Add New Item</h4>
                                             </div>
                                             <div class="modal-body container-fluid">
+                                                {!! Form::open(['id' => 'frm-add-particulars']) !!}
                                                 <div class="col-lg-12">
                                                     <div class="form-group col-lg-12">
                                                         <label for="">Particulars</label>
-                                                        <inpnut class="form-control" name="add-particulars" id="add-particulars" required>
+                                                        <input class="form-control" name="add-particulars" id="add-particulars" required>
                                                     </div>        
                                                 </div>
                                                 <div class="col-lg-12">
@@ -325,11 +331,11 @@
                                                         <input type="number" class="form-control" name="add-amount" id="add-amount">
                                                     </div>        
                                                 </div>
-
+                                                {!! Form::close() !!}
 
                                             </div>
                                                 <div class="modal-footer">
-                                                    <button type="submit" class="btn btn-success" id="btn-add-item">Add</button>
+                                                    <button type="button" class="btn btn-success" id="btn-add-particulars">Add</button>
                                                     <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
                                                 </div>
                                         </div>
@@ -343,10 +349,11 @@
                                                 <h4 class="modal-title">Add New Item</h4>
                                             </div>
                                             <div class="modal-body container-fluid">
+                                                {!! Form::open(['id' => 'frm-add-accounting']) !!}
                                                 <div class="col-lg-12">
                                                     <div class="form-group col-lg-12">
                                                         <label for="">Accounting Title</label>
-                                                        <inpnut class="form-control" name="add-accounting-title" id="add-accounting-title" required>
+                                                        <input class="form-control" name="add-accounting-title" id="add-accounting-title" required>
                                                     </div>        
                                                 </div>
                                                 <div class="col-lg-12">
@@ -363,9 +370,10 @@
                                                         <input type="number" class="form-control" name="add-credit" id="add-credit">
                                                     </div>        
                                                 </div>
+                                                {!! Form::close() !!}
                                             </div>
                                                 <div class="modal-footer">
-                                                    <button type="submit" class="btn btn-success" id="btn-add-item">Add</button>
+                                                    <button type="button" class="btn btn-success" id="btn-add-accounting">Add</button>
                                                     <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
                                                 </div>
                                         </div>
@@ -386,9 +394,6 @@
 
             <script>
             $(document).ready(function() {
-                $('#dt-designation').DataTable({
-                    responsive: true
-                });
 
                 var monthNames = [ "January", "February", "March", "April", "May", "June",
                 "July", "August", "September", "October", "November", "December" ];
@@ -412,6 +417,58 @@
 
             });
 
+            $('#btn-add-particulars').click(function(){
+                
+                var tbl_len = $("#dv-detail tr").length;
+
+                $('#dv-detail tbody').append(
+                        '<tr id="' + tbl_len + '">' +
+                            '<td>' + $("#add-particulars").val() + '</td>' +
+                            '<td>' + $("#add-responsibility-center").val() + '</td>' +
+                            '<td>' + $("#add-mfo-pap").val() + '</td>' +
+                            '<td>' + $("#add-amount").val() + '</td>' +
+                            '<td>' +
+                                '<a data-toggle="modal" href="#edit-det' + tbl_len + '"><span class="glyphicon glyphicon-edit"></span></a>' +
+                                '<a data-toggle="modal" href="#del-det' + tbl_len + '"><span class="glyphicon glyphicon-trash"></span></a>' +
+                            '</td>' +
+                            '<input type="hidden" name="hdn-particulars[]' + '" value="' + $("#add-particulars").val() + '">' +
+                            '<input type="hidden" name="hdn-responsibility-center[]' + '" value="' + $("#add-particulars").val() + '">' +
+                            '<input type="hidden" name="hdn-mfo-pap[]' + '" value="' + $("#add-mfo-pap").val() + '">' +
+                            '<input type="hidden" name="hdn-amount[]' + '" value="' + $("#add-amount").val() + '">' +
+                        '</tr>'
+                    );
+
+                createModal(tbl_len);
+                $("#add-item-particulars").modal("hide");
+                $("#add-item-particulars").find('form').trigger('reset');
+            }); 
+
+            
+            $('#btn-add-accounting').click(function(){
+                         
+                var tbl_len = $("#dv-accounting tr").length;
+
+                $('#dv-accounting tbody').append(
+                        '<tr id="' + tbl_len + '">' +
+                            '<td>' + $("#add-accounting-title").val() + '</td>' +
+                            '<td>' + $("#add-uacs").val() + '</td>' +
+                            '<td>' + $("#add-debit").val() + '</td>' +
+                            '<td>' + $("#add-credit").val() + '</td>' +
+                            '<input type="hidden" name="hdn-accounting-title[]' + '" value="' + $("#add-accounting-title").val() + '">' +
+                            '<input type="hidden" name="hdn-uacs[]' + '" value="' + $("#add-uacs").val() + '">' +
+                            '<input type="hidden" name="hdn-debit[]' + '" value="' + $("#add-debit").val() + '">' +
+                            '<input type="hidden" name="hdn-credit[]' + '" value="' + $("#add-credit").val() + '">' +
+                        '</tr>'
+                    );
+
+                $("#add-item-accounting").modal("hide");
+                $("#add-item-accounting").find('form').trigger('reset');
+            }); 
+
+            function createModal(id)
+            {
+
+            }
             </script>
 
         @stop
@@ -430,4 +487,18 @@
             </div>
         @stop
     @endif
+    @else
+        @section('content')
+            <div id="page-wrapper">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <h1 class="page-header">
+                            <div class="alert" style="background-color: #f2f2f2">
+                                <strong style="color: #565656;">You have no permission to access this page.</strong>
+                            </div>
+                        </h1>
+                    </div>
+                </div>
+            </div>
+        @stop
 @endif

@@ -370,4 +370,18 @@
             </div>
         @stop
     @endif
+    @else
+        @section('content')
+            <div id="page-wrapper">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <h1 class="page-header">
+                            <div class="alert" style="background-color: #f2f2f2">
+                                <strong style="color: #565656;">You have no permission to access this page.</strong>
+                            </div>
+                        </h1>
+                    </div>
+                </div>
+            </div>
+        @stop
 @endif

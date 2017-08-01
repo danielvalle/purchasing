@@ -6,7 +6,10 @@ use Illuminate\Http\Request;
 use PDF;
 
 use App\DisbursementVoucher;
+use App\DisbursementVoucherDetail;
+use App\DisbursementVoucherAccounting;
 use App\User;
+use App\Designation;
 use App\Item;
 use App\Http\Controllers\Controller;
 
@@ -16,12 +19,16 @@ class DisbursementVoucherController extends Controller
 	public function index()
     {
         $users = User::all();
+        $designations = Designation::all();
 
-		return view("transaction.transaction-disbursement-voucher")->with("users", $users);
+		return view("transaction.transaction-disbursement-voucher")
+                ->with("users", $users)
+                ->with("designations", $designations);
     }
 
     public function store(Request $request)
     {        
+        dd($request->input("hdn-particulars"));
         $disbursement_voucher = DisbursementVoucher::create(array(
                 'mode_of_payment' => $request->input('add-mode-of-payment'),
                 'payee_fk' => $request->input('add-payee'),
@@ -33,7 +40,7 @@ class DisbursementVoucherController extends Controller
                 'explanation' => $request->input('add-explanation'),
                 'amount' => $request->input('add-amount'),
                 'certified' => $request->input('add-certified'),
-                'certifier_name_fk' => $request->input('add-certifier'),
+                'certifier_fk' => $request->input('add-certifier'),
                 'date' => date("Y-m-d", strtotime($request->input('add-certified-date'))),
                 'approved_for_payment' => $request->input('add-approved-for-payment'),
                 'approver_fk' => $request->input('add-approver'),
