@@ -147,6 +147,7 @@
                                                             <th>UACS Code</th>
                                                             <th>Debit</th>
                                                             <th>Credit</th>
+                                                            <th>Actions</th>
                                                         </tr>
                                                     </thead>
                                                     <tbody>
@@ -435,10 +436,21 @@
                             '<input type="hidden" name="hdn-responsibility-center[]' + '" value="' + $("#add-particulars").val() + '">' +
                             '<input type="hidden" name="hdn-mfo-pap[]' + '" value="' + $("#add-mfo-pap").val() + '">' +
                             '<input type="hidden" name="hdn-amount[]' + '" value="' + $("#add-amount").val() + '">' +
+                            '<input type="hidden" name="hdn-detail-quantity' + '" value="' + tbl_len + '">' +
                         '</tr>'
                     );
 
-                createModal(tbl_len);
+                var detail  = {
+                    id: tbl_len,
+                    particulars: $("#add-particulars").val(),
+                    resp_center: $("#add-responsibility-center").val(),
+                    mfo_pap: $("#add-mfo-pap").val(),
+                    amount: $("#add-amount").val()
+                };
+
+                createDelDetModal(detail);
+                createEditDetModal(detail);
+
                 $("#add-item-particulars").modal("hide");
                 $("#add-item-particulars").find('form').trigger('reset');
             }); 
@@ -454,21 +466,169 @@
                             '<td>' + $("#add-uacs").val() + '</td>' +
                             '<td>' + $("#add-debit").val() + '</td>' +
                             '<td>' + $("#add-credit").val() + '</td>' +
+                            '<td>' +
+                                '<a data-toggle="modal" href="#edit-acc' + tbl_len + '"><span class="glyphicon glyphicon-edit"></span></a>' +
+                                '<a data-toggle="modal" href="#del-acc' + tbl_len + '"><span class="glyphicon glyphicon-trash"></span></a>' +
+                            '</td>' +
                             '<input type="hidden" name="hdn-accounting-title[]' + '" value="' + $("#add-accounting-title").val() + '">' +
                             '<input type="hidden" name="hdn-uacs[]' + '" value="' + $("#add-uacs").val() + '">' +
                             '<input type="hidden" name="hdn-debit[]' + '" value="' + $("#add-debit").val() + '">' +
                             '<input type="hidden" name="hdn-credit[]' + '" value="' + $("#add-credit").val() + '">' +
+                            '<input type="hidden" name="hdn-acc-quantity' + '" value="' + tbl_len + '">' +
                         '</tr>'
                     );
+
+                var acc  = {
+                    id: tbl_len,
+                    acc_title: $("#add-accounting-title").val(),
+                    uacs: $("#add-uacs").val(),
+                    debit: $("#add-debit").val(),
+                    credit: $("#add-credit").val()
+                };
+
+                createDelAccModal(acc);
+                createEditAccModal(acc);
 
                 $("#add-item-accounting").modal("hide");
                 $("#add-item-accounting").find('form').trigger('reset');
             }); 
 
-            function createModal(id)
+            function createEditDetModal(detail)
             {
+                $('#add-item-particulars').after(
+                                '<div id="edit-det' + detail.id + '" class="modal fade" role="dialog">' +
+                                    '<div class="modal-dialog">' +
+                                        '<div class="modal-content">' +
+                                            '<div class="modal-header">' +
+                                                '<label>Edit Item</label>' +
+                                            '</div>' +
+                                            '<div class="modal-body container-fluid">' +
+                                                '<div class="col-lg-12">' + 
+                                                    '<div class="form-group col-lg-12">' +
+                                                        '<label for="">Particulars</label>' +
+                                                        '<input class="form-control" name="add-particulars" id="add-particulars" value="' + detail.particulars + '" required>' +
+                                                    '</div>' +
+                                                '</div>' +
+                                                '<div class="col-lg-12">' +
+                                                    '<div class="form-group col-lg-5">' +
+                                                        '<label for="">Responsibility Center</label>' +
+                                                        '<input class="form-control" name="add-responsibility-center" id="add-responsibility-center" value="' + detail.resp_center + '" required>' +
+                                                    '</div>' +    
+                                                    '<div class="form-group col-lg-4">' +
+                                                        '<label for="">MFO/PAP</label>' +
+                                                        '<input type="text" class="form-control" name="add-mfo-pap" id="add-mfo-pap" value="' + detail.mfo_pap + '" required>' +
+                                                    '</div>' +
+                                                    '<div class="form-group col-lg-3">' +
+                                                        '<label for="">Amount</label>' +
+                                                        '<input type="number" class="form-control" name="add-amount" id="add-amount" value="' + detail.amount + '" required>' +
+                                                    '</div>' +        
+                                                '</div>' +
+                                            '</div>' +
+                                            '<div class="modal-footer">' +
+                                                    '<button type="button" class="btn btn-success">Update</button>' +
+                                                    '<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>' +
+                                            '</div>' +
+                                        '</div>' +
+                                    '</div>' +
+                                '</div>'
+                    );
+            } 
 
-            }
+            function createDelDetModal(detail)
+            {
+                $('#add-item-particulars').after(
+                                '<div id="del-det' + detail.d + '" class="modal fade" role="dialog">' +
+                                    '<div class="modal-dialog">' +
+                                        '<div class="modal-content">' +
+                                            '<div class="modal-header">' +
+                                                '<label>Remove Item</label>' +
+                                            '</div>' +
+                                            '<div class="modal-body container-fluid">' +
+                                                '<div class="col-lg-12">' +
+                                                    '<div class="form-group col-lg-12">' +
+                                                        '<span>Are you sure you want to remove' + detail.particulars + '?</span>' +
+                                                    '</div>' +        
+                                                '</div>' +
+                                            '</div>' +
+                                            '<div class="modal-footer">' +
+                                                    '<button type="button" class="btn btn-success">Yes</button>' +
+                                                    '<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>' +
+                                            '</div>' +
+                                        '</div>' +
+                                    '</div>' +
+                                '</div>'
+                    );
+            }   
+
+            function createEditAccModal(acc)
+            {
+                $('#add-item-accounting').after(
+                                '<div id="edit-acc' + acc.id + '" class="modal fade" role="dialog">' +
+                                    '<div class="modal-dialog">' +
+                                        '<div class="modal-content">' +
+                                            '<div class="modal-header">' +
+                                                '<label>Edit Item</label>' +
+                                            '</div>' +
+                                            '<div class="modal-body container-fluid">' +
+                                                '<div class="col-lg-12">' + 
+                                                    '<div class="form-group col-lg-12">' +
+                                                        '<label for="">Accounting Title</label>' +
+                                                        '<input class="form-control" name="add-particulars" id="add-particulars" value="' + acc.acc_title + '" required>' +
+                                                    '</div>' +
+                                                '</div>' +
+                                                '<div class="col-lg-12">' +
+                                                    '<div class="form-group col-lg-5">' +
+                                                        '<label for="">UACS Code</label>' +
+                                                        '<input class="form-control" name="add-responsibility-center" id="add-responsibility-center" value="' + acc.uacs + '" required>' +
+                                                    '</div>' +    
+                                                    '<div class="form-group col-lg-4">' +
+                                                        '<label for="">Debit</label>' +
+                                                        '<input type="text" class="form-control" name="add-mfo-pap" id="add-mfo-pap" value="' + acc.debit + '" required>' +
+                                                    '</div>' +
+                                                    '<div class="form-group col-lg-3">' +
+                                                        '<label for="">Credit</label>' +
+                                                        '<input type="number" class="form-control" name="add-amount" id="add-amount" value="' + acc.credit + '" required>' +
+                                                    '</div>' +        
+                                                '</div>' +
+                                            '</div>' +
+                                            '<div class="modal-footer">' +
+                                                    '<button type="button" class="btn btn-success">Update</button>' +
+                                                    '<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>' +
+                                            '</div>' +
+                                        '</div>' +
+                                    '</div>' +
+                                '</div>'
+                    );
+            } 
+
+            function createDelAccModal(acc)
+            {
+                $('#add-item-accounting').after(
+                                '<div id="del-acc' + acc.id + '" class="modal fade" role="dialog">' +
+                                    '<div class="modal-dialog">' +
+                                        '<div class="modal-content">' +
+                                            '<div class="modal-header">' +
+                                                '<label>Remove Item</label>' +
+                                            '</div>' +
+                                            '<div class="modal-body container-fluid">' +
+                                                '<div class="col-lg-12">' +
+                                                    '<div class="form-group col-lg-12">' +
+                                                        '<span>Are you sure you want to remove' + acc.acc_title + '?</span>' +
+                                                    '</div>' +        
+                                                '</div>' +
+                                            '</div>' +
+                                            '<div class="modal-footer">' +
+                                                    '<button type="button" class="btn btn-success">Yes</button>' +
+                                                    '<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>' +
+                                            '</div>' +
+                                        '</div>' +
+                                    '</div>' +
+                                '</div>'
+                    );
+            }   
+
+
+
             </script>
 
         @stop

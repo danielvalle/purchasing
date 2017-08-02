@@ -28,7 +28,9 @@ class DisbursementVoucherController extends Controller
 
     public function store(Request $request)
     {        
-        dd($request->input("hdn-particulars"));
+        $detail_count = $request->input("hdn-detail-quantity");
+        $acc_count = $request->input("hdn-acc-quantity");
+
         $disbursement_voucher = DisbursementVoucher::create(array(
                 'mode_of_payment' => $request->input('add-mode-of-payment'),
                 'payee_fk' => $request->input('add-payee'),
@@ -56,6 +58,32 @@ class DisbursementVoucherController extends Controller
             ));
     
         $disbursement_voucher->save();
+
+        for($i = 0; $i < $detail_count; $i++)
+        {
+            $dv_detail = DisbursementVoucherDetail::create(array(
+                'dv_fk' => $disbursement_voucher->id,
+                'particulars' => $request->input("hdn-particulars")[$i],
+                'responsibility_center' => $request->input("hdn-responsibility-center")[$i],
+                'mfo_pap' => $request->input("hdn-mfo-pap")[$i],
+                'amount' => $request->input("hdn-amount")[$i]
+            )); 
+
+            $dv_detail->save();
+        }
+
+        for($i = 0; $i < $acc_count; $i++)
+        {
+            $dv_acc = DisbursementVoucherAccounting::create(array(
+                'dv_fk' => $disbursement_voucher->id,
+                'accounting_title' => $request->input("hdn-accounting-title")[$i],
+                'uacs_code' => $request->input("hdn-uacs")[$i],
+                'debit' => $request->input("hdn-debit")[$i],
+                'credit' => $request->input("hdn-credit")[$i]
+            ));
+
+            $dv_acc->save();
+        }
 
         $disbursement_voucher = DisbursementVoucher::find($disbursement_voucher->id);
 
@@ -94,7 +122,7 @@ class DisbursementVoucherController extends Controller
                 ->first();
 
         $certifier = \DB::table("disbursement_voucher as dv")
-                ->leftJoin("user", "dv.certifier_name_fk", "=", "user.id")
+                ->leftJoin("user", "dv.certifier_fk", "=", "user.id")
                 ->select("user.first_name", "user.middle_name", "user.last_name")
                 ->where("dv.id", session()->get("pdf_dv_id"))
                 ->first();
