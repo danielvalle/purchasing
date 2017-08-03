@@ -505,8 +505,6 @@ CREATE TABLE disbursement_voucher
       `address` varchar(255),
       `project` varchar(50),
       `code` varchar(50),
-      `explanation` varchar(255),
-      `amount` float,
       `certified` varchar(50),
       `certifier_expense_fk` int,
       `certifier_expense_designation_fk` int,

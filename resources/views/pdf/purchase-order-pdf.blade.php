@@ -89,23 +89,23 @@
             <table text-align="left" style=" width: 100%; border-bottom: thin solid black">
                     <thead>
                         <tr>
-                            <td style="font-size: 13px; text-align: center; width: 10%; border-right: thin solid black">Stock No.</td>
-                            <td style="font-size: 13px; text-align: center; width: 10%; border-right: thin solid black">Unit</td>
-                            <td style="font-size: 13px; text-align: center; width: 55%; border-right: thin solid black">Item Description</td>
-                            <td style="font-size: 13px; text-align: center; width: 10%; border-right: thin solid black">Quantity</td>
-                            <td style="font-size: 13px; text-align: center; width: 10%; border-right: thin solid black">Unit Cost</td>
-                            <td style="font-size: 13px; text-align: center; width: 15%;">Amount</td>
+                            <th style="font-size: 13px; text-align: center; width: 10%; border-right: thin solid black">Stock No.</th>
+                            <th style="font-size: 13px; text-align: center; width: 10%; border-right: thin solid black">Unit</th>
+                            <th style="font-size: 13px; text-align: center; width: 55%; border-right: thin solid black">Item Description</th>
+                            <th style="font-size: 13px; text-align: center; width: 10%; border-right: thin solid black">Quantity</th>
+                            <th style="font-size: 13px; text-align: center; width: 10%; border-right: thin solid black">Unit Cost</th>
+                            <th style="font-size: 13px; text-align: center; width: 15%;">Amount</th>
                         </tr>
                     </thead>
                     <tbody>  
                         @foreach($items as $item)
                         <tr>
-                            <th style="font-size: 13px; text-align: left; border-right: thin solid black" >{{ $item->stock_no }}</th>
-                            <th style="font-size: 13px; text-align: left; border-right: thin solid black" >{{ $item->unit_name }}</th>
-                            <th style="font-size: 13px; text-align: left; border-right: thin solid black" >{{ $item->item_name }}</th>
-                            <th style="font-size: 13px; text-align: right; border-right: thin solid black" >{{ number_format($item->quantity, 2) }}</th>
-                            <th style="font-size: 13px; text-align: right; border-right: thin solid black" >{{ number_format($item->unit_cost, 2) }}</th>
-                            <th style="font-size: 13px; text-align: right;" >{{ number_format($item->amount, 2) }}</th>
+                            <td style="font-size: 13px; text-align: left; border-right: thin solid black" >{{ $item->stock_no }}</td>
+                            <td style="font-size: 13px; text-align: left; border-right: thin solid black" >{{ $item->unit_name }}</td>
+                            <td style="font-size: 13px; text-align: left; border-right: thin solid black" >{{ $item->item_name }}</td>
+                            <td style="font-size: 13px; text-align: right; border-right: thin solid black" >{{ number_format($item->quantity, 2) }}</td>
+                            <td style="font-size: 13px; text-align: right; border-right: thin solid black" >{{ number_format($item->unit_cost, 2) }}</td>
+                            <td style="font-size: 13px; text-align: right;" >{{ number_format($item->amount, 2) }}</td>
                         </tr>
                         @endforeach
                     </tbody>
@@ -117,9 +117,9 @@
                     </thead>
                     <tbody>  
                         <tr>
-                            <th style="font-size: 13px; text-align: center; width: 25%; ">Total Amount in Words:</th>
-                            <th style="font-size: 13px; text-align: center; width: 60%; border-right: thin solid black">{{  }}</th>
-                            <th style="font-size: 13px; text-align: center; width: 15%;">{{ number_format($po_header->total_amount, 2) }}</th>
+                            <td style="font-size: 13px; text-align: center; width: 25%; ">Total Amount in Words:</td>
+                            <td style="font-size: 13px; text-align: center; width: 60%; border-right: thin solid black">{{  }}</td>
+                            <td style="font-size: 13px; text-align: center; width: 15%;">{{ number_format($po_header->total_amount, 2) }}</td>
                         </tr>
                     </tbody>
             </table>

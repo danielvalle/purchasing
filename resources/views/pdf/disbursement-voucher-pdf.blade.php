@@ -16,7 +16,7 @@
                 vertical-align: 0
             }
             
-            table thead td{
+            table thead th{
                 border-bottom: thin solid black;
                 text-align: center;
             }
@@ -33,24 +33,26 @@
         
     <div style="border: 1px solid black"> 
         <div>
-            <center>
-                <h1>
-                    <p style="font-size:15px; margin: 0; padding: 0;">Republic of the Philippines</p> 
-                    <div style="font-size: 15px;"><b>Southern Leyte State University</b></div>
-                    <div style="font-size: 15px;">Sogod, Southern Leyte</div>
-                </h1>
-            </center>
-        </div>
-        <div>
-            <table style="width: 100%;">
+            <table style="width: 100%; border-top: 0 !important">
                 <thead>
                 </thead>    
                 <tbody>
                     <tr>
-                        <th style="width: 85%; border-right: thin solid black">
+                        <th style="width: 65%; border-right: thin solid black">
+                            <div style="font-size: 13px; padding: 3px 0px 0px 3px; font-weight: normal; text-align: center"><span style="text-decoration: underline">Entity Name here</span></div>
+                            <div style="font-size: 13px; padding: 3px 0px 0px 3px; font-weight: normal; text-align: center"><span style="font-weight: bold">Entity Name</span></div>
+                        </th>
+                        <th style="width: 35%;">
+                            <div style="font-size: 13px; padding: 3px 0px 0px 3px; font-weight: normal; text-align: left">Fund Cluster:</div>
+                            <div style="font-size: 13px; padding: 3px 0px 0px 3px; font-weight: normal; text-align: left"></div>
+                        </th>
+                    </tr> 
+                    <tr>
+                        <th style="width: 65%; border-right: thin solid black">
                             <div style="font-size: 18px; padding: 10px 0px; ">DISBURSEMENT VOUCHER</div>
                         </th>
-                        <th style="width: 15%;">
+                        <th style="width: 35%; border-top: thin solid black">
+                            <div style="font-size: 13px; padding: 3px 0px 0px 3px; font-weight: normal; text-align: left">Date:</div>
                             <div style="font-size: 13px; padding: 3px 0px 0px 3px; font-weight: normal; text-align: left">No.</div>
                         </th>
                     </tr>   
@@ -124,36 +126,36 @@
                 </thead>    
                 <tbody>
                     <tr>
-                        <th style="width: 10%; border-right: thin solid black">
+                        <td style="width: 10%; border-right: thin solid black">
                             <div style="font-size: 14px; padding: 10px 0px; font-weight: normal; text-align: center">Payee</div>
-                        </th>
-                        <th style="width: 40%; border-right: thin solid black; vertical-align: middle">
+                        </td>
+                        <td style="width: 40%; border-right: thin solid black; vertical-align: middle">
                             <div style="font-size: 14px; font-weight: normal; text-align: left;">{{ $payee->first_name }} {{ $payee->middle_name }} {{ $payee->last_name }}</div>
-                        </th>
-                        <th style="width: 30%; border-right: thin solid black">
+                        </td>
+                        <td style="width: 30%; border-right: thin solid black">
                             <div style="font-size: 13px; font-weight: normal; text-align: left">TIN/Employee No.</div>
                             <div style="font-size: 14px; font-weight: normal; text-align: left">{{ $dv->employee_no }}</div>
-                        </th>
-                        <th style="width: 20%;">
+                        </td>
+                        <td style="width: 20%;">
                             <div style="font-size: 13px; font-weight: normal; text-align: left">OR/BUR No.</div>
                             <div style="font-size: 14px; font-weight: normal; text-align: left">{{ $dv->or_bur_no }}</div>
-                        </th>
+                        </td>
                     </tr>  
                     <tr>
-                        <th style="width: 10%; border-right: thin solid black; border-top: thin solid black">
+                        <td style="width: 10%; border-right: thin solid black; border-top: thin solid black">
                             <div style="font-size: 14px; padding: 10px 0px; font-weight: normal; text-align: center">Address</div>
-                        </th>
-                        <th style="width: 40%; border-right: thin solid black; border-top: thin solid black">
+                        </td>
+                        <td style="width: 40%; border-right: thin solid black; border-top: thin solid black">
                             <div style="font-size: 14px; font-weight: normal; text-align: left">{{ $dv->address }}</div>
-                        </th>
-                        <th style="width: 30%; border-right: thin solid black; border-top: 2px solid black">
+                        </td>
+                        <td style="width: 30%; border-right: thin solid black; border-top: 2px solid black">
                             <div style="font-size: 13px; font-weight: normal; text-align: left">Office/Unit/Project</div>
                             <div style="font-size: 14px; font-weight: normal; text-align: left">{{ $dv->project }}</div>
-                        </th>
-                        <th style="width: 20%; border-top: 2px solid black">
+                        </td>
+                        <td style="width: 20%; border-top: 2px solid black">
                             <div style="font-size: 13px; font-weight: normal; text-align: left">Code</div>
                             <div style="font-size: 14px; font-weight: normal; text-align: left">{{ $dv->code }}</div>
-                        </th>
+                        </td>
                     </tr>   
                 </tbody>
             </table>
@@ -162,20 +164,44 @@
             <table style="width: 100%;">
                 <thead>
                     <tr>
-                        <td style="font-size: 14px; width: 80%; border-right: thin solid black; text-align: center">EXPLANATION</td>
-                        <td style="font-size: 14px; width: 20%; text-align: center">AMOUNT</td>
+                        <th style="font-size: 14px; width: 40%; border-right: thin solid black; text-align: center">Particulars</th>
+                        <th style="font-size: 14px; border-right: thin solid black; text-align: center">Responsibility Center</th>
+                        <th style="font-size: 14px; border-right: thin solid black; text-align: center">MFO/PAP</th>
+                        <th style="font-size: 14px; text-align: center">Amount</th>
                     </tr>   
                 </thead>    
                 <tbody>
                     <tr>
-                        <th style="border-right: thin solid black">
-                            <div style="font-size: 14px; padding: 10px 0px; font-weight: normal; text-align: center">{{ $dv->explanation }}</div>
-                        </th>
-                        <th>
-                            <div style="font-size: 14px; font-weight: normal; text-align: left">{{ $dv->amount }}</div>
-                        </th>
+                        <td style="border-right: thin solid black">
+                            <div style="font-size: 14px; padding: 10px 0px; font-weight: normal; text-align: center">&nbsp;</div>
+                        </td>
+                        <td style="border-right: thin solid black">
+                            <div style="font-size: 14px; padding: 10px 0px; font-weight: normal; text-align: center">&nbsp;</div>
+                        </td>
+                        <td style="border-right: thin solid black">
+                            <div style="font-size: 14px; padding: 10px 0px; font-weight: normal; text-align: center">&nbsp;</div>
+                        </td>
+                        <td>
+                            <div style="font-size: 14px; font-weight: normal; text-align: left">&nbsp;</div>
+                        </td>
                     </tr>    
                 </tbody>
+            </table>
+        </div>
+        <div>
+            <table style="width: 100%;">
+                <thead>
+                    <tr>
+                        <td style="font-size: 14px; text-align: left"> 
+                            <span>A. Certified: Expenses/Cash Advance necessary, lawful and incurred under my direct supervision.</span>
+                        </td>
+                    </tr>   
+                    <tr>
+                        <td style="font-size: 14px; text-align: center; border-top: 0 !important">
+                            <div style="font-size: 14px; padding: 10px 0px; font-weight: normal; text-align: center">&nbsp;</div>
+                        </td>
+                    </tr>   
+                </thead>    
             </table>
         </div>
         <div>

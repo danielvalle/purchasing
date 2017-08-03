@@ -46,24 +46,24 @@
                     </thead>
                     <tbody>  
                         <tr>
-                            <th style="width: 5%; font-weight: normal; text-align: left; border-right: thin solid black">1</th>
-                            <th style="font-weight: normal; text-align: left;">{{ $supplier1->supplier_name }}</th>
+                            <td style="width: 5%; font-weight: normal; text-align: left; border-right: thin solid black">1</td>
+                            <td style="font-weight: normal; text-align: left;">{{ $supplier1->supplier_name }}</td>
                         </tr>
                         <tr>
-                            <th style="width: 5%; font-weight: normal; text-align: left; border-right: thin solid black" >2</th>
-                            <th style="font-weight: normal; text-align: left;" >{{ $supplier2->supplier_name }}</th>
+                            <td style="width: 5%; font-weight: normal; text-align: left; border-right: thin solid black" >2</td>
+                            <td style="font-weight: normal; text-align: left;" >{{ $supplier2->supplier_name }}</td>
                         </tr>
                         <tr>
-                            <th style="width: 5%; font-weight: normal; text-align: left; border-right: thin solid black" >3</th>
-                            <th style="font-weight: normal; text-align: left;" >{{ $supplier3->supplier_name }}</th>
+                            <td style="width: 5%; font-weight: normal; text-align: left; border-right: thin solid black" >3</td>
+                            <td style="font-weight: normal; text-align: left;" >{{ $supplier3->supplier_name }}</td>
                         </tr>
                         <tr>
-                            <th style="width: 5%; font-weight: normal; text-align: left; border-right: thin solid black" >4</th>
-                            <th style="font-weight: normal; text-align: left;" >{{ $supplier4->supplier_name }}</th>
+                            <td style="width: 5%; font-weight: normal; text-align: left; border-right: thin solid black" >4</td>
+                            <td style="font-weight: normal; text-align: left;" >{{ $supplier4->supplier_name }}</td>
                         </tr>
                         <tr>
-                            <th style="width: 5%; font-weight: normal; text-align: left; border-right: thin solid black" >5</th>
-                            <th style="font-weight: normal; text-align: left;" >{{ $supplier5->supplier_name }}</th>
+                            <td style="width: 5%; font-weight: normal; text-align: left; border-right: thin solid black" >5</td>
+                            <td style="font-weight: normal; text-align: left;" >{{ $supplier5->supplier_name }}</td>
                         </tr>                                                                                            
                     </tbody>
             </table>
@@ -84,95 +84,95 @@
                     <tbody>  
                         @foreach($items as $item)
                         <tr>
-                            <th style="font-weight: bold; font-size: 14px; text-align: left; border-right: thin solid black">{{ $item->stock_no }}</th>
-                            <th style="font-weight: bold; font-size: 14px; text-align: right; border-right: thin solid black">{{ $item->quantity }}</th>
-                            <th style="font-weight: bold; font-size: 14px; text-align: left; border-right: thin solid black">{{ $item->unit_name }}</th>
-                            <th style="font-weight: bold; font-size: 14px; text-align: center; border-right: thin solid black">{{ $item->item_name }}</th>
-                            <th style="font-weight: bold; font-size: 14px; text-align: right; border-right: thin solid black">@if($item->supplier1_amount != 0){{ number_format($item->supplier1_amount, 2) }}@endif</th>
-                            <th style="font-weight: bold; font-size: 14px; text-align: right; border-right: thin solid black">@if($item->supplier2_amount != 0){{ number_format($item->supplier2_amount, 2) }}@endif</th>
-                            <th style="font-weight: bold; font-size: 14px; text-align: right; border-right: thin solid black">@if($item->supplier3_amount != 0){{ number_format($item->supplier3_amount, 2) }}@endif</th>
-                            <th style="font-weight: bold; font-size: 14px; text-align: right; border-right: thin solid black">@if($item->supplier4_amount != 0){{ number_format($item->supplier4_amount, 2) }}@endif</th>
-                            <th style="font-weight: bold; font-size: 14px; text-align: right;">@if($item->supplier5_amount != 0){{ number_format($item->supplier5_amount, 2) }}@endif</th>
+                            <td style="font-weight: bold; font-size: 14px; text-align: left; border-right: thin solid black">{{ $item->stock_no }}</td>
+                            <td style="font-weight: bold; font-size: 14px; text-align: right; border-right: thin solid black">{{ $item->quantity }}</td>
+                            <td style="font-weight: bold; font-size: 14px; text-align: left; border-right: thin solid black">{{ $item->unit_name }}</td>
+                            <td style="font-weight: bold; font-size: 14px; text-align: center; border-right: thin solid black">{{ $item->item_name }}</td>
+                            <td style="font-weight: bold; font-size: 14px; text-align: right; border-right: thin solid black">@if($item->supplier1_amount != 0){{ number_format($item->supplier1_amount, 2) }}@endif</td>
+                            <td style="font-weight: bold; font-size: 14px; text-align: right; border-right: thin solid black">@if($item->supplier2_amount != 0){{ number_format($item->supplier2_amount, 2) }}@endif</td>
+                            <td style="font-weight: bold; font-size: 14px; text-align: right; border-right: thin solid black">@if($item->supplier3_amount != 0){{ number_format($item->supplier3_amount, 2) }}@endif</td>
+                            <td style="font-weight: bold; font-size: 14px; text-align: right; border-right: thin solid black">@if($item->supplier4_amount != 0){{ number_format($item->supplier4_amount, 2) }}@endif</td>
+                            <td style="font-weight: bold; font-size: 14px; text-align: right;">@if($item->supplier5_amount != 0){{ number_format($item->supplier5_amount, 2) }}@endif</td>
                         </tr>
                             @endforeach       
                         <tr>
-                            <th style="font-weight: bold; font-size: 14px; text-align: left; border-right: thin solid black">&nbsp;</th>
-                            <th style="font-weight: bold; font-size: 14px; text-align: left; border-right: thin solid black">&nbsp;</th>
-                            <th style="font-weight: bold; font-size: 14px; text-align: left; border-right: thin solid black">&nbsp;</th>
-                            <th style="font-weight: bold; font-size: 14px; text-align: center; border-right: thin solid black">&nbsp;</th>
-                            <th style="font-weight: bold; font-size: 14px; text-align: right; border-right: thin solid black">&nbsp;</th>
-                            <th style="font-weight: bold; font-size: 14px; text-align: right; border-right: thin solid black">&nbsp;</th>
-                            <th style="font-weight: bold; font-size: 14px; text-align: right; border-right: thin solid black">&nbsp;</th>
-                            <th style="font-weight: bold; font-size: 14px; text-align: right; border-right: thin solid black">&nbsp;</th>
-                            <th style="font-weight: bold; font-size: 14px; text-align: right;">&nbsp;</th>
+                            <td style="font-weight: bold; font-size: 14px; text-align: left; border-right: thin solid black">&nbsp;</td>
+                            <td style="font-weight: bold; font-size: 14px; text-align: left; border-right: thin solid black">&nbsp;</td>
+                            <td style="font-weight: bold; font-size: 14px; text-align: left; border-right: thin solid black">&nbsp;</td>
+                            <td style="font-weight: bold; font-size: 14px; text-align: center; border-right: thin solid black">&nbsp;</td>
+                            <td style="font-weight: bold; font-size: 14px; text-align: right; border-right: thin solid black">&nbsp;</td>
+                            <td style="font-weight: bold; font-size: 14px; text-align: right; border-right: thin solid black">&nbsp;</td>
+                            <td style="font-weight: bold; font-size: 14px; text-align: right; border-right: thin solid black">&nbsp;</td>
+                            <td style="font-weight: bold; font-size: 14px; text-align: right; border-right: thin solid black">&nbsp;</td>
+                            <td style="font-weight: bold; font-size: 14px; text-align: right;">&nbsp;</td>
                         </tr>
                         <tr>
-                            <th style="font-weight: bold; font-size: 14px; text-align: left; border-right: thin solid black">&nbsp;</th>
-                            <th style="font-weight: bold; font-size: 14px; text-align: left; border-right: thin solid black">&nbsp;</th>
-                            <th style="font-weight: bold; font-size: 14px; text-align: left; border-right: thin solid black">&nbsp;</th>
-                            <th style="font-weight: bold; font-size: 14px; text-align: center; border-right: thin solid black">&nbsp;</th>
-                            <th style="font-weight: bold; font-size: 14px; text-align: right; border-right: thin solid black">&nbsp;</th>
-                            <th style="font-weight: bold; font-size: 14px; text-align: right; border-right: thin solid black">&nbsp;</th>
-                            <th style="font-weight: bold; font-size: 14px; text-align: right; border-right: thin solid black">&nbsp;</th>
-                            <th style="font-weight: bold; font-size: 14px; text-align: right; border-right: thin solid black">&nbsp;</th>
-                            <th style="font-weight: bold; font-size: 14px; text-align: right;">&nbsp;</th>
+                            <td style="font-weight: bold; font-size: 14px; text-align: left; border-right: thin solid black">&nbsp;</td>
+                            <td style="font-weight: bold; font-size: 14px; text-align: left; border-right: thin solid black">&nbsp;</td>
+                            <td style="font-weight: bold; font-size: 14px; text-align: left; border-right: thin solid black">&nbsp;</td>
+                            <td style="font-weight: bold; font-size: 14px; text-align: center; border-right: thin solid black">&nbsp;</td>
+                            <td style="font-weight: bold; font-size: 14px; text-align: right; border-right: thin solid black">&nbsp;</td>
+                            <td style="font-weight: bold; font-size: 14px; text-align: right; border-right: thin solid black">&nbsp;</td>
+                            <td style="font-weight: bold; font-size: 14px; text-align: right; border-right: thin solid black">&nbsp;</td>
+                            <td style="font-weight: bold; font-size: 14px; text-align: right; border-right: thin solid black">&nbsp;</td>
+                            <td style="font-weight: bold; font-size: 14px; text-align: right;">&nbsp;</td>
                         </tr>
                         <tr>
-                            <th style="font-weight: bold; font-size: 14px; text-align: left; border-right: thin solid black">&nbsp;</th>
-                            <th style="font-weight: bold; font-size: 14px; text-align: left; border-right: thin solid black">&nbsp;</th>
-                            <th style="font-weight: bold; font-size: 14px; text-align: left; border-right: thin solid black">&nbsp;</th>
-                            <th style="font-weight: bold; font-size: 14px; text-align: center; border-right: thin solid black">&nbsp;</th>
-                            <th style="font-weight: bold; font-size: 14px; text-align: right; border-right: thin solid black">&nbsp;</th>
-                            <th style="font-weight: bold; font-size: 14px; text-align: right; border-right: thin solid black">&nbsp;</th>
-                            <th style="font-weight: bold; font-size: 14px; text-align: right; border-right: thin solid black">&nbsp;</th>
-                            <th style="font-weight: bold; font-size: 14px; text-align: right; border-right: thin solid black">&nbsp;</th>
-                            <th style="font-weight: bold; font-size: 14px; text-align: right;">&nbsp;</th>
+                            <td style="font-weight: bold; font-size: 14px; text-align: left; border-right: thin solid black">&nbsp;</td>
+                            <td style="font-weight: bold; font-size: 14px; text-align: left; border-right: thin solid black">&nbsp;</td>
+                            <td style="font-weight: bold; font-size: 14px; text-align: left; border-right: thin solid black">&nbsp;</td>
+                            <td style="font-weight: bold; font-size: 14px; text-align: center; border-right: thin solid black">&nbsp;</td>
+                            <td style="font-weight: bold; font-size: 14px; text-align: right; border-right: thin solid black">&nbsp;</td>
+                            <td style="font-weight: bold; font-size: 14px; text-align: right; border-right: thin solid black">&nbsp;</td>
+                            <td style="font-weight: bold; font-size: 14px; text-align: right; border-right: thin solid black">&nbsp;</td>
+                            <td style="font-weight: bold; font-size: 14px; text-align: right; border-right: thin solid black">&nbsp;</td>
+                            <td style="font-weight: bold; font-size: 14px; text-align: right;">&nbsp;</td>
                         </tr>
                         <tr>
-                            <th style="font-weight: bold; font-size: 14px; text-align: left; border-right: thin solid black">&nbsp;</th>
-                            <th style="font-weight: bold; font-size: 14px; text-align: left; border-right: thin solid black">&nbsp;</th>
-                            <th style="font-weight: bold; font-size: 14px; text-align: left; border-right: thin solid black">&nbsp;</th>
-                            <th style="font-weight: bold; font-size: 14px; text-align: center; border-right: thin solid black">&nbsp;</th>
-                            <th style="font-weight: bold; font-size: 14px; text-align: right; border-right: thin solid black">&nbsp;</th>
-                            <th style="font-weight: bold; font-size: 14px; text-align: right; border-right: thin solid black">&nbsp;</th>
-                            <th style="font-weight: bold; font-size: 14px; text-align: right; border-right: thin solid black">&nbsp;</th>
-                            <th style="font-weight: bold; font-size: 14px; text-align: right; border-right: thin solid black">&nbsp;</th>
-                            <th style="font-weight: bold; font-size: 14px; text-align: right;">&nbsp;</th>
+                            <td style="font-weight: bold; font-size: 14px; text-align: left; border-right: thin solid black">&nbsp;</td>
+                            <td style="font-weight: bold; font-size: 14px; text-align: left; border-right: thin solid black">&nbsp;</td>
+                            <td style="font-weight: bold; font-size: 14px; text-align: left; border-right: thin solid black">&nbsp;</td>
+                            <td style="font-weight: bold; font-size: 14px; text-align: center; border-right: thin solid black">&nbsp;</td>
+                            <td style="font-weight: bold; font-size: 14px; text-align: right; border-right: thin solid black">&nbsp;</td>
+                            <td style="font-weight: bold; font-size: 14px; text-align: right; border-right: thin solid black">&nbsp;</td>
+                            <td style="font-weight: bold; font-size: 14px; text-align: right; border-right: thin solid black">&nbsp;</td>
+                            <td style="font-weight: bold; font-size: 14px; text-align: right; border-right: thin solid black">&nbsp;</td>
+                            <td style="font-weight: bold; font-size: 14px; text-align: right;">&nbsp;</td>
                         </tr>
                         <tr>
-                            <th style="font-weight: bold; font-size: 14px; text-align: left; border-right: thin solid black">&nbsp;</th>
-                            <th style="font-weight: bold; font-size: 14px; text-align: left; border-right: thin solid black">&nbsp;</th>
-                            <th style="font-weight: bold; font-size: 14px; text-align: left; border-right: thin solid black">&nbsp;</th>
-                            <th style="font-weight: bold; font-size: 14px; text-align: center; border-right: thin solid black">&nbsp;</th>
-                            <th style="font-weight: bold; font-size: 14px; text-align: right; border-right: thin solid black">&nbsp;</th>
-                            <th style="font-weight: bold; font-size: 14px; text-align: right; border-right: thin solid black">&nbsp;</th>
-                            <th style="font-weight: bold; font-size: 14px; text-align: right; border-right: thin solid black">&nbsp;</th>
-                            <th style="font-weight: bold; font-size: 14px; text-align: right; border-right: thin solid black">&nbsp;</th>
-                            <th style="font-weight: bold; font-size: 14px; text-align: right;">&nbsp;</th>
+                            <td style="font-weight: bold; font-size: 14px; text-align: left; border-right: thin solid black">&nbsp;</td>
+                            <td style="font-weight: bold; font-size: 14px; text-align: left; border-right: thin solid black">&nbsp;</td>
+                            <td style="font-weight: bold; font-size: 14px; text-align: left; border-right: thin solid black">&nbsp;</td>
+                            <td style="font-weight: bold; font-size: 14px; text-align: center; border-right: thin solid black">&nbsp;</td>
+                            <td style="font-weight: bold; font-size: 14px; text-align: right; border-right: thin solid black">&nbsp;</td>
+                            <td style="font-weight: bold; font-size: 14px; text-align: right; border-right: thin solid black">&nbsp;</td>
+                            <td style="font-weight: bold; font-size: 14px; text-align: right; border-right: thin solid black">&nbsp;</td>
+                            <td style="font-weight: bold; font-size: 14px; text-align: right; border-right: thin solid black">&nbsp;</td>
+                            <td style="font-weight: bold; font-size: 14px; text-align: right;">&nbsp;</td>
                         </tr> 
 
                         <tr>
-                            <th style="font-weight: bold; font-size: 14px; text-align: left; border-right: thin solid black">&nbsp;</th>
-                            <th style="font-weight: bold; font-size: 14px; text-align: left; border-right: thin solid black">&nbsp;</th>
-                            <th style="font-weight: bold; font-size: 14px; text-align: left; border-right: thin solid black">&nbsp;</th>
-                            <th style="font-weight: bold; font-size: 14px; text-align: left; border-right: thin solid black">PR No.: {{ $pr->pr_number }}</th>
-                            <th style="font-weight: bold; font-size: 14px; text-align: right; border-right: thin solid black">&nbsp;</th>
-                            <th style="font-weight: bold; font-size: 14px; text-align: right; border-right: thin solid black">&nbsp;</th>
-                            <th style="font-weight: bold; font-size: 14px; text-align: right; border-right: thin solid black">&nbsp;</th>
-                            <th style="font-weight: bold; font-size: 14px; text-align: right; border-right: thin solid black">&nbsp;</th>
-                            <th style="font-weight: bold; font-size: 14px; text-align: right;">&nbsp;</th>
+                            <td style="font-weight: bold; font-size: 14px; text-align: left; border-right: thin solid black">&nbsp;</td>
+                            <td style="font-weight: bold; font-size: 14px; text-align: left; border-right: thin solid black">&nbsp;</td>
+                            <td style="font-weight: bold; font-size: 14px; text-align: left; border-right: thin solid black">&nbsp;</td>
+                            <td style="font-weight: bold; font-size: 14px; text-align: left; border-right: thin solid black">PR No.: {{ $pr->pr_number }}</td>
+                            <td style="font-weight: bold; font-size: 14px; text-align: right; border-right: thin solid black">&nbsp;</td>
+                            <td style="font-weight: bold; font-size: 14px; text-align: right; border-right: thin solid black">&nbsp;</td>
+                            <td style="font-weight: bold; font-size: 14px; text-align: right; border-right: thin solid black">&nbsp;</td>
+                            <td style="font-weight: bold; font-size: 14px; text-align: right; border-right: thin solid black">&nbsp;</td>
+                            <td style="font-weight: bold; font-size: 14px; text-align: right;">&nbsp;</td>
                         </tr>
                         <tr>
-                            <th style="font-weight: bold; font-size: 14px; text-align: left; border-right: thin solid black">&nbsp;</th>
-                            <th style="font-weight: bold; font-size: 14px; text-align: left; border-right: thin solid black">&nbsp;</th>
-                            <th style="font-weight: bold; font-size: 14px; text-align: left; border-right: thin solid black">&nbsp;</th>
-                            <th colspan="6" style="font-weight: bold; font-size: 14px; text-align: left;">{{ $pr->purpose }}</th>
+                            <td style="font-weight: bold; font-size: 14px; text-align: left; border-right: thin solid black">&nbsp;</td>
+                            <td style="font-weight: bold; font-size: 14px; text-align: left; border-right: thin solid black">&nbsp;</td>
+                            <td style="font-weight: bold; font-size: 14px; text-align: left; border-right: thin solid black">&nbsp;</td>
+                            <td colspan="6" style="font-weight: bold; font-size: 14px; text-align: left;">{{ $pr->purpose }}</td>
                         </tr>
                         <tr>
-                            <th style="font-weight: bold; font-size: 14px; text-align: left; border-right: thin solid black">&nbsp;</th>
-                            <th style="font-weight: bold; font-size: 14px; text-align: left; border-right: thin solid black">&nbsp;</th>
-                            <th style="font-weight: bold; font-size: 14px; text-align: left; border-right: thin solid black">&nbsp;</th>
-                            <th colspan="6" style="font-weight: bold; font-size: 14px; text-align: left;">&nbsp;</th>
+                            <td style="font-weight: bold; font-size: 14px; text-align: left; border-right: thin solid black">&nbsp;</td>
+                            <td style="font-weight: bold; font-size: 14px; text-align: left; border-right: thin solid black">&nbsp;</td>
+                            <td style="font-weight: bold; font-size: 14px; text-align: left; border-right: thin solid black">&nbsp;</td>
+                            <td colspan="6" style="font-weight: bold; font-size: 14px; text-align: left;">&nbsp;</td>
                         </tr>                                                                                
                     </tbody>
             </table>            

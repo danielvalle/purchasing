@@ -124,7 +124,7 @@
                                                 <label>Designation:</label>
                                                 <select class="form-control" id="add-certifier-expense-designation" name="add-certifier-expense-designation"> 
                                                     @foreach($designations as $designation) 
-                                                        <option id="{{ $designation->id }}">{{ $designation->designation_name }}</option>
+                                                        <option value="{{ $designation->id }}">{{ $designation->designation_name }}</option>
                                                     @endforeach
                                                 </select>
                                             </div>
@@ -182,7 +182,7 @@
                                                 <label>Designation:</label>
                                                 <select class="form-control" name="add-certifier-designation" required>
                                                     @foreach($designations as $designation) 
-                                                        <option id="{{ $designation->id }}">{{ $designation->designation_name }}</option>
+                                                        <option value="{{ $designation->id }}">{{ $designation->designation_name }}</option>
                                                     @endforeach
                                                 </select> 
                                             </div>
@@ -215,7 +215,7 @@
                                                 <label>Designation:</label>
                                                 <select class="form-control" name="add-approver-designation" required>
                                                     @foreach($designations as $designation) 
-                                                        <option id="{{ $designation->id }}">{{ $designation->designation_name }}</option>
+                                                        <option value="{{ $designation->id }}">{{ $designation->designation_name }}</option>
                                                     @endforeach
                                                 </select> 
                                             </div>

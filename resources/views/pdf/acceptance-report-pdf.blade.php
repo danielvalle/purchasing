@@ -16,7 +16,7 @@
                 vertical-align: 0
             }
             
-            table thead td{
+            table thead th{
                 border-bottom: thin solid black;
                 text-align: center;
             }
@@ -89,38 +89,38 @@
             <table text-align="left" style=" width: 100%;">
                     <thead>
                         <tr>
-                            <td style="font-size: 14px; text-align: center; border-right: thin solid black">Item No.</td>
-                            <td style="font-size: 14px; text-align: center; border-right: thin solid black">Unit</td>
-                            <td style="font-size: 14px; width: 60%; text-align: center; border-right: thin solid black">Description</td>
-                            <td style="font-size: 14px; text-align: center;">Quantity</td>
+                            <th style="font-size: 14px; text-align: center; border-right: thin solid black">Item No.</th>
+                            <th style="font-size: 14px; text-align: center; border-right: thin solid black">Unit</th>
+                            <th style="font-size: 14px; width: 60%; text-align: center; border-right: thin solid black">Description</th>
+                            <th style="font-size: 14px; text-align: center;">Quantity</th>
                         </tr>
                     </thead>
                     <tbody>  
                         @foreach($items as $item)
                         <tr>
-                            <th style="font-size: 14px; text-align: left; border-right: thin solid black" >{{ $item->stock_no}}</th>
-                            <th style="font-size: 14px; text-align: left; border-right: thin solid black" >{{ $item->unit_name }}</th>
-                            <th style="font-size: 14px; text-align: left; border-right: thin solid black" >{{ $item->item_name }}</th>
-                            <th style="font-size: 14px; text-align: left; " >{{ $item->quantity }}</th>
+                            <td style="font-size: 14px; text-align: left; border-right: thin solid black" >{{ $item->stock_no}}</td>
+                            <td style="font-size: 14px; text-align: left; border-right: thin solid black" >{{ $item->unit_name }}</td>
+                            <td style="font-size: 14px; text-align: left; border-right: thin solid black" >{{ $item->item_name }}</td>
+                            <td style="font-size: 14px; text-align: left; " >{{ $item->quantity }}</td>
                         </tr>
                         @endforeach
                         <tr>
-                            <th style="font-size: 14px; text-align: left; border-right: thin solid black" >&nbsp;</th>
-                            <th style="font-size: 14px; text-align: left; border-right: thin solid black" >&nbsp;</th>
-                            <th style="font-size: 14px; text-align: left; border-right: thin solid black" >&nbsp;</th>
-                            <th style="font-size: 14px; text-align: left; " >&nbsp;</th>
+                            <td style="font-size: 14px; text-align: left; border-right: thin solid black" >&nbsp;</td>
+                            <td style="font-size: 14px; text-align: left; border-right: thin solid black" >&nbsp;</td>
+                            <td style="font-size: 14px; text-align: left; border-right: thin solid black" >&nbsp;</td>
+                            <td style="font-size: 14px; text-align: left; " >&nbsp;</td>
                         </tr>
                         <tr>
-                            <th style="font-size: 14px; text-align: left; border-right: thin solid black" >&nbsp;</th>
-                            <th style="font-size: 14px; text-align: left; border-right: thin solid black" >&nbsp;</th>
-                            <th style="font-size: 14px; text-align: left; border-right: thin solid black" >&nbsp;</th>
-                            <th style="font-size: 14px; text-align: left; " >&nbsp;</th>
+                            <td style="font-size: 14px; text-align: left; border-right: thin solid black" >&nbsp;</td>
+                            <td style="font-size: 14px; text-align: left; border-right: thin solid black" >&nbsp;</td>
+                            <td style="font-size: 14px; text-align: left; border-right: thin solid black" >&nbsp;</td>
+                            <td style="font-size: 14px; text-align: left; " >&nbsp;</td>
                         </tr>
                         <tr>
-                            <th style="font-size: 14px; text-align: left; border-right: thin solid black" >&nbsp;</th>
-                            <th style="font-size: 14px; text-align: left; border-right: thin solid black" >&nbsp;</th>
-                            <th style="font-size: 14px; text-align: left; border-right: thin solid black" >&nbsp;</th>
-                            <th style="font-size: 14px; text-align: left; " >&nbsp;</th>
+                            <td style="font-size: 14px; text-align: left; border-right: thin solid black" >&nbsp;</td>
+                            <td style="font-size: 14px; text-align: left; border-right: thin solid black" >&nbsp;</td>
+                            <td style="font-size: 14px; text-align: left; border-right: thin solid black" >&nbsp;</td>
+                            <td style="font-size: 14px; text-align: left; " >&nbsp;</td>
                         </tr>
                     </tbody>
             </table>
@@ -128,13 +128,13 @@
             <table style=" width: 100%;">
                     <thead>
                         <tr>
-                            <td style="font-size: 14px; width: 50%; text-align: center; border-right: thin solid black">INSPECTION</td>
-                            <td style="font-size: 14px; width: 50%; text-align: center; border-right: thin solid black">ACCEPTANCE</td>
+                            <th style="font-size: 14px; width: 50%; text-align: center; border-right: thin solid black">INSPECTION</th>
+                            <th style="font-size: 14px; width: 50%; text-align: center; border-right: thin solid black">ACCEPTANCE</th>
                         </tr>
                     </thead>
                     <tbody>  
                         <tr>
-                            <th style="font-size: 14px; text-align: left; border-right: thin solid black" >
+                            <td style="font-size: 14px; text-align: left; border-right: thin solid black" >
                                 <div style="font-weight: normal">Date Inspected: <span style="text-decoration: underline">{{ date("M d, Y", strtotime($acceptance_header->date_inspected)) }}</span></div>
                                 <div style="padding: 10px 10px 30px 20px;">
                                     <input style="width: 5%; float: left" for="inspected" type="checkbox" value="1" @if($acceptance_header->verification == 1) checked @endif>
@@ -144,8 +144,8 @@
                                 </div>
                                 <div style="text-align: center; font-weight: bold; text-transform: uppercase; text-decoration: underline; ">{{ $inspector->first_name }} {{ $inspector->middle_name }} {{ $inspector->last_name }}</div>
                                 <div style="text-align: center; font-weight: normal;">University Inspector</div>
-                            </th>
-                            <th style="font-size: 14px; text-align: left; border-right: thin solid black;" >
+                            </td>
+                            <td style="font-size: 14px; text-align: left; border-right: thin solid black;" >
                                 <div style="font-weight: normal">Date Inspected: <span style="text-decoration: underline">{{ date("M d, Y", strtotime($acceptance_header->date_accepted)) }}</span></div>
                                 <div style="padding: 10px 10px 30px 20px;">
                                     <div>
@@ -163,7 +163,7 @@
                                 </div>
                                 <div style="text-align: center; font-weight: bold; text-transform: uppercase; text-decoration: underline; ">{{ $property_officer->first_name }} {{ $property_officer->middle_name }} {{ $property_officer->last_name }}</div>
                                 <div style="text-align: center; font-weight: normal;">Property Officer</div>
-                            </th>
+                            </td>
                         </tr>
                     </tbody>
             </table>

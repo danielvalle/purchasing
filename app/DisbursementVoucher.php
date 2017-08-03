@@ -18,8 +18,6 @@ class DisbursementVoucher extends Model
 								'address',
 								'project',
 								'code',
-								'explanation',
-								'amount',
 								'certified',
 								'certifier_fk',
 								'certifier_designation_fk',

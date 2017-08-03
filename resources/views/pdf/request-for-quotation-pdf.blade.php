@@ -67,47 +67,47 @@
                     <tbody>  
                         @foreach($items as $item)
                         <tr>
-                            <th style="font-size:16px; text-align: right; font-weight: normal; border-right: thin solid black" >{{ $item->quantity }}</th>
-                            <th style="font-size:16px; text-align: left; font-weight: normal; border-right: thin solid black" >{{ $item->unit_name }}</th>
-                            <th style="font-size:16px; text-align: left; font-weight: normal; border-right: thin solid black" >{{ $item->item_name }}</th>
-                            <th style="font-size:16px; text-align: left; font-weight: normal; border-right: thin solid black" ></th>
-                            <th style="font-size:16px; text-align: left; font-weight: normal; border-right: thin solid black" ></th>
+                            <td style="font-size:16px; text-align: right; font-weight: normal; border-right: thin solid black" >{{ $item->quantity }}</td>
+                            <td style="font-size:16px; text-align: left; font-weight: normal; border-right: thin solid black" >{{ $item->unit_name }}</td>
+                            <td style="font-size:16px; text-align: left; font-weight: normal; border-right: thin solid black" >{{ $item->item_name }}</td>
+                            <td style="font-size:16px; text-align: left; font-weight: normal; border-right: thin solid black" ></td>
+                            <td style="font-size:16px; text-align: left; font-weight: normal; border-right: thin solid black" ></td>
                         </tr>
                         @endforeach
                         <tr>
-                            <th style="font-size:16px; text-align: left; font-weight: normal; border-right: thin solid black" >&nbsp;</th>
-                            <th style="font-size:16px; text-align: left; font-weight: normal; border-right: thin solid black" >&nbsp;</th>
-                            <th style="font-size:16px; text-align: left; font-weight: normal; border-right: thin solid black" >&nbsp;</th>
-                            <th style="font-size:16px; text-align: left; font-weight: normal; border-right: thin solid black" >&nbsp;</th>
-                            <th style="font-size:16px; text-align: left; font-weight: normal; border-right: thin solid black" >&nbsp;</th>
+                            <td style="font-size:16px; text-align: left; font-weight: normal; border-right: thin solid black" >&nbsp;</td>
+                            <td style="font-size:16px; text-align: left; font-weight: normal; border-right: thin solid black" >&nbsp;</td>
+                            <td style="font-size:16px; text-align: left; font-weight: normal; border-right: thin solid black" >&nbsp;</td>
+                            <td style="font-size:16px; text-align: left; font-weight: normal; border-right: thin solid black" >&nbsp;</td>
+                            <td style="font-size:16px; text-align: left; font-weight: normal; border-right: thin solid black" >&nbsp;</td>
                         </tr>
                         <tr>
-                            <th style="font-size:16px; text-align: left; font-weight: normal; border-right: thin solid black" >&nbsp;</th>
-                            <th style="font-size:16px; text-align: left; font-weight: normal; border-right: thin solid black" >&nbsp;</th>
-                            <th style="font-size:16px; text-align: left; font-weight: normal; border-right: thin solid black" >&nbsp;</th>
-                            <th style="font-size:16px; text-align: left; font-weight: normal; border-right: thin solid black" >&nbsp;</th>
-                            <th style="font-size:16px; text-align: left; font-weight: normal; border-right: thin solid black" >&nbsp;</th>
+                            <td style="font-size:16px; text-align: left; font-weight: normal; border-right: thin solid black" >&nbsp;</td>
+                            <td style="font-size:16px; text-align: left; font-weight: normal; border-right: thin solid black" >&nbsp;</td>
+                            <td style="font-size:16px; text-align: left; font-weight: normal; border-right: thin solid black" >&nbsp;</td>
+                            <td style="font-size:16px; text-align: left; font-weight: normal; border-right: thin solid black" >&nbsp;</td>
+                            <td style="font-size:16px; text-align: left; font-weight: normal; border-right: thin solid black" >&nbsp;</td>
                         </tr>
                         <tr>
-                            <th style="font-size:16px; text-align: left; font-weight: normal; border-right: thin solid black" >&nbsp;</th>
-                            <th style="font-size:16px; text-align: left; font-weight: normal; border-right: thin solid black" >&nbsp;</th>
-                            <th style="font-size:16px; text-align: left; font-weight: normal; border-right: thin solid black" >&nbsp;</th>
-                            <th style="font-size:16px; text-align: left; font-weight: normal; border-right: thin solid black" >&nbsp;</th>
-                            <th style="font-size:16px; text-align: left; font-weight: normal; border-right: thin solid black" >&nbsp;</th>
+                            <td style="font-size:16px; text-align: left; font-weight: normal; border-right: thin solid black" >&nbsp;</td>
+                            <td style="font-size:16px; text-align: left; font-weight: normal; border-right: thin solid black" >&nbsp;</td>
+                            <td style="font-size:16px; text-align: left; font-weight: normal; border-right: thin solid black" >&nbsp;</td>
+                            <td style="font-size:16px; text-align: left; font-weight: normal; border-right: thin solid black" >&nbsp;</td>
+                            <td style="font-size:16px; text-align: left; font-weight: normal; border-right: thin solid black" >&nbsp;</td>
                         </tr>
                         <tr>
-                            <th style="font-size:16px; text-align: left; font-weight: normal; border-right: thin solid black" >&nbsp;</th>
-                            <th style="font-size:16px; text-align: left; font-weight: normal; border-right: thin solid black" >&nbsp;</th>
-                            <th style="font-size:16px; text-align: left; font-weight: normal; border-right: thin solid black" >&nbsp;</th>
-                            <th style="font-size:16px; text-align: left; font-weight: normal; border-right: thin solid black" >&nbsp;</th>
-                            <th style="font-size:16px; text-align: left; font-weight: normal; border-right: thin solid black" >&nbsp;</th>
+                            <td style="font-size:16px; text-align: left; font-weight: normal; border-right: thin solid black" >&nbsp;</td>
+                            <td style="font-size:16px; text-align: left; font-weight: normal; border-right: thin solid black" >&nbsp;</td>
+                            <td style="font-size:16px; text-align: left; font-weight: normal; border-right: thin solid black" >&nbsp;</td>
+                            <td style="font-size:16px; text-align: left; font-weight: normal; border-right: thin solid black" >&nbsp;</td>
+                            <td style="font-size:16px; text-align: left; font-weight: normal; border-right: thin solid black" >&nbsp;</td>
                         </tr>
                         <tr>
-                            <th style="font-size:16px; text-align: left; font-weight: normal; border-right: thin solid black" >&nbsp;</th>
-                            <th style="font-size:16px; text-align: left; font-weight: normal; border-right: thin solid black" >&nbsp;</th>
-                            <th style="font-size:16px; text-align: left; font-weight: normal; border-right: thin solid black" >&nbsp;</th>
-                            <th style="font-size:16px; text-align: left; font-weight: normal; border-right: thin solid black" >&nbsp;</th>
-                            <th style="font-size:16px; text-align: left; font-weight: normal; border-right: thin solid black" >&nbsp;</th>
+                            <td style="font-size:16px; text-align: left; font-weight: normal; border-right: thin solid black" >&nbsp;</td>
+                            <td style="font-size:16px; text-align: left; font-weight: normal; border-right: thin solid black" >&nbsp;</td>
+                            <td style="font-size:16px; text-align: left; font-weight: normal; border-right: thin solid black" >&nbsp;</td>
+                            <td style="font-size:16px; text-align: left; font-weight: normal; border-right: thin solid black" >&nbsp;</td>
+                            <td style="font-size:16px; text-align: left; font-weight: normal; border-right: thin solid black" >&nbsp;</td>
                         </tr>
                     </tbody>
             </table>
