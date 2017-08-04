@@ -39,15 +39,32 @@
                                 <div class="panel-body">
                                 {!! Form::open(['method' => 'post', 'url' => 'transaction/disbursement-voucher']) !!}
                                 <div class="panel-body">
-                                        <div class="form-group col-lg-12">
-                                            <label for="">Mode Of Payment:&nbsp&nbsp&nbsp&nbsp</label>
-                                            <label class="radio-inline"><input type="radio" name="add-mode-of-payment" value="1">MDS Check</label>
-                                            <label class="radio-inline"><input type="radio" name="add-mode-of-payment" value="2">Commercial Check</label>
-                                            <label class="radio-inline"><input type="radio" name="add-mode-of-payment" value="3">ADA</label>
-                                            <label class="radio-inline"><input type="radio" name="add-mode-of-payment" value="4">Others</label>
+                                        <div class="form-group col-lg-6">
+                                            <label for="">Entity</label>
+                                            <select class="form-control" name="add-entity" required>
+                                                @foreach($entities as $entity)
+                                                    <option value="{{ $entity->id }}">{{ $entity->entity_name }}</option>
+                                                @endforeach
+                                            </select>    
                                         </div>
-
-
+                                        <div class="form-group col-lg-6">
+                                            <label for="">Fund Cluster</label>
+                                            <input type="text" class="form-control" name="add-fund-cluster">
+                                        </div>
+                                </div>
+                                <div class="panel-body">
+                                        <div class="form-group col-lg-8" style="width: auto">
+                                            <label for="">Mode Of Payment:&nbsp&nbsp&nbsp&nbsp</label>
+                                            <label class="radio-inline"><input type="radio" class="mode-of-payment" name="add-mode-of-payment" value="1">MDS Check</label>
+                                            <label class="radio-inline"><input type="radio" class="mode-of-payment" name="add-mode-of-payment" value="2">Commercial Check</label>
+                                            <label class="radio-inline"><input type="radio" class="mode-of-payment" name="add-mode-of-payment" value="3">ADA</label>
+                                            <label class="radio-inline"><input type="radio" class="mode-of-payment" id="others" name="add-mode-of-payment" value="4">Others (Please specify)</label>                                            
+                                        </div>
+                                        <div class="form-group col-lg-4">
+                                            <input type="text" class="form-control" id="add-others" name="add-others" style="display: none">
+                                        </div>  
+                                </div>
+                                <div class="panel-body">
                                         <div class="form-group col-lg-4">
                                             <label for="">Payee</label>
                                             <select class="form-control" name="add-payee" required>
@@ -61,23 +78,14 @@
                                             <input type="text" class="form-control" name="add-tin">
                                         </div>
                                         <div class="form-group col-lg-4">
-                                            <label for="">OR/BUR No.</label>
-                                            <input type="text" class="form-control" name="add-or-bur-no">
+                                            <label for="">ORS/BUR No.</label>
+                                            <input type="text" class="form-control" name="add-ors-bur-no">
                                         </div>
 
-                                        <div class="form-group col-lg-6">
+                                        <div class="form-group col-lg-12">
                                             <label for="">Address</label>
                                             <input type="text" class="form-control" name="add-address">
                                         </div>
-                                        <div class="form-group col-lg-4">
-                                            <label for="">Office/Unit/Project</label>
-                                            <input type="text" class="form-control" name="add-office">
-                                        </div>
-                                        <div class="form-group col-lg-2">
-                                            <label for="">Code</label>
-                                            <input type="text" class="form-control" name="add-code">
-                                        </div>
-
                                 </div>
 
                                 <div class="panel-body">
@@ -94,7 +102,7 @@
                                                             <th>Responsibility Center</th>
                                                             <th>MFO/PAP</th>
                                                             <th>Amount</th>
-                                                            <th>Actions</th>
+                                                            {{--<th>Actions</th>--}}
                                                         </tr>
                                                     </thead>
                                                     <tbody>
@@ -188,7 +196,7 @@
                                             </div>
                                             <div class="form-group col-lg-4">
                                                 <label>Date:</label>
-                                                <input type="date" class="form-control" name="add-certified-date" value="{{ date("Y-m-d") }}" required>
+                                                <input type="date" class="form-control" name="add-certified-date">
                                             </div>
                                         </div>
                                     </div>
@@ -221,7 +229,7 @@
                                             </div>
                                             <div class="form-group col-lg-4">
                                                 <label>Date:</label>
-                                                <input type="date" class="form-control" id="add-approved-date" name="add-approved-date" value="{{ date("Y-m-d") }}" required>
+                                                <input type="date" class="form-control" id="add-approved-date" name="add-approved-date">
                                             </div>
                                         </div>
                                     </div>
@@ -239,7 +247,7 @@
                                             </div>
                                             <div class="form-group col-lg-2">
                                                 <label>Date:</label>
-                                                <input type="date" class="form-control" id="add-check-date" name="add-check-date" value="{{ date("Y-m-d") }}" required>
+                                                <input type="date" class="form-control" id="add-check-date" name="add-check-date">
                                             </div>
                                             <div class="form-group col-lg-5">
                                                 <label for="">Bank Name</label>
@@ -255,7 +263,7 @@
                                             </div>
                                             <div class="form-group col-lg-2">
                                                 <label>Date:</label>
-                                                <input type="date" class="form-control" id="add-printed-name-date" name="add-printed-name-date" value="{{ date("Y-m-d") }}" required>
+                                                <input type="date" class="form-control" id="add-printed-name-date" name="add-printed-name-date">
                                             </div>
 
                                             <div class="form-group col-lg-5">
@@ -364,7 +372,7 @@
                                                     </div>    
                                                     <div class="form-group col-lg-4">
                                                         <label for="">Debit</label>
-                                                        <input type="text" class="form-control" name="add-debit" id="add-debit">
+                                                        <input type="number" class="form-control" name="add-debit" id="add-debit">
                                                     </div> 
                                                     <div class="form-group col-lg-4">
                                                         <label for="">Credit</label>
@@ -418,6 +426,15 @@
 
             });
 
+            $('.mode-of-payment').click(function(){
+                
+                if($('#others').is(':checked')) $('#add-others').css('display', 'block');
+                else $('#add-others').css('display', 'none');
+
+                $('#add-others').val('');
+
+            });
+
             $('#btn-add-particulars').click(function(){
                 
                 var tbl_len = $("#dv-detail tr").length;
@@ -428,10 +445,10 @@
                             '<td>' + $("#add-responsibility-center").val() + '</td>' +
                             '<td>' + $("#add-mfo-pap").val() + '</td>' +
                             '<td>' + $("#add-amount").val() + '</td>' +
-                            '<td>' +
+                            /*'<td>' +
                                 '<a data-toggle="modal" href="#edit-det' + tbl_len + '"><span class="glyphicon glyphicon-edit"></span></a>' +
                                 '<a data-toggle="modal" href="#del-det' + tbl_len + '"><span class="glyphicon glyphicon-trash"></span></a>' +
-                            '</td>' +
+                            '</td>' +*/
                             '<input type="hidden" name="hdn-particulars[]' + '" value="' + $("#add-particulars").val() + '">' +
                             '<input type="hidden" name="hdn-responsibility-center[]' + '" value="' + $("#add-particulars").val() + '">' +
                             '<input type="hidden" name="hdn-mfo-pap[]' + '" value="' + $("#add-mfo-pap").val() + '">' +
@@ -466,10 +483,10 @@
                             '<td>' + $("#add-uacs").val() + '</td>' +
                             '<td>' + $("#add-debit").val() + '</td>' +
                             '<td>' + $("#add-credit").val() + '</td>' +
-                            '<td>' +
+                            /*'<td>' +
                                 '<a data-toggle="modal" href="#edit-acc' + tbl_len + '"><span class="glyphicon glyphicon-edit"></span></a>' +
                                 '<a data-toggle="modal" href="#del-acc' + tbl_len + '"><span class="glyphicon glyphicon-trash"></span></a>' +
-                            '</td>' +
+                            '</td>' +*/
                             '<input type="hidden" name="hdn-accounting-title[]' + '" value="' + $("#add-accounting-title").val() + '">' +
                             '<input type="hidden" name="hdn-uacs[]' + '" value="' + $("#add-uacs").val() + '">' +
                             '<input type="hidden" name="hdn-debit[]' + '" value="' + $("#add-debit").val() + '">' +

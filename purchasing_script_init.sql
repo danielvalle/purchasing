@@ -499,12 +499,14 @@ CREATE TABLE disbursement_voucher
       `id` int NOT NULL AUTO_INCREMENT,
       `dv_number` varchar(50),
       `mode_of_payment` varchar(50),
+      `others` varchar(50),
+      `date` date,
+      `entity_fk` int,
+      `fund_cluster` varchar(50),
       `payee_fk` int,
       `employee_no` varchar(50),
-      `or_bur_no` varchar(50),
+      `ors_bur_no` varchar(50),
       `address` varchar(255),
-      `project` varchar(50),
-      `code` varchar(50),
       `certified` varchar(50),
       `certifier_expense_fk` int,
       `certifier_expense_designation_fk` int,
@@ -530,10 +532,11 @@ CREATE TABLE disbursement_voucher
       FOREIGN KEY(certifier_fk) REFERENCES user(id),
       FOREIGN KEY(certifier_expense_fk) REFERENCES user(id),
       FOREIGN KEY(approver_fk) REFERENCES user(id),
+      FOREIGN KEY(check_printed_name_fk) REFERENCES user(id)
       FOREIGN KEY(certifier_designation_fk) REFERENCES designation(id),
       FOREIGN KEY(certifier_expense_designation_fk) REFERENCES designation(id),
       FOREIGN KEY(approver_designation_fk) REFERENCES designation(id),
-      FOREIGN KEY(check_printed_name_fk) REFERENCES user(id)
+      FOREIGN KEY(entity_fk) REFERENCES entity(id)
     );
 
 CREATE TABLE disbursement_voucher_detail
