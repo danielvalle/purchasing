@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 
 use App\Item;
 use App\StockCard;
+use App\OutrightExpense;
 use App\Http\Controllers\Controller;
 
 class ItemController extends Controller
@@ -18,8 +19,12 @@ class ItemController extends Controller
                 ->leftJoin("office as b", "a.office_fk", "=", "b.id")
                 ->select("a.*", "b.office_name")
                 ->get();
+        $outright_expenses = OutrightExpense::all();
 
-        return view("maintenance.maintenance-item")->with('items', $items)->with("stock_cards", $stock_cards);
+        return view("maintenance.maintenance-item")
+                ->with('items', $items)
+                ->with("stock_cards", $stock_cards)
+                ->with("outright_expenses", $outright_expenses);
     }
 
     public function store(Request $request)
@@ -34,6 +39,7 @@ class ItemController extends Controller
                 'stock_no' => trim($request->input('add-stock-no')),
                 'item_name' => trim($request->input('add-item-name')),
                 'item_quantity' => $request->input('add-stock-on-hand'),
+                'stock_quantity' => $request->input('add-stock-on-hand'),
                 'item_description' => trim($request->input('add-item-description')),
                 'is_active' => 1
             ));

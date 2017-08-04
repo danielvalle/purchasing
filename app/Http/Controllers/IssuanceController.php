@@ -134,7 +134,7 @@ class IssuanceController extends Controller
 
                 $item = Item::find($items[$i]);
 
-                $item->item_quantity = ($item->item_quantity - (int)$quantities[$i]);
+                $item->stock_quantity = ($item->stock_quantity - (int)$quantities[$i]);
                 $item->save();
 
             }

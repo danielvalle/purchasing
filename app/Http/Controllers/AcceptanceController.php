@@ -108,6 +108,8 @@ class AcceptanceController extends Controller
                 
                 $acceptance_detail->save();
 
+                $item = Item::find($items[$i]->item_fk);
+
                 if($check_received_qty != 0)
                 {
 
@@ -130,6 +132,7 @@ class AcceptanceController extends Controller
                                 'item_fk' => $items[$i]->item_fk,
                                 'date' => date("Y-m-d"),
                                 'reference' => "Outright Expense",
+                                'po_fk' => $request->input('add-po-no'),
                                 'acceptance_fk' => $acceptance->id,
                                 'reference_no' => "PO-" . $request->input('add-po-no'),
                                 'issued_quantity' => $request->input('add-outright-expense')[$i]
@@ -138,9 +141,9 @@ class AcceptanceController extends Controller
                     $outright_expense->save();               
                 }
 
-                $item = Item::find($items[$i]->item_fk);
 
-                $item->item_quantity = ($item->item_quantity + (int)$items[$i]->quantity);
+                $item->stock_quantity = ($item->stock_quantity + (int)$request->input('add-received-qty')[$i]);
+                $item->item_quantity = ($item->item_quantity + (int)$request->input('add-received-qty')[$i] + (int)$request->input('add-outright-expense')[$i]);
                 $item->save();
 
             }

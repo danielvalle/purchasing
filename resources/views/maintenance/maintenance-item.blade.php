@@ -82,7 +82,7 @@
                                             <td>{{ $item->stock_no }}</td>
                                             <td>{{ $item->item_name }}</td>
                                             <td>{{ $item->item_description }}</td>
-                                            <td>{{ $item->item_quantity }}</td>
+                                            <td>{{ $item->stock_quantity }}</td>
                                             <td>
                                                 <a data-toggle="modal" href="#{{ $item->id }}edit-item"><span class="glyphicon glyphicon-edit"></span></a>
                                                 <a data-toggle="modal" href="#{{ $item->id }}del-item"><span class="glyphicon glyphicon-trash"></span></a>
@@ -258,12 +258,12 @@
                                 
                                 <div class="form-group col-lg-12">
                                     <ul class="nav nav-tabs">
-                                        <li class="active"><a data-toggle="tab" href="#stock-card">Stock Card</a></li>
-                                        <li><a data-toggle="tab" href="#outright-expense">Outright Expense</a></li>
+                                        <li class="active"><a data-toggle="tab" id="tab-stock-card" href="#stock-card{{$item->id}}">Stock Card</a></li>
+                                        <li><a data-toggle="tab" id="tab-outright-expense" href="#outright-expense{{$item->id}}">Outright Expense</a></li>
                                     </ul>
 
                                     <div class="tab-content" style="padding-top: 20px">
-                                        <div id="stock-card" class="tab-pane fade in active">
+                                        <div id="stock-card{{$item->id}}" class="tab-pane fade in active">
                                             <table class="table" id="dt-stock-card" style="width: 100%;">
                                                 <thead>
                                                     <tr>
@@ -273,7 +273,6 @@
                                                         <th>Office</th>
                                                         <th>Issued Qty</th>
                                                         <th>No. Of Days To Consume</th>
-                                                        <th>Unit Price</th>
                                                     </tr>
                                                 </thead>
                                                 <tbody>
@@ -286,35 +285,32 @@
                                                             <td>{{ $stock_card->office_name }}</td>
                                                             <td>{{ $stock_card->issued_quantity }}</td>
                                                             <td>{{ $stock_card->no_of_days_consume }}</td>
-                                                            <td></td>
                                                         </tr>
                                                         @endif
                                                     @endforeach
-                                                   </tbody>
+                                                </tbody>
                                             </table>
                                         </div>
-                                        <div id="outright-expense" class="tab-pane fade in">
+                                        <div id="outright-expense{{$item->id}}" class="tab-pane fade">
                                             <table class="table" id="dt-outright-expense" style="width: 100%;">
                                                 <thead>
                                                     <tr>
                                                         <th>Date</th>
                                                         <th>Reference</th>
                                                         <th>Issued Qty</th>
-                                                        <th>Unit Price</th>
                                                     </tr>
                                                 </thead>
                                                 <tbody>
-                                                    @foreach($stock_cards as $stock_card)
-                                                        @if($stock_card->item_fk == $item->id)
+                                                    @foreach($outright_expenses as $outright_expense)
+                                                        @if($outright_expense->item_fk == $item->id)
                                                         <tr>    
-                                                            <td>{{ $stock_card->date }}</td>
-                                                            <td>({{ $stock_card->reference }}) {{ $stock_card->reference_no }}</td>
-                                                            <td>{{ $stock_card->received_quantity }}</td>
-                                                            <td></td>
+                                                            <td>{{ $outright_expense->date }}</td>
+                                                            <td>({{ $outright_expense->reference }}) {{ $outright_expense->reference_no }}</td>
+                                                            <td>{{ $outright_expense->issued_quantity }}</td>
                                                         </tr>
                                                         @endif
                                                     @endforeach
-                                                   </tbody>
+                                                </tbody>
                                             </table>
                                         </div>
                                     </div>
@@ -355,6 +351,10 @@
             searching: false
         });
     });
+
+    $('.nav-tabs a').click(function(){
+        $(this).tab('show');
+    })
     </script>
 
 @stop
