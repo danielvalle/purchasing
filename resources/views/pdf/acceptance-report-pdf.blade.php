@@ -70,23 +70,14 @@
 
 
                         <tr>
-                            <td style="font-size: 14px; text-align: left; border-right: thin solid black">Responsibility Cenner Code: &nbsp;&nbsp;&nbsp;<span style="text-decoration: underline">{{ $pr_header->responsibility_center_code }}</span></td>
+                            <td style="font-size: 14px; text-align: left; border-right: thin solid black">Responsibility Center Code: &nbsp;&nbsp;&nbsp;<span style="text-decoration: underline">{{ $pr_header->responsibility_center_code }}</span></td>
                             <td style="font-size: 14px; text-align: left; ">Date: &nbsp;&nbsp;&nbsp;<span style="text-decoration: underline">{{ date("M d, Y", strtotime($acceptance_header->invoice_date)) }}</span></td>
                         </tr>
-                    </tbody>
-            </table>     
-            <table text-align="left" style=" width: 100%">
-                    <thead>
-                    </thead>
-                    <tbody>  
-                        <tr>
-                            <td style="font-size: 14px; width: 30%; text-align: center; border-right: thin solid black"></td>
-                            <td style="font-size: 14px; width: 70%; text-align: center;"></td>
                     </tbody>
             </table>        
         </div>
         <div >
-            <table text-align="left" style=" width: 100%;">
+            <table text-align="left" style=" width: 100%; border-top: 0px !important">
                     <thead>
                         <tr>
                             <th style="font-size: 14px; text-align: center; border-right: thin solid black">Item No.</th>

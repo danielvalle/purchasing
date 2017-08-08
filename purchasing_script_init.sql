@@ -343,13 +343,13 @@ CREATE TABLE purchase_order_detail
 CREATE TABLE acceptance
     (
       `id` int NOT NULL AUTO_INCREMENT,
-      `entity_fk` int,
       `supplier_fk` int,
       `acceptance_number` varchar(50),
       `po_fk` int,
       `po_no` varchar(50),
       `po_date` date,
       `iar` varchar(50),
+      `iar_date` date,
       `invoice_no` varchar(50),
       `invoice_date` date,
       `requisitioning_dept_fk` int,

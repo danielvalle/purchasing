@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use PDF;
 
 use App\Item;
 use App\StockCard;
@@ -82,7 +83,7 @@ class ItemController extends Controller
         return redirect('maintenance/item');
     }
 
-    public function delete(Request $request)
+    public function delete()
     {
 
         $item = Item::find($request->input('del-item-id'));
@@ -91,6 +92,12 @@ class ItemController extends Controller
         $item->save();
 
         return redirect('maintenance/item');
+    }
+
+    public function stock_card_pdf(Request $request)
+    {
+        $pdf = PDF::loadView('pdf.stock-card-pdf');
+        return $pdf->download('stock_card.pdf');
     }
     
 }

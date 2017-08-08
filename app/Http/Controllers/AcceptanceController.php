@@ -132,7 +132,7 @@ class AcceptanceController extends Controller
                                 'item_fk' => $items[$i]->item_fk,
                                 'date' => date("Y-m-d"),
                                 'reference' => "Outright Expense",
-                                'po_fk' => $request->input('add-po-no'),
+                                'po_fk' => session()->get("acceptance_po_no"),
                                 'acceptance_fk' => $acceptance->id,
                                 'reference_no' => "PO-" . $request->input('add-po-no'),
                                 'issued_quantity' => $request->input('add-outright-expense')[$i]
@@ -234,7 +234,7 @@ class AcceptanceController extends Controller
                 ->select("user.first_name", "user.middle_name", "user.last_name")
                 ->where("a.id", session()->get("pdf_accept_id"))
                 ->first();
-
+        
         view()->share('acceptance_header', $acceptance_header);
         view()->share('pr_header', $pr);
         view()->share('items', $items);

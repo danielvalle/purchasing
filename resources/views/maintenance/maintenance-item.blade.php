@@ -321,6 +321,7 @@
   
                         </div>
                         <div class="modal-footer">
+                            <a href="{{ URL::to('maintenance/stock-card-pdf') }}" class="btn btn-primary">Print Stock Card</a>
                             <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
                         </div>
                     </div>
