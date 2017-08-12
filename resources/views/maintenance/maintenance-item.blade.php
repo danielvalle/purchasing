@@ -215,6 +215,7 @@
 
             <!-- View Stock Card -->
             <div id="{{ $item->id }}view-stock-card" class="modal fade" role="dialog">
+            {!! Form::open(['url' => 'maintenance/stock-card-pdf', 'method' => 'post']) !!} 
                 <div class="modal-dialog  modal-lg">
             
                     <!-- Modal content-->
@@ -229,6 +230,7 @@
                               <div class="panel-body">
                                     <div class="form-group" style="width: 100%">   
                                         <div class="form-group" style="width: 45%; float: left">
+                                            <input type="hidden" name="hdn-item-id" value="{{ $item->id }}">
                                             <div class="form-group" style="width: 100%; float: left">
                                                 <label for="" style="width: 30%; float: left">Stock Number:</label>
                                                 <input style="width: 70%; float: left" class="form-control" type="text" value="{{ $item->stock_no }}" readonly>                               
@@ -321,12 +323,13 @@
   
                         </div>
                         <div class="modal-footer">
-                            <a href="{{ URL::to('maintenance/stock-card-pdf') }}" class="btn btn-primary">Print Stock Card</a>
+                            <button type="submit" class="btn btn-primary">Print Stock Card</button>
                             <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
                         </div>
                     </div>
-
+        
                 </div>
+            {!! Form::close() !!}
             </div>
             <!-- /View Stock Card -->
 

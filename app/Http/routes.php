@@ -54,7 +54,7 @@ Route::group(['prefix' => 'maintenance'], function(){
 
 	/* Item */
 
-		Route::get('stock-card-pdf', array('as'=>'maintenance/stock-card-pdf', 'uses'=>'ItemController@stock_card_pdf'));
+		Route::post('stock-card-pdf', array('as'=>'maintenance/stock-card-pdf', 'uses'=>'ItemController@stock_card_pdf'));
 		Route::resource('item', 'ItemController');
 			Route::post('item/update', 'ItemController@update');
 			Route::post('item/destroy', 'ItemController@delete');

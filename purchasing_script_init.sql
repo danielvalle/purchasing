@@ -463,7 +463,7 @@ CREATE TABLE stock_card
       `issued_quantity` float,
       `office_fk` int,
       `balanced_quantity` float,
-      `no_of_days_consume` float,
+      `no_of_days_consume` varchar(50),
       `is_active` tinyint(1),
       `created_at` date,
       `updated_at` date,

@@ -105,6 +105,13 @@ class IssuanceController extends Controller
 
             for($i = 0; $i < count($item_count); $i++){
 
+                $item = Item::find($items[$i]);
+
+                $item->stock_quantity = ($item->stock_quantity - (int)$quantities[$i]);
+                $item->save();
+
+                $new_qty = ($item->stock_quantity - (int)$quantities[$i]);
+    
                 $issuance_detail = IssuanceDetail::create(array(
                         'issuance_fk' => $issuance->id,
                         'stock_no' => $stock_nos[$i],
@@ -119,25 +126,21 @@ class IssuanceController extends Controller
                 $issuance_detail->save();
 
                 $stock_card = StockCard::create(array(
-                            'item_fk' => $items[$i],
-                            'date' => date("Y-m-d"),
-                            'reference' => "Issuance",
-                            'issuance_fk' => $issuance->id,
-                            'reference_no' => "RIS-" . date("Y-m") . "-" . sprintf("%04d", $issuance_detail->id),
-                            'issued_quantity' => $quantities[$i],
-                            'office_fk' => $request->input("add-office"),
-                            'no_of_days_consume' => $no_of_days_consume[$i]
-
+                        'item_fk' => $items[$i],
+                        'date' => date("Y-m-d"),
+                        'reference' => "Issuance",
+                        'issuance_fk' => $issuance->id,
+                        'reference_no' => "RIS-" . date("Y-m") . "-" . sprintf("%04d", $issuance_detail->id),
+                        'issued_quantity' => $quantities[$i],
+                        'office_fk' => $request->input("add-office"),
+                        'no_of_days_consume' => $no_of_days_consume[$i],
+                        'balanced_quantity' => $new_qty
                 ));
 
-                $stock_card->save();      
-
-                $item = Item::find($items[$i]);
-
-                $item->stock_quantity = ($item->stock_quantity - (int)$quantities[$i]);
-                $item->save();
+                $stock_card->save();                
 
             }
+
             \Session::flash('issue_add_success','Issuance is successfully sent. Reference No. is ISS No. ' . $issuance->issuance_number);
 
             \Session::flash('issue_new_check','yes');
