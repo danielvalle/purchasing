@@ -40,7 +40,7 @@
                             <td colspan="2" style="width: 100%; padding-bottom: 10px; font-size:20px; text-align: center; font-weight: bold">INSPECTION AND ACCEPTANCE REPORT</td>
                         </tr>
                         <tr>
-                            <td style="width: 65%; font-size:14px; text-align: left;"><span style="font-weight: bold">Entity Name:</span> <span style="text-decoration: underline">{{ $pr_header->entity_name }}</span></td>
+                            <td style="width: 65%; font-size:14px; text-align: left;"><span style="font-weight: bold">Entity Name:</span> <span style="text-decoration: underline">@if($pr_header->entity_name == null) @else {{ $pr_header->entity_name }} @endif</span></td>
                             <td style="width: 35%; font-size:14px; text-align: left;"><span style="font-weight: bold">Fund Cluster:</span> <span style="text-decoration: underline">{{ $pr_header->fund_cluster }}</span></td>
                         </tr>
                     </tbody>
@@ -59,8 +59,8 @@
                         </tr>
 
                         <tr>
-                            <td style="font-size: 14px; text-align: left; border-right: thin solid black">PO No./Date: &nbsp;&nbsp;&nbsp;<span style="text-decoration: underline">{{ $acceptance_header->po_no }} / {{ date("M d, Y", strtotime($acceptance_header->po_date)) }}</span></td>
-                            <td style="font-size: 14px; text-align: left; ">Date: &nbsp;&nbsp;&nbsp;<span style="text-decoration: underline">{{ date("M d, Y", strtotime($acceptance_header->iar_date)) }}</span></td>
+                            <td style="font-size: 14px; text-align: left; border-right: thin solid black">PO No./Date: &nbsp;&nbsp;&nbsp;<span style="text-decoration: underline">{{ $acceptance_header->po_no }} / @if($acceptance_header->po_date == null) &nbsp; @else{{ date("M d, Y", strtotime($acceptance_header->po_date)) }}@endif</span></td>
+                            <td style="font-size: 14px; text-align: left; ">Date: &nbsp;&nbsp;&nbsp;<span style="text-decoration: underline">@if($acceptance_header->iar_date == null) @else{{ date("M d, Y", strtotime($acceptance_header->iar_date)) }}@endif</span></td>
                         </tr>
 
                         <tr>
@@ -71,13 +71,13 @@
 
                         <tr>
                             <td style="font-size: 14px; text-align: left; border-right: thin solid black">Responsibility Center Code: &nbsp;&nbsp;&nbsp;<span style="text-decoration: underline">{{ $pr_header->responsibility_center_code }}</span></td>
-                            <td style="font-size: 14px; text-align: left; ">Date: &nbsp;&nbsp;&nbsp;<span style="text-decoration: underline">{{ date("M d, Y", strtotime($acceptance_header->invoice_date)) }}</span></td>
+                            <td style="font-size: 14px; text-align: left; ">Date: &nbsp;&nbsp;&nbsp;<span style="text-decoration: underline">@if($acceptance_header->invoice_date == null) @else{{ date("M d, Y", strtotime($acceptance_header->invoice_date)) }}@endif</span></td>
                         </tr>
                     </tbody>
             </table>        
         </div>
         <div >
-            <table text-align="left" style=" width: 100%; border-top: 0px !important">
+            <table text-align="left" style=" width: 100%;">
                     <thead>
                         <tr>
                             <th style="font-size: 14px; text-align: center; border-right: thin solid black">Item No.</th>
@@ -89,29 +89,29 @@
                     <tbody>  
                         @foreach($items as $item)
                         <tr>
-                            <td style="font-size: 14px; text-align: left; border-right: thin solid black" >{{ $item->stock_no}}</td>
-                            <td style="font-size: 14px; text-align: left; border-right: thin solid black" >{{ $item->unit_name }}</td>
-                            <td style="font-size: 14px; text-align: left; border-right: thin solid black" >{{ $item->item_name }}</td>
-                            <td style="font-size: 14px; text-align: left; " >{{ $item->quantity }}</td>
+                            <td style="font-size: 14px; text-align: center; border-right: thin solid black" >{{ $item->stock_no}}</td>
+                            <td style="font-size: 14px; text-align: center; border-right: thin solid black" >{{ $item->unit_name }}</td>
+                            <td style="font-size: 14px; text-align: center; border-right: thin solid black" >{{ $item->item_name }}</td>
+                            <td style="font-size: 14px; text-align: right; " >{{ $item->quantity }}</td>
                         </tr>
                         @endforeach
                         <tr>
-                            <td style="font-size: 14px; text-align: left; border-right: thin solid black" >&nbsp;</td>
-                            <td style="font-size: 14px; text-align: left; border-right: thin solid black" >&nbsp;</td>
-                            <td style="font-size: 14px; text-align: left; border-right: thin solid black" >&nbsp;</td>
-                            <td style="font-size: 14px; text-align: left; " >&nbsp;</td>
+                            <td style="font-size: 14px; text-align: center; border-right: thin solid black" >&nbsp;</td>
+                            <td style="font-size: 14px; text-align: center; border-right: thin solid black" >&nbsp;</td>
+                            <td style="font-size: 14px; text-align: center; border-right: thin solid black" >&nbsp;</td>
+                            <td style="font-size: 14px; text-align: center; " >&nbsp;</td>
                         </tr>
                         <tr>
-                            <td style="font-size: 14px; text-align: left; border-right: thin solid black" >&nbsp;</td>
-                            <td style="font-size: 14px; text-align: left; border-right: thin solid black" >&nbsp;</td>
-                            <td style="font-size: 14px; text-align: left; border-right: thin solid black" >&nbsp;</td>
-                            <td style="font-size: 14px; text-align: left; " >&nbsp;</td>
+                            <td style="font-size: 14px; text-align: center; border-right: thin solid black" >&nbsp;</td>
+                            <td style="font-size: 14px; text-align: center; border-right: thin solid black" >&nbsp;</td>
+                            <td style="font-size: 14px; text-align: center; border-right: thin solid black" >&nbsp;</td>
+                            <td style="font-size: 14px; text-align: center; " >&nbsp;</td>
                         </tr>
                         <tr>
-                            <td style="font-size: 14px; text-align: left; border-right: thin solid black" >&nbsp;</td>
-                            <td style="font-size: 14px; text-align: left; border-right: thin solid black" >&nbsp;</td>
-                            <td style="font-size: 14px; text-align: left; border-right: thin solid black" >&nbsp;</td>
-                            <td style="font-size: 14px; text-align: left; " >&nbsp;</td>
+                            <td style="font-size: 14px; text-align: center; border-right: thin solid black" >&nbsp;</td>
+                            <td style="font-size: 14px; text-align: center; border-right: thin solid black" >&nbsp;</td>
+                            <td style="font-size: 14px; text-align: center; border-right: thin solid black" >&nbsp;</td>
+                            <td style="font-size: 14px; text-align: center; " >&nbsp;</td>
                         </tr>
                     </tbody>
             </table>
@@ -126,7 +126,7 @@
                     <tbody>  
                         <tr>
                             <td style="font-size: 14px; text-align: left; border-right: thin solid black" >
-                                <div style="font-weight: normal">Date Inspected: <span style="text-decoration: underline">{{ date("M d, Y", strtotime($acceptance_header->date_inspected)) }}</span></div>
+                                <div style="font-weight: normal">Date Inspected: <span style="text-decoration: underline">@if($acceptance_header->date_inspected == null) @else{{ date("M d, Y", strtotime($acceptance_header->date_inspected)) }}@endif</span></div>
                                 <div style="padding: 10px 10px 30px 20px;">
                                     <input style="width: 5%; float: left" for="inspected" type="checkbox" value="1" @if($acceptance_header->verification == 1) checked @endif>
                                     <label id="inspected" name="inspected" style="width: 95%; float: left; font-weight: normal" class="checkbox-inline">
@@ -135,18 +135,18 @@
                                 </div>
                                 <div style="text-align: center; font-weight: bold; text-transform: uppercase; text-decoration: underline; ">{{ $inspector->first_name }} {{ $inspector->middle_name }} {{ $inspector->last_name }}</div>
                                 <div style="text-align: center; font-weight: normal;">University Inspector</div>
-                            </td>
+                            </td>                
                             <td style="font-size: 14px; text-align: left; border-right: thin solid black;" >
-                                <div style="font-weight: normal">Date Inspected: <span style="text-decoration: underline">{{ date("M d, Y", strtotime($acceptance_header->date_accepted)) }}</span></div>
+                                <div style="font-weight: normal">Date Inspected: <span style="text-decoration: underline"> @if($acceptance_header->date_accepted == null) @else{{ date("M d, Y", strtotime($acceptance_header->date_accepted)) }}@endif</span></div>
                                 <div style="padding: 10px 10px 30px 20px;">
                                     <div>
-                                    <input style="width: 5%; float: left" for="inspected" type="checkbox" value="1"  @if($acceptance_header->completeness == 1) checked @endif>
+                                    <input style="width: 5%; float: left" for="inspected" type="checkbox"  @if($acceptance_header->completeness == 1) checked @endif>
                                     <label id="inspected" name="inspected" style="width: 95%; float: left; font-weight: normal" class="checkbox-inline">
                                         Complete
                                     </label>  
                                     </div>
                                     <div>
-                                    <input for="inspected" type="checkbox" value="1" style="width: 5%; float: left;" @if($acceptance_header->verification == 0) checked @endif>
+                                    <input for="inspected" type="checkbox" value="1" style="width: 5%; float: left;" @if($acceptance_header->completeness == 2) checked @endif>
                                     <label id="inspected" name="inspected" style="width: 95%; float: left; font-weight: normal" class="checkbox-inline">
                                         Partial (Pls. Specify Quantity)
                                     </label>  

@@ -33,12 +33,12 @@ class AcceptanceController extends Controller
         $po_supplier_fk = "";
         $po_supplier_name = "";
         $po_no = "";
+        $po_id = "";
 
     	$po_items = [];
 
-        $a = [7, 10, 15];
-
 		return view("transaction.transaction-acceptance")
+                ->with("po_id", $po_id)
                 ->with("po_number", $po_no)
 				->with("po_date", $po_date)
                 ->with("po_supplier_fk", $po_supplier_fk)
@@ -46,8 +46,7 @@ class AcceptanceController extends Controller
 				->with("po_items", $po_items)
 				->with("po_nos", $po_nos)
 				->with("departments", $departments)
-				->with("users", $users)
-                ->with("a", $a);
+				->with("users", $users);
     }
     public function store(Request $request) 
     {
@@ -72,16 +71,16 @@ class AcceptanceController extends Controller
                     'supplier_fk' => $request->input('add-supplier'),
                     'po_fk' => session()->get("acceptance_po_no"),
                     'po_no' => $request->input('add-po-no'),
-                    'po_date' => date("Y-m-d", strtotime($request->input('add-po-date'))),
+                    'po_date' => $request->input('add-po-date') != '' ? date("Y-m-d", strtotime($request->input('add-po-date'))) : null,
                     'iar' => $request->input('add-iar'),
-                    'iar_date' =>  date("Y-m-d", strtotime($request->input('add-iar-date'))),
+                    'iar_date' =>  $request->input('add-iar-date') != '' ? date("Y-m-d", strtotime($request->input('add-iar-date'))) : null,
                     'invoice_no' => $request->input('add-invoice-no'),
-                    'invoice_date' =>  date("Y-m-d", strtotime($request->input('add-invoice-date'))),
+                    'invoice_date' =>  $request->input('add-invoice-date') != '' ? date("Y-m-d", strtotime($request->input('add-invoice-date'))) : null,
                     'requisitioning_dept_fk' => $request->input('select-dept'),
-                    'date_inspected' => $request->input('add-date-inspected'),
+                    'date_inspected' => $request->input('add-date-inspected') != '' ? date("Y-m-d", strtotime($request->input('add-date-inspected'))) : null,
                     'verification' =>  $request->input('cbx-inspected'),
                     'inspector_fk' => $request->input('add-inspector'),
-                    'date_accepted' => $request->input('add-date-accepted'),
+                    'date_accepted' => $request->input('add-date-accepted') != '' ? date("Y-m-d", strtotime($request->input('add-date-accepted'))) : null,
                     'completeness' => $request->input('rdb-completeness'),
                     'property_officer_fk' => $request->input('add-officer'),
                     'is_active' => 1
@@ -91,7 +90,7 @@ class AcceptanceController extends Controller
 
             $acceptance = Acceptance::find($acceptance->id);
 
-            $acceptance->acceptance_number = date("Y-m", strtotime($acceptance->invoice_date)) . "-" . sprintf("%04d", $acceptance->id);
+            $acceptance->acceptance_number = date("Y-m") . "-" . sprintf("%04d", $acceptance->id);
             $acceptance->save();
 
             session(["pdf_accept_id" => $acceptance->id]);
@@ -115,6 +114,10 @@ class AcceptanceController extends Controller
                 $item->save();
 
                 $new_qty = ($item->stock_quantity + (int)$request->input('add-received-qty')[$i]);
+                $quantity_unit = \DB::table('unit')
+                                                ->select('unit_name')
+                                                ->where('id', $items[$i]->unit_fk)
+                                                ->first();
 
                 if($check_received_qty != 0)
                 {
@@ -126,7 +129,9 @@ class AcceptanceController extends Controller
                                 'acceptance_fk' => $acceptance->id,
                                 'reference_no' => "PO-" . $request->input('add-po-no'),
                                 'received_quantity' => $request->input('add-received-qty')[$i],
-                                'balanced_quantity' => $new_qty
+                                'received_quantity_unit' => $quantity_unit->unit_name,    
+                                'balanced_quantity' => $new_qty,
+                                'balanced_quantity_unit' => $quantity_unit->unit_name
                     ));
 
                     $stock_card->save();               
@@ -175,14 +180,15 @@ class AcceptanceController extends Controller
     	$po_header = \DB::table("purchase_order")
     				->join("supplier", "supplier.id", "=", "purchase_order.supplier_fk")
     				->select("purchase_order.invoice_date", "purchase_order.supplier_fk", 
-                        "supplier.supplier_name", "purchase_order.po_number")
+                        "supplier.supplier_name", "purchase_order.id", "purchase_order.po_number")
     				->where("purchase_order.id", $selected_po_no)
                     ->first();
 
-        $po_date = date('F d, Y', strtotime($po_header->invoice_date));
+        $po_date = $po_header->invoice_date == null ? '' : date('F d, Y', strtotime($po_header->invoice_date));
         $po_supplier_fk = $po_header->supplier_fk;
         $po_supplier_name = $po_header->supplier_name;
-        $po_no = $po_header->po_number;
+        $po_number = $po_header->po_number;
+        $po_id = $po_header->id;
                     
     	$po_items = \DB::table("purchase_order_detail")
     				->join("item", "item.id", "=", "purchase_order_detail.item_fk")
@@ -195,9 +201,10 @@ class AcceptanceController extends Controller
 
         session(['acceptance_items' => $po_items]);
         session(['acceptance_po_no' => $selected_po_no]);
-
+        
     	return view("transaction.transaction-acceptance")
-                ->with("po_number", $po_no)
+                ->with("po_id", $po_id)
+                ->with("po_number", $po_number)
     			->with("po_date", $po_date)
                 ->with("po_supplier_fk", $po_supplier_fk)
                 ->with("po_supplier_name", $po_supplier_name)
@@ -218,10 +225,13 @@ class AcceptanceController extends Controller
                     ->where("a.id", session()->get("pdf_accept_id"))
                     ->first();
 
+        $po = \DB::table('purchase_order')
+                    ->select('pr_no_fk')->where('id', session()->get('acceptance_po_no'))->first();
+
         $pr = \DB::table('purchase_request')
                 ->leftJoin('entity', 'entity.id', '=', 'purchase_request.entity_fk')
                 ->select('entity.entity_name', 'purchase_request.fund_cluster', 'purchase_request.responsibility_center_code')
-                ->where('purchase_request.id', session()->get('acceptance_po_no'))->first();
+                ->where('purchase_request.id', $po->pr_no_fk)->first();
 
         $items = \DB::table("acceptance_detail as ad")
                     ->leftJoin("item as i", "ad.item_fk", "=", "i.id")
@@ -248,6 +258,7 @@ class AcceptanceController extends Controller
         view()->share('inspector', $accept_inspector);
         view()->share('property_officer', $accept_property_officer);
 
+        
         $pdf = PDF::loadView('pdf.acceptance-report-pdf');
         return $pdf->download('ACC' . $acceptance_header->acceptance_number . '.pdf');
     }    

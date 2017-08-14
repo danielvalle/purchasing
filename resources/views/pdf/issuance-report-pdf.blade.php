@@ -54,7 +54,7 @@
                             <td style="font-size: 13px; width: 10%; text-align: left;">RIS No.</td>
                             <td style="font-size: 13px; width: 10%; text-align: left;">{{ $header->ris_no }}</td>
                             <td style="font-size: 13px; width: 10%; text-align: left;">Date:</td>
-                            <td style="font-size: 13px; width: 10%; text-align: left; ">{{ date("M d, Y", strtotime($header->ris_date)) }}</td>
+                            <td style="font-size: 13px; width: 10%; text-align: left; ">@if($header->ris_date == null) &nbsp; @else{{ date("M d, Y", strtotime($header->ris_date)) }}@endif</td>
                         </tr>
                         <tr>
                             <td style="font-size: 13px; width: 15%; text-align: left;">Office:</td>
@@ -63,7 +63,7 @@
                             <td style="font-size: 13px; width: 10%; text-align: left;">SAI No.</td>
                             <td style="font-size: 13px; width: 10%; text-align: left;">{{ $header->sai_no }}</td>
                             <td style="font-size: 13px; width: 10%; text-align: left;">Date:</td>
-                            <td style="font-size: 13px; width: 10%; text-align: left; ">{{ date("M d, Y", strtotime($header->sai_date)) }}</td>
+                            <td style="font-size: 13px; width: 10%; text-align: left; ">@if($header->sai_date == null) &nbsp; @else{{ date("M d, Y", strtotime($header->sai_date)) }}@endif</td>
                         </tr>
                     </tbody>
             </table> 
@@ -98,8 +98,8 @@
                             <td style="font-size:14px; text-align: left; border-right: thin solid black" >{{ $item->stock_no}}</td>
                             <td style="font-size:14px; text-align: left; border-right: thin solid black" >{{ $item->unit_name }}</td>
                             <td style="font-size:14px; text-align: left; border-right: thin solid black" >{{ $item->item_name }}</td>
-                            <td style="font-size:14px; text-align: left; border-right: thin solid black" >{{ $item->quantity }}</td>
-                            <td style="font-size:14px; text-align: left; border-right: thin solid black" >&nbsp;</td>
+                            <td style="font-size:14px; text-align: right; border-right: thin solid black" >{{ $item->quantity }}</td>
+                            <td style="font-size:14px; text-align: right; border-right: thin solid black" >&nbsp;</td>
                             <td style="font-size:14px; text-align: left;">{{ $item->remarks }}</td>
                         </tr>
                         @endforeach
@@ -169,12 +169,12 @@
                             <td style="font-size: 13px; text-align: center; border-right: thin solid black; border-bottom: thin solid black !important">{{ $issued_by->designation_name }}</td>
                             <td style="font-size: 13px; text-align: center; border-bottom: thin solid black !important">{{ $received_by->designation_name }}</td>
                         </tr>
-                        <tr>
+                        <tr>          
                             <td style="font-size: 13px; text-align: left; border-right: thin solid black">Date:</td>
-                            <td style="font-size: 13px; text-align: center; border-right: thin solid black;">{{ date("M d, Y", strtotime($requested_by->request_date)) }}</td>
-                            <td style="font-size: 13px; text-align: center; border-right: thin solid black;">{{ date("M d, Y", strtotime($approved_by->approved_date)) }}</td>
-                            <td style="font-size: 13px; text-align: center; border-right: thin solid black;">{{ date("M d, Y", strtotime($issued_by->issued_date)) }}</td>
-                            <td style="font-size: 13px; text-align: center;">{{ date("M d, Y", strtotime($received_by->receipt_date)) }}</td>
+                            <td style="font-size: 13px; text-align: center; border-right: thin solid black;">@if($requested_by->request_date == null) &nbsp; @else{{ date("M d, Y", strtotime($requested_by->request_date)) }}@endif</td>
+                            <td style="font-size: 13px; text-align: center; border-right: thin solid black;">@if($approved_by->approved_date == null) &nbsp; @else{{ date("M d, Y", strtotime($approved_by->approved_date)) }}@endif</td>
+                            <td style="font-size: 13px; text-align: center; border-right: thin solid black;">@if($issued_by->issued_date == null) &nbsp; @else{{ date("M d, Y", strtotime($issued_by->issued_date)) }}@endif</td>
+                            <td style="font-size: 13px; text-align: center;">@if($received_by->receipt_date == null) &nbsp; @else{{ date("M d, Y", strtotime($received_by->receipt_date)) }}@endif</td>
                         </tr>
                     </tbody>
             </table> 

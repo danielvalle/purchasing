@@ -71,7 +71,7 @@ class PurchaseOrderController extends Controller
                     'supplier_fk' => session()->get('po_supplier'),
                     'address' => $request->input('add-address'),
                     'tin' => $request->input('add-tin'),
-                    'invoice_date' =>  date("Y-m-d", strtotime($request->input('add-date'))),
+                    'invoice_date' =>  $request->input('add-date') != '' ? date("Y-m-d", strtotime($request->input('add-date'))) : null,
                     'mode_of_procurement' => $request->input('add-mode-of-procurement'),
                     'place_of_delivery' => $request->input('add-place-delivery'),
                     'date_of_delivery' =>  $request->input('add-date-delivery'),
@@ -92,7 +92,7 @@ class PurchaseOrderController extends Controller
 
             $purchase_order = PurchaseOrder::find($purchase_order->id);
 
-            $purchase_order->po_number = date("Y-m", strtotime($purchase_order->invoice_date)) . "-" . sprintf("%04d", $purchase_order->id);
+            $purchase_order->po_number = date("Y-m") . "-" . sprintf("%04d", $purchase_order->id);
             $purchase_order->save();
 
             session(["pdf_po_id" => $purchase_order->id]);

@@ -18,9 +18,12 @@ class StockCard extends Model
 								'issuance_fk',
 								'reference_no',
 								'received_quantity',
+								'received_quantity_unit',
 								'issued_quantity',
+								'issued_quantity_unit',
 								'office_fk',
 								'balanced_quantity',
+								'balanced_quantity_unit',
 								'no_of_days_consume',
 								'is_active'
 								//

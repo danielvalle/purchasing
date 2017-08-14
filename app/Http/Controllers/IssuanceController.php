@@ -75,22 +75,22 @@ class IssuanceController extends Controller
                     'office_fk' => $request->input("add-office"),
                     'reasonability_center_code' => $request->input('add-code'),
                     'ris_no' => $request->input('add-ris-no'),
-                    'ris_date' => date("Y-m-d", strtotime($request->input('add-ris-date'))),
+                    'ris_date' => $request->input('add-ris-date') != '' ? date("Y-m-d", strtotime($request->input('add-ris-date'))) : null,
                     'sai_no' => $request->input('add-sai-no'),
-                    'sai_date' =>  date("Y-m-d", strtotime($request->input('add-sai-date'))),
+                    'sai_date' =>  $request->input('add-sai-date') != '' ? date("Y-m-d", strtotime($request->input('add-sai-date'))) : null,
                     'purpose' => $request->input('add-purpose'),
                     'requested_by_fk' => $request->input('add-requested-by'),
                     'requestor_designation_fk' =>  $request->input('add-requestor-designation'),
-                    'request_date' => date("Y-m-d", strtotime($request->input('add-request-date'))),
+                    'request_date' => $request->input('add-request-date') != '' ? date("Y-m-d", strtotime($request->input('add-request-date'))) : null,
                     'approver_fk' => $request->input('add-approved-by'),
                     'approver_designation_fk' => $request->input('add-approver-designation'),
-                    'approved_date' =>  date("Y-m-d", strtotime($request->input('add-sai-date'))),
+                    'approved_date' =>  $request->input('add-approved-date') != '' ? date("Y-m-d", strtotime($request->input('add-approved-date'))) : null,
                     'issued_by_fk' => $request->input('add-issued-by'),
                     'issuer_designation_fk' => $request->input('add-issuer-designation'),
-                    'issued_date' =>  date("Y-m-d", strtotime($request->input('add-issued-date'))),
+                    'issued_date' =>  $request->input('add-issued-date') != '' ? date("Y-m-d", strtotime($request->input('add-issued-date'))) : null,
                     'received_by_fk' => $request->input('add-received-by'),
                     'recipient_designation_fk' => $request->input('add-reciepient-designation'),
-                    'receipt_date' =>  date("Y-m-d", strtotime($request->input('add-receipt-date'))),
+                    'receipt_date' =>  $request->input('add-receipt-date') != '' ? date("Y-m-d", strtotime($request->input('add-receipt-date'))) : null,
                     'is_active' => 1
                 ));
 
@@ -125,6 +125,11 @@ class IssuanceController extends Controller
                 
                 $issuance_detail->save();
 
+                $quantity_unit = \DB::table('unit')
+                                    ->select('unit_name')
+                                    ->where('id', $units[$i])
+                                    ->first();
+
                 $stock_card = StockCard::create(array(
                         'item_fk' => $items[$i],
                         'date' => date("Y-m-d"),
@@ -132,9 +137,11 @@ class IssuanceController extends Controller
                         'issuance_fk' => $issuance->id,
                         'reference_no' => "RIS-" . date("Y-m") . "-" . sprintf("%04d", $issuance_detail->id),
                         'issued_quantity' => $quantities[$i],
+                        'issued_quantity_unit' => $quantity_unit->unit_name,
                         'office_fk' => $request->input("add-office"),
                         'no_of_days_consume' => $no_of_days_consume[$i],
-                        'balanced_quantity' => $new_qty
+                        'balanced_quantity' => $new_qty, 
+                        'balanced_quantity_unit' => $quantity_unit->unit_name
                 ));
 
                 $stock_card->save();                

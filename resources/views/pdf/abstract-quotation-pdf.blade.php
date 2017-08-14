@@ -32,7 +32,7 @@
                     <div style="font-size: 14px;">Sogod, Southern Leyte</div>
                     <div style="font-size: 14px;">Abstract of Quotation/Bids Opened On</div>
                     <div style="margin: 10px"></div>
-                    <div style="font-size: 14px; text-align: center; text-decoration: underline">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{ date("M d, Y", strtotime($header->date)) }}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div>
+                    <div style="font-size: 14px; text-align: center; text-decoration: underline">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;@if($header->date == null) &nbsp; @else{{ date("M d, Y", strtotime($header->date)) }}@endif&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div>
                     <div style="font-size: 14px;">Date</div>
                     <p style="font-size:-0.5px;"></p>
                 </h1>

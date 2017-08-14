@@ -76,10 +76,10 @@
                     <tr>
                         <td style="font-size: 13px; border-right: thin solid black; border-bottom: thin solid black">{{ $card->date }}</td>
                         <td style="font-size: 13px; border-right: thin solid black; border-bottom: thin solid black">{{ $card->reference_no }}</td>
-                        <td style="font-size: 13px; border-right: thin solid black; border-bottom: thin solid black">{{ $card->received_quantity }}</td>
+                        <td style="font-size: 13px; border-right: thin solid black; border-bottom: thin solid black">{{ $card->received_quantity }} {{ $card->received_quantity_unit }}</td>
                         <td style="font-size: 13px; border-right: thin solid black; border-bottom: thin solid black">{{ $card->issued_quantity }}</td>
                         <td style="font-size: 13px; border-right: thin solid black; border-bottom: thin solid black">{{ $card->office_name }}</td>
-                        <td style="font-size: 13px; border-right: thin solid black; border-bottom: thin solid black">{{ $card->balanced_quantity }}</td>
+                        <td style="font-size: 13px; border-right: thin solid black; border-bottom: thin solid black">{{ $card->balanced_quantity }} {{ $card->balanced_quantity_unit }}</td>
                         <td style="font-size: 13px; border-bottom: thin solid black">{{ $card->no_of_days_consume }}</td>
                     </tr>
                     @endforeach

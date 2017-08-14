@@ -247,7 +247,7 @@
                             <div style="font-size: 14px; font-weight: normal; text-align: center">{{ $acc->uacs_code }}</div>
                         </td>
                         <td style="border-right: thin solid black">
-                            <div style="font-size: 14px; font-weight: normal; text-align: center">{{ $acc->debit }}</div>
+                            <div style="font-size: 14px; font-weight: normal; text-align: right">{{ $acc->debit }}</div>
                         </td>
                         <td>
                             <div style="font-size: 14px; font-weight: normal; text-align: right">{{ $acc->credit }}</div>

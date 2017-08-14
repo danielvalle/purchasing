@@ -50,7 +50,7 @@
                             <td style="font-size: 13px; text-align: left;">Address:</td>
                             <td style="font-size: 13px; text-align: left; width: 50%; text-decoration: underline; border-right: solid 2px black">{{ $po_header->address }}</td>
                             <td style="font-size: 13px; text-align: left;">Date:</td>
-                            <td style="font-size: 13px; text-align: left; text-decoration: underline;">{{ date("M d, Y", strtotime($po_header->invoice_date)) }}</td>
+                            <td style="font-size: 13px; text-align: left; text-decoration: underline;">@if($po_header->invoice_date == null) &nbsp; @else{{ date("M d, Y", strtotime($po_header->invoice_date)) }}@endif</td>
                         </tr>
                         <tr>
                             <td style="font-size: 13px; text-align: left;">TIN:</td>
@@ -78,7 +78,7 @@
                         </tr>
                         <tr>
                             <td style="font-size: 13px; text-align: left;">Date of Delivery:</td>
-                            <td style="font-size: 13px; text-align: center; width: 50%; ">{{ $po_header->date_of_delivery }}</td>
+                            <td style="font-size: 13px; text-align: center; width: 50%; ">@if($po_header->date_of_delivery == null) &nbsp; @else{{ date("M d, Y", strtotime($po_header->date_of_delivery)) }}@endif</td>
                             <td style="font-size: 13px; text-align: left;">Payment Term:</td>
                             <td style="font-size: 13px; text-align: left;">{{ $po_header->payment_term }}</td>
                         </tr>
@@ -89,12 +89,12 @@
             <table text-align="left" style=" width: 100%; border-bottom: thin solid black">
                     <thead>
                         <tr>
-                            <th style="font-size: 13px; text-align: center; width: 10%; border-right: thin solid black">Stock No.</th>
-                            <th style="font-size: 13px; text-align: center; width: 10%; border-right: thin solid black">Unit</th>
-                            <th style="font-size: 13px; text-align: center; width: 55%; border-right: thin solid black">Item Description</th>
-                            <th style="font-size: 13px; text-align: center; width: 10%; border-right: thin solid black">Quantity</th>
-                            <th style="font-size: 13px; text-align: center; width: 10%; border-right: thin solid black">Unit Cost</th>
-                            <th style="font-size: 13px; text-align: center; width: 15%;">Amount</th>
+                            <th style="font-size: 13px; text-align: center; width: 10%; border-bottom: thin solid black; border-right: thin solid black">Stock No.</th>
+                            <th style="font-size: 13px; text-align: center; width: 10%; border-bottom: thin solid black; border-right: thin solid black">Unit</th>
+                            <th style="font-size: 13px; text-align: center; width: 55%; border-bottom: thin solid black; border-right: thin solid black">Item Description</th>
+                            <th style="font-size: 13px; text-align: center; width: 10%; border-bottom: thin solid black; border-right: thin solid black">Quantity</th>
+                            <th style="font-size: 13px; text-align: center; width: 10%; border-bottom: thin solid black; border-right: thin solid black">Unit Cost</th>
+                            <th style="font-size: 13px; text-align: center; width: 15%; border-bottom: thin solid black;">Amount</th>
                         </tr>
                     </thead>
                     <tbody>  
@@ -118,7 +118,7 @@
                     <tbody>  
                         <tr>
                             <td style="font-size: 13px; text-align: center; width: 25%; ">Total Amount in Words:</td>
-                            <td style="font-size: 13px; text-align: center; width: 60%; border-right: thin solid black">{{  }}</td>
+                            <td style="font-size: 13px; text-align: center; width: 60%; border-right: thin solid black">{{ $po_header->total_amount_in_words }}</td>
                             <td style="font-size: 13px; text-align: center; width: 15%;">{{ number_format($po_header->total_amount, 2) }}</td>
                         </tr>
                     </tbody>
@@ -161,7 +161,7 @@
                             <td style="font-size: 13px; text-align: left; width: 35%; font-weight: bold;">ORS/BURS No.:</td>
                         </tr> 
                         <tr>
-                            <td style="font-size: 13px; text-align: left; width: 60%; font-weight: bold; border-right: solid 2px black">Funds Available: </td>
+                            <td style="font-size: 13px; text-align: left; width: 60%; font-weight: bold; border-right: solid 2px black">Funds Available: <span style="text-decoration: underline; font-weight: normal !important">{{ number_format($po_header->funds_available, 2) }}</span> </td>
                             <td style="font-size: 13px; text-align: left; width: 35%; font-weight: bold;">Date of the ORS/BURS: </td>
                         </tr>
                         <tr>

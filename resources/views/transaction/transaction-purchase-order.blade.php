@@ -156,7 +156,7 @@
                                         </div>  
                                         <div class="form-group col-lg-2">
                                             <label for="add-birthday" >Date</label>         
-                                            <input type="date" class="form-control" id="add-date" name="add-date" value="{{ date("Y-m-d") }}" required>
+                                            <input type="date" class="form-control" id="add-date" name="add-date">
                                         </div>
                                         <div class="form-group col-lg-2">
                                             <label for="">Mode Of Procurement</label>

@@ -1,4 +1,4 @@
-CREATE DATABASE dbpurchasing ;
+CREATE DATABASE dbpurchasing;
 
 USE dbpurchasing;
 
@@ -460,9 +460,12 @@ CREATE TABLE stock_card
       `issuance_fk` int,
       `reference_no` varchar(50),
       `received_quantity` float,
+      `received_quantity_unit` varchar(50),
       `issued_quantity` float,
+      `issued_quantity_unit` varchar(50),
       `office_fk` int,
       `balanced_quantity` float,
+      `balanced_quantity_unit` varchar(50),
       `no_of_days_consume` varchar(50),
       `is_active` tinyint(1),
       `created_at` date,

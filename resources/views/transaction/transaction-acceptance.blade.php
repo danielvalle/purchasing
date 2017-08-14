@@ -57,7 +57,11 @@
                                             <select class="selectpicker" name="select-po-no" id="select-po-no">
                                                 <option selected disabled>Select a PO No.</option>
                                                 @foreach($po_nos as $po_no)
-                                                    <option value="{{ $po_no->id }}">{{ $po_no->po_number }}</option>
+                                                    @if($po_no->id == $po_id)
+                                                        <option value="{{ $po_no->id }}" selected>{{ $po_no->po_number }}</option>
+                                                    @else
+                                                        <option value="{{ $po_no->id }}">{{ $po_no->po_number }}</option>
+                                                    @endif
                                                 @endforeach
                                             </select>     
                                         </div>
@@ -84,7 +88,7 @@
              
                                         <div class="form-group col-lg-4" >
                                             <label for="">IAR Date</label>
-                                            <input type="date" class="form-control" id="add-iar-date" name="add-iar-date" value="{{ date("Y-m-d") }}" required>                           
+                                            <input type="date" class="form-control" id="add-iar-date" name="add-iar-date">                           
                                         </div>
 
                                         <div class="form-group col-lg-4">
@@ -103,7 +107,7 @@
 
                                         <div class="form-group col-lg-4" >
                                             <label for="">Invoice Date</label>
-                                            <input type="date" class="form-control" id="add-invoice-date" name="add-invoice-date" value="{{ date("Y-m-d") }}" required>                           
+                                            <input type="date" class="form-control" id="add-invoice-date" name="add-invoice-date">                           
                                         </div>
 
                                         <div class="form-group col-lg-4">
@@ -142,7 +146,7 @@
                                                             <td>{!! $po_item->quantity !!}</td>
                                                             <td>{!! $po_item->unit_name !!}</td>
                                                             <td>{!! $po_item->item_description !!}</td>
-                                                            <td><input type="number" class="form-control add-received-qty" id="{!! $i !!}" name="add-received-qty[]" /></td>
+                                                            <td><input type="number" class="form-control add-received-qty" id="{!! $i !!}" name="add-received-qty[]" required /></td>
                                                             <td><input type="number" class="form-control add-outright-expense" id="{!! $i !!}" name="add-outright-expense[]" /></td>
                                                             <input type="hidden" name="add-item[]" value="{!! $po_item->item_fk !!}"> 
                                                             <input type="hidden" name="add-unit[]" value="{!! $po_item->unit_fk !!}"> 
@@ -162,7 +166,7 @@
                                             <div class="panel-body"> 
                                                 <div class="form-group col-lg-6">
                                                     <label for="">Date Inspected</label>
-                                                    <input type="date" class="form-control" id="add-date-inspected" name="add-date-inspected" value="{{ date("Y-m-d") }}" required>                               
+                                                    <input type="date" class="form-control" id="add-date-inspected" name="add-date-inspected">                               
                                                 </div>
 
                                                 <div class="form-group col-lg-6">
@@ -189,7 +193,7 @@
                                             <div class="panel-body"> 
                                                 <div class="form-group col-lg-6">
                                                     <label for="">Date Inspected</label>
-                                                    <input type="date" class="form-control" id="add-date-accepted" name="add-date-accepted" value="{{ date("Y-m-d") }}" required>                               
+                                                    <input type="date" class="form-control" id="add-date-accepted" name="add-date-accepted">                               
                                                 </div>
 
                                                 <div class="form-group col-lg-6">
@@ -206,7 +210,7 @@
                                                     <label class=""><input type="radio" name="rdb-completeness" value="1">Complete</label>  
                                                 </div>
                                                 <div class="form-group col-lg-6">
-                                                    <label class=""><input type="radio" name="rdb-completeness" value="0">Partial (Pls. Specify Quantity)</label>  
+                                                    <label class=""><input type="radio" name="rdb-completeness" value="2">Partial (Pls. Specify Quantity)</label>  
                                                 </div>
                                             </div>
                                         </div>

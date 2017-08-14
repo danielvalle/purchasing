@@ -24,11 +24,12 @@
                             <div class="alert alert-success alert-dismissable">
                                 <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
                                 <strong>{!! session('issue_add_success') !!}</strong>
+                                <a href="{{ URL::to('transaction/issuance-pdf') }}" class="btn-sm btn-info">Save PDF</a>
                             </div>
                         </div>
                     </div>
                     @endif
-
+    
                     @if(Session::has('issue_add_fail'))
                     <div class="row">
                         <div class="col-lg-12">
@@ -102,7 +103,7 @@
                                     <div class="form-group col-lg-3">                          
                                         <div class="form-group">
                                             <label for="">RIS Date</label>
-                                            <input type="date" class="form-control" name="add-ris-date" id="add-ris-date" }}">                           
+                                            <input type="date" class="form-control" name="add-ris-date" id="add-ris-date">                           
                                         </div>
                                     </div>
 
@@ -116,7 +117,7 @@
                                      <div class="form-group col-lg-3">                          
                                         <div class="form-group">
                                             <label for="">SAI Date.</label>
-                                            <input type="date" class="form-control" name="add-sai-date" id="add-sai-date" }}">                              
+                                            <input type="date" class="form-control" name="add-sai-date" id="add-sai-date">                              
                                         </div>
                                     </div>
                                 </div>
@@ -180,7 +181,7 @@
                                          <div class="form-group col-lg-4">                          
                                             <div class="form-group">
                                                 <label for="">Request Date</label>
-                                                <input type="date" class="form-control" name="add-request-date" id="add-request-date" }}">                              
+                                                <input type="date" class="form-control" name="add-request-date" id="add-request-date">                              
                                             </div>
                                         </div>
                                     </div>
@@ -211,7 +212,7 @@
                                          <div class="form-group col-lg-4">                          
                                             <div class="form-group">
                                                 <label for="">Approved Date</label>
-                                                <input type="date" class="form-control" name="add-approved-date" id="add-approved-date" }}">                              
+                                                <input type="date" class="form-control" name="add-approved-date" id="add-approved-date">                              
                                             </div>
                                         </div>
                                     </div>                        
@@ -242,7 +243,7 @@
                                          <div class="form-group col-lg-4">                          
                                             <div class="form-group">
                                                 <label for="">Issued Date</label>
-                                                <input type="date" class="form-control" name="add-issued-date" id="add-issued-date" }}">                              
+                                                <input type="date" class="form-control" name="add-issued-date" id="add-issued-date">                              
                                             </div>
                                         </div>
                                     </div>

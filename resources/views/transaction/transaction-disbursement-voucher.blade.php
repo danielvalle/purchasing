@@ -155,7 +155,6 @@
                                                             <th>UACS Code</th>
                                                             <th>Debit</th>
                                                             <th>Credit</th>
-                                                            <th>Actions</th>
                                                         </tr>
                                                     </thead>
                                                     <tbody>
@@ -424,6 +423,10 @@
                     location.reload(true);
                 });
 
+                $("input").attr({
+                   "min" : 1          // values (or variables) here
+                });
+
             });
 
             $('.mode-of-payment').click(function(){
@@ -537,7 +540,7 @@
                                                     '</div>' +
                                                     '<div class="form-group col-lg-3">' +
                                                         '<label for="">Amount</label>' +
-                                                        '<input type="number" class="form-control" name="add-amount" id="add-amount" value="' + detail.amount + '" required>' +
+                                                        '<input type="number" class="form-control" name="add-amount" id="add-amount" value="' + detail.amount + '" min="1" required>' +
                                                     '</div>' +        
                                                 '</div>' +
                                             '</div>' +
@@ -600,11 +603,11 @@
                                                     '</div>' +    
                                                     '<div class="form-group col-lg-4">' +
                                                         '<label for="">Debit</label>' +
-                                                        '<input type="text" class="form-control" name="add-mfo-pap" id="add-mfo-pap" value="' + acc.debit + '" required>' +
+                                                        '<input type="number" class="form-control" name="add-mfo-pap" id="add-mfo-pap" value="' + acc.debit + '" min="1" required>' +
                                                     '</div>' +
                                                     '<div class="form-group col-lg-3">' +
                                                         '<label for="">Credit</label>' +
-                                                        '<input type="number" class="form-control" name="add-amount" id="add-amount" value="' + acc.credit + '" required>' +
+                                                        '<input type="number" class="form-control" name="add-amount" id="add-amount" value="' + acc.credit + '" min="1" required>' +
                                                     '</div>' +        
                                                 '</div>' +
                                             '</div>' +
