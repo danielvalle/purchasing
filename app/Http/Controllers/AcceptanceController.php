@@ -54,6 +54,7 @@ class AcceptanceController extends Controller
         $check_received_qty = 0;
         $check_outright_expense = 0;
 
+
         for($i = 0; $i < count($items); $i++)
         {
             $check_received_qty += $request->input('add-received-qty')[$i];
@@ -113,6 +114,7 @@ class AcceptanceController extends Controller
                 $item->item_quantity = ($item->item_quantity + (int)$request->input('add-received-qty')[$i] + (int)$request->input('add-outright-expense')[$i]);
                 $item->save();
 
+
                 $new_qty = ($item->stock_quantity + (int)$request->input('add-received-qty')[$i]);
                 $quantity_unit = \DB::table('unit')
                                                 ->select('unit_name')
@@ -153,11 +155,6 @@ class AcceptanceController extends Controller
                     $outright_expense->save();               
                 }
 
-
-                $item->stock_quantity = ($item->stock_quantity + (int)$request->input('add-received-qty')[$i]);
-                $item->item_quantity = ($item->item_quantity + (int)$request->input('add-received-qty')[$i] + (int)$request->input('add-outright-expense')[$i]);
-                $item->save();
-
             }
 
             \Session::flash('accept_add_success','Acceptance is successfully sent. Reference No. is ACC No. ' . $acceptance->acceptance_number);
@@ -173,35 +170,51 @@ class AcceptanceController extends Controller
     {
     	$selected_po_no = $request->input('select-po-no');
 
-    	$po_nos = PurchaseOrder::all();
-    	$departments = Department::all();
-    	$users = User::all();
+        $po_nos = PurchaseOrder::all();
+        $departments = Department::all();
+        $users = User::all();
 
-    	$po_header = \DB::table("purchase_order")
-    				->join("supplier", "supplier.id", "=", "purchase_order.supplier_fk")
-    				->select("purchase_order.invoice_date", "purchase_order.supplier_fk", 
-                        "supplier.supplier_name", "purchase_order.id", "purchase_order.po_number")
-    				->where("purchase_order.id", $selected_po_no)
-                    ->first();
-
-        $po_date = $po_header->invoice_date == null ? '' : date('F d, Y', strtotime($po_header->invoice_date));
-        $po_supplier_fk = $po_header->supplier_fk;
-        $po_supplier_name = $po_header->supplier_name;
-        $po_number = $po_header->po_number;
-        $po_id = $po_header->id;
-                    
-    	$po_items = \DB::table("purchase_order_detail")
-    				->join("item", "item.id", "=", "purchase_order_detail.item_fk")
-    				->join("unit", "unit.id", "=", "purchase_order_detail.unit_fk")
-    				->select("purchase_order_detail.stock_no", "purchase_order_detail.item_fk", "item.item_name",
-    							"purchase_order_detail.unit_fk", "unit.unit_name", "purchase_order_detail.quantity",
-    							"item.item_description")
-    				->where("purchase_order_detail.po_id_fk", $selected_po_no)
-    				->get();
-
-        session(['acceptance_items' => $po_items]);
-        session(['acceptance_po_no' => $selected_po_no]);
+        $po_date = '';
+        $po_supplier_fk = '';
+        $po_supplier_name = '';
+        $po_number = '';
+        $po_id = '';
+        $po_items = [];
         
+        if($selected_po_no == null)
+        {
+            Session::flash('accept_select_fail', 'You have not selected a Purchase Request Number.');   
+        }
+        else
+        {
+            Session::forget('accept_select_fail');
+
+        	$po_header = \DB::table("purchase_order")
+        				->join("supplier", "supplier.id", "=", "purchase_order.supplier_fk")
+        				->select("purchase_order.invoice_date", "purchase_order.supplier_fk", 
+                            "supplier.supplier_name", "purchase_order.id", "purchase_order.po_number")
+        				->where("purchase_order.id", $selected_po_no)
+                        ->first();
+
+            $po_date = $po_header->invoice_date == null ? '' : date('F d, Y', strtotime($po_header->invoice_date));
+            $po_supplier_fk = $po_header->supplier_fk;
+            $po_supplier_name = $po_header->supplier_name;
+            $po_number = $po_header->po_number;
+            $po_id = $po_header->id;
+                        
+        	$po_items = \DB::table("purchase_order_detail")
+        				->join("item", "item.id", "=", "purchase_order_detail.item_fk")
+        				->join("unit", "unit.id", "=", "purchase_order_detail.unit_fk")
+        				->select("purchase_order_detail.stock_no", "purchase_order_detail.item_fk", "item.item_name",
+        							"purchase_order_detail.unit_fk", "unit.unit_name", "purchase_order_detail.quantity",
+        							"item.item_description")
+        				->where("purchase_order_detail.po_id_fk", $selected_po_no)
+        				->get();
+
+            session(['acceptance_items' => $po_items]);
+            session(['acceptance_po_no' => $selected_po_no]);
+        }
+
     	return view("transaction.transaction-acceptance")
                 ->with("po_id", $po_id)
                 ->with("po_number", $po_number)

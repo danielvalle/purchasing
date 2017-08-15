@@ -118,7 +118,7 @@
         </div>
         <div style="min-height: 70px;">
             <div style="font-size:16px;">Place of Delivery: <span style="text-decoration: underline">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{ $header->place_of_delivery }}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span> 
-                    within <span style="text-decoration: underline">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{ $header->within_no_of_days }}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span> days</div> 
+                    within <span style="text-decoration: underline">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;@if($header->within_no_of_days == 0) @else {{ $header->within_no_of_days }} @endif&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span> days</div> 
             <div style="font-size:16px;">_______________________________________________ from receipt of the delivery order.</div> 
         </div>
         <div style="margin: 20px"></div>

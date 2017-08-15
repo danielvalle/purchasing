@@ -116,7 +116,7 @@ class ItemController extends Controller
         view()->share('item', $item);
 
         $pdf = PDF::loadView('pdf.stock-card-pdf');
-        return $pdf->download('stock_card.pdf');
+        return $pdf->download('SC-' . sprintf('%04d', $item->id) . '.pdf');
     }
     
 }

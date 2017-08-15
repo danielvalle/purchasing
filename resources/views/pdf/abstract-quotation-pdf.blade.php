@@ -67,7 +67,7 @@
                         </tr>                                                                                            
                     </tbody>
             </table>
-            <table text-align="left" style=" width: 100%;">
+            <table text-align="left" style=" width: 100%; border-top: thin solid black">
                     <thead>
                         <tr>
                             <th style="width: 5%; text-align: center; font-weight: normal; font-size: 14px; border-right: thin solid black">Items</th>
@@ -166,7 +166,7 @@
                             <td style="font-weight: bold; font-size: 14px; text-align: left; border-right: thin solid black">&nbsp;</td>
                             <td style="font-weight: bold; font-size: 14px; text-align: left; border-right: thin solid black">&nbsp;</td>
                             <td style="font-weight: bold; font-size: 14px; text-align: left; border-right: thin solid black">&nbsp;</td>
-                            <td colspan="6" style="font-weight: bold; font-size: 14px; text-align: left;">{{ $pr->purpose }}</td>
+                            <td colspan="6" style="font-weight: bold; font-size: 14px; text-align: left; border-top: thin solid black">{{ $pr->purpose }}</td>
                         </tr>
                         <tr>
                             <td style="font-weight: bold; font-size: 14px; text-align: left; border-right: thin solid black">&nbsp;</td>

@@ -103,7 +103,7 @@
                             <td style="font-size: 13px; text-align: left; border-right: thin solid black" >{{ $item->stock_no }}</td>
                             <td style="font-size: 13px; text-align: left; border-right: thin solid black" >{{ $item->unit_name }}</td>
                             <td style="font-size: 13px; text-align: left; border-right: thin solid black" >{{ $item->item_name }}</td>
-                            <td style="font-size: 13px; text-align: right; border-right: thin solid black" >{{ number_format($item->quantity, 2) }}</td>
+                            <td style="font-size: 13px; text-align: right; border-right: thin solid black" >{{ $item->quantity}}</td>
                             <td style="font-size: 13px; text-align: right; border-right: thin solid black" >{{ number_format($item->unit_cost, 2) }}</td>
                             <td style="font-size: 13px; text-align: right;" >{{ number_format($item->amount, 2) }}</td>
                         </tr>
@@ -161,7 +161,7 @@
                             <td style="font-size: 13px; text-align: left; width: 35%; font-weight: bold;">ORS/BURS No.:</td>
                         </tr> 
                         <tr>
-                            <td style="font-size: 13px; text-align: left; width: 60%; font-weight: bold; border-right: solid 2px black">Funds Available: <span style="text-decoration: underline; font-weight: normal !important">{{ number_format($po_header->funds_available, 2) }}</span> </td>
+                            <td style="font-size: 13px; text-align: left; width: 60%; font-weight: bold; border-right: solid 2px black">Funds Available: <span style="text-decoration: underline; font-weight: normal !important">@if($po_header->funds_available == 0) @else {{ number_format($po_header->funds_available, 2) }} @endif</span> </td>
                             <td style="font-size: 13px; text-align: left; width: 35%; font-weight: bold;">Date of the ORS/BURS: </td>
                         </tr>
                         <tr>

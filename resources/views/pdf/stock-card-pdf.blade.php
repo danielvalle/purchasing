@@ -49,7 +49,7 @@
                             <div style="text-align: center; font-weight: normal;">{{ $item->item_description }}</div>
                         </th>
                         <th colspan="1" style="width: 20%; font-size: 14px; text-align: left">
-                            <div>Stock Card No. <span style="font-weight: normal">{{ $item->id }}</span></div>
+                            <div>Stock Card No. <span style="font-weight: normal">{{ sprintf('%04d', $item->id) }}</span></div>
                             <div>Re-Order Pt.</div>
                         </th>
                     </tr>

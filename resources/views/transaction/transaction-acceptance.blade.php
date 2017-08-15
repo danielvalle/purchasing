@@ -40,6 +40,18 @@
                         </div>
                     </div>
                     @endif
+
+                    @if(Session::has('accept_select_fail'))
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="alert alert-warning alert-dismissable">
+                                <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                                <strong>{!! session('accept_select_fail') !!}</strong>
+                            </div>
+                        </div>
+                    </div>
+                    @endif
+
                     <div class="row">   
                         <div class="col-lg-12">
                             <div class="panel panel-default">
