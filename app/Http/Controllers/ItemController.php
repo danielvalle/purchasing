@@ -62,7 +62,7 @@ class ItemController extends Controller
     public function update(Request $request)
     {
         $item_check = \DB::table('item')
-                    ->where('item_name', trim($request->input('add-item-name')))
+                    ->where('item_name', trim($request->input('edit-item-name')))
                     ->first();
 
         if($item_check == null)
@@ -85,7 +85,7 @@ class ItemController extends Controller
         return redirect('maintenance/item');
     }
 
-    public function delete()
+    public function delete(Request $request)
     {
 
         $item = Item::find($request->input('del-item-id'));

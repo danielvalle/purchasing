@@ -63,6 +63,16 @@ class CategoryController extends Controller
         return redirect('maintenance/category');
     }
 
+    public function delete(Request $request)
+    {
+        $category = Category::find($request->input('del-category-id'));
+
+        $category->is_active = 0;
+        $category->save();
+
+        return redirect('maintenance/category');
+    }
+
     public function new_category(Request $request)
     {
 

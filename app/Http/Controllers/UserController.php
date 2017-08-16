@@ -61,6 +61,7 @@ class UserController extends Controller
     {
         $user_check = \DB::table('user')
                     ->where('email', trim($request->input('edit-email')))
+                    ->where('id', '!=', $request->input('edit-user-id'))
                     ->first();
    
         if($user_check == null)
