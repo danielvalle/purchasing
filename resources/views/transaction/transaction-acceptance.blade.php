@@ -90,7 +90,8 @@
 
                                 {!! Form::open(['method' => 'post', 'url' => 'transaction/acceptance']) !!}                    
                                     <input type="hidden" name="add-po-date" id="add-po-date" value="{{ $po_date }}">     
-                                    <input type="hidden" name="add-po-no" id="add-po-no" value="{{ $po_number }}">     
+                                    <input type="hidden" name="add-po-no" id="add-po-no" value="{{ $po_number }}">  
+                                    <input type="hidden" name="add-po-id" id="add-po-id" value="{{ $po_id }}">     
                                     <div class="panel-body"> 
 
                                         <div class="form-group col-lg-4">

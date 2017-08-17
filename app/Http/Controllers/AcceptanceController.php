@@ -25,7 +25,10 @@ class AcceptanceController extends Controller
 	
 	public function index()
     {
-    	$po_nos = PurchaseOrder::all();
+    	$po_nos = \DB::table('purchase_order')
+                    ->select('*')
+                    ->where('is_active', '!=', '0')
+                    ->get();
     	$departments = Department::all();
     	$users = User::all();
 
@@ -67,6 +70,11 @@ class AcceptanceController extends Controller
         }
         else
         {
+
+            $po = PurchaseOrder::find($request->input('add-po-id'));
+            $po->is_active = 0;
+            $po->save();
+
 
             $acceptance = Acceptance::create(array(
                     'supplier_fk' => $request->input('add-supplier'),
@@ -170,7 +178,10 @@ class AcceptanceController extends Controller
     {
     	$selected_po_no = $request->input('select-po-no');
 
-        $po_nos = PurchaseOrder::all();
+        $po_nos = \DB::table('purchase_order')
+                    ->select('*')
+                    ->where('is_active', '!=', '0')
+                    ->get();
         $departments = Department::all();
         $users = User::all();
 
