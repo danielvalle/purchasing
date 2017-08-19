@@ -152,7 +152,7 @@
                         </tr>                      
                         <tr>
                             <th style="font-size:14px; width: 10%; text-align: left; border-right: thin solid black">Designation:</th>
-                            <th style="font-weight: normal; text-align: center; border-right: thin solid black">{{ $pr_approved_by->designation_name }}</th>
+                            <th style="font-weight: normal; text-align: center; border-right: thin solid black">{{ $pr_requested_by->designation_name }}</th>
                             <th style="font-weight: normal; text-align: center;">{{ $pr_approved_by->designation_name }}</th>
                         </tr>
                     </tbody>

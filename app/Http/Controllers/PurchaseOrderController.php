@@ -31,7 +31,10 @@ class PurchaseOrderController extends Controller
     	$entities = Entity::all();
     	$users = User::all();
         $designations = Designation::all();
-        $pr_nos = PurchaseRequest::all();
+        $pr_nos = \DB::table('purchase_request')
+                        ->select('*')
+                        ->where('is_active', '!=', '2')
+                        ->get();
         $selected_pr_no = "";
         $selected_aq_no = "";
         $selected_supplier = "";
@@ -95,6 +98,10 @@ class PurchaseOrderController extends Controller
             $purchase_order->po_number = date("Y-m") . "-" . sprintf("%04d", $purchase_order->id);
             $purchase_order->save();
 
+            $pr = PurchaseRequest::find($request->input('hdn-pr-no'));
+            $pr->is_active = 2;
+            $pr->save();
+
             session(["pdf_po_id" => $purchase_order->id]);
 
             for($i = 0; $i < count($items); $i++){
@@ -127,7 +134,10 @@ class PurchaseOrderController extends Controller
         $entities = Entity::all();
         $users = User::all();
         $designations = Designation::all();
-        $pr_nos = PurchaseRequest::all();
+        $pr_nos = \DB::table('purchase_request')
+                        ->select('*')
+                        ->where('is_active', '!=', '2')
+                        ->get();
         $selected_pr_no = $request->input('select-pr-no');
         $selected_supplier = $request->input('add-supplier');
 
@@ -206,30 +216,35 @@ class PurchaseOrderController extends Controller
 
         $rfq_supplier_1 = \DB::table('request_for_quote')
                         ->join('supplier', 'supplier.id', '=', 'request_for_quote.supplier1_fk')
+                        ->distinct()
                         ->select('supplier_name', 'supplier1_fk as id')
                         ->where('request_for_quote.pr_fk', $request->input('id'))
                         ->get();
 
         $rfq_supplier_2 = \DB::table('request_for_quote')
                         ->join('supplier', 'supplier.id', '=', 'request_for_quote.supplier2_fk')
+                        ->distinct()
                         ->select('supplier_name', 'supplier2_fk as id')
                         ->where('request_for_quote.pr_fk', $request->input('id'))
                         ->get();
 
         $rfq_supplier_3 = \DB::table('request_for_quote')
                         ->join('supplier', 'supplier.id', '=', 'request_for_quote.supplier3_fk')
+                        ->distinct()
                         ->select('supplier_name', 'supplier3_fk as id')
                         ->where('request_for_quote.pr_fk', $request->input('id'))
                         ->get();
 
         $rfq_supplier_4 = \DB::table('request_for_quote')
                         ->join('supplier', 'supplier.id', '=', 'request_for_quote.supplier4_fk')
+                        ->distinct()
                         ->select('supplier_name', 'supplier4_fk as id')
                         ->where('request_for_quote.pr_fk', $request->input('id'))
                         ->get();
 
         $rfq_supplier_5 = \DB::table('request_for_quote')
                         ->join('supplier', 'supplier.id', '=', 'request_for_quote.supplier5_fk')
+                        ->distinct()
                         ->select('supplier_name', 'supplier5_fk as id')
                         ->where('request_for_quote.pr_fk', $request->input('id'))
                         ->get();

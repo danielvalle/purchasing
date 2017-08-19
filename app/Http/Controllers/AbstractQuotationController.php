@@ -26,7 +26,8 @@ class AbstractQuotationController extends Controller
     public function index()
     {
 
-    	$rfqs = RequestForQuote::all();
+    	$rfqs = \DB::table('request_for_quote')        
+                    ->select('*')->where('is_active', '!=', '0')->get();
         $rfq_suppliers = [];
         $rfq_items = [];
 
@@ -50,7 +51,8 @@ class AbstractQuotationController extends Controller
     public function get_rfq(Request $request)
     {
         
-    	$rfqs = RequestForQuote::all();
+    	$rfqs = \DB::table('request_for_quote')        
+                    ->select('*')->where('is_active', '!=', '0')->get();
         $users = User::all();
         $designations = Designation::all();
 
@@ -167,6 +169,10 @@ class AbstractQuotationController extends Controller
 
             $abstract_quotation->aq_number = date("Y-m", strtotime($abstract_quotation->date)) . "-" . sprintf("%04d", $abstract_quotation->id);
             $abstract_quotation->save();
+
+            $rfq = RequestForQuote::find(session()->get('aq_rfq_no'));
+            $rfq->is_active = 0;
+            $rfq->save();
 
             session(["pdf_aq_id" => $abstract_quotation->id]);
 

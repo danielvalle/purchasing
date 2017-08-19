@@ -25,7 +25,10 @@ class RequestForQuotationController extends Controller
     {
         $purchase_requests = [];
 
-        $pr_headers = PurchaseRequest::all();
+        $pr_headers = \DB::table('purchase_request')
+                        ->select('*')
+                        ->where('is_active', '!=', '0')
+                        ->get();
         $categories = Category::all();
         $suppliers = Supplier::all();
 
@@ -60,7 +63,10 @@ class RequestForQuotationController extends Controller
 
         session(['rfq_pr_count' => count($purchase_requests)]);
 
-        $pr_headers = PurchaseRequest::all();
+        $pr_headers = \DB::table('purchase_request')
+                        ->select('*')
+                        ->where('is_active', '!=', '0')
+                        ->get();
         $categories = Category::all();
         $suppliers = Supplier::all();
 
@@ -129,6 +135,10 @@ class RequestForQuotationController extends Controller
 
             $request_for_quotation->rfq_number = date("Y-m", strtotime($request_for_quotation->date)) . "-" . sprintf("%04d", $request_for_quotation->id);
             $request_for_quotation->save();
+
+            $pr = PurchaseRequest::find($request->input("pr_id"));
+            $pr->is_active = 0;
+            $pr->save();
 
             session(["pdf_rfq_id" => $request_for_quotation->id]);
             session(["pdf_supp_id" => $suppliers_for_printing]);
