@@ -308,7 +308,7 @@
                                         
                                         </div>
                                 {!! Form::close() !!}
-                                    <button type="button" class="btn btn-success" data-toggle="modal" data-target="#submit-iss" style="float: right; width: 20%;">Convert to RFQ</button>  
+                                    <button type="button" class="btn btn-success" data-toggle="modal" data-target="#submit-iss" style="float: right; width: 20%;">Submit Acceptance Form</button>  
                                 </div>             
 
                                 <div id="add-item" class="modal fade" role="dialog">

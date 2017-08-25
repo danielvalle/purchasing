@@ -154,7 +154,7 @@ class AbstractQuotationController extends Controller
                     'approve_fk' => $request->input("add-approved-by") == "" ? null : $request->input("add-approved-by"),
                     'supervising_admin_designation_fk' => $request->input("add-supervising-admin-designation") == "" ? null : $request->input("add-supervising-admin-designation"),
                     'admin_officer_designation_fk' => $request->input("add-admin-officer-designation") == "" ? null : $request->input("add-admin-officer-designation"),
-                    'admin_officer_2_designation_fk' => $request->input("add-admin-officer-designation-2") == "" ? null : $request->input("add-admin-officer-designation-2"),
+                    'admin_officer_2_designation_fk' => $request->input("add-admin-officer-2-designation") == "" ? null : $request->input("add-admin-officer-2-designation"),
                     'requesting_officer_designation_fk' => $request->input("add-requesting-officer-designation") == "" ? null : $request->input("add-requesting-officer-designation"),
                     'board_secretary_designation_fk' => $request->input("add-board-secretary-designation") == "" ? null : $request->input("add-board-secretary-designation"),
                     'vpaf_designation_fk' => $request->input("add-vpaf-designation") == "" ? null : $request->input("add-vpaf-designation"),
@@ -251,49 +251,49 @@ class AbstractQuotationController extends Controller
         $aq_supervising_admin = \DB::table("abstract_quotation AS aq")
                 ->leftJoin("designation as d", "aq.supervising_admin_designation_fk", "=", "d.id")
                 ->leftJoin("user", "aq.supervising_admin_fk", "=", "user.id")
-                ->select("user.first_name", "user.middle_name", "user.last_name", "d.designation_name")
+                ->select("user.id", "user.first_name", "user.middle_name", "user.last_name", "d.designation_name")
                 ->where("aq.id", session()->get("pdf_aq_id"))
                 ->first();
 
         $aq_admin_officer = \DB::table("abstract_quotation AS aq")
                 ->leftJoin("designation as d", "aq.admin_officer_designation_fk", "=", "d.id")
                 ->leftJoin("user", "aq.admin_officer_fk", "=", "user.id")
-                ->select("user.first_name", "user.middle_name", "user.last_name", "d.designation_name")
+                ->select("user.id", "user.first_name", "user.middle_name", "user.last_name", "d.designation_name")
                 ->where("aq.id", session()->get("pdf_aq_id"))
                 ->first();
 
         $aq_admin_officer_2 = \DB::table("abstract_quotation AS aq")
                 ->leftJoin("designation as d", "aq.admin_officer_2_designation_fk", "=", "d.id")
                 ->leftJoin("user", "aq.admin_officer_2_fk", "=", "user.id")
-                ->select("user.first_name", "user.middle_name", "user.last_name", "d.designation_name")
+                ->select("user.id", "user.first_name", "user.middle_name", "user.last_name", "d.designation_name")
                 ->where("aq.id", session()->get("pdf_aq_id"))
                 ->first();
 
         $aq_requesting_officer = \DB::table("abstract_quotation AS aq")
                 ->leftJoin("designation as d", "aq.requesting_officer_designation_fk", "=", "d.id")
                 ->leftJoin("user", "aq.requesting_officer_fk", "=", "user.id")
-                ->select("user.first_name", "user.middle_name", "user.last_name", "d.designation_name")
+                ->select("user.id", "user.first_name", "user.middle_name", "user.last_name", "d.designation_name")
                 ->where("aq.id", session()->get("pdf_aq_id"))
                 ->first();
 
         $aq_board_secretary = \DB::table("abstract_quotation AS aq")
                 ->leftJoin("designation as d", "aq.board_secretary_designation_fk", "=", "d.id")
                 ->leftJoin("user", "aq.board_secretary_fk", "=", "user.id")
-                ->select("user.first_name", "user.middle_name", "user.last_name", "d.designation_name")
+                ->select("user.id", "user.first_name", "user.middle_name", "user.last_name", "d.designation_name")
                 ->where("aq.id", session()->get("pdf_aq_id"))
                 ->first();
 
         $aq_vpaf = \DB::table("abstract_quotation AS aq")
                 ->leftJoin("designation as d", "aq.vpaf_designation_fk", "=", "d.id")
                 ->leftJoin("user", "aq.vpaf_fk", "=", "user.id")
-                ->select("user.first_name", "user.middle_name", "user.last_name", "d.designation_name")
+                ->select("user.id", "user.first_name", "user.middle_name", "user.last_name", "d.designation_name")
                 ->where("aq.id", session()->get("pdf_aq_id"))
                 ->first();
 
         $aq_approve = \DB::table("abstract_quotation AS aq")
                 ->leftJoin("designation as d", "aq.approve_designation_fk", "=", "d.id")
                 ->leftJoin("user", "aq.approve_fk", "=", "user.id")
-                ->select("user.first_name", "user.middle_name", "user.last_name", "d.designation_name")
+                ->select("user.id", "user.first_name", "user.middle_name", "user.last_name", "d.designation_name")
                 ->where("aq.id", session()->get("pdf_aq_id"))
                 ->first();
 

@@ -244,6 +244,11 @@
                                             </div>
 
                                             <div class="form-group" style="width: 100%;  float: left">
+                                                <label for="" style="width: 30%; float: left">Stock On Hand:</label>
+                                                <input style="width: 70%; float: left" class="form-control" type="text" value="{{ $item->stock_quantity }}" readonly>                               
+                                            </div>
+
+                                            <div class="form-group" style="width: 100%;  float: left">
                                                 <label for="" style="width: 30%; float: left">Total Quantity:</label>
                                                 <input style="width: 70%; float: left" class="form-control" type="text" value="{{ $item->item_quantity }}" readonly>                               
                                             </div>

@@ -258,6 +258,7 @@ class PurchaseRequestController extends Controller
                         'item_fk' => $pr_items[$i]->id,
                         'category_fk' => session()->get('pr_categories')[$i],
                         'stock_no' => $pr_items[$i]->stock_no,
+                        'is_active' => 1
                 ));
                 
                 $purchase_request_detail->save();

@@ -63,6 +63,7 @@ class ItemController extends Controller
     {
         $item_check = \DB::table('item')
                     ->where('item_name', trim($request->input('edit-item-name')))
+                    ->where('id', '!=', $request->input('edit-item-id'))
                     ->first();
 
         if($item_check == null)

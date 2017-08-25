@@ -23,13 +23,29 @@ class RequestForQuotationController extends Controller
     
     public function index()
     {
+        $pr_headers = \DB::table('purchase_request as pr')
+                ->leftJoin('purchase_request_detail as prd', 'pr.id', '=', 'purchase_request_fk')
+                ->distinct()
+                ->select('pr.id', 'pr.pr_number')
+                ->where('prd.is_active', '!=', '0')
+                ->get();
+
+        $categories = \DB::table('purchase_request as pr')
+                ->leftJoin('purchase_request_detail as prd', 'pr.id', '=', 'purchase_request_fk')
+                ->leftJoin('category as c', 'c.id', '=', 'prd.category_fk')
+                ->distinct()
+                ->select('c.id', 'c.category_name')
+                ->where('prd.is_active', '!=', '0')
+                ->get();
+
+
         $purchase_requests = [];
 
-        $pr_headers = \DB::table('purchase_request')
-                        ->select('*')
-                        ->where('is_active', '!=', '0')
-                        ->get();
-        $categories = Category::all();
+        // $pr_headers = \DB::table('purchase_request')
+        //                 ->select('*')
+        //                 ->where('is_active', '!=', '0')
+        //                 ->get();
+        //$categories = Category::all();
         $suppliers = Supplier::all();
 
         $users = User::all();
@@ -56,7 +72,7 @@ class RequestForQuotationController extends Controller
         $purchase_requests = \DB::table('purchase_request_detail')
                     ->join('item', 'purchase_request_detail.item_fk', '=', 'item.id')
                     ->join('unit', 'purchase_request_detail.unit_of_issue_fk', '=', 'unit.id')
-                    ->select('purchase_request_detail.*', 'item.*', 'item.id AS item_id', 'unit.*', 'unit.id AS unit_id')
+                    ->select('purchase_request_detail.*', 'purchase_request_detail.id AS prd_id', 'item.*', 'item.id AS item_id', 'unit.*', 'unit.id AS unit_id')
                     ->where('purchase_request_detail.purchase_request_fk', session()->get('rfq_pr_no'))
                     ->where('purchase_request_detail.category_fk', session()->get('rfq_category'))
                     ->get();
@@ -136,10 +152,6 @@ class RequestForQuotationController extends Controller
             $request_for_quotation->rfq_number = date("Y-m", strtotime($request_for_quotation->date)) . "-" . sprintf("%04d", $request_for_quotation->id);
             $request_for_quotation->save();
 
-            $pr = PurchaseRequest::find($request->input("pr_id"));
-            $pr->is_active = 0;
-            $pr->save();
-
             session(["pdf_rfq_id" => $request_for_quotation->id]);
             session(["pdf_supp_id" => $suppliers_for_printing]);
 
@@ -156,6 +168,28 @@ class RequestForQuotationController extends Controller
 
                 $request_for_quotation_detail->save();
 
+            }
+
+            for($i = 0; $i < session()->get('rfq_pr_count'); $i++){
+
+                $prd = PurchaseRequestDetail::find($request->input('id' . $i));        
+                $prd->is_active = 0;
+                $prd->save();
+            }
+
+            $check_pr = \DB::table('purchase_request as pr')
+                ->leftJoin('purchase_request_detail as prd', 'pr.id', '=', 'purchase_request_fk')
+                ->distinct()
+                ->select('pr.id', 'pr.pr_number')
+                ->where('prd.is_active', '!=', '0')
+                ->where('prd.purchase_request_fk', $request->input("pr_id"))
+                ->get();
+
+            if($check_pr == null)
+            {
+                $pr = PurchaseRequest::find($request->input("pr_id"));
+                $pr->is_active = 0;
+                $pr->save();
             }
 
             \Session::flash('rfq_add_success','Request For Quotation is successfully sent. Reference No. is RFQ No. ' . $request_for_quotation->rfq_number);

@@ -188,27 +188,30 @@
 
         <div style="margin: 20px"></div>
         <div style="width: 100%; font-size: 0">
+            @if($aq_supervising_admin->id != null)
             <div style="width: 25%; display:inline-block;">
                 <div style="font-size:14px; font-weight: bold; text-transform: uppercase; ">{{ $aq_supervising_admin->first_name }} {{ $aq_supervising_admin->middle_name }} {{ $aq_supervising_admin->last_name }}&nbsp;</div> 
-                <div style="font-size:14px; ">Supervising Admin, Officer</div>
                 <div style="font-size:14px; ">{{ $aq_supervising_admin->designation_name }}</div>
             </div>
+            @endif
+            @if($aq_admin_officer->id != null)
             <div style="width: 25%; display:inline-block;">
                 <div style="font-size:14px; font-weight: bold; text-transform: uppercase; ">{{ $aq_admin_officer->first_name }} {{ $aq_admin_officer->middle_name }} {{ $aq_admin_officer->last_name }}&nbsp;</div> 
-                <div style="font-size:14px; ">Supervising Admin, Officer</div>
                 <div style="font-size:14px; ">{{ $aq_admin_officer->designation_name }}</div>
             </div>
+            @endif
+            @if($aq_admin_officer_2->id != null)
             <div style="width: 25%; display:inline-block;">
                 <div style="font-size:14px; font-weight: bold; text-transform: uppercase; ">{{ $aq_admin_officer_2->first_name }} {{ $aq_admin_officer_2->middle_name }} {{ $aq_admin_officer_2->last_name }}&nbsp;</div> 
-                <div style="font-size:14px; ">Supervising Admin, Officer</div>
-                <div style="font-size:14px; ">{{ $aq_supervising_admin->designation_name }}</div>
+                <div style="font-size:14px; ">{{ $aq_admin_officer_2->designation_name }}</div>
             </div>
+            @endif
+            @if($aq_requesting_officer->id != null)
             <div style="width: 25%; display:inline-block;">
                 <div style="font-size:14px; font-weight: bold; text-transform: uppercase; ">{{ $aq_requesting_officer->first_name }} {{ $aq_requesting_officer->middle_name }} {{ $aq_requesting_officer->last_name }}&nbsp;</div> 
-                <div style="font-size:14px; ">Head of Requesting Officer or</div>
-                <div style="font-size:14px; ">Authorized Representative</div>
                 <div style="font-size:14px; ">{{ $aq_requesting_officer->designation_name }}</div>
-            </div>                                    
+            </div>      
+            @endif                             
         </div>
         <div style="margin: 5px"></div>
         <div style="width: 100%; font-size: 0">
@@ -219,20 +222,24 @@
         </div>
         <div style="margin: 35px"></div>
         <div style="width: 100%; font-size: 0">
+            @if($aq_board_secretary->id != null)
             <div style="width: 35%; display:inline-block;">
                 <div style="font-size:14px; font-weight: bold; text-transform: uppercase; ">{{ $aq_board_secretary->first_name }} {{ $aq_board_secretary->middle_name }} {{ $aq_board_secretary->last_name }}&nbsp;</div> 
-                <div style="font-size:14px; ">Board Secretary</div>
                 <div style="font-size:14px; ">{{ $aq_board_secretary->designation_name }}</div>
             </div>
+            @endif
+            @if($aq_vpaf->id != null)
             <div style="width: 40%; display:inline-block;">
                 <div style="font-size:14px; font-weight: bold; text-transform: uppercase; ">{{ $aq_vpaf->first_name }} {{ $aq_vpaf->middle_name }} {{ $aq_vpaf->last_name }}&nbsp;</div> 
-                <div style="font-size:14px; ">VPAF</div>
                 <div style="font-size:14px; ">{{ $aq_vpaf->designation_name }}</div>
             </div>
+            @endif
+            @if($aq_approve->id != null)
             <div style="width: 30%; display:inline-block;">
                 <div style="font-size:14px; font-weight: bold; text-transform: uppercase; ">{{ $aq_approve->first_name }} {{ $aq_approve->middle_name }} {{ $aq_approve->last_name }}&nbsp;</div> 
                 <div style="font-size:14px; ">{{ $aq_approve->designation_name }}</div>
-            </div>                                
+            </div> 
+            @endif                               
         </div>
     </div>
     </body>

@@ -122,6 +122,7 @@
                                                         <tbody>
                                                         @foreach($purchase_requests as $i => $purchase_request)                          
                                                             <tr>
+                                                                <input type="hidden" name="id{{ $i }}" value="{{ $purchase_request->prd_id }}">    
                                                                 <td>{{ $purchase_request->stock_no }}</td>
                                                                 <td>{{ $purchase_request->item_name }}</td>
                                                                 <input type="hidden" name="item_id{{ $i }}" value="{{ $purchase_request->item_id }}">

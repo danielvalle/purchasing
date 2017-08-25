@@ -145,7 +145,7 @@
                                 <div class="panel-body">
                                     
                                     <div class="form-group col-lg-6">
-                                        <label for="">Supervising Admin</label>
+                                        <label for="">Officer 1</label>
                                         <select class="form-control" name="add-supervising-admin" id="add-supervising-admin">
                                             <option value="">None</option>
                                             @foreach($users as $user)
@@ -154,7 +154,7 @@
                                         </select>
                                     </div> 
                                     <div class="form-group col-lg-6">
-                                        <label for="">Supervising Admin Designation</label>
+                                        <label for="">Officer 1 Designation</label>
                                         <select class="form-control" name="add-supervising-admin-designation" id="add-supervising-admin-designation">
                                             <option value="" disabled>None</option>
                                             @foreach($designations as $designation)
@@ -164,7 +164,7 @@
                                     </div> 
 
                                     <div class="form-group col-lg-6">
-                                        <label for="">Admin Officer</label>
+                                        <label for="">Officer 2</label>
                                         <select class="form-control" name="add-admin-officer" id="add-admin-officer">
                                             <option value="">None</option>
                                             @foreach($users as $user)
@@ -173,7 +173,7 @@
                                         </select>
                                     </div> 
                                     <div class="form-group col-lg-6">
-                                        <label for="">Admin Officer Designation</label>
+                                        <label for="">Officer 2 Designation</label>
                                         <select class="form-control" name="add-admin-officer-designation" id="add-admin-officer-designation">
                                             <option value="" disabled>None</option>
                                             @foreach($designations as $designation)
@@ -183,7 +183,7 @@
                                     </div> 
 
                                     <div class="form-group col-lg-6">
-                                        <label for="">Admin Officer</label>
+                                        <label for="">Officer 3</label>
                                         <select class="form-control" name="add-admin-officer-2" id="add-admin-officer-2">
                                             <option value="">None</option>
                                             @foreach($users as $user)
@@ -192,7 +192,7 @@
                                         </select>
                                     </div> 
                                     <div class="form-group col-lg-6">
-                                        <label for="">Admin Officer Designation</label>
+                                        <label for="">Officer 3 Designation</label>
                                         <select class="form-control" name="add-admin-officer-2-designation" id="add-admin-officer-2-designation">
                                             <option value="" disabled>None</option>
                                             @foreach($designations as $designation)
@@ -202,7 +202,7 @@
                                     </div> 
 
                                     <div class="form-group col-lg-6">
-                                        <label for="">Head of Requesting Officer/Authorized Representative</label>
+                                        <label for="">Officer 4</label>
                                         <select class="form-control" name="add-requesting-officer" id="add-requesting-officer">
                                             <option value="">None</option>
                                             @foreach($users as $user)
@@ -211,7 +211,7 @@
                                         </select>
                                     </div> 
                                     <div class="form-group col-lg-6">
-                                        <label for="">Head of Requesting Officer/Authorized Representative Designation</label>
+                                        <label for="">Officer 4 Designation</label>
                                         <select class="form-control" name="add-requesting-officer-designation" id="add-requesting-officer-designation">
                                             <option value="" disabled>None</option>
                                             @foreach($designations as $designation)
@@ -221,7 +221,7 @@
                                     </div> 
 
                                     <div class="form-group col-lg-6">
-                                        <label for="">Board Secretary</label>
+                                        <label for="">Officer 5</label>
                                         <select class="form-control" name="add-board-secretary" id="add-board-secretary">
                                             <option value="">None</option>
                                             @foreach($users as $user)
@@ -230,7 +230,7 @@
                                         </select>
                                     </div> 
                                     <div class="form-group col-lg-6">
-                                        <label for="">Board Secretary Designation</label>
+                                        <label for="">Officer 5 Designation</label>
                                         <select class="form-control" name="add-board-secretary-designation" id="add-board-secretary-designation">
                                             <option value="" disabled>None</option>
                                             @foreach($designations as $designation)
@@ -240,7 +240,7 @@
                                     </div> 
 
                                     <div class="form-group col-lg-6">
-                                        <label for="">VPAF</label>
+                                        <label for="">Officer 6</label>
                                         <select class="form-control" name="add-vpaf" id="add-vpaf">
                                             <option value="">None</option>
                                             @foreach($users as $user)
@@ -249,7 +249,7 @@
                                         </select>
                                     </div>  
                                     <div class="form-group col-lg-6">
-                                        <label for="">VPAF Designation</label>
+                                        <label for="">Officer 6 Designation</label>
                                         <select class="form-control" name="add-vpaf-designation" id="add-vpaf-designation">
                                             <option value="" disabled>None</option>
                                             @foreach($designations as $designation)
