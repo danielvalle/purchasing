@@ -40,12 +40,6 @@ class RequestForQuotationController extends Controller
 
 
         $purchase_requests = [];
-
-        // $pr_headers = \DB::table('purchase_request')
-        //                 ->select('*')
-        //                 ->where('is_active', '!=', '0')
-        //                 ->get();
-        //$categories = Category::all();
         $suppliers = Supplier::all();
 
         $users = User::all();

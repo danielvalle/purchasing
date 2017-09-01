@@ -260,8 +260,7 @@
 
                                     <div class="form-group col-lg-6">
                                         <label for="">Approved by</label>
-                                        <select class="form-control" name="add-approved-by" id="add-approved-by">
-                                            <option value="">None</option>
+                                        <select class="form-control" name="add-approved-by" id="add-approved-by" required>
                                             @foreach($users as $user)
                                                 <option value="{{ $user->id }}">{{ $user->first_name }} {{ $user->middle_name }} {{ $user->last_name }}</option>
                                             @endforeach
@@ -269,8 +268,7 @@
                                     </div>  
                                     <div class="form-group col-lg-6">
                                         <label for="">Approver Designation</label>
-                                        <select class="form-control" name="add-approved-by-designation" id="add-approved-by-designation">
-                                            <option value="" disabled>None</option>
+                                        <select class="form-control" name="add-approved-by-designation" id="add-approved-by-designation" required>
                                             @foreach($designations as $designation)
                                                 <option value="{{ $designation->id }}">{{ $designation->designation_name }}</option>
                                             @endforeach
@@ -347,12 +345,11 @@
                 $('select#add-requesting-officer option:eq(1)').prop('selected', 1);
                 $('select#add-board-secretary option:eq(1)').prop('selected', 1);
                 $('select#add-vpaf option:eq(1)').prop('selected', 1);
-                $('select#add-approved-by option:eq(1)').prop('selected', 1);
 
             });
 
 
-            $('#add-supervising-admin, #add-admin-officer, #add-admin-officer-2, #add-requesting-officer, #add-board-secretary, #add-vpaf, #add-approved-by').change(function(){
+            $('#add-supervising-admin, #add-admin-officer, #add-admin-officer-2, #add-requesting-officer, #add-board-secretary, #add-vpaf').change(function(){
 
                 var id = "#" + $(this).attr('id');
                 var id_designation = id + "-designation";

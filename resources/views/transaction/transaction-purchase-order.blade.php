@@ -128,6 +128,7 @@
                                                     <tbody>
                                                         @foreach($items as $i => $item)
                                                         <input type="hidden" name="supplier-amount[]" id="supplier-amount{!! $i !!}">
+                                                        <input type="hidden" name="aqd-id[]" value="{{ $item->aqd_id }}">
                                                         <tr>
                                                             <td>{{ $item->stock_no}}</td>
                                                             <td>{{ $item->item_name }}</td>

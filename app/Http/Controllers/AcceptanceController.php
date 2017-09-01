@@ -123,7 +123,7 @@ class AcceptanceController extends Controller
                 $item->save();
 
 
-                $new_qty = ($item->stock_quantity + (int)$request->input('add-received-qty')[$i]);
+                $new_qty = $item->stock_quantity;
                 $quantity_unit = \DB::table('unit')
                                                 ->select('unit_name')
                                                 ->where('id', $items[$i]->unit_fk)
@@ -131,7 +131,6 @@ class AcceptanceController extends Controller
 
                 if($check_received_qty != 0)
                 {
-
                     $stock_card = StockCard::create(array(
                                 'item_fk' => $items[$i]->item_fk,
                                 'date' => date("Y-m-d"),

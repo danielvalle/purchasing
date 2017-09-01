@@ -186,7 +186,7 @@
             @endforeach
         </div>
 
-        <div style="margin: 20px"></div>
+        <div style="margin: 100px"></div>
         <div style="width: 100%; font-size: 0">
             @if($aq_supervising_admin->id != null)
             <div style="width: 25%; display:inline-block;">
