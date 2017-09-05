@@ -57,7 +57,7 @@
                                             <select class="selectpicker" name="select-rfq-no" id="select-rfq-no">
                                                 <option value="" selected disabled>Select an RFQ No.</option>
                                                 @foreach($rfqs as $rfq)
-                                                    <option value="{{ $rfq->id }}">{{ $rfq->rfq_number }}</option>
+                                                    <option value="{{ $rfq->id }}" @if(session()->get('aq_rfq_no') == $rfq->id) selected @endif>{{ $rfq->rfq_number }}</option>
                                                 @endforeach
                                             </select>        
                                             <button class="form-control btn btn-success">Select</button>                          
@@ -120,11 +120,11 @@
                                                         <tr>
                                                             <td>{{ $rfq_item->item_name }}</td>
                                                             <td>{{ $rfq_item->unit_name }}</td>
-                                                            @if(array_key_exists(0, $rfq_suppliers))<td><input name="supplier1_amount{{ $i }}" class="form-control" type="number" min="1"></td>@endif
-                                                            @if(array_key_exists(1, $rfq_suppliers))<td><input name="supplier2_amount{{ $i }}" class="form-control" type="number" min="1"></td>@endif
-                                                            @if(array_key_exists(2, $rfq_suppliers))<td><input name="supplier3_amount{{ $i }}" class="form-control" type="number" min="1"></td>@endif
-                                                            @if(array_key_exists(3, $rfq_suppliers))<td><input name="supplier4_amount{{ $i }}" class="form-control" type="number" min="1"></td>@endif
-                                                            @if(array_key_exists(4, $rfq_suppliers))<td><input name="supplier5_amount{{ $i }}" class="form-control" type="number" min="1"></td>@endif
+                                                            @if(array_key_exists(0, $rfq_suppliers))<td><input name="supplier1_amount{{ $i }}" class="form-control" type="number" min="0" required></td>@endif
+                                                            @if(array_key_exists(1, $rfq_suppliers))<td><input name="supplier2_amount{{ $i }}" class="form-control" type="number" min="0" required></td>@endif
+                                                            @if(array_key_exists(2, $rfq_suppliers))<td><input name="supplier3_amount{{ $i }}" class="form-control" type="number" min="0" required></td>@endif
+                                                            @if(array_key_exists(3, $rfq_suppliers))<td><input name="supplier4_amount{{ $i }}" class="form-control" type="number" min="0" required></td>@endif
+                                                            @if(array_key_exists(4, $rfq_suppliers))<td><input name="supplier5_amount{{ $i }}" class="form-control" type="number" min="0" required></td>@endif
                                                             <td>
                                                                 <select class="form-control" name="add-winner-supplier{{ $i }}" id="add-winner-supplier" required>
                                                                     @foreach($rfq_suppliers as $j => $rfq_supplier)
