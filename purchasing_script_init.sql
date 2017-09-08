@@ -71,6 +71,7 @@ CREATE TABLE item
       `item_description` varchar(255),
       `item_quantity` decimal,
       `stock_quantity` decimal,
+      `stock_date` date,
       `is_active` tinyint(1),
       `created_at` date,
       `updated_at` date,

@@ -15,6 +15,7 @@ class Item extends Model
 								'item_description',
 								'item_quantity',
 								'stock_quantity',
+								'stock_date',
 								'is_active'
 								//
 								);

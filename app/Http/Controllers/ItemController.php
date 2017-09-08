@@ -43,6 +43,7 @@ class ItemController extends Controller
                 'item_name' => trim($request->input('add-item-name')),
                 'item_quantity' => $request->input('add-stock-on-hand'),
                 'stock_quantity' => $request->input('add-stock-on-hand'),
+                'stock_date' =>  $request->input('add-stock-date') != '' ? date("Y-m-d", strtotime($request->input('add-stock-date'))) : null,
                 'item_description' => trim($request->input('add-item-description')),
                 'is_active' => 1
             ));
@@ -73,6 +74,7 @@ class ItemController extends Controller
             $item->stock_no = trim($request->input('edit-stock-no'));
             $item->item_name = trim($request->input('edit-item-name'));
             $item->item_description = trim($request->input('edit-item-description'));
+            $item->stock_date = $request->input('edit-stock-date') != '' ? date("Y-m-d", strtotime($request->input('edit-stock-date'))) : null;
             
             $item->save();
            
