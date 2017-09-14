@@ -411,14 +411,14 @@
                         },
                         dataType: 'json',
                         success: function(data){
-                            
+
                             $("select#add-item").find('[value=' + data.item_id + ']').remove();
 
                             $('#issuance-items tbody').append(
                                 '<tr>' +
                                 '<td>' + data.stock_no + '</td>' +
                                 '<td>' + data.item_name + '</td>' +
-                                '<td> <input type="number" class="form-control col-lg-3" name="quantity' + i + '" required></td>' +
+                                '<td> <input type="number" class="form-control col-lg-3" min="1" max="' + data.item_quantity + '"name="quantity' + i + '" required></td>' +
                                 '<td>' + data.unit_name + '</td>' +
                                 '<td>' + data.item_description + '</td>' +
                                 '<td>' + data.remarks + '</td>' +
