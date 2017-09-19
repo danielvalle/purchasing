@@ -124,7 +124,7 @@
                             </div>
                             <div class="form-group col-lg-7">
                                     <label for="add-stock-date" >Stock Date</label>         
-                                    <input type="date" class="form-control" id="add-stock-date" name="add-stock-date" value="{{ date("Y-m-d") }}" required>
+                                    <input type="date" class="form-control" id="add-stock-date" name="add-stock-date" required>
                                 </div>
                             @else
                             <div class="form-group col-lg-12" style="padding-left: 0">

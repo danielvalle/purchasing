@@ -50,6 +50,20 @@ class ItemController extends Controller
 
             $item->save();
 
+            if($request->input('add-stock-on-hand') != 0)
+            {
+                $stock_card = StockCard::create(array(
+                            'item_fk' => $item->id,
+                            'date' => $request->input('add-stock-date') != '' ? date("Y-m-d", strtotime($request->input('add-stock-date'))) : null,
+                            'reference' => "Initial Stock",
+                            'acceptance_fk' => null,
+                            'received_quantity' => $request->input('add-stock-on-hand'),  
+                            'balanced_quantity' => $request->input('add-stock-on-hand')
+                ));
+
+                $stock_card->save();  
+            }
+
             \Session::flash('item_new_success', "Item is successfully added.");
         }
         else if($item_check != null)
