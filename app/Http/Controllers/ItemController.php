@@ -21,7 +21,7 @@ class ItemController extends Controller
                     ->leftJoin('office', 'office.id', '=', 'sc.office_fk')
                     ->select('sc.*', 'office.office_name')
                     ->where("reference", "Initial Stock")
-                    ->first();
+                    ->get();
 
         $stock_cards = \DB::table('stock_card as a')
                 ->leftJoin("office as b", "a.office_fk", "=", "b.id")
@@ -31,7 +31,8 @@ class ItemController extends Controller
                 ->orderBy('reference', 'asc')
                 ->get();
 
-        array_unshift($stock_cards, $initial);
+        for($i = 0; $i < count($initial); $i++)
+            array_unshift($stock_cards, $initial[$i]);
 
         $outright_expenses = OutrightExpense::all();
 

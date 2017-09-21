@@ -310,7 +310,13 @@
                                                         @if($stock_card->item_fk == $item->id)
                                                         <tr>    
                                                             <td>{{ $stock_card->date }}</td>
-                                                            <td>({{ $stock_card->reference }}) {{ $stock_card->reference_no }}</td>
+                                                            <td>
+                                                                @if($stock_card->reference == "Initial Stock")
+                                                                    {{ $stock_card->reference }}
+                                                                @else
+                                                                    ({{ $stock_card->reference }}) {{ $stock_card->reference_no }}
+                                                                @endif
+                                                            </td>
                                                             <td>{{ $stock_card->received_quantity }}</td>
                                                             <td>{{ $stock_card->office_name }}</td>
                                                             <td>{{ $stock_card->issued_quantity }}</td>
