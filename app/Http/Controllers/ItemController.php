@@ -19,8 +19,8 @@ class ItemController extends Controller
         $stock_cards = \DB::table('stock_card as a')
                 ->leftJoin("office as b", "a.office_fk", "=", "b.id")
                 ->select("a.*", "b.office_name")
-                ->orderBy('date')
-                ->orderBy('reference', 'DESC')
+                ->orderBy('date', 'desc')
+                ->orderBy('reference', 'asc')
                 ->get();
         $outright_expenses = OutrightExpense::all();
 
@@ -119,8 +119,8 @@ class ItemController extends Controller
                     ->leftJoin('office', 'office.id', '=', 'sc.office_fk')
                     ->select('sc.*', 'office.office_name')
                     ->where('item_fk', $request->input('hdn-item-id'))
-                    ->orderBy('date')
-                    ->orderBy('reference', 'desc')
+                    ->orderBy('date', 'desc')
+                    ->orderBy('reference', 'asc')
                     ->get();
 
         $item = \DB::table('item')
