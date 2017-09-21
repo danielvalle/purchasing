@@ -43,11 +43,26 @@ class ItemController extends Controller
                 'item_name' => trim($request->input('add-item-name')),
                 'item_quantity' => $request->input('add-stock-on-hand'),
                 'stock_quantity' => $request->input('add-stock-on-hand'),
+                'stock_date' =>  $request->input('add-stock-date') != '' ? date("Y-m-d", strtotime($request->input('add-stock-date'))) : null,
                 'item_description' => trim($request->input('add-item-description')),
                 'is_active' => 1
             ));
 
             $item->save();
+
+            if($request->input('add-stock-on-hand') != 0)
+            {
+                $stock_card = StockCard::create(array(
+                            'item_fk' => $item->id,
+                            'date' => $request->input('add-stock-date') != '' ? date("Y-m-d", strtotime($request->input('add-stock-date'))) : null,
+                            'reference' => "Initial Stock",
+                            'acceptance_fk' => null,
+                            'received_quantity' => $request->input('add-stock-on-hand'),  
+                            'balanced_quantity' => $request->input('add-stock-on-hand')
+                ));
+
+                $stock_card->save();  
+            }
 
             \Session::flash('item_new_success', "Item is successfully added.");
         }
@@ -73,6 +88,7 @@ class ItemController extends Controller
             $item->stock_no = trim($request->input('edit-stock-no'));
             $item->item_name = trim($request->input('edit-item-name'));
             $item->item_description = trim($request->input('edit-item-description'));
+            $item->stock_date = $request->input('edit-stock-date') != '' ? date("Y-m-d", strtotime($request->input('edit-stock-date'))) : null;
             
             $item->save();
            

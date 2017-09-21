@@ -114,14 +114,18 @@
                         <div class="modal-body">
                         @if(Auth::check())
                             @if(Auth::user()->user_type == 1)
-                            <div class="form-group col-lg-7" style="padding-left: 0">
+                            <div class="form-group col-lg-12" style="padding-left: 0">
                                 <label for="add-item-name">Stock No.</label>
                                 <input type="text" class="form-control" id="add-stock-no" name="add-stock-no" placeholder="Enter a stock number">
                             </div>
-                            <div class="form-group col-lg-5">
+                            <div class="form-group col-lg-5" style="padding-left: 0">
                                 <label for="add-item-name">Stock On Hand</label>
                                 <input type="number" class="form-control" id="add-stock-on-hand" name="add-stock-on-hand" placeholder="Enter stock on hand">
                             </div>
+                            <div class="form-group col-lg-7">
+                                    <label for="add-stock-date" >Stock Date</label>         
+                                    <input type="date" class="form-control" id="add-stock-date" name="add-stock-date" required>
+                                </div>
                             @else
                             <div class="form-group col-lg-12" style="padding-left: 0">
                                 <label for="add-item-name">Stock No.</label>
@@ -162,10 +166,24 @@
                         </div>
                         <div class="modal-body">
                             <input type="hidden" value="{{ $item->id }}" name="edit-item-id">
+                        @if(Auth::check())
+                            @if(Auth::user()->user_type == 1)
+                            <div class="form-group col-lg-8" style="padding: 0">
+                                <label for="item-name">Stock No.</label>
+                                <input type="text" class="form-control" id="edit-stock-no" name="edit-stock-no" placeholder="Enter a stock number" value="{{ $item->stock_no }}">
+                            </div>
+                            <div class="form-group col-lg-4">
+                                <label for="edit-stock-date" >Stock Date</label>         
+                                <input type="date" class="form-control" id="edit-stock-date" name="edit-stock-date" value="{{ $item->stock_date }}" required>
+                            </div>
+                            @else
                             <div class="form-group">
                                 <label for="item-name">Stock No.</label>
                                 <input type="text" class="form-control" id="edit-stock-no" name="edit-stock-no" placeholder="Enter a stock number" value="{{ $item->stock_no }}">
                             </div>
+                            @endif
+                        @endif
+                            
                             <div class="form-group">
                                 <label for="item-name">Item Name</label>
                                 <input type="text" class="form-control" id="edit-item-name" name="edit-item-name" placeholder="Enter an item name" value="{{ $item->item_name }}" required>
@@ -174,6 +192,7 @@
                                 <label for="edit-item-description">Item Description</label>
                                 <textarea class="form-control" name="edit-item-description" id="edit-item-description" rows="3">{{ $item->item_description }}</textarea> 
                             </div>
+
                         </div>
                         <div class="modal-footer">
                             <button type="submit" class="btn btn-success">Edit</button>
@@ -257,7 +276,11 @@
                                         <div class="form-group" style="width: 45%; float: right">                          
                                             <div class="form-group" style="width: 100%">
                                                 <label for="" style="width: 10%">Description:</label>
-                                                <textarea class="form-control" name="add-item-description" id="add-item-description" rows="3" readonly>{{ $item->item_description }}</textarea>                 
+                                                <textarea class="form-control" rows="3" readonly>{{ $item->item_description }}</textarea>                 
+                                            </div>
+                                            <div class="form-group" style="width: 100%">
+                                                <label for="" style="width: 90%">Initial Stock Date:</label>
+                                                <input type="text" class="form-control" value="{{ date("M d, Y", strtotime($item->stock_date)) }}" readonly>               
                                             </div>
                                         </div>
                                     </div>

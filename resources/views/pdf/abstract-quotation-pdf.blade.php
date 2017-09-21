@@ -213,33 +213,28 @@
             </div>      
             @endif                             
         </div>
-        <div style="margin: 5px"></div>
-        <div style="width: 100%; font-size: 0">
-            <div style="width: 65%; display:inline-block;">&nbsp;</div>
-            <div style="width: 30%; display:inline-block;">
-                <div style="font-size:14px; ">Approved:</div>
-            </div>                                
-        </div>
-        <div style="margin: 35px"></div>
+        <div style="margin: 40px"></div>
         <div style="width: 100%; font-size: 0">
             @if($aq_board_secretary->id != null)
             <div style="width: 35%; display:inline-block;">
+                <div style="font-size:14px; margin-bottom: 50px">&nbsp;</div>
                 <div style="font-size:14px; font-weight: bold; text-transform: uppercase; ">{{ $aq_board_secretary->first_name }} {{ $aq_board_secretary->middle_name }} {{ $aq_board_secretary->last_name }}&nbsp;</div> 
                 <div style="font-size:14px; ">{{ $aq_board_secretary->designation_name }}</div>
             </div>
             @endif
             @if($aq_vpaf->id != null)
             <div style="width: 40%; display:inline-block;">
+                <div style="font-size:14px; margin-bottom: 50px">&nbsp;</div>
                 <div style="font-size:14px; font-weight: bold; text-transform: uppercase; ">{{ $aq_vpaf->first_name }} {{ $aq_vpaf->middle_name }} {{ $aq_vpaf->last_name }}&nbsp;</div> 
                 <div style="font-size:14px; ">{{ $aq_vpaf->designation_name }}</div>
             </div>
             @endif
-            @if($aq_approve->id != null)
             <div style="width: 30%; display:inline-block;">
+                <div style="font-size:14px; margin-bottom: 50px">Approved:</div>
+
                 <div style="font-size:14px; font-weight: bold; text-transform: uppercase; ">{{ $aq_approve->first_name }} {{ $aq_approve->middle_name }} {{ $aq_approve->last_name }}&nbsp;</div> 
                 <div style="font-size:14px; ">{{ $aq_approve->designation_name }}</div>
-            </div> 
-            @endif                               
+            </div>                                
         </div>
     </div>
     </body>

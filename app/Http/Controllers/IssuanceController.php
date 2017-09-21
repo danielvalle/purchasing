@@ -110,7 +110,7 @@ class IssuanceController extends Controller
                 $item->stock_quantity = ($item->stock_quantity - (int)$quantities[$i]);
                 $item->save();
 
-                $new_qty = ($item->stock_quantity - (int)$quantities[$i]);
+                $new_qty = $item->stock_quantity;
     
                 $issuance_detail = IssuanceDetail::create(array(
                         'issuance_fk' => $issuance->id,
@@ -180,6 +180,7 @@ class IssuanceController extends Controller
             		'item_id' => $selected_item->id,
             		'item_name' => $selected_item->item_name,
             		'item_description' => $selected_item->item_description,
+                    'item_quantity' => (int)$selected_item->stock_quantity,
             		'unit_id' => $selected_unit->id,
             		'unit_name' => $selected_unit->unit_name,
             		'quantity' => $request->input('quantity'),
