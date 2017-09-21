@@ -16,12 +16,23 @@ class ItemController extends Controller
     public function index(){
 
         $items = Item::all();
+
+        $initial = \DB::table('stock_card as sc')
+                    ->leftJoin('office', 'office.id', '=', 'sc.office_fk')
+                    ->select('sc.*', 'office.office_name')
+                    ->where("reference", "Initial Stock")
+                    ->first();
+
         $stock_cards = \DB::table('stock_card as a')
                 ->leftJoin("office as b", "a.office_fk", "=", "b.id")
                 ->select("a.*", "b.office_name")
-                ->orderBy('date', 'desc')
+                ->where("reference", "!=", "Initial Stock")
+                ->orderBy('date')
                 ->orderBy('reference', 'asc')
                 ->get();
+
+        array_unshift($stock_cards, $initial);
+
         $outright_expenses = OutrightExpense::all();
 
         return view("maintenance.maintenance-item")
@@ -56,6 +67,7 @@ class ItemController extends Controller
                             'item_fk' => $item->id,
                             'date' => $request->input('add-stock-date') != '' ? date("Y-m-d", strtotime($request->input('add-stock-date'))) : null,
                             'reference' => "Initial Stock",
+                            'reference_no' => "Initial Stock",
                             'acceptance_fk' => null,
                             'received_quantity' => $request->input('add-stock-on-hand'),  
                             'balanced_quantity' => $request->input('add-stock-on-hand')
@@ -115,19 +127,28 @@ class ItemController extends Controller
 
     public function stock_card_pdf(Request $request)
     {
+        $initial = \DB::table('stock_card as sc')
+                    ->leftJoin('office', 'office.id', '=', 'sc.office_fk')
+                    ->select('sc.*', 'office.office_name')
+                    ->where('item_fk', $request->input('hdn-item-id'))
+                    ->where("reference", "Initial Stock")
+                    ->first();
+
         $stock_card = \DB::table('stock_card as sc')
                     ->leftJoin('office', 'office.id', '=', 'sc.office_fk')
                     ->select('sc.*', 'office.office_name')
                     ->where('item_fk', $request->input('hdn-item-id'))
-                    ->orderBy('date', 'desc')
+                    ->where("reference", "!=", "Initial Stock")
+                    ->orderBy('date')
                     ->orderBy('reference', 'asc')
                     ->get();
+                   
+        array_unshift($stock_card, $initial);
 
         $item = \DB::table('item')
                     ->select('*')
                     ->where('id', $request->input('hdn-item-id'))
                     ->first();
-        //dd($stock_card);
 
         view()->share("sc", $stock_card);
         view()->share('item', $item);
