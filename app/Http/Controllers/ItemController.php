@@ -20,7 +20,7 @@ class ItemController extends Controller
                 ->leftJoin("office as b", "a.office_fk", "=", "b.id")
                 ->select("a.*", "b.office_name")
                 ->orderBy('date')
-                ->orderBy('reference', 'ASC')
+                ->orderBy('reference', 'DESC')
                 ->get();
         $outright_expenses = OutrightExpense::all();
 
@@ -104,7 +104,7 @@ class ItemController extends Controller
                     ->select('sc.*', 'office.office_name')
                     ->where('item_fk', $request->input('hdn-item-id'))
                     ->orderBy('date')
-                    ->orderBy('reference', 'asc')
+                    ->orderBy('reference', 'desc')
                     ->get();
 
         $item = \DB::table('item')
