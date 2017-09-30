@@ -217,20 +217,20 @@
                             <div class="col-lg-12"> 
                                 <div class="form-group col-lg-7">
                                     <label for="">Item Category</label>
-                                    <select style="float: left; width: 91%;" class="form-control category" name="add-category" id="add-category">
+                                    <select style="width: 91%;" data-size="10" data-live-search="true" class="selectpicker category" name="add-category" id="add-category">
                                         @foreach($categories as $category)
-                                            <option value="{{ $category->id }}">{{ $category->category_name }}</option>
+                                            <option data-tokens="{{ $category->category_name }}" value="{{ $category->id }}">{{ $category->category_name }}</option>
                                         @endforeach
                                     </select>
-                                    <a style="color:green; float: left; margin-left: 5px; font-size: 27px;" data-toggle="modal" href="#add-new-category"><span class="glyphicon glyphicon-plus-sign"></span></a>
+                                    <a style="color:green; margin-left: 5px; font-size: 27px;" data-toggle="modal" href="#add-new-category"><span class="glyphicon glyphicon-plus-sign"></span></a>
                                 </div>              
                             </div>
                             <div class="col-lg-12">
                                 <div class="form-group col-lg-6">
                                     <label for="">Item:</label>
-                                    <select class="form-control" name="add-item" id="add-item" required>
+                                    <select class="selectpicker" data-size="10" data-live-search="true" name="add-item" id="add-item" required>
                                         @foreach($items as $item)
-                                            <option value="{{ $item->id }}">{{ $item->item_name }}</option>
+                                            <option data-tokens="{{ $item->item_name }}" value="{{ $item->id }}">{{ $item->item_name }}</option>
                                         @endforeach
                                     </select>
                                 </div>        
