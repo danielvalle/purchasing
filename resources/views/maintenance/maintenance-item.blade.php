@@ -168,11 +168,15 @@
                             <input type="hidden" value="{{ $item->id }}" name="edit-item-id">
                         @if(Auth::check())
                             @if(Auth::user()->user_type == 1)
-                            <div class="form-group col-lg-8" style="padding: 0">
+                            <div class="form-group col-lg-12" style="padding: 0">
                                 <label for="item-name">Stock No.</label>
                                 <input type="text" class="form-control" id="edit-stock-no" name="edit-stock-no" placeholder="Enter a stock number" value="{{ $item->stock_no }}">
                             </div>
-                            <div class="form-group col-lg-4">
+                            <div class="form-group col-lg-5" style="padding-left: 0">
+                                <label for="edit-item-name">Stock On Hand</label>
+                                <input type="number" class="form-control" id="edit-stock-on-hand" name="edit-stock-on-hand" placeholder="Enter stock on hand" value="{{ $item->stock_quantity }}">
+                            </div>
+                            <div class="form-group col-lg-7">
                                 <label for="edit-stock-date" >Stock Date</label>         
                                 <input type="date" class="form-control" id="edit-stock-date" name="edit-stock-date" value="{{ $item->stock_date }}" required>
                             </div>
